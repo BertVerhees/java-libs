@@ -46,6 +46,15 @@ definition
                             4|[local::at0003.4]  	-- suspension
                         }
                     }
+                    ELEMENT[at10005] matches {	-- ordinal
+                        value matches {
+                            0|[local::at0000], 	-- capsule
+                            1|[local::at0001], 	-- powder
+                            2|[local::at0002],  	-- tablet
+                            3|[local::at0003],  	-- solution
+                            4|[local::at0004]  	-- suspension
+                        }
+                    }
                 }
             }
         }

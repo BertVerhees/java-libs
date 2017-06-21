@@ -1,9 +1,11 @@
 package org.openehr.am.template;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.CObject;
 
 public class SetMaxOccurrencesWithoutMinTest extends TemplateTestBase {
 
+	@Test
 	public void __testSetMaxOccurrencesOnInternalNode() throws Exception {
 		flattenTemplate("test_set_occurrences_without_min.oet");
 
@@ -18,7 +20,8 @@ public class SetMaxOccurrencesWithoutMinTest extends TemplateTestBase {
 				constraint.getOccurrences().getUpper().intValue());
 		
 	}
-	
+
+	@Test
 	public void testSetMaxOccurrencesOnArchetypeSlot() throws Exception {
 		flattenTemplate("test_set_occurrences_without_min2.oet");
 

@@ -26,6 +26,16 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>openehr</groupId>
+            <artifactId>mini-termserv</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>openehr</groupId>
+            <artifactId>adl-parser-antlr</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 

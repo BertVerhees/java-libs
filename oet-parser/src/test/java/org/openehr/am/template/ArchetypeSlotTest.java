@@ -1,5 +1,6 @@
 package org.openehr.am.template;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 import org.openehr.am.archetype.constraintmodel.CComplexObject;
 
@@ -9,6 +10,7 @@ public class ArchetypeSlotTest extends TemplateTestBase {
 	 * Essentially test the slot filling as the following order
 	 * composition / section / instruction / item_tree
 	 */
+	@Test
 	public void testExapandNestedArchetypeSlots() throws Exception {
 		flattenTemplate("prescription.oet");
 		

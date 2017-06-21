@@ -352,9 +352,10 @@ public class DefinitionSectionBuilder {
                 list = new ArrayList<>();
                 for (ArchetypeParser.OrdinalContext o : cDvOrdinalContext.ordinal()) {
                     Integer i = Integer.parseInt(o.INTEGER_VALUE().getText());
-                    String cp = o.LOCAL_TERM_CODE_REF().getText();
                     String terminology = o.TERMINOLOGY_ID_BLOCK().getText();
-                    CodePhrase codePhrase = new CodePhrase(terminology.substring(0, terminology.length() - 2), cp);
+                    terminology = terminology.substring(0, terminology.length() - 2);
+                    String cp = o.LOCAL_TERM_CODE_REF().getText();
+                    CodePhrase codePhrase = new CodePhrase( terminology, cp);
                     Ordinal ordinal = new Ordinal(i, codePhrase);
                     list.add(ordinal);
                 }

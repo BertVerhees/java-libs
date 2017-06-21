@@ -1,9 +1,11 @@
 	package org.openehr.am.template;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.CComplexObject;
 
 public class UtilityTest extends TemplateTestBase {
 
+	@Test
 	public void testNextNodeId() throws Exception {
 		assertEquals("at0001", flattener.formatNodeId(1));
 		assertEquals("at0010", flattener.formatNodeId(10));
@@ -13,7 +15,8 @@ public class UtilityTest extends TemplateTestBase {
 		assertEquals("at10000", flattener.formatNodeId(10000));
 		assertEquals("at100000", flattener.formatNodeId(100000));
 	}
-	
+
+	@Test
 	public void testParseNodeId() throws Exception {
 		assertEquals(1, flattener.parseNodeId("at0001"));
 		assertEquals(10, flattener.parseNodeId("at0010"));
@@ -24,17 +27,20 @@ public class UtilityTest extends TemplateTestBase {
 		assertEquals(1, flattener.parseNodeId("at0001.1"));
 		assertEquals(100, flattener.parseNodeId("at0100.2"));
 	}
-	
+
+	@Test
 	public void testFindLargestNodeId() throws Exception {
 		archetype = loadArchetype("openEHR-EHR-SECTION.find_largest_node_id.v1.adl");
 		assertEquals(4, flattener.findLargestNodeId(archetype));
 	}
-	
+
+	@Test
 	public void testFindLargestNodeId2() throws Exception {
 		archetype = loadArchetype("openEHR-EHR-SECTION.find_largest_node_id_2.v1.adl");
 		assertEquals(10, flattener.findLargestNodeId(archetype));
 	}
-	
+
+	@Test
 	public void testAdjustNodeIds() throws Exception {
 		archetype = loadArchetype("openEHR-EHR-EVALUATION.structured_summary.v1.adl");
 		expected = loadArchetype("openEHR-EHR-EVALUATION.adjusted_node_ids.v1.adl");

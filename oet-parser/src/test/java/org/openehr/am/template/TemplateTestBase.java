@@ -1,26 +1,14 @@
 package org.openehr.am.template;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.thoughtworks.xstream.XStream;
+import junit.framework.TestCase;
 import openEHR.v1.template.TEMPLATE;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
 import org.openehr.am.archetype.Archetype;
-import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
-import org.openehr.am.archetype.constraintmodel.CAttribute;
-import org.openehr.am.archetype.constraintmodel.CComplexObject;
-import org.openehr.am.archetype.constraintmodel.CDomainType;
-import org.openehr.am.archetype.constraintmodel.CMultipleAttribute;
-import org.openehr.am.archetype.constraintmodel.CObject;
-import org.openehr.am.archetype.constraintmodel.CPrimitiveObject;
-import org.openehr.am.archetype.constraintmodel.Cardinality;
-import org.openehr.am.archetype.constraintmodel.ConstraintRef;
+import org.openehr.am.archetype.constraintmodel.*;
 import org.openehr.am.archetype.constraintmodel.primitive.CPrimitive;
 import org.openehr.am.archetype.constraintmodel.primitive.CString;
 import org.openehr.am.openehrprofile.datatypes.basic.CDvState;
@@ -31,12 +19,14 @@ import org.openehr.am.openehrprofile.datatypes.text.CCodePhrase;
 import org.openehr.am.serialize.ADLSerializer;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.basic.Interval;
-
-import com.thoughtworks.xstream.XStream;
-
 import se.acode.openehr.parser.ADLParser;
 
-import junit.framework.TestCase;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TemplateTestBase extends TestCase {
 	
@@ -49,11 +39,13 @@ public class TemplateTestBase extends TestCase {
 		}
 	}
 	
+	@Before
 	public void setUp() throws Exception {
 		flattener = new Flattener();
 		serializer = new ADLSerializer();
 	}
-	
+
+	@After
 	public void tearDown() throws Exception {
 		template = null;
 	}
@@ -465,8 +457,12 @@ public class TemplateTestBase extends TestCase {
 		archetypeMap = new HashMap<String, Archetype>();
 		
 		for(String id : ids) {
-			Archetype archetype = loadArchetype(id + ".adl");
-			archetypeMap.put(archetype.getArchetypeId().toString(), archetype);
+			try {
+				Archetype archetype = loadArchetype(id + ".adl");
+				archetypeMap.put(archetype.getArchetypeId().toString(), archetype);
+			}catch(Exception e){
+				throw new Exception("Failed archetype:"+id,e);
+			}
 		}			
 	}
 	

@@ -1,18 +1,20 @@
 package org.openehr.am.template;
 
-import java.util.*;
-
 import openEHR.v1.template.Statement;
 import openEHR.v1.template.TextConstraint;
-
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 import org.openehr.am.archetype.constraintmodel.CAttribute;
 import org.openehr.am.archetype.constraintmodel.CComplexObject;
-import org.openehr.am.archetype.constraintmodel.CObject;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class TextConstraintTest extends TemplateTestBase {
 	
-	public void setUp() throws Exception {		
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		
 		archetype = loadArchetype(
@@ -25,6 +27,7 @@ public class TextConstraintTest extends TemplateTestBase {
 	}
 	
 	// <Rule path="/items[at0001]" default="Ipren" />
+	@Test
 	public void testSetDefaultTextConstraint() throws Exception {
 		String defaultValue = "Ipren";
 		flattener.applyDefaultValueConstraint(constraint, defaultValue);
@@ -36,6 +39,7 @@ public class TextConstraintTest extends TemplateTestBase {
 	
 	// test the combination of coded_text and name constraint
 	// which triggered a bug once
+	@Test
 	public void testSetDefaultCodedTextAndName() throws Exception {
 		flattenTemplate("test_default_coded_name.oet");
 
@@ -47,7 +51,8 @@ public class TextConstraintTest extends TemplateTestBase {
 				"[at0003 and name/value='Dose Units']/name/value");
 		assertCStringWithSingleValue(constraint, "Dose Units");
 	}
-	
+
+	@Test
 	public void testTermMapAfterSetDefaultCodedTextAndName() throws Exception {
 		flattenTemplate("test_default_coded_name.oet");
 		String path = "/data[at0001]/items[at0002]/items" +
@@ -61,7 +66,8 @@ public class TextConstraintTest extends TemplateTestBase {
 	}
 	
 	// <Rule path="/items[at0001]" default="SNOMED-CT::258835005::mg/dygn"/>
-	
+
+	@Test
 	public void testSetDefaultCodedTextConstraint() throws Exception {
 		String defaultValue = "SNOMED-CT::258835005::mg/dygn";		
 		flattener.applyDefaultValueConstraint(constraint, defaultValue);
@@ -78,6 +84,7 @@ public class TextConstraintTest extends TemplateTestBase {
 	//		<includedValues>SNOMED-CT::10037::Ok�nt</includedValues>
 	//	  </constraint>
 	//	</Rule>
+	@Test
 	public void testSetTextConstraintWithCodedIncludedValues() throws Exception {
 		TextConstraint tc = TextConstraint.Factory.newInstance();
 		tc.addIncludedValues("SNOMED-CT::10036::Nej");
@@ -94,7 +101,8 @@ public class TextConstraintTest extends TemplateTestBase {
 		List<String> codeList = Arrays.asList(expectedCodes);
 		assertCCodePhraseWithCodeList(constraint, "SNOMED-CT", codeList);	
 	}
-	
+
+	@Test
 	public void testAggregatedTermMapAfterSetCodedIncludedValues() throws Exception {
 		TextConstraint tc = TextConstraint.Factory.newInstance();
 		tc.addIncludedValues("SNOMED-CT::10036::Nej");
@@ -109,7 +117,8 @@ public class TextConstraintTest extends TemplateTestBase {
 		String path = ccobj.path() + "/value";
 		assertEquals("Nej", termMap.getText("SNOMED-CT", "10036", path));
 	}
-	
+
+	@Test
 	public void testExistingTypesRemovedAfterSetTextConstraint() throws Exception {
 		archetype = loadArchetype(
 			"openEHR-EHR-ITEM_TREE.medication_test_one.v2.adl");	
@@ -128,7 +137,8 @@ public class TextConstraintTest extends TemplateTestBase {
 		assertEquals("unexpected multiple children", 1,
 				cattr.getChildren().size());		
 	}
-	
+
+	@Test
 	public void testSetNameAndDefaultOnCodedTextNode() throws Exception {
 		
 		// bug on set the following on dv_coded_text
@@ -159,7 +169,8 @@ public class TextConstraintTest extends TemplateTestBase {
 				"[at0001 and name/value='dosenhet']/name/value");
 		assertCStringWithSingleValue(constraint, "dosenhet");
 	}
-	
+
+	@Test
 	public void testSetTextConstraintWithExcludedValues() throws Exception {
 		archetype = loadArchetype(
 				"openEHR-EHR-ADMIN_ENTRY.heart_failure_contact.v1.adl");

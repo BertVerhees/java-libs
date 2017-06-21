@@ -1,11 +1,12 @@
 package org.openehr.am.serialize;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.openehr.am.archetype.Archetype;
 import se.acode.openehr.parser.ADLParser;
 
+import java.io.BufferedInputStream;
 import java.io.InputStream;
-import java.io.StringReader;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,7 +20,7 @@ public class RoundTripTest extends SerializerTestBase {
 
 		outputter.output(archetype, out);
 
-		parser.ReInit(new StringReader(out.toString()));
+		parser.ReInit(new BufferedInputStream(IOUtils.toInputStream(out.toString(), "UTF-8")));
 
 		Archetype roundTripedArchetype = parser.parse();
 

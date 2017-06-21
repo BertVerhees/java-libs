@@ -96,6 +96,10 @@ public class ADLParser {
         this.inputStream = is;
     }
 
+    public void ReInit(InputStream is){
+        this.inputStream = is;
+    }
+
   /* =========================  public interface ======================== */
 
     public CollectionErrorListener errorCollector = null;

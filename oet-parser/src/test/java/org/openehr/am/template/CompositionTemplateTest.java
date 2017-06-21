@@ -1,14 +1,12 @@
 package org.openehr.am.template;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 import org.openehr.am.archetype.constraintmodel.CComplexObject;
 
 public class CompositionTemplateTest extends TemplateTestBase {
 
-	public void setUp() throws Exception {
-		super.setUp();	
-	}
-	
+	@Test
 	public void testContentSlotWithSingleEmptySection() throws Exception {
 		flattenTemplate("test_composition.oet");
 		

@@ -1,13 +1,11 @@
 package org.openehr.am.template;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.*;
 
 public class SetMultipleEvaluationNameTest extends TemplateTestBase {
-	
-	public void setUp() throws Exception {
-		super.setUp();	
-	}
-	
+
+	@Test
 	public void testTopNodeNameConstraint() throws Exception {
 		flattenTemplate("test_set_multiple_evaluation_name.oet");		
 		

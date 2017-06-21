@@ -1,10 +1,12 @@
 package org.openehr.am.template;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 
 public class SectionTemplateTest extends TemplateTestBase {
-	
-	public void testSingleSectionWithName() throws Exception {		
+
+	@Test
+	public void testSingleSectionWithName() throws Exception {
 		flattenTemplate("test_simple_section.oet");		
 		expected = loadArchetype("openEHR-EHR-SECTION.simple_section_name.v1.adl");	
 				
@@ -17,9 +19,10 @@ public class SectionTemplateTest extends TemplateTestBase {
 		
 		ac = flattened.node("/name/value");
 		assertCStringWithSingleValue(ac, "single"); 
-	}	
-	
-	public void testTwoNestedSections() throws Exception {		
+	}
+
+	@Test
+	public void testTwoNestedSections() throws Exception {
 		flattenTemplate("test_nested_section.oet");		
 	
 		// verify node.path
@@ -38,8 +41,9 @@ public class SectionTemplateTest extends TemplateTestBase {
 				" and name/value='two']/name/value");
 		assertCStringWithSingleValue(ac, "two");
 	}
-	
-	public void testFiveNestedSections() throws Exception {		
+
+	@Test
+	public void testFiveNestedSections() throws Exception {
 		flattenTemplate("test_more_nested_section.oet");	
 			
 		// first object level, equivalent to "/[at0000]"

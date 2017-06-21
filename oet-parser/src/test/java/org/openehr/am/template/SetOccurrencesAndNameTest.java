@@ -1,10 +1,13 @@
 package org.openehr.am.template;
 
+import org.junit.Test;
+
 public class SetOccurrencesAndNameTest extends TemplateTestBase {
 	
 	/*
 	 * Setting leaf-level node name doesn't involving copying nodes
 	 */
+	@Test
 	public void testSeNodeOccurrencesAndNameConstraint() throws Exception {
 		flattenTemplate("test_set_occurrences_and_name.oet");
 	

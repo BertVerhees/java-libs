@@ -1,15 +1,17 @@
 package org.openehr.am.template;
 
-import java.math.BigInteger;
-
 import openEHR.v1.template.Statement;
-
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 import org.openehr.am.archetype.constraintmodel.CObject;
 import org.openehr.rm.support.basic.Interval;
 
+import java.math.BigInteger;
+
 public class SetNodeOccurrencesTest extends TemplateTestBase {
 	
+	@Before
 	public void setUp() throws Exception {
 		
 		super.setUp();
@@ -22,7 +24,8 @@ public class SetNodeOccurrencesTest extends TemplateTestBase {
 		rule.setMax(null);
 		rule.setMin(null);
 	}
-	
+
+	@Test
 	public void testSetMaxOccurrencesToZeroOnOptionalNode() throws Exception {
 		constraint = archetype.node(PATH);
 		CObject cobj = (CObject) constraint;
@@ -41,6 +44,7 @@ public class SetNodeOccurrencesTest extends TemplateTestBase {
 	}
 	
 	// make optional node required
+	@Test
 	public void testSetMinOccurrencesToOneOnOptionalNode() throws Exception {
 		constraint = archetype.node(PATH);
 		CObject cobj = (CObject) constraint;
@@ -59,6 +63,7 @@ public class SetNodeOccurrencesTest extends TemplateTestBase {
 	}
 	
 	// make optional node not allowed
+	@Test
 	public void testSetMaxOccurrencesTozeroOnOptionalNode() throws Exception {
 		constraint = archetype.node(PATH);
 		CObject cobj = (CObject) constraint;
@@ -75,7 +80,8 @@ public class SetNodeOccurrencesTest extends TemplateTestBase {
 		assertEquals("unexpected min occurrences", 0, 
 				cobj.getOccurrences().getLower().intValue());
 	}
-	
+
+	@Test
 	public void testSetMaxOccurrencesToZeroOnRequiredNode() throws Exception {
 		constraint = archetype.node(PATH);
 		CObject cobj = (CObject) constraint;
@@ -86,7 +92,8 @@ public class SetNodeOccurrencesTest extends TemplateTestBase {
 			fail("expect flattening exception on contradicting occurrences");
 		} catch(FlatteningException e) {}
 	}
-	
+
+	@Test
 	public void testSetMaxOccurrencesToTwoOnRequiredNode() throws Exception {
 		constraint = archetype.node(PATH);
 		CObject cobj = (CObject) constraint;
@@ -97,7 +104,8 @@ public class SetNodeOccurrencesTest extends TemplateTestBase {
 			fail("expect flattening exception on too permissive occurrences");
 		} catch(FlatteningException e) {}
 	}
-	
+
+	@Test
 	public void testSetMaxOccurrencesToOneOnRequiredNode() throws Exception {
 		constraint = archetype.node(PATH);
 		CObject cobj = (CObject) constraint;
@@ -114,7 +122,8 @@ public class SetNodeOccurrencesTest extends TemplateTestBase {
 		assertEquals("unexpected min occurrences", 1, 
 				cobj.getOccurrences().getLower().intValue());
 	}
-	
+
+	@Test
 	public void testSetMinOccurrencesToZeroOnRequiredNode() throws Exception {
 		constraint = archetype.node(PATH);
 		CObject cobj = (CObject) constraint;
@@ -125,7 +134,8 @@ public class SetNodeOccurrencesTest extends TemplateTestBase {
 			fail("expect flattening exception on too permissive occurrences");
 		} catch(FlatteningException e) {}
 	}
-	
+
+	@Test
 	public void testSetMinOccurrencesToTwoOnRequiredNode() throws Exception {
 		constraint = archetype.node(PATH);
 		CObject cobj = (CObject) constraint;
@@ -136,7 +146,8 @@ public class SetNodeOccurrencesTest extends TemplateTestBase {
 			fail("expect flattening exception on contradicting occurrences");
 		} catch(FlatteningException e) {}
 	}
-	
+
+	@Test
 	public void testSetMinOccurrencesToOneOnOptionalNode2() throws Exception {
 		constraint = archetype.node(PATH);
 		CObject cobj = (CObject) constraint;
@@ -153,7 +164,8 @@ public class SetNodeOccurrencesTest extends TemplateTestBase {
 		assertNull("unexpected max occurrences",  
 				cobj.getOccurrences().getUpper());
 	}
-	
+
+	@Test
 	public void testSetMinOccurrencesToTwoOnOptionalNode() throws Exception {
 		constraint = archetype.node(PATH);
 		CObject cobj = (CObject) constraint;
@@ -167,8 +179,9 @@ public class SetNodeOccurrencesTest extends TemplateTestBase {
 		
 		assertNull("unexpected max occurrences", 
 				cobj.getOccurrences().getUpper());
-	}	
-	
+	}
+
+	@Test
 	public void testSetMaxOccurrencesToOneOnOptionalNodeWithoutMinimum() throws Exception {
 		constraint = archetype.node(PATH);
 		CObject cobj = (CObject) constraint;

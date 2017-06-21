@@ -1,5 +1,6 @@
 package org.openehr.am.template;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 
 public class ActionDescriptionTest extends TemplateTestBase {
@@ -9,6 +10,7 @@ public class ActionDescriptionTest extends TemplateTestBase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void testActionDescriptionSlotFilling() throws Exception {
 		flattenTemplate("test_action_description.oet");		
 				

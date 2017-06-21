@@ -1,5 +1,6 @@
 package org.openehr.am.template;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 
 public class SectionInstructionTest extends TemplateTestBase {
@@ -9,6 +10,7 @@ public class SectionInstructionTest extends TemplateTestBase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void testSectionWithSingleInstruction() throws Exception {
 		flattenTemplate("test_section_instruction.oet");	
 		
@@ -35,6 +37,7 @@ public class SectionInstructionTest extends TemplateTestBase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void testSectionWithInstructionAndItemTree() throws Exception {
 		flattenTemplate("test_section_instruction_tree.oet");	
 		

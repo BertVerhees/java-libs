@@ -1,17 +1,15 @@
 package org.openehr.am.template;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.*;
 
 public class SetMixedConstraintsTest extends TemplateTestBase {
-	
-	public void setUp() throws Exception {
-		super.setUp();	
-	}
 	
 	/*
 	 * Test setting name, occurrences and c_dv_quantity at same time
 	 * that can trigger 1) missed mandatory node;  
 	 */
+	@Test
 	public void testSeNodeOccurrencesAndNameConstraint() throws Exception {
 		flattenTemplate("test_set_mixed_constraints.oet");		
 		path = "/items[openEHR-EHR-OBSERVATION.waist_hip.v2]/" +
@@ -22,7 +20,8 @@ public class SetMixedConstraintsTest extends TemplateTestBase {
 		assertEquals("unexpected num of attributes", 2, 
 				element.getAttributes().size());
 	}
-	
+
+	@Test
 	public void testTopNodeNameConstraint() throws Exception {
 		flattenTemplate("test_set_mixed_constraints.oet");		
 		

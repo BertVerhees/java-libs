@@ -1,19 +1,21 @@
 package org.openehr.am.template;
 
-import java.nio.charset.Charset;
-
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 import org.openehr.am.archetype.constraintmodel.primitive.CString;
 
 public class UTF8EncodingTest extends TemplateTestBase {
 	
-	public void setUp() throws Exception {		
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();
 		
 		archetype = loadArchetype(
 			"openEHR-EHR-ITEM_TREE.medication_test_one.v1.adl");		
 	}
-	
+
+	@Test
 	public void testSwedishSpecialChars() throws Exception {
 		flattenTemplate("test_utf8_encoding.oet");
 

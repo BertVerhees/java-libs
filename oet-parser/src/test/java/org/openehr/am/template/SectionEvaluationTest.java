@@ -1,5 +1,6 @@
 package org.openehr.am.template;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 
 public class SectionEvaluationTest extends TemplateTestBase {
@@ -9,6 +10,7 @@ public class SectionEvaluationTest extends TemplateTestBase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void testSectionWithSingleEvaluation() throws Exception {
 		flattenTemplate("test_section_evaluation.oet");		
 				
@@ -59,6 +61,7 @@ public class SectionEvaluationTest extends TemplateTestBase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void testSectionWithTwoEvaluations() throws Exception {
 		flattenTemplate("test_section_evaluation2.oet");	
 		
@@ -112,7 +115,8 @@ public class SectionEvaluationTest extends TemplateTestBase {
 				" and name/value='evaluation two']/data[at0001]/items[at0002]");
 		assertElementConstraint(ac);
 	}
-	
+
+	@Test
 	public void testNestedSectionWithEvaluation() throws Exception {
 		template = loadTemplate("test_nested_section_evaluation.oet");		
 		flattened = flattener.toFlattenedArchetype(template, archetypeMap);	

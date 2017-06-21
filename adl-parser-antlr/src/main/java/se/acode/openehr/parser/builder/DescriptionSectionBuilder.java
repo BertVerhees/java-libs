@@ -54,10 +54,18 @@ public class DescriptionSectionBuilder {
                         } else {
                             throw new Exception("There can be only one other_contributors-section per description.");
                         }
-                        for (ArchetypeParser.String_valueContext stringValueContext : textItemContext.other_contributors().string_value()) {
-                            String otherContributor = stringValueContext.STRING().getText();
-                            otherContributor = otherContributor.substring(1, otherContributor.length() - 1);
-                            otherContributors.add(otherContributor);
+                        if(textItemContext.other_contributors().string_value()!=null) {
+                            for (ArchetypeParser.String_valueContext stringValueContext : textItemContext.other_contributors().string_value()) {
+                                String otherContributor = stringValueContext.STRING().getText();
+                                otherContributor = otherContributor.substring(1, otherContributor.length() - 1);
+                                otherContributors.add(otherContributor);
+                            }
+                        }else if(textItemContext.other_contributors().string_list_value()!=null){
+                            for (ArchetypeParser.String_valueContext iv : textItemContext.other_contributors().string_list_value().string_value()) {
+                                String otherContributor = iv.STRING().getText();
+                                otherContributor = otherContributor.substring(1, otherContributor.length() - 1);
+                                otherContributors.add(otherContributor);
+                            }
                         }
                     } else if (textItemContext.lifecycle_state() != null) {
                         if (lifeCycleState == null) {

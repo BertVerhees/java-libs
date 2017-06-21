@@ -1,18 +1,20 @@
 package org.openehr.am.template;
 
-import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
-import org.openehr.am.archetype.constraintmodel.CComplexObject;
-import org.openehr.am.openehrprofile.datatypes.quantity.CDvQuantity;
-import org.openehr.am.openehrprofile.datatypes.quantity.CDvQuantityItem;
-import org.openehr.rm.support.basic.Interval;
-
 import openEHR.v1.template.QuantityConstraint;
 import openEHR.v1.template.QuantityUnitConstraint;
 import openEHR.v1.template.Statement;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
+import org.openehr.am.archetype.constraintmodel.CComplexObject;
+import org.openehr.am.openehrprofile.datatypes.quantity.CDvQuantityItem;
+import org.openehr.rm.support.basic.Interval;
 
 public class QuantityConstraintTest extends TemplateTestBase {
 	
-	public void setUp() throws Exception {		
+	@Before
+	public void setUp() throws Exception {
 		super.setUp();		
 		archetype = loadArchetype(
 			"openEHR-EHR-ITEM_TREE.medication_quantity_test.v1.adl");
@@ -23,12 +25,15 @@ public class QuantityConstraintTest extends TemplateTestBase {
 		rule.setPath(PATH);		
 	}
 	
-	public void tearDown() {
+	@After
+	public void tearDown() throws Exception {
+		super.tearDown();
 		constraint = null;
 		flattened = null;
 		archetype = null;
 	}
-	
+
+	@Test
 	public void testSetQuantityConstraintWithMagnitudeAndUnits() throws Exception {
 		QuantityConstraint qc = QuantityConstraint.Factory.newInstance();
 		QuantityUnitConstraint quc = qc.addNewUnitMagnitude();
@@ -48,7 +53,8 @@ public class QuantityConstraintTest extends TemplateTestBase {
 						Double.valueOf(300)), "/min");		
 		assertCDvQuantityWithSingleItem(constraint, item);	
 	}
-	
+
+	@Test
 	public void testSetQuantityConstraintWithIncludedUnits() throws Exception {
 		String[] units = { "mmol/L" };
 		QuantityConstraint qc = QuantityConstraint.Factory.newInstance();
@@ -62,14 +68,16 @@ public class QuantityConstraintTest extends TemplateTestBase {
 		CDvQuantityItem item = new CDvQuantityItem(units[0]);		
 		assertCDvQuantityWithSingleItem(constraint, item);	
 	}
-	
+
+	@Test
 	public void testSetQuantityConstraintWithIncludedUnitsOnTemplate() throws Exception {
 		flattenTemplate("test_quantity_constraint_included_units.oet");
 		constraint = flattened.node(PATH + "/value");			
 		CDvQuantityItem item = new CDvQuantityItem("mmol/L");		
 		assertCDvQuantityWithSingleItem(constraint, item);	
 	}
-	
+
+	@Test
 	public void testIncludedUnitsWithEmptyCDvQuantity() throws Exception {
 		flattenTemplate("test_quantity_constraint_included_units3.oet");
 		String path = "/data[at0001]/items[at0004]";
@@ -77,7 +85,8 @@ public class QuantityConstraintTest extends TemplateTestBase {
 		CDvQuantityItem item = new CDvQuantityItem("mg/day");		
 		assertCDvQuantityWithSingleItem(ac, item);	
 	}
-	
+
+	@Test
 	public void testSetQuantityConstraintWithMagnitudeAndUnitsOnTemplate() throws Exception {
 		flattenTemplate("test_quantity_constraint_magnitude.oet");
 		constraint = flattened.node(PATH + "/value");	
@@ -85,7 +94,8 @@ public class QuantityConstraintTest extends TemplateTestBase {
 				new Interval<Double>(10.0, 300.0), "/min");		
 		assertCDvQuantityWithSingleItem(constraint, item);	
 	}
-	
+
+	@Test
 	public void testSetQuantityConstraintWithExcludedUnitsOnTemplate() throws Exception {
 		flattenTemplate("test_quantity_constraint_excluded_units.oet");
 		ArchetypeConstraint ac = flattened.node(PATH + "/value");			
@@ -93,7 +103,8 @@ public class QuantityConstraintTest extends TemplateTestBase {
 				new Interval<Double>(0.0, 1000.0), "cm");		
 		assertCDvQuantityWithSingleItem(ac, item);	
 	}
-	
+
+	@Test
 	public void testSetQuantityConstraintWithMixedConstraints() throws Exception {
 		flattenTemplate("test_quantity_constraint_mixed.oet");
 		String path = "/items[openEHR-EHR-OBSERVATION.lab_test.v1 and " +

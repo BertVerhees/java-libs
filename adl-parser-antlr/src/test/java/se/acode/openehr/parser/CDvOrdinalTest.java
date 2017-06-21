@@ -56,6 +56,20 @@ public class CDvOrdinalTest extends ParserTestBase {
     }
 
     @Test
+    public void testCDvOrdinalWithoutDotInCode() throws Exception {
+        node = archetype.node("/types[at0001]/items[at10005]/value");
+        String[] codes = {
+                "at0003", "at0003", "at0003", "at0003", "at0003"
+        };
+        int[] values = { 0, 1, 2, 3, 4 };
+        String terminology = "local";
+
+        assertFalse("unexpected assumed value",((CDvOrdinal) node).hasAssumedValue());
+
+        assertCDvOrdinal(node, terminology, codes, values, null);
+    }
+
+    @Test
     public void testCDvOrdinalWithDuplicatedValues() throws Exception {
         node = archetype.node("/types[at0001]/items[at10004]/value");
         String[] codes = {

@@ -1,11 +1,17 @@
 package org.openehr.am.template;
 
+import org.junit.After;
+import org.junit.Test;
+
 public class PathMapTest extends TemplateTestBase {
 
-	public void tearDown() {
+	@After
+	public void tearDown() throws Exception {
+		super.tearDown();
 		map = null;
 	}
-	
+
+	@Test
 	public void testCreateNewAndWriteToFile() throws Exception {
 		map = new PathMap();
 		map.addPath("key1", "path1");
@@ -13,7 +19,8 @@ public class PathMapTest extends TemplateTestBase {
 		map.addPath("key2", "path2");
 		map.writeToFile("test_paths.txt");
 	}
-	
+
+	@Test
 	public void testLoadPathMapAndGetPath() throws Exception {
 		map= PathMap.load(fromClasspath("test_path_map.txt"));
 		

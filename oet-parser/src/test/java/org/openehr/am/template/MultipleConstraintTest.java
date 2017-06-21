@@ -2,12 +2,15 @@ package org.openehr.am.template;
 
 import openEHR.v1.template.MultipleConstraint;
 import openEHR.v1.template.Statement;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 import org.openehr.am.archetype.constraintmodel.CComplexObject;
 
 public class MultipleConstraintTest extends TemplateTestBase {
 	
+	@Before
 	public void setUp() throws Exception {
 		
 		super.setUp();
@@ -20,8 +23,10 @@ public class MultipleConstraintTest extends TemplateTestBase {
 		rule = Statement.Factory.newInstance();
 		rule.setPath(PATH);
 	}
-	
-	public void tearDown() {
+
+	@After
+	public void tearDown() throws Exception {
+		super.tearDown();
 		constraint = null;
 	}
 	
@@ -30,6 +35,7 @@ public class MultipleConstraintTest extends TemplateTestBase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void testSetMultipleConstraintIncludedTypes() throws Exception {
 		MultipleConstraint mc = MultipleConstraint.Factory.newInstance();
 		mc.addIncludedTypes("Count");
@@ -52,20 +58,23 @@ public class MultipleConstraintTest extends TemplateTestBase {
 		assertEquals("DV_COUNT", ccobj.getRmTypeName());
 		
 	}
-	
+
+	@Test
 	public void testMultipleConstraintWithinTemplate() throws Exception {
 		flattenTemplate("test_multiple_constraint.oet");		
 		constraint = flattened.node("/items[at0033]/items[at0034]/items[at0005]/value");
 		assertDvCountConstraint(constraint);
 	}
-	
+
+	@Test
 	public void testMultipleConstraintWithinNestedTemplate() throws Exception {
 		flattenTemplate("test_multiple_constraint2.oet");
 		//printADL(flattened);
 		constraint = flattened.node("/description[openEHR-EHR-ITEM_TREE.medication.v1]/items[at0033]/items[at0034]/items[at0005]/value");
 		assertDvCountConstraint(constraint);
 	}
-	
+
+	@Test
 	public void testMultipleConstraintWithoutValueAttribute() throws Exception {
 		flattenTemplate("test_multiple_constraint3.oet");		
 		constraint = flattened.node(PATH + "/value");

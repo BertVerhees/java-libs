@@ -14,7 +14,8 @@
  */
 package org.openehr.am.serialize;
 
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.terminology.CodeSetAccess;
 import org.openehr.rm.support.terminology.OpenEHRCodeSetIdentifiers;
@@ -27,6 +28,8 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
+
 public class SerializerTestBase
 	implements TerminologyService, CodeSetAccess {
 
@@ -38,7 +41,9 @@ public class SerializerTestBase
 	/**
 	 * The fixture set up called before every test method.
 	 */
-	protected void setUp() throws Exception {
+
+	@Before
+	public void setUp() throws Exception {
 		outputter = new ADLSerializer();
 		clean();
 	}
@@ -46,7 +51,8 @@ public class SerializerTestBase
 	/**
 	 * The fixture clean up called after every test method.
 	 */
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		outputter = null;
 		adlFile = null;
 	}

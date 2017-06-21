@@ -1,5 +1,6 @@
 package org.openehr.am.template;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 import org.openehr.am.archetype.constraintmodel.CComplexObject;
 
@@ -8,6 +9,7 @@ public class SetNodeNameTest extends TemplateTestBase {
 	/*
 	 * Setting leaf-level node name doesn't involving copying nodes
 	 */
+	@Test
 	public void testSetLeafNodeNameConstraint() throws Exception {
 		flattenTemplate("test_text_name.oet");
 
@@ -26,6 +28,7 @@ public class SetNodeNameTest extends TemplateTestBase {
 	 * tree and updating the path to [node_id and name/value='xxx'] for named
 	 * path to work
 	 */
+	@Test
 	public void testSetSingleObjectNodeNameConstraint() throws Exception {
 		String path = "/data[at0001]/items[at0002 and name/value='insats']"
 				+ "/items[at0003]";
@@ -42,6 +45,7 @@ public class SetNodeNameTest extends TemplateTestBase {
 	/*
 	 * Test named-node path following node name is set
 	 */
+	@Test
 	public void testRuleWithNamedNodePath() throws Exception {
 		String path = "/data[at0001]/items[at0002 and name/value='one']" +
 				"/items[at0003]";

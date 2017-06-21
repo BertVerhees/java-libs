@@ -7,6 +7,7 @@ import openEHR.v1.template.ITEMTREE;
 import openEHR.v1.template.SECTION;
 import openEHR.v1.template.TEMPLATE;
 import openEHR.v1.template.TemplateDocument;
+import org.junit.Test;
 
 public class TemplateParseTest extends TemplateTestBase {
 	
@@ -15,6 +16,7 @@ public class TemplateParseTest extends TemplateTestBase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void testParseSimpleTemplate() throws Exception {
 		TemplateDocument templateDoc = parser.parseTemplate(fromClasspath(
 				"templates/prescription.oet"));

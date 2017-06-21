@@ -13,10 +13,8 @@
  */
 package org.openehr.rm.composition.content.entry;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.openehr.rm.common.archetyped.Archetyped;
+import org.openehr.rm.composition.CompositionTestBase;
 import org.openehr.rm.datastructure.history.Event;
 import org.openehr.rm.datastructure.history.History;
 import org.openehr.rm.datastructure.history.PointEvent;
@@ -29,11 +27,13 @@ import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.quantity.datetime.DvDuration;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvText;
-import org.openehr.rm.composition.CompositionTestBase;
 import org.openehr.rm.support.identification.ArchetypeID;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 import org.openehr.terminology.SimpleTerminologyService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ObservationTest

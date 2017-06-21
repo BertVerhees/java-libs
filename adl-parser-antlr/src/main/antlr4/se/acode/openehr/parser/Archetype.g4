@@ -43,7 +43,7 @@ arch_description: |SYM_DESCRIPTION description_text ;
 description_text: description_text_item+ ;
 description_text_item: original_author|other_contributors|lifecycle_state|details|resource_package_uri|other_details|parent_resource ;
 original_author: 'original_author' '=' '<' ('[' string_value ']' '=' object_block)+ '>' ;
-other_contributors: 'other_contributors' '=' '<' ((string_value (',' string_value)*))? '>' ;
+other_contributors: 'other_contributors' '=' '<' ((((string_value (',' string_value)*))?)| string_list_value) '>' ;
 lifecycle_state: 'lifecycle_state' '=' '<' string_value '>' ;
 details: 'details' '=' '<' ('[' string_value ']' '=' '<'details_object_block+'>')+ '>';
 resource_package_uri: 'resource_package_uri' '=' '<' string_value '>' ;
@@ -258,7 +258,7 @@ magnitude_assumed : MAGNITUDE_IS '<' REAL_VALUE '>';
 precision_assumed : PRECISION_IS '<' INTEGER_VALUE '>';
 
 c_dv_ordinal : (ordinal (',' ordinal)* (';' INTEGER_VALUE)?) | (SYM_C_DV_ORDINAL '<' '>') ;
-ordinal : INTEGER_VALUE ('|[' TERMINOLOGY_ID_BLOCK (LOCAL_TERM_CODE_REF) ']')?;
+ordinal : INTEGER_VALUE ('|[' TERMINOLOGY_ID_BLOCK LOCAL_TERM_CODE_REF ']')?;
 
 c_codephrase : (('[' TERMINOLOGY_ID_BLOCK (termcode (',' termcode)*)? (';' assumed_code)?']')| TERM_CODE_REF  );
 termcode : ALPHA_LC_ID | LOCAL_TERM_CODE_REF ;
@@ -565,6 +565,6 @@ fragment NATURAL  : [1-9][0-9]* ;
 fragment NAME_CHAR     : WORD_CHAR | '-' ;
 
 TERMINOLOGY_ID_BLOCK: NAME_CHAR+ ( '(' NAME_CHAR+ ')')? '::'  ;
-LOCAL_TERM_CODE_REF : [a-zA-Z0-9][a-zA-Z0-9]*([.\-][a-zA-Z0-9]+)? ;
+LOCAL_TERM_CODE_REF : [a-zA-Z0-9][a-zA-Z0-9]*([\\.\-][a-zA-Z0-9]+)? ;
 
 

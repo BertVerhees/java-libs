@@ -1,5 +1,6 @@
 package org.openehr.am.template;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.*;
 
 /**
@@ -9,11 +10,8 @@ import org.openehr.am.archetype.constraintmodel.*;
  * @author Rong.Chen
  */
 public class SetCardinalityConstraintsTest extends TemplateTestBase {
-	
-	public void setUp() throws Exception {
-		super.setUp();	
-	}
-	
+
+	@Test
 	public void testWithTwoOptionalNodesAndOneProhibitedNode() throws Exception {
 		flattenTemplate("test_set_cardinality_with_prohibited_node.oet");		
 		path = "/items[openEHR-EHR-OBSERVATION.waist_hip.v2]/" +
@@ -23,7 +21,8 @@ public class SetCardinalityConstraintsTest extends TemplateTestBase {
 				flattened.node(path)).getAttribute("items");
 		assertEquals(0, itemsAttr.getCardinality().getInterval().getLower().intValue());
 	}
-	
+
+	@Test
 	public void testWithOneRequiredOneOptionalAndOneProhibitedNode() throws Exception {
 		flattenTemplate("test_set_cardinality_with_prohibited_node3.oet");		
 		path = "/items[openEHR-EHR-OBSERVATION.waist_hip.v2]/" +
@@ -37,6 +36,7 @@ public class SetCardinalityConstraintsTest extends TemplateTestBase {
 	}
 	
 	// Near IFK2 condition to trigger the issue
+	@Test
 	public void testWithTwoOptionalNodesAndOneProhibitedNode2() throws Exception {
 		flattenTemplate("test_set_cardinality_with_prohibited_node2.oet");		
 		path = "/items[openEHR-EHR-OBSERVATION.heart_failure_stage.v2]/" +
