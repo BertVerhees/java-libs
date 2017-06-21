@@ -14,17 +14,10 @@
  */
 package org.openehr.am.archetype;
 
-import java.util.*;
-
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.openehr.am.archetype.assertion.Assertion;
-import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
-import org.openehr.am.archetype.constraintmodel.ArchetypeInternalRef;
-import org.openehr.am.archetype.constraintmodel.CAttribute;
-import org.openehr.am.archetype.constraintmodel.CComplexObject;
-import org.openehr.am.archetype.constraintmodel.CObject;
+import org.openehr.am.archetype.constraintmodel.*;
 import org.openehr.am.archetype.ontology.ArchetypeOntology;
 import org.openehr.am.archetype.ontology.ArchetypeTerm;
 import org.openehr.rm.common.generic.RevisionHistory;
@@ -35,6 +28,11 @@ import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.identification.ArchetypeID;
 import org.openehr.rm.support.identification.HierObjectID;
 import org.openehr.rm.support.terminology.TerminologyService;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Archetype equivalent to ARCHETYPED class in Common reference model. Defines
@@ -76,7 +74,7 @@ public Archetype(String adlVersion, String id, String parentId, String concept,
 			CodePhrase originalLanguage,
 			Map<String, TranslationDetails> translations,
 			ResourceDescription description, RevisionHistory revisionHistory,
-			boolean isControlled, HierObjectID uid, CComplexObject definition, 
+			boolean isControlled, HierObjectID uid, CComplexObject definition,
 			ArchetypeOntology ontology,	Set<Assertion> invariants,
 			TerminologyService terminologyService) {	
 		
