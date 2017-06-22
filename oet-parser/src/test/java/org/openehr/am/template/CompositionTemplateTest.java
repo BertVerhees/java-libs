@@ -4,6 +4,8 @@ import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 import org.openehr.am.archetype.constraintmodel.CComplexObject;
 
+import static org.junit.Assert.assertEquals;
+
 public class CompositionTemplateTest extends TemplateTestBase {
 
 	@Test

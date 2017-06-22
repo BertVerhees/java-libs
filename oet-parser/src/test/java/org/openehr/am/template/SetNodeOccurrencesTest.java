@@ -9,6 +9,8 @@ import org.openehr.rm.support.basic.Interval;
 
 import java.math.BigInteger;
 
+import static org.junit.Assert.*;
+
 public class SetNodeOccurrencesTest extends TemplateTestBase {
 	
 	@Before

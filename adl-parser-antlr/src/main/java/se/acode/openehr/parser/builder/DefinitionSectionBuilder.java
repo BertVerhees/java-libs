@@ -354,7 +354,7 @@ public class DefinitionSectionBuilder {
                     Integer i = Integer.parseInt(o.INTEGER_VALUE().getText());
                     String terminology = o.TERMINOLOGY_ID_BLOCK().getText();
                     terminology = terminology.substring(0, terminology.length() - 2);
-                    String cp = o.LOCAL_TERM_CODE_REF().getText();
+                    String cp = o.termcode().getText();
                     CodePhrase codePhrase = new CodePhrase( terminology, cp);
                     Ordinal ordinal = new Ordinal(i, codePhrase);
                     list.add(ordinal);

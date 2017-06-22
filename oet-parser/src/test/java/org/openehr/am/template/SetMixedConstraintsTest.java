@@ -3,6 +3,8 @@ package org.openehr.am.template;
 import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.*;
 
+import static org.junit.Assert.assertEquals;
+
 public class SetMixedConstraintsTest extends TemplateTestBase {
 	
 	/*

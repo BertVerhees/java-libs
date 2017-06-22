@@ -1,17 +1,21 @@
 package org.openehr.rm.util;
 
-import java.util.List;
-
+import org.junit.Test;
 import org.openehr.rm.composition.Composition;
 import org.openehr.rm.composition.content.ContentItem;
 import org.openehr.rm.composition.content.navigation.Section;
+
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class RMUtilTest extends SkeletonGeneratorTestBase {
 
 	public RMUtilTest() throws Exception {
 		super();
 	}
-	
+
+	@Test
 	public void testPurgeWithOneEmptyOneFilledSections() throws Exception {
 		composition = loadXMLComposition("to_purge.xml");
 		

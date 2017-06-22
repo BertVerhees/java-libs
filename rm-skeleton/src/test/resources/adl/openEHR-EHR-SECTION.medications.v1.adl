@@ -30,9 +30,9 @@ definition
 		items cardinality matches {1..*; unordered} matches {
 			allow_archetype INSTRUCTION matches {
 				include
-					domain_concept matches {/medication\.v1/}
+					archetype_id/value matches {/medication\.v1/}
 				exclude
-					domain_concept matches {/.*/}
+					archetype_id/value matches {/.*/}
 			}
 		}
 	}

@@ -1,13 +1,18 @@
 package org.openehr.rm.util;
 
+import org.junit.Test;
 import org.openehr.am.archetype.Archetype;
 import org.openehr.rm.composition.content.navigation.Section;
+
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class GenerateNestedSectionsTest extends SkeletonGeneratorTestBase {
 	
 	public GenerateNestedSectionsTest() throws Exception {		
 	}
-	
+
+	@Test
 	public void testWithOptionalChildren() throws Exception {
 		Archetype flattened = flattenTemplate(
 				"test_nested_sections_with_optional_children");

@@ -3,6 +3,8 @@ package org.openehr.am.template;
 import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.CObject;
 
+import static org.junit.Assert.assertEquals;
+
 public class SetMaxOccurrencesWithoutMinTest extends TemplateTestBase {
 
 	@Test

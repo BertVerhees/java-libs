@@ -1,31 +1,38 @@
 package org.openehr.rm.util;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.CObject;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestStrategy extends SkeletonGeneratorTestBase {
 	
 	public TestStrategy() throws Exception {		
 		archetype = loadArchetype("openEHR-EHR-ITEM_TREE.medication_test_four.v1.adl");
 	}
-	
+
+	@Test
 	public void testWithDefaultStrategy() throws Exception {
 		expected = loadData("item_tree_medicataion_4.dadl");
 		instance = generator.create(archetype);
 		assertEquals(expected, instance);
 	}
-	
+
+	@Test
 	public void testWithExplicitMinimumStrategy() throws Exception {
 		expected = loadData("item_tree_medicataion_4.dadl");
 		instance = generator.create(archetype, GenerationStrategy.MINIMUM);
 		assertEquals(expected, instance);
 	}
-	
+
+	@Test
 	public void testWithMaximumStrategy() throws Exception {
 		expected = loadData("item_tree_medicataion_5.dadl");
 		instance = generator.create(archetype, GenerationStrategy.MAXIMUM);
 		assertEquals(expected, instance);
 	}
 
+	@Test
 	public void testWithMaximumEmptyStrategy() throws Exception {
 		expected = loadData("item_tree_medicataion_12.dadl");
 		

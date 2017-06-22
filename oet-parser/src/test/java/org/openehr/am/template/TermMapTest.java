@@ -2,6 +2,8 @@ package org.openehr.am.template;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class TermMapTest extends TemplateTestBase {
 
 	@Test

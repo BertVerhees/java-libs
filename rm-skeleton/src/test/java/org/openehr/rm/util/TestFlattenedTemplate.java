@@ -1,14 +1,20 @@
 package org.openehr.rm.util;
 
+import org.junit.Test;
 import org.openehr.am.archetype.Archetype;
 import org.openehr.rm.composition.content.navigation.Section;
 import org.openehr.rm.datastructure.itemstructure.ItemTree;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class TestFlattenedTemplate extends SkeletonGeneratorTestBase {
 	
-	public TestFlattenedTemplate() throws Exception {		
+	public TestFlattenedTemplate() throws Exception {
+		super();
 	}
-	
+
+	@Test
 	public void testGenerateWithFlattenedTemplate() throws Exception {
 		Archetype flattened = flattenTemplate("test_text_name");
 		Object obj = generator.create(flattened, archetypeMap);
@@ -17,7 +23,8 @@ public class TestFlattenedTemplate extends SkeletonGeneratorTestBase {
 		ItemTree tree = (ItemTree) obj;
 		assertEquals(tree.itemAtPath("/items[at0001]/name/value"), "Typ");
 	}
-	
+
+	@Test
 	public void testSectionWithInstructionAndItemTree() throws Exception {
 		Archetype flattened = flattenTemplate("test_section_instruction_tree");	
 		Object obj = generator.create(flattened, archetypeMap);

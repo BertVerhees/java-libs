@@ -3,6 +3,8 @@ package org.openehr.am.template;
 import org.junit.After;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class PathMapTest extends TemplateTestBase {
 
 	@After

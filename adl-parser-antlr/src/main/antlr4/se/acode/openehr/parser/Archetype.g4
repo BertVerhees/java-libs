@@ -258,7 +258,7 @@ magnitude_assumed : MAGNITUDE_IS '<' REAL_VALUE '>';
 precision_assumed : PRECISION_IS '<' INTEGER_VALUE '>';
 
 c_dv_ordinal : (ordinal (',' ordinal)* (';' INTEGER_VALUE)?) | (SYM_C_DV_ORDINAL '<' '>') ;
-ordinal : INTEGER_VALUE ('|[' TERMINOLOGY_ID_BLOCK LOCAL_TERM_CODE_REF ']')?;
+ordinal : INTEGER_VALUE ('|[' TERMINOLOGY_ID_BLOCK termcode ']')?;
 
 c_codephrase : (('[' TERMINOLOGY_ID_BLOCK (termcode (',' termcode)*)? (';' assumed_code)?']')| TERM_CODE_REF  );
 termcode : ALPHA_LC_ID | LOCAL_TERM_CODE_REF ;
@@ -426,6 +426,7 @@ SYM_NE: '!=';
 SYM_LEFT_PAREN: '(';
 SYM_RIGHT_PAREN: ')';
 SYM_COLON: ':';
+SYM_DOT: '.';
 SYM_COMMA: ',';
 SYM_START_CBLOCK: '{';
 SYM_END_CBLOCK: '}';
@@ -565,6 +566,5 @@ fragment NATURAL  : [1-9][0-9]* ;
 fragment NAME_CHAR     : WORD_CHAR | '-' ;
 
 TERMINOLOGY_ID_BLOCK: NAME_CHAR+ ( '(' NAME_CHAR+ ')')? '::'  ;
-LOCAL_TERM_CODE_REF : [a-zA-Z0-9][a-zA-Z0-9]*([\\.\-][a-zA-Z0-9]+)? ;
-
+LOCAL_TERM_CODE_REF : ALPHANUM_CHAR+  '.' ALPHANUM_CHAR+  ;
 

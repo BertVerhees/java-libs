@@ -59,7 +59,7 @@ public class CDvOrdinalTest extends ParserTestBase {
     public void testCDvOrdinalWithoutDotInCode() throws Exception {
         node = archetype.node("/types[at0001]/items[at10005]/value");
         String[] codes = {
-                "at0003", "at0003", "at0003", "at0003", "at0003"
+                "at0000", "at0001", "at0002", "at0003", "at0004"
         };
         int[] values = { 0, 1, 2, 3, 4 };
         String terminology = "local";

@@ -1,14 +1,18 @@
 package org.openehr.rm.util;
 
+import org.junit.Test;
 import org.openehr.rm.datastructure.itemstructure.ItemTree;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datatypes.quantity.DvOrdinal;
 
-public class OrdinalTest extends SkeletonGeneratorTestBase {
+import static org.junit.Assert.assertEquals;
+
+public class  OrdinalTest extends SkeletonGeneratorTestBase {
 
 	public OrdinalTest() throws Exception {
 	}
 
+	@Test
 	public void testDvOrdinalWithLocalCode() throws Exception {
 		archetype = loadArchetype("openEHR-EHR-ITEM_TREE.medication_test_seven.v1.adl");
 		expected = loadData("item_tree_medicataion_9.dadl");
@@ -22,7 +26,8 @@ public class OrdinalTest extends SkeletonGeneratorTestBase {
 		assertEquals(t2, t1);			
 		assertEquals(expected, instance);
 	}
-	
+
+	@Test
 	public void testDvOrdinalWithExternalCode() throws Exception {
 		archetype = loadArchetype("openEHR-EHR-ITEM_TREE.medication_test_eight.v1.adl");
 		expected = loadData("item_tree_medicataion_10.dadl");

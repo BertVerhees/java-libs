@@ -1,7 +1,10 @@
 package org.openehr.rm.util;
 
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.composition.content.entry.Observation;
+
+import static org.junit.Assert.*;
 
 
 public class TemplateIdTest extends SkeletonGeneratorTestBase {
@@ -9,7 +12,8 @@ public class TemplateIdTest extends SkeletonGeneratorTestBase {
 	public TemplateIdTest() throws Exception {
 		super();
 	}
-	
+
+	@Test
 	public void testWithBloodPressureArchetype() throws Exception {
 		archetype = loadArchetype("openEHR-EHR-OBSERVATION.blood_pressure.v2.adl");
 		String templateId = "Blood_pressure";

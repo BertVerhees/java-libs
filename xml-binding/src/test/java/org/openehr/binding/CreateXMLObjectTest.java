@@ -1,30 +1,35 @@
 package org.openehr.binding;
 
-import java.io.File;
-import java.lang.reflect.Method;
-
-import org.apache.commons.io.FileUtils;
+import org.junit.Test;
 import org.openehr.schemas.v1.*;
 
+import java.lang.reflect.Method;
+
+import static org.junit.Assert.*;
+
 public class CreateXMLObjectTest extends XMLBindingTestBase {
-	
+
+	@Test
 	public void testCreateDVTEXT() throws Exception {
 		DVTEXT dvtext = DVTEXT.Factory.newInstance();
 		dvtext.setValue("test value");		
 	}
-	
+
+	@Test
 	public void testCreateDvQuantity() throws Exception {
 		DVQUANTITY dvq = DVQUANTITY.Factory.newInstance();
 		dvq.setUnits("mmol/l");
 		dvq.setMagnitude(6.1);		
 	}
-	
+
+	@Test
 	public void testCreateElement() throws Exception {
 		ELEMENT element = ELEMENT.Factory.newInstance();
 		element.setName(dvText("name"));
 		element.setValue(dvQuantity(6.1, "mmol/l"));
 	}
-	
+
+	@Test
 	public void testCreateItemTree() throws Exception {
 		ITEMTREE tree = ITEMTREE.Factory.newInstance();
 		tree.setName(dvText("item tree"));
@@ -36,14 +41,16 @@ public class CreateXMLObjectTest extends XMLBindingTestBase {
 		assertEquals("element", 
 				((ELEMENT) tree.getItemsArray(0)).getName().getValue());
 	}
-	
+
+	@Test
 	public void testCreatePointEvent() throws Exception {
 		POINTEVENT pe = POINTEVENT.Factory.newInstance();
 		pe.setName(dvText("any event"));
 		pe.setTime(dvDateTime("2008-05-22T20:04:26"));
 		pe.setData(itemTree());
 	}
-	
+
+	@Test
 	public void testCreateObservation() throws Exception {
 		OBSERVATION obs = OBSERVATION.Factory.newInstance();
 		obs.setName(dvText("Lipid studies"));
@@ -57,7 +64,8 @@ public class CreateXMLObjectTest extends XMLBindingTestBase {
 		obs.setData(history());
 		//FileUtils.writeStringToFile(new File("xml.txt"), obs.toString(), null);
 	}
-	
+
+	@Test
 	public void testCreateInstanceWithReflection() throws Exception {
 		Class klass = Class.forName("org.openehr.schemas.v1.DVTEXT");
 		Class factoryClass = klass.getClasses()[0];
@@ -65,7 +73,8 @@ public class CreateXMLObjectTest extends XMLBindingTestBase {
 		Object obj = factoryMethod.invoke(null, null);
 		assertTrue(obj instanceof DVTEXT);
 	}
-	
+
+	@Test
 	public void testCallSetterWithReflection() throws Exception {
 		Class klass = Class.forName("org.openehr.schemas.v1.DVTEXT");
 		Class factoryClass = klass.getClasses()[0];
@@ -76,7 +85,7 @@ public class CreateXMLObjectTest extends XMLBindingTestBase {
 		
 		assertEquals("new value", ((DVTEXT) obj).getValue());
 	}
-	
+
 	private HISTORY history() {
 		HISTORY history = HISTORY.Factory.newInstance();
 		history.setName(dvText("data"));
@@ -85,7 +94,7 @@ public class CreateXMLObjectTest extends XMLBindingTestBase {
 		history.setEventsArray(0, pointEvent());
 		return history;
 	}
-	
+
 	private PARTYSELF partySelf() {
 		return PARTYSELF.Factory.newInstance();
 	}

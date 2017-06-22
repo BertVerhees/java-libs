@@ -1,12 +1,7 @@
 package org.openehr.rm.util;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.thoughtworks.xstream.XStream;
 import openEHR.v1.template.TEMPLATE;
-
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
 import org.openehr.am.archetype.Archetype;
@@ -22,13 +17,16 @@ import org.openehr.rm.support.measurement.MeasurementService;
 import org.openehr.rm.support.measurement.SimpleMeasurementService;
 import org.openehr.schemas.v1.COMPOSITION;
 import org.openehr.schemas.v1.CompositionDocument;
-
-import com.thoughtworks.xstream.XStream;
-
 import se.acode.openehr.parser.ADLParser;
-import junit.framework.TestCase;
 
-public class SkeletonGeneratorTestBase extends TestCase {
+import java.io.File;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertTrue;
+
+public class SkeletonGeneratorTestBase  {
 	
 	public SkeletonGeneratorTestBase() throws Exception {
 		dadlBinding = new DADLBinding();	
@@ -123,9 +121,13 @@ public class SkeletonGeneratorTestBase extends TestCase {
 		archetypeMap = new HashMap<String, Archetype>();
 		
 		for(String id : ids) {
-			Archetype archetype = loadArchetype(id + ".adl");
-			archetypeMap.put(archetype.getArchetypeId().toString(), archetype);
-		}			
+			try {
+				Archetype archetype = loadArchetype(id + ".adl");
+				archetypeMap.put(archetype.getArchetypeId().toString(), archetype);
+			}catch(Exception e){
+				throw new Exception("Failed archetype:"+id,e);
+			}
+		}
 	}
 	
 	protected void printXML(Object obj) throws Exception {

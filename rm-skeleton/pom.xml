@@ -64,7 +64,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.5</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -75,7 +75,7 @@
 		</dependency>
 		<dependency>
 			<groupId>openehr</groupId>
-			<artifactId>adl-serializer</artifactId>
+			<artifactId>adl-serializer-antlr</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>

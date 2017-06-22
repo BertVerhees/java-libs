@@ -13,6 +13,7 @@
  */
 package org.openehr.binding;
 
+import org.junit.Test;
 import org.openehr.rm.common.changecontrol.OriginalVersion;
 import org.openehr.rm.composition.Composition;
 import org.openehr.rm.composition.content.entry.Observation;
@@ -22,10 +23,15 @@ import org.openehr.schemas.v1.ORIGINALVERSION;
 import org.openehr.schemas.v1.VERSION;
 import org.openehr.schemas.v1.VersionDocument;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 public class RMBindingTest extends XMLBindingTestBase {
 
 	// Parse a complete versioned_composition from a XML file
 	// and bind the data to RM objects and then inspect the details
+	@Test
 	public void testParseAndBindToOriginalVersion() throws Exception {
 		VERSION xobj = VersionDocument.Factory.parse(
 				fromClasspath("original_version_002.xml")).getVersion();

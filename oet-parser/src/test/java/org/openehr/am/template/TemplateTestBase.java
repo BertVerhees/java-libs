@@ -28,7 +28,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TemplateTestBase extends TestCase {
+import static org.junit.Assert.*;
+
+public class TemplateTestBase {
 	
 	TemplateTestBase() {
 		try {

@@ -1,10 +1,13 @@
 package org.openehr.rm.util;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.Test;
+import org.openehr.am.archetype.Archetype;
+
 import java.io.File;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-import org.openehr.am.archetype.Archetype;
+import static org.junit.Assert.assertNotNull;
 
 public class GenerateHypersensitivityTest extends SkeletonGeneratorTestBase {
 
@@ -13,6 +16,7 @@ public class GenerateHypersensitivityTest extends SkeletonGeneratorTestBase {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Test
 	public void testGenerateSimpleHypersensitivity() throws Exception {
 		Archetype archetype = loadArchetype("openEHR-EHR-EVALUATION.hypersensitivity.v1.adl");
 		assertNotNull(archetype);

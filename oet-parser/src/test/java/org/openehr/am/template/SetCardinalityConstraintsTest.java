@@ -3,6 +3,8 @@ package org.openehr.am.template;
 import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.*;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * The cardinality of the parent container is calculated based on 
  * occurrences of the child elements

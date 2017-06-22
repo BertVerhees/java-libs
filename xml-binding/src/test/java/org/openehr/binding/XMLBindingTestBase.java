@@ -1,13 +1,13 @@
 package org.openehr.binding;
 
+import com.thoughtworks.xstream.XStream;
+import org.junit.Before;
+
 import java.io.InputStream;
 
-import com.thoughtworks.xstream.XStream;
-
-import junit.framework.TestCase;
-
-public class XMLBindingTestBase extends TestCase {
+public class XMLBindingTestBase {
 	
+	@Before
 	public void setUp() throws Exception {
 		binding = new XMLBinding();
 	}

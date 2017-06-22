@@ -13,19 +13,22 @@
  */
 package org.openehr.binding;
 
-import java.io.*;
-
-import org.openehr.rm.datastructure.itemstructure.ItemTree;
+import org.junit.Test;
 import org.openehr.schemas.v1.*;
-import junit.framework.TestCase;
+
+import java.io.InputStream;
+
+import static org.junit.Assert.*;
 
 /**
  * Verify XML parsing is OK
  * 
  * @author Rong.Chen
  */
-public class XMLParsingTest extends TestCase {
-	
+public class XMLParsingTest {
+	private static final double DELTA = 1e-15;
+
+	@Test
 	public void testParseItemTree() throws Exception {
 		ItemsDocument xobj = ItemsDocument.Factory.parse(fromClasspath("item_tree.xml"));
 		Object obj = xobj.getItems();
@@ -39,9 +42,10 @@ public class XMLParsingTest extends TestCase {
 				element.getName().getValue());
 		
 		DVQUANTITY quantity = (DVQUANTITY) element.getValue();
-		assertEquals("quantity.magnitude wrong", 100.0, quantity.getMagnitude());
+		assertEquals("quantity.magnitude wrong", 100.0, quantity.getMagnitude(), DELTA);
 	}
-	
+
+	@Test
 	public void testParseItemTree2() throws Exception {
 		ItemsDocument xobj = ItemsDocument.Factory.parse(fromClasspath("item_tree_002.xml"));
 		Object obj = xobj.getItems();
@@ -51,7 +55,8 @@ public class XMLParsingTest extends TestCase {
 		assertEquals("tree.name wrong", "data", tree.getName().getValue());
 		
 	}
-	
+
+	@Test
 	public void testParseCompositionAndVerifyTheContent() throws Exception {
 		CompositionDocument compDoc = CompositionDocument.Factory.parse(
 				fromClasspath("composition.xml"));	
@@ -80,9 +85,10 @@ public class XMLParsingTest extends TestCase {
 		ELEMENT element = (ELEMENT) itemTree.getItemsArray(0);
 		
 		assertEquals("observation.data.events[0].items[0].data.value.magnitude",
-				6.1, ((DVQUANTITY) element.getValue()).getMagnitude());		
+				6.1, ((DVQUANTITY) element.getValue()).getMagnitude(), DELTA);
 	}
 
+	@Test
 	public void testParseOriginalVersion() throws Exception {
 		VERSION xobj = VersionDocument.Factory.parse(fromClasspath(
 				"original_version_001.xml")).getVersion();

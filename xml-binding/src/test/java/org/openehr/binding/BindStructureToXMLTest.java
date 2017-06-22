@@ -1,11 +1,7 @@
 package org.openehr.binding;
 
-import java.util.*;
-
-import javax.xml.namespace.QName;
-
-import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.common.changecontrol.OriginalVersion;
 import org.openehr.rm.common.generic.PartyProxy;
@@ -14,7 +10,6 @@ import org.openehr.rm.composition.content.entry.Observation;
 import org.openehr.rm.datastructure.history.Event;
 import org.openehr.rm.datastructure.history.History;
 import org.openehr.rm.datastructure.history.PointEvent;
-import org.openehr.rm.datastructure.itemstructure.ItemList;
 import org.openehr.rm.datastructure.itemstructure.ItemStructure;
 import org.openehr.rm.datastructure.itemstructure.ItemTree;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
@@ -29,8 +24,17 @@ import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.schemas.v1.*;
 import org.openehr.terminology.SimpleTerminologyService;
 
+import javax.xml.namespace.QName;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import static org.junit.Assert.*;
+
 public class BindStructureToXMLTest extends XMLBindingTestBase {
-	
+	private static final double DELTA = 1e-15;
+
+	@Test
 	public void testBindElementToXML() throws Exception {
 		DvText text = new DvText("new text");
 		Element element = new Element("at0001", "text element", text);
@@ -45,7 +49,8 @@ public class BindStructureToXMLTest extends XMLBindingTestBase {
 		DVTEXT xmlText = (DVTEXT) xmlElement.getValue();
 		assertEquals("text value wrong", "new text", xmlText.getValue());
 	}
-	
+
+	@Test
 	public void testBindEmptyElementToXML() throws Exception {
 		DvCodedText nullFlavor = new DvCodedText("no information", 
 				new CodePhrase(TerminologyService.OPENEHR, "271")); 
@@ -63,8 +68,9 @@ public class BindStructureToXMLTest extends XMLBindingTestBase {
 		assertNull("value type wrong", xmlElement.getValue());
 		assertNotNull("nullFlavor null", xmlElement.getNullFlavour());
 	}
-	
-	
+
+
+	@Test
 	public void testBindItemTreeToXML() throws Exception {
 		DvText text = new DvText("new text");
 		Element element1 = new Element("at0001", "text element", text);
@@ -97,9 +103,10 @@ public class BindStructureToXMLTest extends XMLBindingTestBase {
 		
 		ELEMENT xmlItem2 = (ELEMENT) xmlTree.getItemsArray()[1];
 		assertTrue("item2 type wrong", xmlItem2.getValue() instanceof DVQUANTITY);
-		assertEquals(10.0, ((DVQUANTITY) xmlItem2.getValue()).getMagnitude());	
+		assertEquals(10.0, ((DVQUANTITY) xmlItem2.getValue()).getMagnitude(), DELTA);
 	}
-	
+
+	@Test
 	public void testBindObservationToXML() throws Exception {
 		DvText text = new DvText("new text");
 		Element element1 = new Element("at0001", "text element", text);
@@ -149,6 +156,7 @@ public class BindStructureToXMLTest extends XMLBindingTestBase {
 	
 	// TODO shortcut solution, load a versioned_composition
 	// thru xml file and bind it to RM objects
+	@Test
 	public void testBindVersionedCompositionToXML() throws Exception {
 		VERSION xobj = VersionDocument.Factory.parse(
 				fromClasspath("original_version_002.xml")).getVersion();

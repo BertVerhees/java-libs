@@ -1,14 +1,19 @@
 package org.openehr.rm.util;
 
+import org.junit.Test;
 import org.openehr.rm.datastructure.itemstructure.ItemTree;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datatypes.text.DvCodedText;
 
+import static org.junit.Assert.assertEquals;
+
 public class CodedTextTest extends SkeletonGeneratorTestBase {
 	
-	public CodedTextTest() throws Exception {		
+	public CodedTextTest() throws Exception {
+		super();
 	}
 
+	@Test
 	public void testSingleCodedTextElementTreeWithTermMap() throws Exception {
 		archetype = loadArchetype("openEHR-EHR-ITEM_TREE.medication_test_two.v1.adl");
 		expected = loadData("item_tree_medicataion_8.dadl");
@@ -26,7 +31,8 @@ public class CodedTextTest extends SkeletonGeneratorTestBase {
 		assertEquals(e2, e1);	
 		assertEquals(expected, instance);
 	}
-	
+
+	@Test
 	public void testCodedTextElementWithLocalTerm() throws Exception {
 		archetype = loadArchetype("openEHR-EHR-ITEM_TREE.medication_test_nine.v1.adl");
 		expected = loadData("item_tree_medicataion_11.dadl");
@@ -44,7 +50,8 @@ public class CodedTextTest extends SkeletonGeneratorTestBase {
 		assertEquals(e1, e2);	
 		assertEquals(expected, instance);
 	}
-	
+
+	@Test
 	public void testSingleCodedTextElementTree() throws Exception {
 		archetype = loadArchetype("openEHR-EHR-ITEM_TREE.medication_test_two.v1.adl");
 		expected = loadData("item_tree_medicataion_2.dadl");
