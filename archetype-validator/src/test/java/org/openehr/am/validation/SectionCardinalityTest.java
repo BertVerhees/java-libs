@@ -1,8 +1,13 @@
 package org.openehr.am.validation;
 
-public class SectionCardinalityTest 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+public class SectionCardinalityTest
 		extends ArchetypeValidationTestBase {
 
+	@Test
 	public void testCheckSectionItemsCardinality() throws Exception {
 		checkObjectConstraints("openEHR-EHR-SECTION.testitemscardinality.v1.adl");
 		assertEquals("expected NO validation error", 0, errors.size());			

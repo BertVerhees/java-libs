@@ -1,11 +1,20 @@
 package org.openehr.am.archetype.ontology;
 
-import junit.framework.TestCase;
-import java.util.*;
+import org.junit.After;
+import org.junit.Before;
 
-public class ArchetypeOntologyTest extends TestCase {
-	
-	public void setUp() {
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+
+public class ArchetypeOntologyTest {
+
+	@Before
+	public void setUp() throws Exception {
 		String primaryLanguage = "en";
 		List<String> languages = new ArrayList<String>();
 		languages.add("en");
@@ -45,7 +54,8 @@ public class ArchetypeOntologyTest extends TestCase {
 		ontology = new ArchetypeOntology(primaryLanguage,
 				terminologies, termDefinitionsList, constDefinitionsList, null, null);
 	}
-	
+
+	@After
 	public void tearDown() {
 		ontology = null;
 		item0001 = null;

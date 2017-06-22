@@ -4,9 +4,9 @@ import org.openehr.rm.datatypes.basic.DataValue;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
 
-import junit.framework.TestCase;
+import static junit.framework.Assert.*;
 
-public class DvOrdinalTest extends TestCase {
+public class DvOrdinalTest  {
 	
 	public void testCreateDvOrdinalWithNegativeValue() {
         CodePhrase definingCode = new CodePhrase("test", "123");

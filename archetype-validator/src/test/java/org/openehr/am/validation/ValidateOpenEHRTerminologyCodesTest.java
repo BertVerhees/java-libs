@@ -1,8 +1,11 @@
 package org.openehr.am.validation;
 
-public class ValidateOpenEHRTerminologyCodesTest 
+import org.junit.Test;
+
+public class ValidateOpenEHRTerminologyCodesTest
 		extends ArchetypeValidationTestBase {
-	
+
+	@Test
 	public void testCheckTypeNameDvIntervalWithWrongGenericType() throws Exception {
 		CheckCodes("adl-test-ELEMENT.type_multimedia.v2.adl");
 	//	assertFirstErrorType(ErrorType.VOTC);

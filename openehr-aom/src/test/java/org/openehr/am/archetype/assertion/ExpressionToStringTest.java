@@ -2,7 +2,7 @@ package org.openehr.am.archetype.assertion;
 
 import org.openehr.am.archetype.constraintmodel.primitive.CString;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Testcases for toString function of expression items
@@ -10,7 +10,7 @@ import junit.framework.TestCase;
  * @author rong.chen
  *
  */
-public class ExpressionToStringTest extends TestCase {
+public class ExpressionToStringTest {
 
 	public void testSimpleInvariantToString() throws Exception {
 		ExpressionLeaf num = new ExpressionLeaf(ExpressionItem.REAL,

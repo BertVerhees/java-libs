@@ -1,13 +1,19 @@
 package org.openehr.am.validation;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
 public class SingleValueAttributeChildIdentifierCheckTest
 	extends ArchetypeValidationTestBase {
 
+	@Test
 	public void testCheckSingleAttributeChildIdentifierWithGoodIds() throws Exception {
 		checkAttribute("adl-test-ENTRY.single_attribute_child_identifier.v1");
 		assertEquals("expected no validation error", 0,	errors.size());	
 	}
-	
+
+	@Test
 	public void testCheckSingleAttributeChildIdentifierWithDuplicatedIds() throws Exception {
 		checkAttribute("adl-test-ENTRY.single_attribute_child_identifier.v2");
 		assertEquals("expected validation error", 1, errors.size());

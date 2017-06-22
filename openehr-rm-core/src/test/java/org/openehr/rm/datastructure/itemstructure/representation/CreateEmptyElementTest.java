@@ -6,9 +6,7 @@ import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.rm.support.terminology.TestTerminologyAccess;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
-import junit.framework.TestCase;
-
-public class CreateEmptyElementTest extends TestCase {
+public class CreateEmptyElementTest  {
 
 	public void testCreateElement() {
 		TerminologyService ts = TestTerminologyService.getInstance();

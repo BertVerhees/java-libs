@@ -26,7 +26,7 @@ import java.util.TimeZone;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-public class DvTimeTest extends TestCase {
+public class DvTimeTest  {
 
     public DvTimeTest(String test) {
         super(test);

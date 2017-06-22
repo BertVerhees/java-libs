@@ -20,32 +20,15 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
-import junit.framework.TestCase;
 import org.openehr.rm.support.basic.Interval;
 
 import java.util.Arrays;
 
-public class CIntegerTest extends TestCase {
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-    public CIntegerTest(String test) {
-        super(test);
-    }
+public class CIntegerTest {
 
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
-
-    /**
-     * Tests validValue() with a list of integer values or an interval
-     */
     public void testValidValue() {
         CInteger ci = new CInteger(new Interval<Integer>(null, new Integer(10),
                 false, false), null);

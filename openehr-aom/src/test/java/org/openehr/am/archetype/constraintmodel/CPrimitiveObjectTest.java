@@ -3,9 +3,7 @@ package org.openehr.am.archetype.constraintmodel;
 import org.openehr.am.archetype.constraintmodel.primitive.CString;
 import org.openehr.rm.support.basic.Interval;
 
-import junit.framework.TestCase;
-
-public class CPrimitiveObjectTest extends TestCase {
+public class CPrimitiveObjectTest  {
 	
 	public void testConstructorWithItem() {
 		Interval<Integer> occurrences = new Interval<Integer>(1, 1);

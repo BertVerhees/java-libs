@@ -20,27 +20,11 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
-import junit.framework.TestCase;
-
 import java.util.Arrays;
 
-public class CStringTest extends TestCase {
+import static org.junit.Assert.*;
 
-    public CStringTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
+public class CStringTest {
 
     public void testValidValue() throws Exception {
         CString cs = new CString("file.*", null);

@@ -9,7 +9,7 @@ import org.openehr.rm.support.terminology.TestTerminologyAccess;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 import org.openehr.terminology.SimpleTerminologyService;
 
-public class ISMTransitionTest extends TestCase {
+public class ISMTransitionTest  {
 
 	/**
 	 * Verifies a bug fix in the constructor of ISMTransition

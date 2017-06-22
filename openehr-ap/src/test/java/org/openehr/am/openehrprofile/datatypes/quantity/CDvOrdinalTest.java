@@ -1,14 +1,15 @@
 package org.openehr.am.openehrprofile.datatypes.quantity;
 
-import java.util.*;
-
 import org.openehr.am.archetype.constraintmodel.CAttribute;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.basic.Interval;
 
-import junit.framework.TestCase;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CDvOrdinalTest extends TestCase {
+import static org.junit.Assert.*;
+
+public class CDvOrdinalTest {
 	
 	public void testCreateEmptyCDvOrdinal() {
 		String path = "/term_definitions[en]/items[at0001]/text/";

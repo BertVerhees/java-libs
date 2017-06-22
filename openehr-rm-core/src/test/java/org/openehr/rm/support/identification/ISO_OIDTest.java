@@ -22,7 +22,7 @@ package org.openehr.rm.support.identification;
 
 import junit.framework.TestCase;
 
-public class ISO_OIDTest extends TestCase {
+public class ISO_OIDTest  {
 
     public ISO_OIDTest(String test) {
         super(test);

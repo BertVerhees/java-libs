@@ -68,7 +68,7 @@ import org.openehr.rm.support.terminology.TestTerminologyService;
  * @author Rong Chen
  * @version 1.0
  */
-public class DemographicTestBase extends TestCase {
+public class DemographicTestBase  {
 
 	/**
 	 * Constructs a test case with the given name.

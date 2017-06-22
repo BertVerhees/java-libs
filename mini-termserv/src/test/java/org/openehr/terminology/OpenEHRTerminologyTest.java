@@ -1,20 +1,19 @@
 package org.openehr.terminology;
 
+import org.openehr.rm.datatypes.text.CodePhrase;
+import org.openehr.rm.support.terminology.CodeSetAccess;
+import org.openehr.rm.support.terminology.OpenEHRCodeSetIdentifiers;
+import org.openehr.rm.support.terminology.TerminologyAccess;
+import org.openehr.rm.support.terminology.TerminologyService;
+
 import java.util.Set;
 
-import org.openehr.rm.datatypes.text.CodePhrase;
-import org.openehr.rm.support.terminology.*;
+import static junit.framework.Assert.*;
 
-import junit.framework.TestCase;
-
-public class OpenEHRTerminologyTest extends TestCase {
+public class OpenEHRTerminologyTest  {
 	
 	public OpenEHRTerminologyTest() throws Exception {
 		service = SimpleTerminologyService.getInstance();
-	}
-	
-	public void setUp() throws Exception {
-		
 	}
 	
 	public void testHasOpenEHRSettingCode() {

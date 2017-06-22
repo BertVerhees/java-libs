@@ -20,28 +20,13 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
-import junit.framework.TestCase;
 import org.openehr.rm.support.basic.Interval;
 
 import java.util.Arrays;
 
-public class CRealTest extends TestCase {
+import static org.junit.Assert.assertTrue;
 
-    public CRealTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
+public class CRealTest  {
 
     public void testValidValue() throws Exception {
         CReal cr = new CReal(new Interval<Double>(null, new Double(10),

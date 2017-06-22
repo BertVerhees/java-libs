@@ -20,26 +20,11 @@
  */
 package org.openehr.rm.common.archetyped;
 
-import junit.framework.TestCase;
 import org.openehr.rm.support.identification.ArchetypeID;
 
-public class ArchetypedTest extends TestCase {
+import static org.junit.Assert.*;
 
-    public ArchetypedTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
+public class ArchetypedTest  {
 
     public void testConstructor() throws Exception {
         new Archetyped(aid("openehr-ehr_rm-section.physical_examination.v2"),

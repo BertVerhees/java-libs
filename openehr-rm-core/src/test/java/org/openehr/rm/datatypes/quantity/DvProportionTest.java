@@ -15,7 +15,7 @@ package org.openehr.rm.datatypes.quantity;
 
 import junit.framework.TestCase;
 
-public class DvProportionTest extends TestCase {
+public class DvProportionTest  {
 	
 	public void testIsIntegeralWithFraction() {
 		DvProportion p = new DvProportion(1, 2, ProportionKind.FRACTION, 0);

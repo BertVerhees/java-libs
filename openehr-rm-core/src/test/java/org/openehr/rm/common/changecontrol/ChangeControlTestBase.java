@@ -39,7 +39,7 @@ import org.openehr.rm.support.identification.PartyRef;
 import org.openehr.rm.support.identification.TestTerminologyID;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
-public class ChangeControlTestBase extends TestCase {
+public class ChangeControlTestBase  {
 
 	public ChangeControlTestBase(String testName) {
 		super(testName);

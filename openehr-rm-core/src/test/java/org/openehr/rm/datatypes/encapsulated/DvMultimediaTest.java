@@ -7,7 +7,7 @@ import org.openehr.rm.support.terminology.TestTerminologyService;
 
 import junit.framework.TestCase;
 
-public class DvMultimediaTest extends TestCase {
+public class DvMultimediaTest  {
 	
 	public void testCreateSimpleDvMultimedia() throws Exception {
 		CodePhrase charset = new CodePhrase("IANA_character-sets", "UTF-8"); 

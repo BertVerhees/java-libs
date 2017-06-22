@@ -1,14 +1,20 @@
 package org.openehr.am.validation;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
 public class TermBindingsValidityTest extends ArchetypeValidationTestBase {
-	
-	public void testTermBindingCorrectOnly() throws Exception {		
+
+	@Test
+	public void testTermBindingCorrectOnly() throws Exception {
 		checkTermBinding("adl-test-ENTRY.term_bindings.v1");		
 		assertEquals("expected no error in term binding checking", 
 				0, errors.size());
 	}
-	
-	public void testTermBindingWrongPaths() throws Exception {		
+
+	@Test
+	public void testTermBindingWrongPaths() throws Exception {
 		checkTermBinding("adl-test-ENTRY.term_bindings.v2");		
 		assertEquals("expected validation errors in term binding checking", 4, 
 			errors.size());		

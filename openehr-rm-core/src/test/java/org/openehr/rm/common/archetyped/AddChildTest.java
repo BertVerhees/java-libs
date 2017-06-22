@@ -1,15 +1,16 @@
 package org.openehr.rm.common.archetyped;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.openehr.rm.datastructure.itemstructure.ItemList;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datatypes.text.DvText;
 
-import junit.framework.TestCase;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AddChildTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+public class AddChildTest  {
 	
 	public void testAddItemToList() throws Exception {
 		ItemList list = itemList();

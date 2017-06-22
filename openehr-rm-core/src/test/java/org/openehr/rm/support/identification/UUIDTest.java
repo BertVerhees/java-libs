@@ -13,7 +13,7 @@ import junit.framework.*;
  *
  * @author yinsulim
  */
-public class UUIDTest extends TestCase {
+public class UUIDTest  {
     
     public UUIDTest(String testName) {
         super(testName);

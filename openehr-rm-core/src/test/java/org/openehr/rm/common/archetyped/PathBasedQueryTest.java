@@ -9,7 +9,7 @@ import org.openehr.rm.datastructure.itemstructure.ItemList;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datatypes.text.*;
 
-public class PathBasedQueryTest extends TestCase {
+public class PathBasedQueryTest  {
 
 	public void testPathWithCommaInNamePredicate() throws Exception {
 		DvText text = new DvText("yes");

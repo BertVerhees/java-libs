@@ -4,7 +4,9 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-public class PathUtilTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+
+public class PathUtilTest  {
 		
 	public void testDividePathIntoSegments() throws Exception {
 		String path = "/content[openEHR-EHR-SECTION.ad_hoc_heading.v1 and " +

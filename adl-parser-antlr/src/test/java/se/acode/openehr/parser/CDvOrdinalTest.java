@@ -101,6 +101,21 @@ public class CDvOrdinalTest extends ParserTestBase {
     }
 
     @Test
+    public void testSNOMED() throws Exception {
+        node = archetype.node("/types[at0001]/items[at10006]/value");
+        String[] codes = {
+                "1201000053901", "1201000053902", "1201000053903"
+        };
+        int[] values = { 1, 2, 3 };
+        String terminology = "SNOMED-CT";
+
+        assertFalse("expected not to have assumed value",
+                ((CDvOrdinal) node).hasAssumedValue());
+
+        assertCDvOrdinal(node, terminology, codes, values, null);
+    }
+
+    @Test
     public void testEmptyCDvOrdinal() throws Exception {
     	node = archetype.node("/types[at0001]/items[at10003]/value");
     	assertTrue("CDvOrdinal expected", node instanceof CDvOrdinal);

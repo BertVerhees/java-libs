@@ -1,16 +1,18 @@
 package org.openehr.am.openehrprofile.datatypes.quantity;
 
-import java.util.*;
-
 import org.openehr.am.archetype.constraintmodel.CAttribute;
-import org.openehr.rm.support.basic.Interval;
 import org.openehr.rm.datatypes.quantity.DvQuantity;
 import org.openehr.rm.datatypes.text.CodePhrase;
-import org.openehr.rm.support.measurement.*;
+import org.openehr.rm.support.basic.Interval;
+import org.openehr.rm.support.measurement.MeasurementService;
+import org.openehr.rm.support.measurement.SimpleMeasurementService;
 
-import junit.framework.TestCase;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CDvQuantityTest extends TestCase {
+import static org.junit.Assert.*;
+
+public class CDvQuantityTest  {
 	
 	public void testCreateEmptyCDvQuantity() {
 		String path = "/term_definitions[en]/items[at0001]/text/";

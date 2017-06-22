@@ -1,30 +1,39 @@
 package org.openehr.am.validation;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
 public class OntologyCodeSpecialisationCheckTest extends ArchetypeValidationTestBase {
-	
+
+	@Test
 	public void testCheckWithNoCodeSpecialisation() throws Exception {
 		checkCodeSpecialisation("adl-test-ENTRY.ontology-specialisation.v1.adl");
 		assertEquals("unexpected validation error: " + errors, 0,	
 				errors.size());	
 	}
-	
+
+	@Test
 	public void testCheckWithCorrectCodeSpecialisation() throws Exception {
 		checkCodeSpecialisation("adl-test-ENTRY.ontology-specialisation.v2.adl");
 		assertEquals("unexpected validation error: " + errors, 0,	
 				errors.size());	
 	}
-	
+
+	@Test
 	public void testCheckWithCorrectThreeLevelSpecialisation() throws Exception {
 		checkCodeSpecialisation("adl-test-ENTRY.ontology-specialisation.v5.adl");
 		assertEquals("unexpected validation error: " + errors, 0,	
 				errors.size());	
 	}
-	
+
+	@Test
 	public void testCheckWithGreaterSpecialisationLevelInTermDef() throws Exception {
 		checkCodeSpecialisation("adl-test-ENTRY.ontology-specialisation.v3.adl");
 		assertFirstErrorType(ErrorType.VONSD);
 	}
 
+	@Test
 	public void testCheckWithGreaterSpecialisationLevelInConstraintDef() throws Exception {
 		checkCodeSpecialisation("adl-test-ENTRY.ontology-specialisation.v4.adl");
 		assertFirstErrorType(ErrorType.VONSD);

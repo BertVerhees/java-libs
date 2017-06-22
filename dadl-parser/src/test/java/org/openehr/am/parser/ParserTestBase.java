@@ -18,8 +18,6 @@
  */
 package org.openehr.am.parser;
 
-import junit.framework.TestCase;
-
 import java.io.File;
 import java.io.InputStream;
 
@@ -29,15 +27,8 @@ import java.io.InputStream;
  * @author Rong Chen
  * @version 1.0
  */
-public class ParserTestBase extends TestCase {
+public class ParserTestBase  {
 
-    public ParserTestBase(String test) {
-        super(test);
-    }
-    
-    public ParserTestBase(){    	
-    }
-    
     protected InputStream loadFromClasspath(String adl) throws Exception {
     	return this.getClass().getClassLoader().getResourceAsStream(adl);
     }

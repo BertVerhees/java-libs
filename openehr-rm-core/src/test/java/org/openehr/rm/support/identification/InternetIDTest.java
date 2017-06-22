@@ -23,7 +23,7 @@ package org.openehr.rm.support.identification;
 
 import junit.framework.*;
 
-public class InternetIDTest extends TestCase {
+public class InternetIDTest {
     
     public InternetIDTest(String testName) {
         super(testName);

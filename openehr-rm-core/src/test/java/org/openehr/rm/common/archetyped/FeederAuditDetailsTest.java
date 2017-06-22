@@ -24,17 +24,9 @@ import org.openehr.rm.common.generic.PartyIdentified;
 import org.openehr.rm.common.generic.PartyProxy;
 import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
-public class FeederAuditDetailsTest extends TestCase {
-
-	protected void setUp() throws Exception {
-		super.setUp();
-	}
-
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
+public class FeederAuditDetailsTest  {
 
     public void testConstructor() throws Exception {
 

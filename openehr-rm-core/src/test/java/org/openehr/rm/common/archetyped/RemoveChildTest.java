@@ -1,14 +1,15 @@
 package org.openehr.rm.common.archetyped;
 
-import java.util.*;
-
-import junit.framework.TestCase;
-
 import org.openehr.rm.datastructure.itemstructure.ItemList;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datatypes.text.DvText;
 
-public class RemoveChildTest extends TestCase {
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
+
+public class RemoveChildTest  {
 	
 	public void testRemove1stChildFromList() throws Exception {
 		ItemList list = itemList();

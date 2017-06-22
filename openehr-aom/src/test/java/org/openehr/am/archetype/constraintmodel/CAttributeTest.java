@@ -20,25 +20,9 @@
  */
 package org.openehr.am.archetype.constraintmodel;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
-public class CAttributeTest extends TestCase {
-
-	public CAttributeTest(String test) {
-		super(test);
-	}
-
-	/**
-	 * The fixture set up called before every test method.
-	 */
-	protected void setUp() throws Exception {
-	}
-		
-	/**
-	 * The fixture clean up called after every test method.
-	 */
-	protected void tearDown() throws Exception {
-	}
+public class CAttributeTest {
 
 	public void testParentNodePath() throws Exception {
 		CAttribute cattr = new TestCAttribute(

@@ -13,14 +13,20 @@
  */
 package org.openehr.terminology;
 
+import org.junit.Before;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.terminology.CodeSetAccess;
 
-import java.util.*;
-import junit.framework.TestCase;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
-public class SimpleCodeSetAccessTest extends TestCase {
-	
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+
+public class SimpleCodeSetAccessTest  {
+
+	@Before
 	public void setUp() {
 		String id = CODESET_ID;
 		Set<String> codes = new HashSet<String>(Arrays.asList(CODES));

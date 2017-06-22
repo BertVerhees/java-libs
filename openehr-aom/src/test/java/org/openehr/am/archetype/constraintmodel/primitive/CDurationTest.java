@@ -20,30 +20,12 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
-import junit.framework.TestCase;
-
 import org.openehr.rm.datatypes.quantity.datetime.DvDuration;
 import org.openehr.rm.support.basic.Interval;
 
-public class CDurationTest extends TestCase {
+import static org.junit.Assert.*;
 
-    public CDurationTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    @Override
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    @Override
-    protected void tearDown() throws Exception {
-    }
+public class CDurationTest {
 
     public void testAssignedValue() throws Exception {
         CDuration cd = new CDuration(null,

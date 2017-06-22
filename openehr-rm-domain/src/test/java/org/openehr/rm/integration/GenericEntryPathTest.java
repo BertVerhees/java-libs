@@ -24,7 +24,7 @@ import org.openehr.rm.datatypes.quantity.DvQuantity;
 
 import junit.framework.TestCase;
 
-public class GenericEntryPathTest extends TestCase {
+public class GenericEntryPathTest  {
 	
 	public void setUp() {
 		String archetypeNodeId = "at0001";

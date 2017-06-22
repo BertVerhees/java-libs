@@ -1,14 +1,13 @@
 package org.openehr.terminology;
 
-import java.util.*;
-
 import org.openehr.rm.common.resource.TranslationDetails;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.terminology.TerminologyService;
 
-import junit.framework.TestCase;
+import java.util.HashMap;
+import java.util.Map;
 
-public class TranslationDetailsTest extends TestCase {
+public class TranslationDetailsTest  {
 	
 	public void testCreateTranslationDetails() throws Exception {
 		CodePhrase language = new CodePhrase("ISO_639-1", "en");

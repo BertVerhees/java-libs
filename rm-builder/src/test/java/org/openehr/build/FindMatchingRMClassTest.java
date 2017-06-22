@@ -35,7 +35,7 @@ import org.openehr.terminology.SimpleTerminologyService;
 
 import junit.framework.TestCase;
 
-public class FindMatchingRMClassTest extends TestCase {
+public class FindMatchingRMClassTest  {
 	
 	public FindMatchingRMClassTest() throws Exception {
 		builder = new RMObjectBuilder();

@@ -1,13 +1,15 @@
 package org.openehr.am.archetype.ontology;
 
-import junit.framework.TestCase;
+import org.junit.Before;
 
-public class ArchetypeTermTest extends TestCase {
-	
+import static org.junit.Assert.assertEquals;
+
+public class ArchetypeTermTest {
+	@Before
 	public void setUp() {
 		term = new ArchetypeTerm("at0001", TEXT, DESC);
 	}
-	
+	@Before
 	public void tearDown() {
 		term = null;		
 	}

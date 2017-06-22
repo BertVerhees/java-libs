@@ -49,7 +49,7 @@ public class ArchetypeOntology  implements Serializable{
                              List<OntologyDefinitions> termDefinitionsList,
                              List<OntologyDefinitions> constDefinitionsList,
                              List<OntologyBinding> termBindingList,
-                             List<OntologyBinding> constraintBindingList) {
+                             List<OntologyBinding> constraintBindingList) throws Exception {
         this.primaryLanguage = primaryLanguage;
         this.terminologies = terminologies;
         this.termDefinitionsList = termDefinitionsList;
@@ -70,7 +70,7 @@ public class ArchetypeOntology  implements Serializable{
     }
 
     private void loadDefs(Map<String, Map<String, ArchetypeTerm>> map,
-                          List<OntologyDefinitions> list) {
+                          List<OntologyDefinitions> list) throws Exception {
         if (list == null) {
             return;
         }
@@ -83,7 +83,10 @@ public class ArchetypeOntology  implements Serializable{
             for (ArchetypeTerm item : defs.getDefinitions()) {
                 codeMap.put(item.getCode(), item);
             }
-            map.put(defs.getLanguage(), codeMap);
+            Map<String, ArchetypeTerm> codeMapAdded = map.put(defs.getLanguage(), codeMap);
+            if(codeMapAdded!=null){
+                throw new Exception("The language:"+defs.getLanguage()+" seems to appear more then one time in this definition list.");
+            }
         }
     }
 

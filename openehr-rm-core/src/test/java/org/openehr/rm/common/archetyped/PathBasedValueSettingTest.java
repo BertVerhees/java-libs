@@ -21,7 +21,7 @@ import junit.framework.TestCase;
  *
  */
 
-public class PathBasedValueSettingTest extends TestCase {
+public class PathBasedValueSettingTest  {
 	
 	public void testSetDvTextOnElement() throws Exception {
 		String text = "test text";

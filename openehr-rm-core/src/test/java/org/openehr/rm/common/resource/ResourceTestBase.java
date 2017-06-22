@@ -33,7 +33,7 @@ import org.openehr.rm.support.identification.TestTerminologyID;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
-public class ResourceTestBase extends TestCase {
+public class ResourceTestBase  {
     
     /** Creates a new instance of ResourceTestBase */
     public ResourceTestBase(String name) {

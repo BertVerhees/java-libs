@@ -1,9 +1,16 @@
 package org.openehr.am.validation;
 
+import org.junit.Test;
+
 import java.util.Set;
 
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 public class ValidatorUtilityTest extends ArchetypeValidationTestBase {
-	
+
+	@Test
 	public void testFetchAllATCodes() throws Exception {
 		archetype = loadArchetype("openEHR-EHR-EVALUATION.problem-diagnosis.v1.adl");
 		
@@ -23,8 +30,9 @@ public class ValidatorUtilityTest extends ArchetypeValidationTestBase {
 		// two codes are not used in the actual archetype
 		assertTrue("total number of fetched AT codes wrong", 
 				expectedNumOfATCodes >= codes.size());		
-	}	
-	
+	}
+
+	@Test
 	public void testFetchAllACCodes() throws Exception {
 		archetype = loadArchetype("openEHR-EHR-EVALUATION.problem-diagnosis.v1.adl");
 		
@@ -36,8 +44,9 @@ public class ValidatorUtilityTest extends ArchetypeValidationTestBase {
 		assertTrue("ac0000 missing", codes.contains("ac0000"));
 		
 		assertTrue("ac0.1 missing", codes.contains("ac0.1"));				
-	}	
-	
+	}
+
+	@Test
 	public void testCheckErrorDescriptionExists() throws Exception {
 		checkTerm("adl-test-ENTRY.term_definition.v3");			
 		for(ValidationError error : errors) {

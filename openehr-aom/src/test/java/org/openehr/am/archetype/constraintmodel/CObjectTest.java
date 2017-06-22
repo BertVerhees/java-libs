@@ -2,9 +2,10 @@ package org.openehr.am.archetype.constraintmodel;
 
 import org.openehr.rm.support.basic.Interval;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-public class CObjectTest extends TestCase {
+public class CObjectTest  {
 	
 	public void testCreateCObjectWithNullOccurrences() {
 		boolean anyAllowed = false;

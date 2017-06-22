@@ -2,9 +2,10 @@ package org.openehr.am.openehrprofile.datatypes.quantity;
 
 import org.openehr.rm.datatypes.text.CodePhrase;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-public class OrdinalTest extends TestCase {
+public class OrdinalTest  {
 	public void testEquals() {
 		Ordinal o1 = new Ordinal(1, new CodePhrase("local", "at0001"));
 		Ordinal o2 = new Ordinal(1, new CodePhrase("local", "at0001"));

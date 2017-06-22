@@ -21,9 +21,9 @@
  */
 package org.openehr.rm.common.generic;
 
-import java.util.ArrayList;
-import junit.framework.*;
-import java.util.List;
+import junit.framework.Test;
+import junit.framework.TestSuite;
+import org.junit.Before;
 import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
@@ -34,13 +34,13 @@ import org.openehr.rm.support.identification.PartyRef;
 import org.openehr.rm.support.identification.TestTerminologyID;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
-public class RevisionHistoryTest extends TestCase {
-    
-    public RevisionHistoryTest(String testName) {
-        super(testName);
-    }
+import java.util.ArrayList;
+import java.util.List;
 
-    protected void setUp() throws Exception {
+public class RevisionHistoryTest  {
+
+    @Before
+    public void setUp() throws Exception {
         PartyRef pr = new PartyRef(new HierObjectID("1-2-3-4-5"), "PARTY");
         PartyIdentified pi = new PartyIdentified(pr, "party name", null);
         CodePhrase codePhrase =

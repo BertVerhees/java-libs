@@ -23,7 +23,7 @@ package org.openehr.rm.support.identification;
 
 import junit.framework.TestCase;
 
-public class ObjectRefTest extends TestCase {
+public class ObjectRefTest  {
 
 	public ObjectRefTest(String test) {
 		super(test);

@@ -261,7 +261,7 @@ c_dv_ordinal : (ordinal (',' ordinal)* (';' INTEGER_VALUE)?) | (SYM_C_DV_ORDINAL
 ordinal : INTEGER_VALUE ('|[' TERMINOLOGY_ID_BLOCK termcode ']')?;
 
 c_codephrase : (('[' TERMINOLOGY_ID_BLOCK (termcode (',' termcode)*)? (';' assumed_code)?']')| TERM_CODE_REF  );
-termcode : ALPHA_LC_ID | LOCAL_TERM_CODE_REF ;
+termcode : ALPHA_LC_ID | LOCAL_TERM_CODE_REF | INTEGER_VALUE;
 assumed_code: termcode ;
 
 c_integer_spec: (INTEGER_VALUE | integer_list_value | integer_interval_value)(';' integer_assumed)? ;
@@ -566,5 +566,5 @@ fragment NATURAL  : [1-9][0-9]* ;
 fragment NAME_CHAR     : WORD_CHAR | '-' ;
 
 TERMINOLOGY_ID_BLOCK: NAME_CHAR+ ( '(' NAME_CHAR+ ')')? '::'  ;
-LOCAL_TERM_CODE_REF : ALPHANUM_CHAR+  '.' ALPHANUM_CHAR+  ;
+LOCAL_TERM_CODE_REF : ALPHANUM_CHAR+  ('.')? ALPHANUM_CHAR+  ;
 

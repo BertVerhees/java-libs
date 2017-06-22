@@ -1,8 +1,9 @@
 package org.openehr.am.archetype.assertion;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-public class AssertionTest extends TestCase {
+public class AssertionTest {
 	
 	/**
 	 * Tests to create a simple invariant assertion from the ADL spec

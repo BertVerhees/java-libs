@@ -22,7 +22,7 @@ package org.openehr.rm.support.basic;
 
 import junit.framework.TestCase;
 
-public class IntervalTest extends TestCase {
+public class IntervalTest  {
 
     public IntervalTest(String test) {
         super(test);

@@ -8,7 +8,7 @@ import org.openehr.rm.support.identification.PartyRef;
 import org.openehr.rm.support.terminology.*;
 import junit.framework.TestCase;
 
-public class AuditDetailsCreateTest extends TestCase {
+public class AuditDetailsCreateTest  {
 	 
 	public void setUp() throws Exception {
 		termServ = TestTerminologyService.getInstance();		

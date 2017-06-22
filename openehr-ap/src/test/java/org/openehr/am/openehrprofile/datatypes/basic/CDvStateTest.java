@@ -1,15 +1,16 @@
 package org.openehr.am.openehrprofile.datatypes.basic;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Testcase for CDvState
  * 
  * @author Rong Chen
  */
-public class CDvStateTest extends TestCase {
+public class CDvStateTest {
 	
 	/**
 	 * Test to create a medication order state machine, from p11 of AOP doc 

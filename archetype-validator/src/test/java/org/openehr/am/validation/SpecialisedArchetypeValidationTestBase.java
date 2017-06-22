@@ -1,24 +1,26 @@
 package org.openehr.am.validation;
 
+import org.junit.After;
+import org.junit.Before;
+import org.openehr.am.archetype.Archetype;
+import se.acode.openehr.parser.ADLParser;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import org.openehr.am.archetype.Archetype;
+public class SpecialisedArchetypeValidationTestBase  {
 
-import se.acode.openehr.parser.ADLParser;
-
-public class SpecialisedArchetypeValidationTestBase extends TestCase {
-
-	@Override
+	@Before
     public void setUp() {
 		validator = new SpecialisedArchetypeValidator();	
 		errors = new ArrayList<ValidationError>();
 	}
 	
-	@Override
+	@After
     public void tearDown() {		
 		validator = null;
 		archetype = null;

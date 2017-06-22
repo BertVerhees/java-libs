@@ -1,20 +1,26 @@
 package org.openehr.am.validation;
 
+import org.junit.Test;
 import org.openehr.am.archetype.Archetype;
 
+import static org.junit.Assert.assertEquals;
+
 public class SpecializationDepthCheckTest extends ArchetypeValidationTestBase{
-	
+
+    @Test
 	public void testCheckAttributeNameWithRightLevel() throws Exception {
 	    checkConceptNameSpecializationDepth("adl-test-ELEMENT.specialization-depth.v1.adl");
 		assertEquals("expected no validation error", 0,	errors.size());	
 	}
-	
+
+    @Test
 	public void testCheckAttributeNameWithWrongLevel() throws Exception {
 	    checkConceptNameSpecializationDepth("adl-test-ELEMENT.specialization-depth.v2.adl");
 		assertEquals("expected validation error", 1, errors.size());
 		assertFirstErrorType(ErrorType.VACSD);
 	}
-	
+
+    @Test
 	public void testCheckConceptNameWithLevelGenerallyToHighForTheLevelOfArchetypeSpecialisation() throws Exception {
         checkAll("adl-test-ELEMENT.specialization-depth.v3.adl", "adl-test-ELEMENT.specialization.v1.adl");
         assertEquals("expected validation errors", 5, errors.size());
@@ -28,7 +34,8 @@ public class SpecializationDepthCheckTest extends ArchetypeValidationTestBase{
         assertFifthErrorType(ErrorType.VATCD); // an error for the at code in the definition part of the archetype which is generally too high for the archetype.
 
           }
-	
+
+    @Test
 	public void testCheckTermWithLevelGenerallyToHighForTheLevelOfArchetypeSpecialisation() throws Exception {
 	    checkAll("adl-test-ELEMENT.specialization-depth.v4.adl", "adl-test-ELEMENT.specialization.v1.adl");
         
@@ -37,7 +44,8 @@ public class SpecializationDepthCheckTest extends ArchetypeValidationTestBase{
         assertSecondErrorType(ErrorType.VATCD); // an error for the at code in the definition part of the archetype which is generally too high for the archetype.
 
     }
-	
+
+    @Test
 	public void testCheckConstraintWithLevelGenerallyToHighForTheLevelOfArchetypeSpecialisation() throws Exception {
         checkAll("adl-test-ELEMENT.specialization-depth.v5.adl", "adl-test-ELEMENT.specialization.v1.adl");
         assertEquals("expected validation errors", 2, errors.size());

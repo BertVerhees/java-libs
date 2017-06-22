@@ -1,7 +1,12 @@
 package org.openehr.am.validation;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
 public class SpecialisedArchetypeExistenceTest extends SpecialisedArchetypeValidationTestBase{
-	
+
+	@Test
 	public void testCheckArchetypesWithNonConformantExistence() throws Exception {
 		checkSpecialization("adl-specialised-EVALUATION.existence-specialised.v1", "adl-specialised-EVALUATION.existence.v1");
 		assertEquals("expected one validation error", 1, errors.size());	

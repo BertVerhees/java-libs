@@ -13,15 +13,19 @@
  */
 package org.openehr.terminology;
 
-import java.util.*;
-
+import org.junit.After;
+import org.junit.Before;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.terminology.TerminologyAccess;
 
-import junit.framework.TestCase;
+import java.util.*;
 
-public class SimpleTerminologyAccessTest extends TestCase {
-	
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+public class SimpleTerminologyAccessTest  {
+
+	@Before
 	public void setUp() {
 		instance = new SimpleTerminologyAccess(TEST_ID);
 		
@@ -42,7 +46,7 @@ public class SimpleTerminologyAccessTest extends TestCase {
 					LANG1, GROUP1_CODES[i], GROUP1_RUBRICS_EN[i]);
 		}
 	}
-	
+	@After
 	public void tearDown() {
 		instance = null;
 	}

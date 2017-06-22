@@ -22,7 +22,7 @@ package org.openehr.rm.support.identification;
 
 import junit.framework.TestCase;
 
-public class TerminologyIDTest extends TestCase {
+public class TerminologyIDTest  {
 
     public TerminologyIDTest(String test) {
         super(test);

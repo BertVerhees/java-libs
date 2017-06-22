@@ -20,30 +20,16 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
-import junit.framework.TestCase;
 import org.openehr.rm.datatypes.quantity.datetime.DvTime;
 import org.openehr.rm.support.basic.Interval;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CTimeTest extends TestCase {
+import static org.junit.Assert.*;
 
-    public CTimeTest(String test) {
-        super(test);
-    }
+public class CTimeTest {
 
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
-    
     public void testCreateCTimeWithPattern() {
     	CTime ctime = new CTime("HH:MM:SS");
     	assertNotNull(ctime);

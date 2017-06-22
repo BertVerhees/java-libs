@@ -24,7 +24,7 @@ package org.openehr.rm.datatypes.quantity.datetime;
 import java.util.TimeZone;
 import junit.framework.TestCase;
 
-public class DvDateTimeTest extends TestCase {
+public class DvDateTimeTest  {
 
     public DvDateTimeTest(String test) {
         super(test);

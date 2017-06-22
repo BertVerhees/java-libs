@@ -35,7 +35,7 @@ import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.common.directory.Folder;
 import org.openehr.rm.support.terminology.*;
 
-public class LocatableTest extends TestCase {
+public class LocatableTest  {
 
     public LocatableTest(String test) {
         super(test);

@@ -15,12 +15,14 @@ package org.openehr.rm.datatypes.quantity;
 
 import junit.framework.TestCase;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Testcase for ProportionKind
  * 
  * @author Rong Chen 
  */
-public class ProportionKindTest extends TestCase {	
+public class ProportionKindTest  {
 	
 	public void testGetRatioFromValue() {
 		assertEquals("Ratio kind expected", ProportionKind.RATIO,

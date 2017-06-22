@@ -20,29 +20,16 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
-import junit.framework.TestCase;
 import org.openehr.rm.datatypes.quantity.datetime.DvDate;
 import org.openehr.rm.support.basic.Interval;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class CDateTest extends TestCase {
+import static org.junit.Assert.*;
 
-    public CDateTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
+public class CDateTest {
 
     public void testValidValueWithDateInterval() throws Exception {
         CDate cd = new CDate(null, new Interval<DvDate>(dvDate(

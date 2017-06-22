@@ -1,13 +1,19 @@
 package org.openehr.am.validation;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
 public class UniqueSiblingAttributesCheckTest extends ArchetypeValidationTestBase {
-	
-		public void testCheckUniqueSiblingAttribute() throws Exception {
+
+	@Test
+	public void testCheckUniqueSiblingAttribute() throws Exception {
 		checkSiblings("adl-test-ENTRY.sibling_nodes.v1");
 		assertEquals("encountered unexpected validation error", 0, 
 				errors.size());		
 	}
-	
+
+	@Test
 	public void testCheckNonUniqueSiblingAttributes() throws Exception {
 		checkSiblings("adl-test-ENTRY.sibling_nodes.v2");
 		assertEquals("wrong number of validation error in sibling node checking", 1, 

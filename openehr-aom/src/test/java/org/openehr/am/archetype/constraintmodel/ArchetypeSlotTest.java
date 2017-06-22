@@ -3,16 +3,18 @@ package org.openehr.am.archetype.constraintmodel;
 import org.openehr.am.archetype.assertion.*;
 import org.openehr.rm.support.basic.Interval;
 
-import junit.framework.TestCase;
+import java.util.HashSet;
+import java.util.Set;
 
-import java.util.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Simple test for ArchetypeSlot 
  * 
  * @author Rong Chen
  */
-public class ArchetypeSlotTest extends TestCase {
+public class ArchetypeSlotTest {
 	
 	public void testCreateEmptyArchetypeSlot() {
 		Interval<Integer> occurrences = new Interval<Integer>(1, 1);

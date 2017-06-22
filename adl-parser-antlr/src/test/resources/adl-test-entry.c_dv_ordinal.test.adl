@@ -54,7 +54,13 @@ definition
                             3|[local::at0003],  	-- solution
                             4|[local::at0004]  	-- suspension
                         }
-                    }
+                    ELEMENT[at10006] matches {	-- Name of medication
+				        value matches {
+					        1|[SNOMED-CT::1201000053901], -- yes
+                            2|[SNOMED-CT::1201000053902], -- no
+                            3|[SNOMED-CT::1201000053903]  -- unknown
+                        }
+			        }
                 }
             }
         }

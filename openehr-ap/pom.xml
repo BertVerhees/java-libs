@@ -23,22 +23,22 @@
 		<dependency>
 			<groupId>openehr</groupId>
 			<artifactId>openehr-rm-core</artifactId>
-			<version>1.0.14-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>openehr</groupId>
 			<artifactId>openehr-rm-domain</artifactId>
-			<version>1.0.14-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>openehr</groupId>
 			<artifactId>openehr-aom</artifactId>
-			<version>1.0.14-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
             <groupId>openehr</groupId>
             <artifactId>measure-serv</artifactId>
-            <version>1.0.14-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
 			<groupId>commons-lang</groupId>
@@ -48,7 +48,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

@@ -3,7 +3,7 @@ package org.openehr.am.openehrprofile.datatypes.quantity;
 
 import org.openehr.rm.support.basic.Interval;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Testcase for CDvQuantityItem
@@ -11,7 +11,7 @@ import junit.framework.TestCase;
  * @author Rong Chen
  *
  */
-public class CDvQuantityItemTest extends TestCase {
+public class CDvQuantityItemTest  {
 	
 	public void testCreateCDvQuantityItem() {
 		Interval<Double> value = new Interval<Double>(20.0, 160.0);

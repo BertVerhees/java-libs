@@ -20,41 +20,24 @@
  */
 package org.openehr.rm.datastructure;
 
-import junit.framework.TestCase;
-import org.openehr.rm.support.identification.TestTerminologyID;
 import org.openehr.rm.datastructure.itemstructure.ItemStructure;
 import org.openehr.rm.datastructure.itemstructure.representation.Cluster;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datastructure.itemstructure.representation.Item;
 import org.openehr.rm.datatypes.basic.DataValue;
-import org.openehr.rm.datatypes.quantity.DvQuantity;
 import org.openehr.rm.datatypes.quantity.DvProportion;
+import org.openehr.rm.datatypes.quantity.DvQuantity;
 import org.openehr.rm.datatypes.quantity.ProportionKind;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.datatypes.text.TestCodePhrase;
+import org.openehr.rm.support.identification.TestTerminologyID;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
 import java.util.List;
 
-public class DataStructureTestBase extends TestCase {
-
-    public DataStructureTestBase(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
+public class DataStructureTestBase  {
 
     // create a cluster
     protected Cluster cluster(String archetypeNodeId, String name, List<Item> items) {

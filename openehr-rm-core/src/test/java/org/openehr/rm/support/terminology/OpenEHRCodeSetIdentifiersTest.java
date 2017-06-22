@@ -1,8 +1,9 @@
 package org.openehr.rm.support.terminology;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-public class OpenEHRCodeSetIdentifiersTest extends TestCase {
+public class OpenEHRCodeSetIdentifiersTest  {
 	
 	public void testValidateCodeSetIdWithValidId() throws Exception {
 		String id = OpenEHRCodeSetIdentifiers.CHARACTER_SETS.toString();

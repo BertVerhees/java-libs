@@ -22,7 +22,7 @@ import org.openehr.rm.datatypes.quantity.DvQuantity;
 
 import junit.framework.TestCase;
 
-public class GenericEntryCreationTest extends TestCase {
+public class GenericEntryCreationTest  {
 	
 	public void testCreateGenericEntry() {
 		String archetypeNodeId = "at0001";

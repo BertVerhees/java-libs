@@ -1,20 +1,21 @@
 package org.openehr.am.openehrprofile.datatypes.text;
 
-import java.util.*;
-
 import org.openehr.am.archetype.constraintmodel.CAttribute;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.basic.Interval;
 import org.openehr.rm.support.identification.TerminologyID;
 
-import junit.framework.TestCase;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Simple testcase for CDvCodedText
  * 
  * @author Rong.Chen
  */
-public class CCodePhraseTest extends TestCase {
+public class CCodePhraseTest  {
 	
 	public void testCreateEmptyCCodePhrase() {
 		String path = "/term_definitions[en]/items[at0001]/text/";

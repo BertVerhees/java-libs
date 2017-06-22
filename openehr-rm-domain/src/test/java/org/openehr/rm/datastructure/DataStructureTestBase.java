@@ -37,7 +37,7 @@ import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.support.identification.TerminologyID;
 
-public class DataStructureTestBase extends TestCase {
+public class DataStructureTestBase  {
 
 	public DataStructureTestBase(String test) {
 		super(test);

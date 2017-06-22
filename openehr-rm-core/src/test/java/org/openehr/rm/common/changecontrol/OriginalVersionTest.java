@@ -38,7 +38,7 @@ import org.openehr.rm.support.identification.PartyRef;
 import org.openehr.rm.support.identification.TestTerminologyID;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
-public class OriginalVersionTest extends TestCase {
+public class OriginalVersionTest {
 
 	public OriginalVersionTest(String testName) {
 		super(testName);

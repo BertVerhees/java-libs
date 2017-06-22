@@ -20,27 +20,18 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
-import junit.framework.TestCase;
 import org.openehr.rm.datatypes.basic.DvBoolean;
 
-public class CBooleanTest extends TestCase {
+import static org.junit.Assert.*;
 
-	public CBooleanTest(String test) {
-		super(test);
-	}
+public class CBooleanTest {
 
 	/**
 	 * The fixture set up called before every test method.
 	 */
-	protected void setUp() throws Exception {
-	}
-
 	/**
 	 * The fixture clean up called after every test method.
 	 */
-	protected void tearDown() throws Exception {
-	}
-
 	public void testValidValue() throws Exception {
 		CBoolean cb = new CBoolean(true, true);
 		assertTrue(cb.validValue(Boolean.TRUE));

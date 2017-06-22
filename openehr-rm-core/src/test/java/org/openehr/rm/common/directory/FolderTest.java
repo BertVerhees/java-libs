@@ -27,7 +27,7 @@ import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.support.terminology.TestCodeSetAccess;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
-public class FolderTest extends TestCase {
+public class FolderTest  {
 
     public FolderTest(String test) {
         super(test);

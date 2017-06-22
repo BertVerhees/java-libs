@@ -21,28 +21,15 @@
  */
 package org.openehr.rm.common.generic;
 
-import junit.framework.*;
-import java.util.List;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.openehr.rm.datatypes.basic.DvIdentifier;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import org.openehr.rm.support.identification.HierObjectID;
-import org.openehr.rm.support.identification.ObjectRef;
 import org.openehr.rm.support.identification.PartyRef;
 
-public class PartyIdentifiedTest extends TestCase {
+import static junit.framework.Assert.assertEquals;
+
+public class PartyIdentifiedTest {
     
-    public PartyIdentifiedTest(String testName) {
-        super(testName);
-    }
-
-    protected void setUp() throws Exception {
-    }
-
-    protected void tearDown() throws Exception {
-    }
-
     public static Test suite() {
         TestSuite suite = new TestSuite(PartyIdentifiedTest.class);
         

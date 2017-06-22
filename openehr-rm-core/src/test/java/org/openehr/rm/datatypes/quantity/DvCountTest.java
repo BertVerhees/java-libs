@@ -30,7 +30,7 @@ import org.openehr.rm.datatypes.text.DvText;
 
 import junit.framework.TestCase;
 
-public class DvCountTest extends TestCase {
+public class DvCountTest  {
 
     public DvCountTest(String test) {
         super(test);

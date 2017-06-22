@@ -2,7 +2,9 @@ package org.openehr.rm.support.terminology;
 
 import junit.framework.TestCase;
 
-public class OpenEHRTerminologyGroupIdentifiersTest extends TestCase {
+import static org.junit.Assert.assertTrue;
+
+public class OpenEHRTerminologyGroupIdentifiersTest  {
 
 	public void testValidateTerminologyGroupIdWithValidId() {
 		String id = 

@@ -1,10 +1,13 @@
 package org.openehr.rm.support.measurement;
 
-import junit.framework.TestCase;
+import org.junit.Before;
 
-public class SimpleMeasurementServiceTest extends TestCase {
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-    @Override
+public class SimpleMeasurementServiceTest  {
+
+    @Before
     public void setUp() {
         service = SimpleMeasurementService.getInstance();
     }

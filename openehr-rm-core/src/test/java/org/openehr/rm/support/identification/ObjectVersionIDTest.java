@@ -14,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
  *
  * @author yinsulim
  */
-public class ObjectVersionIDTest extends TestCase {
+public class ObjectVersionIDTest  {
     
     public ObjectVersionIDTest(String testName) {
         super(testName);

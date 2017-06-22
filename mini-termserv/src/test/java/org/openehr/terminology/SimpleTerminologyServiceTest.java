@@ -13,27 +13,31 @@
  */
 package org.openehr.terminology;
 
-import java.util.List;
-import java.util.Map;
-
+import org.junit.After;
+import org.junit.Before;
 import org.openehr.rm.support.terminology.CodeSetAccess;
 import org.openehr.rm.support.terminology.OpenEHRCodeSetIdentifiers;
 import org.openehr.rm.support.terminology.TerminologyAccess;
 import org.openehr.rm.support.terminology.TerminologyService;
 
-import junit.framework.TestCase;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test case for SimpleTerminologyService
  * 
  * @author rong.chen
  */
-public class SimpleTerminologyServiceTest extends TestCase {
-	
+public class SimpleTerminologyServiceTest  {
+
+	@Before
 	public void setUp() throws Exception {
 		instance = SimpleTerminologyService.getInstance();
 	}
-	
+	@After
 	public void tearDown() throws Exception {
 		instance = null;
 	}

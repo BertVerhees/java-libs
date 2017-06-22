@@ -23,7 +23,7 @@ package org.openehr.rm.datatypes.quantity.datetime;
 
 import junit.framework.TestCase;
 
-public class DvDateTest extends TestCase {
+public class DvDateTest  {
 
     public DvDateTest(String test) {
         super(test);

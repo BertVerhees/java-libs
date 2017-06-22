@@ -1,12 +1,11 @@
 package org.openehr.rm.binding;
 
+import org.openehr.am.parser.ContentObject;
+import org.openehr.am.parser.DADLParser;
+
 import java.io.InputStream;
 
-import org.openehr.am.parser.*;
-
-import junit.framework.TestCase;
-
-public class DADLBindingTestBase extends TestCase {
+public class DADLBindingTestBase  {
 
 	public void setUp() throws Exception {
 		binding = new DADLBinding();

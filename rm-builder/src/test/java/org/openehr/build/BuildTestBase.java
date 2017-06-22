@@ -39,7 +39,7 @@ import java.util.*;
  * 
  * @author Rong Chen
  */
-public class BuildTestBase extends TestCase {
+public class BuildTestBase  {
 
 	/**
 	 * The fixture set up called before every test method.
