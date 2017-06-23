@@ -14,18 +14,21 @@
  */
 package org.openehr.rm.integration;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.datastructure.itemstructure.ItemTree;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datastructure.itemstructure.representation.Item;
 import org.openehr.rm.datatypes.quantity.DvQuantity;
 
-import junit.framework.TestCase;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class GenericEntryPathTest  {
-	
+
+	@Before
 	public void setUp() {
 		String archetypeNodeId = "at0001";
 		String name = "test generic entry";
@@ -35,79 +38,92 @@ public class GenericEntryPathTest  {
 		itemTree = new ItemTree("at0003", "item tree", items);		
 		entry = new GenericEntry(archetypeNodeId, name, itemTree);		
 	}
-	
+
+	@Test
 	public void testItemAtPathWhole() {
 		path = "/";
 		value = entry.itemAtPath(path);
 		assertEquals(entry, value);
 	}
-	
+
+	@Test
 	public void testItemAtPathData() {
 		path = "/data";
 		value = entry.itemAtPath(path);
 		assertEquals(itemTree, value);
 	}
-	
+
+	@Test
 	public void testItemAtPathDataCode() {
 		path = "/data[at0003]";
 		value = entry.itemAtPath(path);
 		assertEquals(itemTree, value);
 	}
-	
+
+	@Test
 	public void testItemAtPathDataName() {
 		path = "/data['item tree']";
 		value = entry.itemAtPath(path);
 		assertEquals(itemTree, value);
 	}
-	
+
+	@Test
 	public void testItemAtPathElementAT() {
 		path = "/data/items[at0002]";
 		value = entry.itemAtPath(path);
 		assertEquals(element, value);
 	}
-	
+
+	@Test
 	public void testItemAtPathElementName() {
 		path = "/data/items['element']";
 		value = entry.itemAtPath(path);
 		assertEquals(element, value);
 	}
-	
+
+	@Test
 	public void testItemAtPathElementBoth() {
 		path = "/data/items[at0002, 'element']";
 		value = entry.itemAtPath(path);
 		assertEquals(element, value);
 	}
-	
+
+	@Test
 	public void testItemAtPathElementValueAT() {
 		path = "/data/items[at0002]/value";
 		value = entry.itemAtPath(path);
 		assertEquals(element.getValue(), value);
 	}
-	
+
+	@Test
 	public void testItemAtPathElementValueName() {
 		path = "/data/items['element']/value";
 		value = entry.itemAtPath(path);
 		assertEquals(element.getValue(), value);
 	}
-	
+
+	@Test
 	public void testItemAtPathElementValueBoth() {
 		path = "/data/items[at0002, 'element']/value";
 		value = entry.itemAtPath(path);
 		assertEquals(element.getValue(), value);
 	}
-	
+
+	@Test
 	public void testItemAtPathElementValueMagnitudeAT() {
 		path = "/data/items[at0002]/value/magnitude";
 		value = entry.itemAtPath(path);
 		assertEquals(12.0, value);
 	}
-	
+
+	@Test
 	public void testItemAtPathElementValueMagnitudeName() {
 		path = "/data/items['element']/value/magnitude";
 		value = entry.itemAtPath(path);
 		assertEquals(12.0, value);
 	}
-	
+
+	@Test
 	public void testItemAtPathElementValueMagnitudeBoth() {
 		path = "/data/items[at0002, 'element']/value/magnitude";
 		value = entry.itemAtPath(path);

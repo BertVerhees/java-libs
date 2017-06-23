@@ -15,6 +15,7 @@ package org.openehr.terminology;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.terminology.TerminologyAccess;
 
@@ -50,11 +51,13 @@ public class SimpleTerminologyAccessTest  {
 	public void tearDown() {
 		instance = null;
 	}
-	
+
+	@Test
 	public void testGetId() {
 		assertEquals("id wrong", TEST_ID, instance.id());
 	}
 
+	@Test
 	public void testGetAllCodes() {
 		Set<CodePhrase> codes = new HashSet<CodePhrase>();
 		for(String c : GROUP1_CODES) {
@@ -66,6 +69,7 @@ public class SimpleTerminologyAccessTest  {
 		assertEquals("allCodes wrong", codes, instance.allCodes());
 	}
 
+	@Test
 	public void testGetCodesForGroupIdWithAllValidIds() {
 		Set<CodePhrase> codes = new HashSet<CodePhrase>();
 		for(String c : GROUP1_CODES) {
@@ -82,6 +86,7 @@ public class SimpleTerminologyAccessTest  {
 				instance.codesForGroupId(GROUP2_ID));
 	}
 
+	@Test
 	public void testGetCodesForGroup1NameWithTwoLanguages() {
 		Set<CodePhrase> codes = new HashSet<CodePhrase>();
 		for(String c : GROUP1_CODES) {
@@ -92,7 +97,8 @@ public class SimpleTerminologyAccessTest  {
 		assertEquals("group1 codes wrong", codes, 
 				instance.codesForGroupName(LANG2_GROUP1_NAME, LANG2));
 	}
-	
+
+	@Test
 	public void testGetCodesForGroup2NameWithTwoLanguages() {
 		Set<CodePhrase> codes = new HashSet<CodePhrase>();
 		for(String c : GROUP2_CODES) {
@@ -104,27 +110,31 @@ public class SimpleTerminologyAccessTest  {
 				instance.codesForGroupName(LANG2_GROUP2_NAME, LANG2));
 	}
 
+	@Test
 	public void testGetRubricForCodeWithExistingLangCode() {
 		String code = "code1";
 		String rubric = instance.rubricForCode(code, "en");
 		String expected = "rubric1_en";
 		assertEquals("rubric wrong for code " + code, expected, rubric);
 	}
-	
+
+	@Test
 	public void testGetRubricForCodeWithNoneExistingLang() {
 		String code = "code1";
 		String rubric = instance.rubricForCode(code, "zh");
 		String expected = null;
 		assertEquals("rubric wrong for code " + code, expected, rubric);
 	}
-	
+
+	@Test
 	public void testGetRubricForCodeWithNoneExistingCode() {
 		String code = "code6";
 		String rubric = instance.rubricForCode(code, "en");
 		String expected = null;
 		assertEquals("rubric wrong for code " + code, expected, rubric);
 	}
-	
+
+	@Test
 	public void testhasCodeForGroupId() {
 		for(String code : GROUP1_CODES) {
 			CodePhrase codePhrase = new CodePhrase(TEST_ID, code);

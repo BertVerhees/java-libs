@@ -13,6 +13,9 @@
  */
 package org.openehr.rm.composition.content.entry;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.composition.CompositionTestBase;
 import org.openehr.rm.datastructure.history.Event;
@@ -35,6 +38,10 @@ import org.openehr.terminology.SimpleTerminologyService;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * ObservationTest
  *
@@ -43,21 +50,19 @@ import java.util.List;
  */
 public class ObservationTest extends CompositionTestBase {
 
-    public ObservationTest(String test) {
-        super(test);
-    }
-    
    /**
      * The fixture clean up called after every test method.
      */
-    protected void tearDown() throws Exception {
+   @After
+    public void tearDown() throws Exception {
         observation = null;
     }
 
     /**
      * The fixture set up called before every test method.
      */
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         state = event("state");
         Archetyped archetypeDetails = new Archetyped(
                 new ArchetypeID("openehr-ehr_rm-observation.physical_examination.v3"),
@@ -87,8 +92,9 @@ public class ObservationTest extends CompositionTestBase {
                 provider(), null, null, protocol, null, data, state, 
                 TestTerminologyService.getInstance());
     }
-    
-    public void testCreateObservationWithSimpleTerminologyService() 
+
+    @Test
+    public void testCreateObservationWithSimpleTerminologyService()
     		throws Exception {
     	
     	ItemStructure protocol = list("list protocol");
@@ -108,121 +114,139 @@ public class ObservationTest extends CompositionTestBase {
         
     }
 
+    @Test
     public void testItemAtPathWhole() throws Exception {
     	path = "/";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path, observation, value);
     }
-    
+
+    @Test
     public void testItemAtPathSubject() throws Exception {
     	path = "/subject";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path, 
     			observation.getSubject(), value);
     }
-    
+
+    @Test
     public void testItemAtPathData() throws Exception {
     	path = "/data";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path,	data, value);
     }
- 
+
+    @Test
     public void testItemAtPathDataEvent() throws Exception {
     	path = "/data/events[at0004]";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path, 
     			data.getEvents().get(0), value);
     }
-    
+
+    @Test
     public void testItemAtPathDataEventName() throws Exception {
     	path = "/data/events['point event']";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path, 
     			data.getEvents().get(0), value);
     }
-    
+
+    @Test
     public void testItemAtPathDataEventData() throws Exception {
     	path = "/data/events[at0004]/data";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path,	itemList, value);
     }
-    
+
+    @Test
     public void testItemAtPathDataEventNameData() throws Exception {
     	path = "/data/events['point event']/data";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path, itemList, value);
     }
-    
+
+    @Test
     public void testItemAtPathDataEventDataItem1() throws Exception {
     	path = "/data/events[at0004]/data/items[at0001]";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path,	
     			itemList.getItems().get(0), value);
     }
-    
+
+    @Test
     public void testItemAtPathDataEventDataItem2() throws Exception {
     	path = "/data/events[at0004]/data/items[at0002]";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path,	
     			itemList.getItems().get(1), value);
     }
-    
+
+    @Test
     public void testItemAtPathDataEventDataItem1Value() throws Exception {
     	path = "/data/events[at0004]/data/items[at0001]/value";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path,	
     			itemList.getItems().get(0).getValue(), value);
     }
-    
+
+    @Test
     public void testItemAtPathDataEventDataItem2Value() throws Exception {
     	path = "/data/events[at0004]/data/items[at0002]/value";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path,	
     			itemList.getItems().get(1).getValue(), value);
     }
-    
+
+    @Test
     public void testItemAtPathDataEventDataItemHeader() throws Exception {
     	path = "/data/events['point event']/data/items['header']";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path, 
     			itemList.getItems().get(0), value);
     }
-    
+
+    @Test
     public void testItemAtPathDataEventDataItemValue() throws Exception {
     	path = "/data/events['point event']/data/items['value']";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path, 
     			itemList.getItems().get(1), value);
     }
-    
+
+    @Test
     public void testItemAtPathDataEventDataItemHeaderValue() throws Exception {
     	path = "/data/events['point event']/data/items['header']/value";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path, 
     			itemList.getItems().get(0).getValue(), value);
     }
-    
+
+    @Test
     public void testItemAtPathDataEventDataItemValueValue() throws Exception {
     	path = "/data/events['point event']/data/items['value']/value";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path, 
     			itemList.getItems().get(1).getValue(), value);
     }
-    
+
+    @Test
     public void testItemAtPathState() throws Exception {
     	path = "/state";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path, 
     			observation.getState(), value);
     }
-    
+
+    @Test
     public void testItemAtPathProtocol() throws Exception {
     	path = "/protocol";
     	value = observation.itemAtPath(path);
     	assertEquals("unexpected resutl for path: " + path, 
     			observation.getProtocol(), value);
     }
-    
+
+    @Test
     public void testEquals() throws Exception
     {
     	ItemStructure protocol = list("list protocol");
@@ -246,7 +270,8 @@ public class ObservationTest extends CompositionTestBase {
     	
     	assertTrue(observationOne.equals(observationTwo));
     }
-    
+
+    @Test
     public void testNotEquals() throws Exception
     {
     	ItemStructure protocol = list("list protocol");
@@ -270,7 +295,8 @@ public class ObservationTest extends CompositionTestBase {
     	
     	assertFalse(observationOne.equals(observationTwo));
     }
-    
+
+    @Test
     public void testNotEqualsProtocol() throws Exception
     {
     	ItemStructure protocol = list("list protocol");
@@ -294,7 +320,8 @@ public class ObservationTest extends CompositionTestBase {
     	
     	assertFalse(observationOne.equals(observationTwo));
     }
-    
+
+    @Test
     public void testNotEqualsState() throws Exception
     {
     	ItemStructure protocol = list("list protocol");
@@ -318,7 +345,8 @@ public class ObservationTest extends CompositionTestBase {
     	
     	assertFalse(observationOne.equals(observationTwo));
     }
-    
+
+    @Test
     public void testNotEqualsData() throws Exception
     {
     	ItemStructure protocol = list("list protocol");

@@ -20,26 +20,13 @@
  */
 package org.openehr.rm.support.identification;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class HierObjectIDTest extends TestCase {
+import static org.junit.Assert.assertEquals;
 
-    public HierObjectIDTest(String test) {
-        super(test);
-    }
+public class HierObjectIDTest {
 
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
-
+    @Test
     public void testConstructorTakesStringValue() throws Exception {
 
         for (int i = 0; i < STRING_VALUES.length; i++) {
@@ -47,6 +34,7 @@ public class HierObjectIDTest extends TestCase {
         }
     }
 
+    @Test
     public void testConstructorTakesSections() throws Exception {
 
         for (int i = 0; i < STRING_VALUES.length; i++) {
@@ -55,6 +43,7 @@ public class HierObjectIDTest extends TestCase {
         }
     }
 
+    @Test
     private void assertHOID(HierObjectID hoid, int i) throws Exception {
         //System.out.println("matches? " + SECTIONS[i][0].matches("(\\d)+(\\.(\\d)+)*"));
         assertEquals("value", STRING_VALUES[i], hoid.getValue());

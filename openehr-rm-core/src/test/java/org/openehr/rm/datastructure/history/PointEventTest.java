@@ -22,6 +22,8 @@
 package org.openehr.rm.datastructure.history;
 
 import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.datastructure.DataStructureTestBase;
 import org.openehr.rm.datastructure.itemstructure.ItemSingle;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
@@ -33,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 
 public class PointEventTest extends DataStructureTestBase {
 	@After
-	protected void tearDown() throws Exception {
+	public void tearDown() throws Exception {
 		element = null;
 		pointEvent = null;
 	}
@@ -41,7 +43,8 @@ public class PointEventTest extends DataStructureTestBase {
 	/**
 	 * The fixture set up called before every test method.
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		element = element("element name", "value");
 		item = new ItemSingle(null, "at0001", text("point event item"), null,
 				null, null, null, element);
@@ -57,6 +60,7 @@ public class PointEventTest extends DataStructureTestBase {
 				DvDuration.getInstance("PT3h"), summary);
 	}
 
+	@Test
 	public void testPointEvent() {
 		pointEvent = new PointEvent<ItemSingle>(null, "at0002",
 				text("point event"), null, null, null, h, new DvDateTime(TIME),
@@ -65,6 +69,7 @@ public class PointEventTest extends DataStructureTestBase {
 		assertEquals(h, pointEvent.getParent());
 	}
 
+	@Test
 	public void testCreatePointEventWithConvenientConstructor() {
 		String nodeId = "at0002";
 		DvText name = new DvText("point event");

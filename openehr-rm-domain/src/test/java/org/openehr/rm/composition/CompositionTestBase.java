@@ -13,9 +13,6 @@
  */
 package org.openehr.rm.composition;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.common.archetyped.Locatable;
 import org.openehr.rm.common.generic.PartyIdentified;
@@ -43,6 +40,11 @@ import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.rm.support.terminology.TestCodeSetAccess;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 /**
  * EntryTestBase
  * 
@@ -50,10 +52,6 @@ import org.openehr.rm.support.terminology.TestTerminologyService;
  * @version 1.0
  */
 public class CompositionTestBase extends DataStructureTestBase2 {
-
-	public CompositionTestBase(String test) {
-		super(test);
-	}
 
 	// test context
 	protected EventContext context() throws Exception {

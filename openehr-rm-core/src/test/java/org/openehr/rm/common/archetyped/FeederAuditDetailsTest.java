@@ -20,6 +20,7 @@
  */
 package org.openehr.rm.common.archetyped;
 
+import org.junit.Test;
 import org.openehr.rm.common.generic.PartyIdentified;
 import org.openehr.rm.common.generic.PartyProxy;
 import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
@@ -28,6 +29,7 @@ import static org.junit.Assert.*;
 
 public class FeederAuditDetailsTest  {
 
+    @Test
     public void testConstructor() throws Exception {
 
         // test with null or empty systemID
@@ -39,7 +41,8 @@ public class FeederAuditDetailsTest  {
                 new DvDateTime("2004-10-12T09:00:00"),
                 null, "versionid12.1", "null or empty systemId");
     }
- 
+
+    @Test
     public void testEquals() throws Exception {
         FeederAuditDetails fad1 = new FeederAuditDetails("systemId", null, null,
                 new DvDateTime("2004-10-12T09:00:00"),
@@ -58,7 +61,8 @@ public class FeederAuditDetailsTest  {
         assertFalse(fad1.equals(fad3));
         assertFalse(fad3.equals(fad1));
     }
-   
+
+    @Test
     public void testHashCode() throws Exception {
     		FeederAuditDetails fad1 = new FeederAuditDetails("systemID", null, null,
                 new DvDateTime("2004-10-12T09:00:00"),

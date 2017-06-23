@@ -20,26 +20,13 @@
  */
 package org.openehr.rm.datatypes.basic;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class DvBooleanTest extends TestCase {
+import static org.junit.Assert.assertEquals;
 
-    public DvBooleanTest(String test) {
-        super(test);
-    }
+public class DvBooleanTest  {
 
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
-
+    @Test
     public void testValueOf() throws Exception {
         DvBoolean b = DvBoolean.valueOf("false");
         assertEquals("false expected", DvBoolean.FALSE, b);
@@ -48,6 +35,7 @@ public class DvBooleanTest extends TestCase {
         assertEquals("true expected", DvBoolean.TRUE, b);
     }
 
+    @Test
     public void testValue() throws Exception {
         assertEquals(true, DvBoolean.TRUE.getValue());
         assertEquals(false, DvBoolean.FALSE.getValue());

@@ -1,5 +1,7 @@
 package org.openehr.am.openehrprofile.datatypes.basic;
 
+import org.junit.Test;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ public class CDvStateTest {
 	/**
 	 * Test to create a medication order state machine, from p11 of AOP doc 
 	 */
+	@Test
 	public void testCreateMedicationOrderStateMachine() {
 		TerminalState completed = new TerminalState("COMPLETED");
 		Transition finish = new Transition("finish", null, null, completed);

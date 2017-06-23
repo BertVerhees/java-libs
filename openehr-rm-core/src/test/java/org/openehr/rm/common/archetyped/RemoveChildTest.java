@@ -1,5 +1,6 @@
 package org.openehr.rm.common.archetyped;
 
+import org.junit.Test;
 import org.openehr.rm.datastructure.itemstructure.ItemList;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datatypes.text.DvText;
@@ -10,7 +11,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class RemoveChildTest  {
-	
+
+	@Test
 	public void testRemove1stChildFromList() throws Exception {
 		ItemList list = itemList();
 		int count = list.itemCount();
@@ -20,7 +22,8 @@ public class RemoveChildTest  {
 		assertTrue("child not removed", list.itemCount() == count - 1);
 		assertNull("child not removed", list.itemAtPath(path));
 	}
-	
+
+	@Test
 	public void testRemove1stChildFromListWithNamePredicate() throws Exception {
 		ItemList list = itemList();
 		int count = list.itemCount();
@@ -30,7 +33,8 @@ public class RemoveChildTest  {
 		assertTrue("child not removed", list.itemCount() == count - 1);
 		assertNull("child not removed", list.itemAtPath(path));
 	}
-	
+
+	@Test
 	public void testRemove2ndChildFromList() throws Exception {
 		ItemList list = itemList();
 		int count = list.itemCount();
@@ -40,7 +44,8 @@ public class RemoveChildTest  {
 		assertTrue("child not removed", list.itemCount() == count - 1);
 		assertNull("child not removed", list.itemAtPath(path));
 	}
-	
+
+	@Test
 	public void testRemove3rdChildFromList() throws Exception {
 		ItemList list = itemList();
 		int count = list.itemCount();
@@ -50,7 +55,8 @@ public class RemoveChildTest  {
 		assertTrue("child not removed", list.itemCount() == count - 1);
 		assertNull("child not removed", list.itemAtPath(path));
 	}
-	
+
+	@Test
 	public void testRemoveUnknownChildFromList() throws Exception {
 		ItemList list = itemList();
 		int count = list.itemCount();

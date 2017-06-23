@@ -14,6 +14,7 @@
  */
 package org.openehr.rm.demographic;
 
+import org.junit.Test;
 import org.openehr.rm.support.identification.LocatableRef;
 import org.openehr.rm.support.identification.UIDBasedID;
 import org.openehr.rm.support.identification.ArchetypeID;
@@ -26,6 +27,9 @@ import org.openehr.rm.datastructure.itemstructure.ItemStructure;
 
 import java.util.*;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 /**
  * PersonTest
  * 
@@ -34,10 +38,7 @@ import java.util.*;
  */
 public class PersonTest extends DemographicTestBase {
 
-	public PersonTest(String name) {
-		super(name);
-	}
-
+	@Test
 	public void testConstructor() throws Exception {
 		UIDBasedID uid = oid("1.7.8.4");
 		DvText name = text("person name");

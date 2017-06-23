@@ -13,8 +13,8 @@
  */
 package org.openehr.build;
 
-import java.util.*;
-
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.common.generic.PartySelf;
 import org.openehr.rm.datastructure.history.Event;
@@ -33,32 +33,41 @@ import org.openehr.rm.support.measurement.SimpleMeasurementService;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.terminology.SimpleTerminologyService;
 
-import junit.framework.TestCase;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
 
 public class FindMatchingRMClassTest  {
-	
+
 	public FindMatchingRMClassTest() throws Exception {
 		builder = new RMObjectBuilder();
 		ms =  SimpleMeasurementService.getInstance();
 		ts = SimpleTerminologyService.getInstance();
 	}
-	
+
+	@Before
 	public void setUp() {
 		valueMap = new HashMap<String, Object>();
 	}
-	
+
+	@Test
 	public void testMatchDvQuantityValues() {
 		valueMap.put("units", "mmHg");
 		valueMap.put("magnitude", 120.0);
 		assertMatchedRMClass("DvQuantity"); // This is the Java class, not the rm_type_name
 	}
-	
+
+	@Test
 	public void testMatchCodePhrase() {
 		valueMap.put("terminologyId", new TerminologyID("openehr"));
 		valueMap.put("codeString", "234");
 		assertMatchedRMClass("CodePhrase"); // This is the Java class, not the rm_type_name
 	}
-	
+
+	@Test
 	public void testMatchElement() {
 		DvText name = new DvText("name");
 		DvQuantity value = new DvQuantity("mmHg", 120.0, ms);
@@ -67,7 +76,8 @@ public class FindMatchingRMClassTest  {
 		valueMap.put("value", value);
 		assertMatchedRMClass("Element");
 	}
-	
+
+	@Test
 	public void testWithUnderscoreSeparatedAttributeName() {
 		DvText name = new DvText("name");
 		DvQuantity value = new DvQuantity("mmHg", 120.0, ms);
@@ -76,7 +86,8 @@ public class FindMatchingRMClassTest  {
 		valueMap.put("value", value);
 		assertMatchedRMClass("Element");
 	}
-	
+
+	@Test
 	public void testMatchItemList() {
 		DvText name = new DvText("BP measurement");
 		DvQuantity systolicValue = new DvQuantity("mmHg", 120.0, ms);
@@ -93,7 +104,8 @@ public class FindMatchingRMClassTest  {
 		valueMap.put("items", items);
 		assertMatchedRMClass("ItemList");
 	}
-	
+
+	@Test
 	public void testMatchPointEvent() {
 		DvQuantity systolicValue = new DvQuantity("mmHg", 120.0, ms);
 		Element systolicElement = new Element("at0001", 
@@ -107,7 +119,8 @@ public class FindMatchingRMClassTest  {
 		valueMap.put("time", new DvDateTime("2005-12-03T09:22:00"));
 		assertMatchedRMClass("PointEvent");
 	}
-	
+
+	@Test
 	public void testMatchingHistory() {
 		DvQuantity systolicValue = new DvQuantity("mmHg", 120.0, ms);
 		Element systolicElement = new Element("at0001", 
@@ -126,7 +139,8 @@ public class FindMatchingRMClassTest  {
 		valueMap.put("events", events);
 		assertMatchedRMClass("History");
 	}
-	
+
+	@Test
 	public void testMatchObservation() {
 		DvQuantity systolicValue = new DvQuantity("mmHg", 120.0, ms);
 		Element systolicElement = new Element("at0001", 
@@ -152,7 +166,8 @@ public class FindMatchingRMClassTest  {
 				"openEHR-EHR-OBSERVATION.laboratory.v1"), "1.0"));
 		assertMatchedRMClass("Observation");
 	}
-	
+
+	@Test
 	public void testMatchArchetyped() throws Exception {
 		ArchetypeID archetypeId = new ArchetypeID(
 						"openEHR-EHR-OBSERVATION.blood_pressure.v1");
@@ -160,7 +175,8 @@ public class FindMatchingRMClassTest  {
 		valueMap.put("rmVersion", "1.0.1");
 		assertMatchedRMClass("Archetyped");
 	}
-	
+
+	@Test
 	private void assertMatchedRMClass(String expectedRMClass) {
 		String actualRMClass = builder.findMatchingRMClass(valueMap);
 		assertEquals("failed to match " + expectedRMClass, expectedRMClass,

@@ -21,12 +21,7 @@
  */
 package org.openehr.rm.common.changecontrol;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
+import org.junit.Test;
 import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.support.identification.HierObjectID;
@@ -36,21 +31,18 @@ import org.openehr.rm.support.identification.VersionTreeID;
 import org.openehr.rm.support.terminology.TestTerminologyAccess;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.Assert.*;
+
 public class VersionedObjectTest extends ChangeControlTestBase {
 
-	public VersionedObjectTest(String testName) {
-		super(testName);
-	}
-
-	public static Test suite() {
-		TestSuite suite = new TestSuite(VersionedObjectTest.class);
-
-		return suite;
-	}
-
+	@Test
 	public void testSuccess(){
 	}
-	
+
+	@Test
 	public void _testVersionedObjectWOrgVersion() throws Exception {
 		String firstData = "the first one";
 		String firstCSID = "1.2.40.14.1.2.2";
@@ -150,6 +142,7 @@ public class VersionedObjectTest extends ChangeControlTestBase {
 
 	}
 
+	@Test
 	public void _testVersionedObjectWImportVersion() throws Exception {
 		String firstData = "the first imported data";
 		String firstVID = "1.7.5.2::1.2.40.14.1.2.2::1";
@@ -218,6 +211,7 @@ public class VersionedObjectTest extends ChangeControlTestBase {
 
 	}
 
+	@Test
 	public void _testCommitMergedVersion() throws Exception {
 		String firstData = "the first imported data";
 		String firstVID = "1.7.5.2::1.2.40.14.1.2.2::1";

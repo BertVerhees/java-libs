@@ -20,10 +20,13 @@
  */
 package org.openehr.rm.support.basic;
 
+import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class IntervalTest  {
 
+    @Test
     public void testConstructor() throws Exception {
         try {
             new Interval<Integer>(new Integer(10), new Integer(1));
@@ -32,6 +35,7 @@ public class IntervalTest  {
         }
     }
 
+    @Test
     public void testHas() throws Exception {
         // array of { lower(0:unbounded), upper(0:unbounded),
         //            lowerInclusive, upperInclusive (1:true, 0:false)
@@ -85,6 +89,7 @@ public class IntervalTest  {
         		+ row[ 4 ] + ": " + ( row[ 5 ] == 1 );
     }
 
+    @Test
     public void testEquals() throws Exception {
         Interval<Integer> interval = new Interval<Integer>(new Integer(-1), new Integer(10));
         Interval<Integer> interval2 = new Interval<Integer>(new Integer(-1), new Integer(10));

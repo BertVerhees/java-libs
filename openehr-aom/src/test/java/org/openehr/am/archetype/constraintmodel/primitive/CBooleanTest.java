@@ -20,6 +20,7 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
+import org.junit.Test;
 import org.openehr.rm.datatypes.basic.DvBoolean;
 
 import static org.junit.Assert.*;
@@ -32,6 +33,7 @@ public class CBooleanTest {
 	/**
 	 * The fixture clean up called after every test method.
 	 */
+	@Test
 	public void testValidValue() throws Exception {
 		CBoolean cb = new CBoolean(true, true);
 		assertTrue(cb.validValue(Boolean.TRUE));
@@ -46,6 +48,7 @@ public class CBooleanTest {
 		assertTrue(cb.validValue(Boolean.FALSE));
 	}
 
+	@Test
 	public void testAssignedValue() throws Exception {
 		CBoolean cb = new CBoolean(true, true);
 		assertFalse(cb.hasAssignedValue());
@@ -60,6 +63,7 @@ public class CBooleanTest {
 		assertEquals(DvBoolean.FALSE, cb.assignedValue());
 	}
 
+	@Test
 	public void testConstructorWithoutAssumedValue() throws Exception {
 		CBoolean cb = new CBoolean(true, true);
 		assertFalse("hasAssumedValue() should be false", cb.hasAssumedValue());

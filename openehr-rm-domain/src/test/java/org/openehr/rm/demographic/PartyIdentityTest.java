@@ -15,6 +15,11 @@
 
 package org.openehr.rm.demographic;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 /**
  * PartyIdentityTest
  *
@@ -23,10 +28,7 @@ package org.openehr.rm.demographic;
  */
 public class PartyIdentityTest extends DemographicTestBase {
 
-    public PartyIdentityTest(String name) {
-        super(name);
-    }
-
+    @Test
     public void testConstructor() throws Exception {
 
         new PartyIdentity(null, "at0000",

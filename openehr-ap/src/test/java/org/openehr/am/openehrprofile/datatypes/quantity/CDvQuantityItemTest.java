@@ -1,6 +1,7 @@
 package org.openehr.am.openehrprofile.datatypes.quantity;
 
 
+import org.junit.Test;
 import org.openehr.rm.support.basic.Interval;
 
 import static org.junit.Assert.assertEquals;
@@ -12,7 +13,8 @@ import static org.junit.Assert.assertEquals;
  *
  */
 public class CDvQuantityItemTest  {
-	
+
+	@Test
 	public void testCreateCDvQuantityItem() {
 		Interval<Double> value = new Interval<Double>(20.0, 160.0);
 		Interval<Integer> precision = new Interval<Integer>(0, null);

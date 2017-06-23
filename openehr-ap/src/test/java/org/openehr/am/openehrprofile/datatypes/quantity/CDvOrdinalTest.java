@@ -1,5 +1,6 @@
 package org.openehr.am.openehrprofile.datatypes.quantity;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.CAttribute;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.basic.Interval;
@@ -10,7 +11,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class CDvOrdinalTest {
-	
+
+	@Test
 	public void testCreateEmptyCDvOrdinal() {
 		String path = "/term_definitions[en]/items[at0001]/text/";
 		Interval<Integer> occurrences = new Interval<Integer>(1,1);
@@ -23,7 +25,8 @@ public class CDvOrdinalTest {
 		assertTrue("anyAllowed expected", c.isAnyAllowed());	
 		assertNull("null list expected", c.getList());
 	}
-	
+
+	@Test
 	public void testCreateCDvOrdinalWithAssumedValue() {
 		String path = "/term_definitions[en]/items[at0001]/text/";
 		Interval<Integer> occurrences = new Interval<Integer>(1,1);
@@ -35,7 +38,8 @@ public class CDvOrdinalTest {
 				null, assumed);
 		assertEquals("assumed wrong", assumed, c.getAssumedValue());		
 	}
-	
+
+	@Test
 	public void testEqualsWithDifferentOrdinal() {
 		Interval<Integer> occurrences = new Interval<Integer>(1,1);
 		List<Ordinal> set1 = new ArrayList<Ordinal>();
@@ -54,7 +58,8 @@ public class CDvOrdinalTest {
 		assertFalse("CDvOrdinal with different ordinal should not equal",
 				cdo2.equals(cdo1));
 	}
-	
+
+	@Test
 	public void testEqualsWithSameOrdinal() {
 		Interval<Integer> occurrences = new Interval<Integer>(1,1);
 		List<Ordinal> set1 = new ArrayList<Ordinal>();

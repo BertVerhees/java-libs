@@ -1,31 +1,38 @@
 package org.openehr.build;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openehr.rm.RMObject;
+import org.openehr.rm.datatypes.quantity.DvCount;
+import org.openehr.rm.datatypes.quantity.DvInterval;
+import org.openehr.rm.datatypes.quantity.ReferenceRange;
+import org.openehr.rm.datatypes.text.DvText;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.openehr.rm.RMObject;
-import org.openehr.rm.datatypes.quantity.DvCount;
-import org.openehr.rm.datatypes.quantity.DvInterval;
-import org.openehr.rm.datatypes.quantity.DvOrdered;
-import org.openehr.rm.datatypes.quantity.ReferenceRange;
-import org.openehr.rm.datatypes.text.DvText;
+import static org.junit.Assert.*;
 
 public class BuildDvCountTest extends BuildTestBase {
 	
-	public void setUp() throws Exception {
+	@Before
+    public void setUp() throws Exception {
 		super.setUp();
 		type = "DvCount";
 		values = new HashMap<String, Object>();
 	}
-	
+
+	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
 		obj = null;
 	}
-	
-	public void testBuildDvCountWithOtherReferenceRanges() throws Exception {     
+
+    @Test
+    public void testBuildDvCountWithOtherReferenceRanges() throws Exception {
     	Map<String, Object> values = new HashMap<String, Object>();
         DvText normal = new DvText(ReferenceRange.NORMAL, lang, charset, ts);
         DvCount lower = new DvCount(1);
@@ -47,7 +54,8 @@ public class BuildDvCountTest extends BuildTestBase {
         assertEquals("accuracy", 0.0, count.getAccuracy());
         assertEquals("accuracyPercent", false, count.isAccuracyPercent());        
     }
-    
+
+    @Test
     public void testBuildDvCountWithoutReferenceRanges() throws Exception {
         values.put("magnitude", 3);
         obj = builder.construct(type, values);
@@ -58,14 +66,16 @@ public class BuildDvCountTest extends BuildTestBase {
         assertEquals("accuracy", 0.0, count.getAccuracy());
         assertEquals("accuracyPercent", false, count.isAccuracyPercent());
     }
-    
+
+    @Test
     public void testBuildDvCountWithGoodStringValue() throws Exception {
         values.put("magnitude", "10");
         obj = builder.construct(type, values);
         assertTrue(obj instanceof DvCount);
-    }    
-    
-    
+    }
+
+
+    @Test
     public void testBuildDvCountWithBadStringValue() throws Exception {
         values.put("magnitude", "wrong type");
         try {

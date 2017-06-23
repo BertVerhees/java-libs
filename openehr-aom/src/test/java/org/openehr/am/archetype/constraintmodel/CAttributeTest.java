@@ -20,10 +20,13 @@
  */
 package org.openehr.am.archetype.constraintmodel;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 public class CAttributeTest {
 
+	@Test
 	public void testParentNodePath() throws Exception {
 		CAttribute cattr = new TestCAttribute(
 				"/[at0001]/content[at0003]/items", "items");
@@ -31,6 +34,7 @@ public class CAttributeTest {
 		assertEquals("/[at0001]/content[at0003]", cattr.parentNodePath());
 	}
 
+	@Test
 	public void testChildNodePathBase() throws Exception {
 		CAttribute cattr = new TestCAttribute(
 				"/[at0001]/content[at0003]/items", "items");
@@ -38,7 +42,8 @@ public class CAttributeTest {
 				cattr.childNodePathBase());
 	}
 
-	
+
+	@Test
 	public void testEqualityOfTwoIdenticalAttributes() throws Exception {
 		CAttribute cattr1 = new TestCAttribute(
 				"/[at0001]/content[at0003]/items", "items");

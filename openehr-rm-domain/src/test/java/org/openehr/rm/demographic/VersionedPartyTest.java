@@ -14,9 +14,7 @@
  */
 package org.openehr.rm.demographic;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.common.changecontrol.Version;
 import org.openehr.rm.common.generic.AuditDetails;
@@ -26,16 +24,16 @@ import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.datatypes.text.DvText;
-import org.openehr.rm.support.identification.ArchetypeID;
-import org.openehr.rm.support.identification.HierObjectID;
-import org.openehr.rm.support.identification.UIDBasedID;
-import org.openehr.rm.support.identification.ObjectRef;
-import org.openehr.rm.support.identification.PartyRef;
-import org.openehr.rm.support.identification.TerminologyID;
+import org.openehr.rm.support.identification.*;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.rm.support.terminology.TestCodeSetAccess;
 import org.openehr.rm.support.terminology.TestTerminologyAccess;
 import org.openehr.rm.support.terminology.TestTerminologyService;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * VersionedPartyTest
@@ -45,22 +43,10 @@ import org.openehr.rm.support.terminology.TestTerminologyService;
  */
 public class VersionedPartyTest extends DemographicTestBase {
 
-	public VersionedPartyTest(String test) {
-		super(test);
-	}
-
 	/**
 	 * The fixture set up called before every test method.
 	 */
-	protected void setUp() throws Exception {
-	}
-
-	/**
-	 * The fixture clean up called after every test method.
-	 */
-	protected void tearDown() throws Exception {
-	}
-
+	@Test
 	public void testConstructor() throws Exception {
 		String details = "some data for the first version";
 		VersionedParty vp = versionedParty(details);
@@ -68,6 +54,7 @@ public class VersionedPartyTest extends DemographicTestBase {
 		assertEquals("size wrong", 1, vp.allVersions().size());
 	}
 
+	@Test
 	public void testCommit() throws Exception {
 		VersionedParty vp = versionedParty("first version");
 

@@ -20,6 +20,7 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
+import org.junit.Test;
 import org.openehr.rm.datatypes.quantity.datetime.DvDate;
 import org.openehr.rm.support.basic.Interval;
 
@@ -31,6 +32,7 @@ import static org.junit.Assert.*;
 
 public class CDateTest {
 
+    @Test
     public void testValidValueWithDateInterval() throws Exception {
         CDate cd = new CDate(null, new Interval<DvDate>(dvDate(
                 "2001-01-01"), dvDate("2001-12-31")), null);
@@ -41,12 +43,14 @@ public class CDateTest {
         assertFalse(cd.validValue(dvDate("2000-01-01")));
         assertFalse(cd.validValue(dvDate("2002-01-01")));
     }
-    
+
+    @Test
     public void testCreateCDateWithPattern() {
     	CDate cd = new CDate("yyyy-mm-dd");
     	assertNotNull(cd);
     }
 
+    @Test
     public void testValidValueWithDateList() throws Exception {
 
         DvDate[] dates = new DvDate[]{
@@ -67,6 +71,7 @@ public class CDateTest {
         return new DvDate(value);
     }
 
+    @Test
     public void testAssignedValue() throws Exception {
         CDate cd = new CDate(null, new Interval<DvDate>(dvDate(
                 "2001-01-01"), dvDate("2001-12-31")), null);

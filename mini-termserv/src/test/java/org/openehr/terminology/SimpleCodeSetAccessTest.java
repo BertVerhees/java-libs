@@ -14,6 +14,7 @@
 package org.openehr.terminology;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.terminology.CodeSetAccess;
 
@@ -32,11 +33,13 @@ public class SimpleCodeSetAccessTest  {
 		Set<String> codes = new HashSet<String>(Arrays.asList(CODES));
 		instance = new SimpleCodeSetAccess(id, codes);
 	}
-	
+
+	@Test
 	public void testGetId() {
 		assertEquals("id wrong", CODESET_ID, instance.id());
 	}
-	
+
+	@Test
 	public void testGetAllCodes() {
 		Set<CodePhrase> allCodes = new HashSet<CodePhrase>();
 		for(String c : CODES) {
@@ -44,7 +47,8 @@ public class SimpleCodeSetAccessTest  {
 		}
 		assertEquals("allCodes wrong", allCodes, instance.allCodes());
 	}
-	
+
+	@Test
 	public void testHasCode() {
 		for(String c : CODES) {
 			CodePhrase code = new CodePhrase(CODESET_ID, c);

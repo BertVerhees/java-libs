@@ -20,12 +20,14 @@
  */
 package org.openehr.rm.common.archetyped;
 
+import org.junit.Test;
 import org.openehr.rm.support.identification.ArchetypeID;
 
 import static org.junit.Assert.*;
 
 public class ArchetypedTest  {
 
+    @Test
     public void testConstructor() throws Exception {
         new Archetyped(aid("openehr-ehr_rm-section.physical_examination.v2"),
                 "1.1");
@@ -38,6 +40,7 @@ public class ArchetypedTest  {
                 null, "rmVersion");
     }
 
+    @Test
     public void testEquals() {
         Archetyped a1 = new Archetyped(aid(
                 "openehr-ehr_rm-section.physical_examination.v2"),

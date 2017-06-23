@@ -1,5 +1,7 @@
 package org.openehr.am.archetype.assertion;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -13,6 +15,7 @@ public class AssertionTest {
 	 *               /[at0003]/speed[at0004]/miles/magnitude * 1.6
 	 *
 	 */
+	@Test
 	public void testCreateSimpleInvariantAssertion() {
 		ExpressionLeaf num = new ExpressionLeaf(ExpressionItem.REAL,
 				new Double(1.6), ExpressionLeaf.ReferenceType.CONSTANT);
@@ -52,6 +55,7 @@ public class AssertionTest {
 	 * include
 	 *     domain_concept matches {/medications.v1/}
 	 */
+	@Test
 	public void testCreateSimpleArchetypeSlot() {
 		ExpressionItem concept = new ExpressionLeaf(ExpressionItem.ARCHETYPE,
 				"domain_concept", ExpressionLeaf.ReferenceType.ATTRIBUTE);

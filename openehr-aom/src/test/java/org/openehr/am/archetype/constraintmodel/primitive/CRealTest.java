@@ -20,6 +20,7 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
+import org.junit.Test;
 import org.openehr.rm.support.basic.Interval;
 
 import java.util.Arrays;
@@ -28,6 +29,7 @@ import static org.junit.Assert.assertTrue;
 
 public class CRealTest  {
 
+    @Test
     public void testValidValue() throws Exception {
         CReal cr = new CReal(new Interval<Double>(null, new Double(10),
                 false, false), null);

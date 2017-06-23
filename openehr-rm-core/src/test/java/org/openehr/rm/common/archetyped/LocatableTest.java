@@ -21,6 +21,9 @@
  */
 package org.openehr.rm.common.archetyped;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.Attribute;
 import org.openehr.rm.FullConstructor;
 import org.openehr.rm.common.directory.Folder;
@@ -41,7 +44,8 @@ public class LocatableTest  {
     /**
      * The fixture set up called before every test method.
      */
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
     	DvText name = new DvText("test instance");
     	DvDateTime origin = new DvDateTime("2005-12-03T09:22:00");
     	ItemStructure summary = null;
@@ -65,11 +69,13 @@ public class LocatableTest  {
     /**
      * The fixture clean up called after every test method.
      */
+    @After
     protected void tearDown() throws Exception {
     	list = null;
     }
 
-    public void testGetLinks() throws Exception {
+	@Test
+	public void testGetLinks() throws Exception {
     	UIDBasedID uid = new HierObjectID("1-0-23-47-23");
 
         Folder folder = new Folder(uid, "at0001", new DvText("folder name"), 
@@ -77,7 +83,8 @@ public class LocatableTest  {
         folder.getLinks();        
     }
 
-    public void testProcessArchetypePredicateWithMatch() throws Exception {
+	@Test
+	public void testProcessArchetypePredicateWithMatch() throws Exception {
     	Object actual = instance.processPredicate("at0005", list);
     	assertNotNull("match on archetype predicate expected", actual);
     	assertTrue("locatable expected", actual instanceof Locatable);
@@ -85,8 +92,9 @@ public class LocatableTest  {
     	assertEquals("wrong match on archetyep predicate", "at0005", 
     			l.getArchetypeNodeId());
     }
-    
-    public void testProcessArchetypePredicateWithMatchedRootNode() throws Exception {
+
+	@Test
+	public void testProcessArchetypePredicateWithMatchedRootNode() throws Exception {
     	String aid = "openEHR-EHR-OBSERVATION.laboratory-lipids.v1";
     	Object actual = instance.processPredicate(aid, list);
     	assertNotNull("match on archetype predicate expected", actual);
@@ -95,13 +103,15 @@ public class LocatableTest  {
     	assertEquals("wrong match on archetyep predicate", aid, 
     			l.getArchetypeNodeId());
     }
-    
-    public void testProcessArchetypePredicateWithoutMatch() throws Exception {
+
+	@Test
+	public void testProcessArchetypePredicateWithoutMatch() throws Exception {
     	Object actual = instance.processPredicate("at0025", list);
     	assertNull("match on archetype predicate unexpected", actual);
     }
-    
-    public void testProcessNamePredicateWithMatch() throws Exception {
+
+	@Test
+	public void testProcessNamePredicateWithMatch() throws Exception {
     	Object actual = instance.processPredicate("'name8'", list);
     	assertNotNull("match on archetype predicate expected", actual);
     	assertTrue("locatable expected", actual instanceof Locatable);
@@ -109,13 +119,15 @@ public class LocatableTest  {
     	assertEquals("wrong match on name predicate", "at0008", 
     			l.getArchetypeNodeId());
     }
-    
-    public void testProcessNamePredicateWithoutMatch() throws Exception {
+
+	@Test
+	public void testProcessNamePredicateWithoutMatch() throws Exception {
     	Object actual = instance.processPredicate("'name99'", list);
     	assertNull("match on name predicate unexpected", actual);
     }
-    
-    public void testProcessArchetypeCommaNamePredicateWithMatch() throws Exception {
+
+	@Test
+	public void testProcessArchetypeCommaNamePredicateWithMatch() throws Exception {
     	Object actual = instance.processPredicate("at0008, 'name8'", list);
     	assertNotNull("match on archetype predicate expected", actual);
     	assertTrue("locatable expected", actual instanceof Locatable);
@@ -123,72 +135,82 @@ public class LocatableTest  {
     	assertEquals("wrong match on archetype and name predicate", "at0008", 
     			l.getArchetypeNodeId());
     }
-    
-    public void testProcessArchetypeCommaNamePredicateWithoutMatch() throws Exception {
+
+	@Test
+	public void testProcessArchetypeCommaNamePredicateWithoutMatch() throws Exception {
     	Object actual = instance.processPredicate("at0088, 'name99'", list);
     	assertNull("match on name predicate unexpected", actual);
     }
-    
-    public void testProcessArchetypeAndNamePredicateWithMatchUppercaseAnd() throws Exception {
+
+	@Test
+	public void testProcessArchetypeAndNamePredicateWithMatchUppercaseAnd() throws Exception {
     	Object actual = instance.processPredicate("at0008 AND 'name8'", list);
     	assertNotNull("match on archetype predicate expected", actual);
     	assertTrue("locatable expected", actual instanceof Locatable);
     	Locatable l = (Locatable) actual;
     	assertEquals("wrong match on archetyep predicate", "at0008", 
     			l.getArchetypeNodeId());
-    }   
-    
-    public void testProcessArchetypeAndNamePredicateWithMatchLowercaseAnd() throws Exception {
+    }
+
+	@Test
+	public void testProcessArchetypeAndNamePredicateWithMatchLowercaseAnd() throws Exception {
     	Object actual = instance.processPredicate("at0008 and 'name8'", list);
     	assertNotNull("match on archetype predicate expected", actual);
     	assertTrue("locatable expected", actual instanceof Locatable);
     	Locatable l = (Locatable) actual;
     	assertEquals("wrong match on archetyep predicate", "at0008", 
     			l.getArchetypeNodeId());
-    }   
-    
-    public void testProcessArchetypeAndNamePredicateWithMatchUppercaseAndNameValue() throws Exception {
+    }
+
+	@Test
+	public void testProcessArchetypeAndNamePredicateWithMatchUppercaseAndNameValue() throws Exception {
     	Object actual = instance.processPredicate("at0008 AND name/value='name8'", list);
     	assertNotNull("match on archetype predicate expected", actual);
     	assertTrue("locatable expected", actual instanceof Locatable);
     	Locatable l = (Locatable) actual;
     	assertEquals("wrong match on archetyep predicate", "at0008", 
     			l.getArchetypeNodeId());
-    }   
-    
-    public void testProcessArchetypeAndNamePredicateWithMatchLowercaseAndNameValue() throws Exception {
+    }
+
+	@Test
+	public void testProcessArchetypeAndNamePredicateWithMatchLowercaseAndNameValue() throws Exception {
     	Object actual = instance.processPredicate("at0008 and name/value='name8'", list);
     	assertNotNull("match on archetype predicate expected", actual);
     	assertTrue("locatable expected", actual instanceof Locatable);
     	Locatable l = (Locatable) actual;
     	assertEquals("wrong match on archetyep predicate", "at0008", 
     			l.getArchetypeNodeId());
-    } 
-    
-    public void testProcessArchetypeAndNamePredicateWithoutMatchUppercaseAnd() throws Exception {
+    }
+
+	@Test
+	public void testProcessArchetypeAndNamePredicateWithoutMatchUppercaseAnd() throws Exception {
     	Object actual = instance.processPredicate("at0088 AND 'name99'", list);
     	assertNull("match on name predicate unexpected", actual);
     }
-    
-    public void testProcessArchetypeAndNamePredicateWithoutMatchLowercaseAnd() throws Exception {
+
+	@Test
+	public void testProcessArchetypeAndNamePredicateWithoutMatchLowercaseAnd() throws Exception {
     	Object actual = instance.processPredicate("at0088 and 'name99'", list);
     	assertNull("match on name predicate unexpected", actual);
     }
-    
-    public void testItemAtPathFirstLevelAttribute() {
+
+	@Test
+	public void testItemAtPathFirstLevelAttribute() {
     	path = "/name";
     	value = instance.itemAtPath(path);
     	assertEquals(instance.getName(), value);
     }
-    
-    public void testItemAtPathAttributesAttribute() {
+
+	@Test
+	public void testItemAtPathAttributesAttribute() {
     	path = "/name/value";
     	value = instance.itemAtPath(path);
     	assertTrue(value instanceof String);
     	assertEquals(instance.getName().getValue(), value);
     }
-    
-    public void testItemAtPathWithAttributeHavingUnderscore() {
+
+	@Test
+	public void testItemAtPathWithAttributeHavingUnderscore() {
     	path = "/archetype_node_id";
     	value = instance.itemAtPath(path);
     	assertTrue(value instanceof String);

@@ -20,23 +20,28 @@
  */
 package org.openehr.rm.support.identification;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TerminologyIDTest  {
 
+    @Test
     public void testConstrcutorTakesStringValue() throws Exception {
         for(int i = 0; i < STRING_VALUE.length; i++) {
             assertTID(new TerminologyID(STRING_VALUE[i]), i);
         }
     }
 
+    @Test
     public void testConstrcutorTakesNameVersion() throws Exception {
         for(int i = 0; i < STRING_VALUE.length; i++) {
             assertTID(new TerminologyID(SECTIONS[i][0], SECTIONS[i][1]), i);
         }
     }
-    
+
+    @Test
     public void testEquals() {
     	TerminologyID id1 = new TerminologyID("ICD9", "1999");
     	TerminologyID id2 = new TerminologyID("ICD9", "1999");

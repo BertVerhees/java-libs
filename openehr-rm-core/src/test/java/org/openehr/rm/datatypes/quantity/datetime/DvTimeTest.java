@@ -24,6 +24,7 @@ package org.openehr.rm.datatypes.quantity.datetime;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.util.TimeZone;
 
@@ -37,12 +38,7 @@ public class DvTimeTest  {
                 DateTimeZone.getDefault().getOffset(new DateTime()), false);
     }
 
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
-
+    @Test
     public void testCompareTo() throws Exception {
 
         assertTrue(dvTime("00:00:00").compareTo(dvTime("01:00:00")) < 0);
@@ -71,6 +67,7 @@ public class DvTimeTest  {
         
     }
 
+    @Test
     public void testConstructorTakeString() throws Exception {
         String[] values = {
             "20:10:55", "00:00:59Z", "12:12:30-01:00", "21:23:34.234",
@@ -85,7 +82,8 @@ public class DvTimeTest  {
         }
 
     }
-    
+
+    @Test
     public void testConstructorTakesIntegers() throws Exception {
         
         assertNotNull(new DvTime(20, 10, 55, 0.133, null));
@@ -95,8 +93,9 @@ public class DvTimeTest  {
         assertNotNull(new DvTime(5, 22, TimeZone.getTimeZone("GMT-3")));  
         assertNotNull(new DvTime(0, null));
         assertNotNull(new DvTime(23, 59, 50, TimeZone.getTimeZone("GMT-11")));		
-    }  
-    
+    }
+
+    @Test
     public void testToString() throws Exception {
         String[] values = {
             "19:55:45-02", "01:15:25.245", "000000Z", "235959", "10:19:33,029-09:00"
@@ -115,6 +114,7 @@ public class DvTimeTest  {
 
     }
 
+    @Test
     public void testToStringTakesBoolean() throws Exception {
         String[] values = {
             "19:55:45-02", "01:15:25.245", "00:00:00Z", "23:59:59", "10:19:33,029-09:00",
@@ -135,7 +135,8 @@ public class DvTimeTest  {
         assertEquals(dTime.toString(), dTime.toString(true));
         assertEquals("011525,000+0100", dTime.toString(false));
     }
- 
+
+    @Test
     public void testEquals() throws Exception {
 
         assertEquals(new DvTime(0, 0, 59, 0.345, TimeZone.getTimeZone("UTC")), new DvTime("00:00:59.345Z"));
@@ -148,7 +149,8 @@ public class DvTimeTest  {
     private DvTime dvTime(String value) throws Exception {
         return new DvTime(value);
     }
-    
+
+    @Test
     public void testIsValidTime() throws Exception {
         assertFalse(DvTime.isValidISO8601Time("24:00:00"));//Joda specific, do anything?
         assertFalse(DvTime.isValidISO8601Time("240000"));
@@ -169,6 +171,7 @@ public class DvTimeTest  {
         assertTrue(DvTime.isValidISO8601Time("12:30:10-0230"));
     }
 
+    @Test
     public void testIsEquivalent() throws Exception {
         assertTrue(new DvTime("00:00:59Z").isEquivalent(new DvTime("010059+01")));
         assertTrue(new DvTime("013059Z").isEquivalent(new DvTime("00:30:59-01")));
@@ -176,7 +179,8 @@ public class DvTimeTest  {
         //assertTrue(new DvTime("00:00:59Z").isEquivalent(new DvTime("01:00:59+01")));
         assertFalse(new DvTime("003059Z").isEquivalent(new DvTime("23:30:59-01")));
     }
-        
+
+    @Test
     public void testGetHourMinuteSecFSec() throws Exception {
         
         DvTime dTime = new DvTime(19, 55, 45, 0.829, TimeZone.getTimeZone("GMT-02"));       
@@ -220,7 +224,8 @@ public class DvTimeTest  {
         assertEquals(-1, dTime.getSecond());
         assertEquals(-0.1, dTime.getFractionalSecond());
     }
-   
+
+    @Test
     public void testMinuteSecondFSecKnown() throws Exception {
         DvTime dTime = new DvTime(19, 55, 45, 0.829, TimeZone.getTimeZone("GMT-02"));       
         assertEquals(false, dTime.isPartial());
@@ -264,6 +269,7 @@ public class DvTimeTest  {
         assertEquals(false, dTime.hasFractionalSecond());
     }
 
+    @Test
     public void testAdd() throws Exception {
         //TODO: testAdd
     }

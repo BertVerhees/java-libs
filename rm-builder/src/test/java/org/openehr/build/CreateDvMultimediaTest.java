@@ -1,8 +1,6 @@
 package org.openehr.build;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.junit.Test;
 import org.openehr.rm.RMObject;
 import org.openehr.rm.datatypes.encapsulated.DvMultimedia;
 import org.openehr.rm.datatypes.text.CodePhrase;
@@ -10,9 +8,15 @@ import org.openehr.rm.datatypes.uri.DvURI;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.terminology.SimpleTerminologyService;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertTrue;
+
 public class CreateDvMultimediaTest extends BuildTestBase {
 
-	public void testCreateSimpleDvMultiMedia() throws Exception {
+    @Test
+    public void testCreateSimpleDvMultiMedia() throws Exception {
 		
 		CodePhrase charset = new CodePhrase("IANA_character-sets", "UTF-8"); 
 		CodePhrase language = new CodePhrase("ISO_639-1","en");

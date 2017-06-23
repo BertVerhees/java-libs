@@ -1,13 +1,14 @@
 package org.openehr.rm.composition.content.entry;
 
-import junit.framework.TestCase;
-
+import org.junit.Test;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.rm.support.terminology.TestTerminologyAccess;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 import org.openehr.terminology.SimpleTerminologyService;
+
+import static org.junit.Assert.assertEquals;
 
 public class ISMTransitionTest  {
 
@@ -16,6 +17,7 @@ public class ISMTransitionTest  {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void testConstructor() throws Exception {
 		DvCodedText currentState = new DvCodedText("current state", 
         		TestTerminologyAccess.SOME_STATE);
@@ -36,7 +38,8 @@ public class ISMTransitionTest  {
         assertEquals("transition wrong", transition, ismt.getTransition());
         assertEquals("careflowStep wrong", careflowStep, ismt.getCareflowStep());
 	}
-	
+
+	@Test
 	public void testWithOpenEHRTerminology() throws Exception {
 		TerminologyService ts = SimpleTerminologyService.getInstance();
 		CodePhrase lang = new CodePhrase("ISO_639-1", "en");

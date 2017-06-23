@@ -20,9 +20,9 @@
  */
 package org.openehr.rm.composition.content.entry;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.composition.CompositionTestBase;
 import org.openehr.rm.datastructure.itemstructure.ItemList;
@@ -30,23 +30,26 @@ import org.openehr.rm.datastructure.itemstructure.ItemStructure;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.support.identification.ArchetypeID;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 public class EvaluationTest extends CompositionTestBase {
 
-    public EvaluationTest(String test) {
-        super(test);
-    }
 
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
+	@After
+    public void tearDown() throws Exception {
         evaluation = null;
     }
 
     /**
      * The fixture set up called before every test method.
      */
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         ItemStructure protocol = list("list protocol");
         ItemStructure data = list("list data");
         Archetyped arch = new Archetyped(
@@ -57,12 +60,14 @@ public class EvaluationTest extends CompositionTestBase {
                 null, null, protocol, null, data, ts);
     }
 
-    public void testItemAtPath() {
+	@Test
+	public void testItemAtPath() {
     	path = "/";
     	value = evaluation.itemAtPath(path);
     	assertEquals(evaluation, value);
     }
-    
+
+	@Test
 	public void testEquals() throws Exception {
 		ItemStructure protocolOne = list("list protocol");
 		ItemStructure dataOne = list("list data");
@@ -81,6 +86,7 @@ public class EvaluationTest extends CompositionTestBase {
 		assertTrue(evaluationOne.equals(evaluationTwo));
 	}
 
+	@Test
 	public void testNotEqualsProtocol() throws Exception {
 		ItemStructure protocolOne = list("list protocol");
 		ItemStructure dataOne = list("list data");
@@ -101,6 +107,7 @@ public class EvaluationTest extends CompositionTestBase {
 		assertFalse(evaluationOne.equals(evaluationTwo));
 	}
 
+	@Test
 	public void testNotEqualsData() throws Exception {
 		ItemStructure protocolOne = list("list protocol");
 		ItemStructure dataOne = list("list data");
@@ -121,6 +128,7 @@ public class EvaluationTest extends CompositionTestBase {
 		assertFalse(evaluationOne.equals(evaluationTwo));
 	}
 
+	@Test
 	public void testEqualsMixedData() throws Exception {
 		ItemStructure protocolOne = list("list protocol");
 		ItemStructure dataOne = list("list data");

@@ -1,6 +1,7 @@
 package org.openehr.rm.common.generic;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
@@ -17,7 +18,8 @@ public class AuditDetailsCreateTest  {
 	public void setUp() throws Exception {
 		termServ = TestTerminologyService.getInstance();		
 	}
-	
+
+	@Test
 	public void testCreateAuditDetailsWithOpenehrCode() throws Exception {
 		CodePhrase lang = new CodePhrase("ISO_639-1", "en");
 	    CodePhrase encoding = new CodePhrase("IANA_character-sets", "UTF-8");	    

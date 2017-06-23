@@ -20,11 +20,14 @@
  */
 package org.openehr.rm.datatypes.quantity.datetime;
 
+import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class DvDurationTest  {
 
 
+    @Test
     public void testConstructorTakesString() throws Exception {
 
         // test with wrong format
@@ -87,6 +90,7 @@ public class DvDurationTest  {
         assertEquals(value + ", fseconds", data[ 7 ], (int)(d.getFractionalSeconds()*1000.0));
     }
 
+    @Test
     public void testConstructorTakesIntegers() throws Exception {
         int[][] data = {
             {0, 10, 3, 1, 19, 8, 37, 857}, {0, 0, 0, 1, 0, 14, 2, 0},
@@ -117,6 +121,7 @@ public class DvDurationTest  {
         }
 
     }
+    @Test
     public void testAdd() throws Exception {
         DvDuration one = new DvDuration(0, 0, 0, 10, 20, 30, 40, .5);
         DvDuration two = new DvDuration(0, 0, 1, 1, 2, 3, 4, .05);
@@ -146,6 +151,7 @@ public class DvDurationTest  {
 
     }
 
+    @Test
     public void testSubtract() throws Exception {
         DvDuration one = new DvDuration(0, 0, 0, 10, 20, 30, 40, .5);
         DvDuration two = new DvDuration(0, 0, 1, 0, 2, 3, 4, .05);
@@ -175,6 +181,7 @@ public class DvDurationTest  {
         assertEquals("value", "-P1DT5H32M23,550S", d.toString());
     }
 
+    @Test
     public void testToString() throws Exception {
         //constructor takes string, integers, after addition/subtraction
         //TODO!!!
@@ -205,6 +212,7 @@ public class DvDurationTest  {
         }
     }
 
+    @Test
     public void testCompareTo() throws Exception {
         int[] value = {1, 13, 45, 10, 20, 30, 40, 500};//D=(2*365)+31+(45*7)+10
         DvDuration d1 = toDuration(value);
@@ -225,7 +233,8 @@ public class DvDurationTest  {
         }
 
     }
-    
+
+    @Test
     public void testEquals() throws Exception {
         
         assertEquals(new DvDuration("P1Y2M3W"), new DvDuration(1, 2, 3, 0, 0, 0, 0, 0.0));

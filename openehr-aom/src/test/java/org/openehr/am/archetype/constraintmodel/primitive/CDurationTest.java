@@ -20,6 +20,7 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
+import org.junit.Test;
 import org.openehr.rm.datatypes.quantity.datetime.DvDuration;
 import org.openehr.rm.support.basic.Interval;
 
@@ -27,6 +28,7 @@ import static org.junit.Assert.*;
 
 public class CDurationTest {
 
+    @Test
     public void testAssignedValue() throws Exception {
         CDuration cd = new CDuration(null,
                 new Interval<DvDuration>(DvDuration.getInstance("PT1h"),
@@ -39,7 +41,8 @@ public class CDurationTest {
         assertTrue(cd.hasAssignedValue());
         assertEquals(DvDuration.getInstance("PT1h"), cd.assignedValue());
     }
-    
+
+    @Test
     public void testCreateCDurationByPattern() {
     	CDuration cd = new CDuration(null, null, null, "PDTH");
     	assertEquals("pattern wrong", "PDTH", cd.getPattern());

@@ -1,5 +1,6 @@
 package org.openehr.am.archetype.constraintmodel;
 
+import org.junit.Test;
 import org.openehr.am.archetype.assertion.*;
 import org.openehr.rm.support.basic.Interval;
 
@@ -15,7 +16,8 @@ import static org.junit.Assert.assertTrue;
  * @author Rong Chen
  */
 public class ArchetypeSlotTest {
-	
+
+	@Test
 	public void testCreateEmptyArchetypeSlot() {
 		Interval<Integer> occurrences = new Interval<Integer>(1, 1);
 		ArchetypeSlot slot = new ArchetypeSlot("/path", "Entry", occurrences, 
@@ -33,6 +35,7 @@ public class ArchetypeSlotTest {
 	//		exclude
 	// 			archetype_id matches {/.*\.iso-ehr\.section\.patient_details\..*/}
 	// }		
+	@Test
 	public void testCreateSimpleArchetypeSlot() {
 		ExpressionItem iaid = new ExpressionLeaf(ExpressionItem.ARCHETYPE,
 				"archetype_id", ExpressionLeaf.ReferenceType.ATTRIBUTE);

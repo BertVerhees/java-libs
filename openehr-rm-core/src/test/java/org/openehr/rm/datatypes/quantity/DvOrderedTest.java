@@ -14,14 +14,18 @@
  */
 package org.openehr.rm.datatypes.quantity;
 
-import java.util.List;
-
-import junit.framework.TestCase;
-
+import org.junit.Test;
 import org.openehr.rm.datatypes.text.CodePhrase;
 
-public class DvOrderedTest extends TestCase {
-	
+import java.util.List;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+public class DvOrderedTest  {
+
+	@Test
 	public void testIsNormalWithoutNormalStatusAndNormalRange() {
 		List<ReferenceRange<DvCount>> referenceRanges = null;
 		DvInterval<DvCount> normalRange = null;
@@ -41,6 +45,7 @@ public class DvOrderedTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testIsNormalWithNormalStatus() {
 		List<ReferenceRange<DvCount>> referenceRanges = null;
 		DvInterval<DvCount> normalRange = null;
@@ -54,7 +59,8 @@ public class DvOrderedTest extends TestCase {
 					accuracyPercent, magnitudeStatus, magnitude);		
 		assertTrue(count.isNormal());
 	}
-	
+
+	@Test
 	public void testIsNormalWithAbnormalStatus() {
 		List<ReferenceRange<DvCount>> referenceRanges = null;
 		DvInterval<DvCount> normalRange = null;
@@ -68,7 +74,8 @@ public class DvOrderedTest extends TestCase {
 					accuracyPercent, magnitudeStatus, magnitude);		
 		assertFalse(count.isNormal());
 	}
-	
+
+	@Test
 	public void testIsNormalWithNormalRange() {
 		List<ReferenceRange<DvCount>> referenceRanges = null;
 		DvInterval<DvCount> normalRange = new DvInterval<DvCount>(
@@ -83,7 +90,8 @@ public class DvOrderedTest extends TestCase {
 					accuracyPercent, magnitudeStatus, magnitude);		
 		assertTrue(count.isNormal());
 	}
-	
+
+	@Test
 	public void testIsNormalWithNoneInclusiveNormalRange() {
 		List<ReferenceRange<DvCount>> referenceRanges = null;
 		DvInterval<DvCount> normalRange = new DvInterval<DvCount>(
@@ -98,7 +106,8 @@ public class DvOrderedTest extends TestCase {
 					accuracyPercent, magnitudeStatus, magnitude);		
 		assertFalse(count.isNormal());
 	}
-	
+
+	@Test
 	public void testIsNormalWithNormalStatusAndNormalRange() {
 		List<ReferenceRange<DvCount>> referenceRanges = null;
 		DvInterval<DvCount> normalRange = new DvInterval<DvCount>(

@@ -1,6 +1,7 @@
 package org.openehr.rm.support.measurement;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -12,6 +13,7 @@ public class SimpleMeasurementServiceTest  {
         service = SimpleMeasurementService.getInstance();
     }
 
+    @Test
     public void testunitsEquivalent() throws Exception {
         //assertTrue(service.unitsEquivalent("mg", "MG"));
         assertFalse(service.unitsEquivalent("mg", "MG"));
@@ -21,12 +23,14 @@ public class SimpleMeasurementServiceTest  {
         assertFalse(service.unitsEquivalent("mg", "kg"));
     }
 
+    @Test
     public void testunitsComparable() throws Exception {
         assertTrue(service.unitsComparable("mg", "kg"));
         assertFalse(service.unitsComparable("mg", "ml"));
         assertTrue(service.unitsComparable("cm", "[in_i]"));
     }
 
+    @Test
     public void testunitsComparison() throws Exception {
         assertTrue(service.compare("kg", 1.0, "g", 1000.0)==0);
         assertTrue(service.compare("l", 1.0, "ml", 100.0)>0);
@@ -34,6 +38,7 @@ public class SimpleMeasurementServiceTest  {
         assertFalse(service.compare("[in_i]", 1000.0, "m", 26.0)>0);
     }
 
+    @Test
     public void testunitsValid() throws Exception {
         assertTrue(service.isValidUnitsString("mg"));
         assertTrue(service.isValidUnitsString("osm"));

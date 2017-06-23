@@ -21,12 +21,15 @@
  */
 package org.openehr.rm.datatypes.quantity.datetime;
 
+import org.junit.Test;
+
 import java.util.TimeZone;
 
 import static org.junit.Assert.*;
 
 public class DvDateTimeTest  {
 
+    @Test
     public void testCompareTo() throws Exception {
         assertTrue(dvDate("1999-12-31T00:00:00").compareTo(dvDate("2000-01-01T00:00:00")) < 0);
         assertTrue(dvDate("2001-01-31T00:00:00").compareTo(dvDate("2001-02-01T00:00:00")) < 0);
@@ -48,6 +51,7 @@ public class DvDateTimeTest  {
         
     }
 
+    @Test
     public void testToString() throws Exception {
         String[] values = {
             "2004-10-31T20:10:55", "2000-01-01T00:00:59"
@@ -61,6 +65,7 @@ public class DvDateTimeTest  {
         return new DvDateTime(value);
     }
 
+    @Test
     public void testConstructorTakesString() throws Exception {
         String[] values = {
             "2004-10-31T20:10:55", "2000-01-01T00:00:59",
@@ -71,6 +76,7 @@ public class DvDateTimeTest  {
         }
     }
 
+    @Test
     public void testGetters() throws Exception {
         DvDateTime datetime = new DvDateTime("1999-10-20T18:15:45");
         assertEquals("year", 1999, datetime.getYear());
@@ -82,6 +88,7 @@ public class DvDateTimeTest  {
         assertEquals("fracSecond", -0.1, datetime.getFractionalSecond());
     }
 
+    @Test
     public void testEquals() throws Exception {
         DvDateTime datetime1 = new DvDateTime("2003-12-15T09:30:00Z");
         DvDateTime datetime2 = new DvDateTime(2003, 12, 15, 9, 30, 0, TimeZone.getTimeZone("UTC"));
@@ -94,7 +101,8 @@ public class DvDateTimeTest  {
         assertFalse(datetime2.equals(datetime1));
 
     }
-    
+
+    @Test
     public void testAdd() throws Exception {
         DvDateTime datetime = new DvDateTime("2003-12-15T09:30:00Z");
         assertEquals(new DvDateTime("2004-12-15T09:30:00Z"), datetime.add(new DvDuration("P1Y")));
@@ -102,12 +110,14 @@ public class DvDateTimeTest  {
         assertEquals(new DvDateTime("2004-12-17T00:00:00Z"), datetime.add(new DvDuration("P1Y1DT14H30m")));
         assertEquals(new DvDateTime("2002-12-13T18:45:00Z"), datetime.add(new DvDuration("-P1Y1DT14H45m")));
     }
-    
+
+    @Test
     public void testSubtract() throws Exception {
         DvDateTime datetime = new DvDateTime("2003-12-15T09:30:00Z");
         assertEquals(new DvDateTime("2002-12-13T18:45:00Z"), datetime.subtract(new DvDuration("P1Y1DT14H45m")));
     }
 
+    @Test
     public void testValueOf() {
         DvDateTime datetime = DvDateTime.valueOf("2014-07-09T12:13:05");
         assertEquals("year", 2014, datetime.getYear());

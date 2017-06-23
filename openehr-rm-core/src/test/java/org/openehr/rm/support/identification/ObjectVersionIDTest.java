@@ -7,6 +7,8 @@
 
 package org.openehr.rm.support.identification;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -15,7 +17,8 @@ import static org.junit.Assert.fail;
  * @author yinsulim
  */
 public class ObjectVersionIDTest  {
-    
+
+    @Test
     public void testContructorTakeString() {
         String[][] ids = {
             {"1.4.4.5", "1.2.840.114.1.2.2::123", "1"},
@@ -51,7 +54,8 @@ public class ObjectVersionIDTest  {
             assertEquals(new VersionTreeID(ids3[i][2]), ov.versionTreeID());            
         }
     }
-    
+
+    @Test
     public void testCreateWithValidUIDInHexFormat() {
     	String value = "939cec48-d629-4a3f-89f1-28c573387680::" +
     			"10aec661-5458-4ff6-8e63-c2265537196d::1";

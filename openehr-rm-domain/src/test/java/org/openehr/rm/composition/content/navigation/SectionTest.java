@@ -13,6 +13,9 @@
  */
 package org.openehr.rm.composition.content.navigation;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.composition.CompositionTestBase;
 import org.openehr.rm.composition.content.ContentItem;
 import org.openehr.rm.composition.content.entry.Observation;
@@ -20,6 +23,8 @@ import org.openehr.rm.datatypes.text.DvText;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * SectionTest
@@ -29,10 +34,7 @@ import java.util.ArrayList;
  */
 public class SectionTest extends CompositionTestBase {
 
-    public SectionTest(String test) {
-        super(test);
-    }
-
+    @Before
     public void setUp() throws Exception {
         List<ContentItem> items = new ArrayList<ContentItem>();
         observationTwo = observation("observation 2");
@@ -50,34 +52,40 @@ public class SectionTest extends CompositionTestBase {
         section = new Section("at0000", new DvText("section"), items);
     }
 
+    @After
     public void tearDown() throws Exception {
         section = null;
     }
-    
+
+    @Test
     public void testItemAtPathWhole() {
     	path = "/";
     	value = section.itemAtPath(path);
     	assertEquals(section, value);
     }
-    
+
+    @Test
     public void testItemAtPathSectionTwo() {
     	path = "/items['section 2']";
     	value = section.itemAtPath(path);
     	assertEquals(sectionTwo, value);
     }
-    
+
+    @Test
     public void testItemAtPathSectionThree() {
     	path = "/items['section 2']/items['section 3']";
     	value = section.itemAtPath(path);
     	assertEquals(sectionThree, value);
     }
-    
+
+    @Test
     public void testItemAtPathObservationOne() {
     	path = "/items['observation 1']";
     	value = section.itemAtPath(path);
     	assertEquals(observationOne, value);
     }
-    
+
+    @Test
     public void testItemAtPathObservationTwo() {
     	path = "/items['section 2']/items['observation 2']";
     	value = section.itemAtPath(path);

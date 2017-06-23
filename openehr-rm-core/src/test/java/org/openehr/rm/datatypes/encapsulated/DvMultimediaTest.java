@@ -1,5 +1,6 @@
 package org.openehr.rm.datatypes.encapsulated;
 
+import org.junit.Test;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.uri.DvURI;
 import org.openehr.rm.support.terminology.TerminologyService;
@@ -8,7 +9,8 @@ import org.openehr.rm.support.terminology.TestTerminologyService;
 import static org.junit.Assert.assertNotNull;
 
 public class DvMultimediaTest  {
-	
+
+	@Test
 	public void testCreateSimpleDvMultimedia() throws Exception {
 		CodePhrase charset = new CodePhrase("IANA_character-sets", "UTF-8"); 
 		CodePhrase language = new CodePhrase("ISO_3166-1","eN");

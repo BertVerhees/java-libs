@@ -22,6 +22,7 @@
 package org.openehr.rm.datastructure.history;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Locatable;
 import org.openehr.rm.datastructure.DataStructureTestBase;
 import org.openehr.rm.datastructure.itemstructure.ItemList;
@@ -71,8 +72,9 @@ public class HistoryTest extends DataStructureTestBase {
 						.getInstance("PT1h"), DvDuration.getInstance("PT3h"),
 				summary);
 	}
-	
-	public void testGetParent() {
+
+    @Test
+    public void testGetParent() {
 		History<ItemSingle> h1 = initWithItemSingle();
 		for (Event<ItemSingle> event : h1.getEvents()) {
 			assertEquals(h1, event.getParent());
@@ -83,7 +85,8 @@ public class HistoryTest extends DataStructureTestBase {
 		}
 	}
 
-	public void testHistoryContructorWithSharedParent() {
+    @Test
+    public void testHistoryContructorWithSharedParent() {
 		element = element("element name", "value");
 		History<ItemSingle> h1 = initWithSummary();
 		List<Event<ItemSingle>> items = new ArrayList<Event<ItemSingle>>();
@@ -105,8 +108,9 @@ public class HistoryTest extends DataStructureTestBase {
 		} catch (IllegalArgumentException e) {
 		}
 	}
-	
-	public void testHistoryContructorWithNullValues() {
+
+    @Test
+    public void testHistoryContructorWithNullValues() {
 		try {
 			new History<ItemSingle>(null, "at0002", text(NAME), null, null,
 					null, null, new DvDateTime(TIME), null, DvDuration
@@ -203,12 +207,14 @@ public class HistoryTest extends DataStructureTestBase {
 						.getInstance("PT1h"), DvDuration.getInstance("PT3h"),
 				null);
 	}
-	
-	public void testItemAtPathWithRoot() throws Exception {
+
+    @Test
+    public void testItemAtPathWithRoot() throws Exception {
 		assertEquals("/ return wrong", history, history.itemAtPath("/"));
 	}
-	
-	public void testItemAtPathWithArchetypePredicateWithMatch() throws Exception {
+
+    @Test
+    public void testItemAtPathWithArchetypePredicateWithMatch() throws Exception {
 		expression = "/events[at0004]";
 		ret = history.itemAtPath(expression);
 		assertNotNull(expression + " should return event", ret);
@@ -217,8 +223,9 @@ public class HistoryTest extends DataStructureTestBase {
 		Locatable locatable = (Locatable) ret;
 		assertEquals(expression + " return wrong", "at0004",	locatable.getArchetypeNodeId());
 	}
-	
-	public void testItemAtPathWithNamePredicateWithMatch() throws Exception {
+
+    @Test
+    public void testItemAtPathWithNamePredicateWithMatch() throws Exception {
 		expression = "/events['interval event']";
 		ret = history.itemAtPath(expression);
 		assertNotNull(expression + " should return event", ret);
@@ -227,8 +234,9 @@ public class HistoryTest extends DataStructureTestBase {
 		Locatable locatable = (Locatable) ret;
 		assertEquals(expression + " return wrong", "at0004",	locatable.getArchetypeNodeId());
 	}
-	
-	public void testItemAtPathWithArchetypeNamePredicateWithMatch() throws Exception {
+
+    @Test
+    public void testItemAtPathWithArchetypeNamePredicateWithMatch() throws Exception {
 		expression = "/events[at0004, 'interval event']";
 		ret = history.itemAtPath(expression);
 		assertNotNull(expression + " should return event", ret);
@@ -237,8 +245,9 @@ public class HistoryTest extends DataStructureTestBase {
 		Locatable locatable = (Locatable) ret;
 		assertEquals(expression + " return wrong", "at0004",	locatable.getArchetypeNodeId());
 	}
-	
-	public void testItemAtPathWithPredicatesAndTailingPart() throws Exception {
+
+    @Test
+    public void testItemAtPathWithPredicatesAndTailingPart() throws Exception {
 		expression = "/events[at0004, 'interval event']/data/items[at0014, 'element 1']";
 		ret = history.itemAtPath(expression);
 		
@@ -248,8 +257,9 @@ public class HistoryTest extends DataStructureTestBase {
 		Element e = (Element) ret;
 		assertEquals("element name wrong", "element 1", e.getName().getValue());
 	}
-	
-	public void testItemAtPathWithPredicatesAndTailingPartValue() throws Exception {
+
+    @Test
+    public void testItemAtPathWithPredicatesAndTailingPartValue() throws Exception {
 		expression = "/events[at0004, 'interval event']/data/items[at0014, 'element 1']/value";
 		ret = history.itemAtPath(expression);
 		
@@ -259,8 +269,9 @@ public class HistoryTest extends DataStructureTestBase {
 		DvText dt = (DvText) ret;
 		assertEquals("dvText value wrong", "text 1", dt.getValue());
 	}
-	
-	public void testItemAtPathWithPredicatesAndTailingPartValueValue() throws Exception {
+
+    @Test
+    public void testItemAtPathWithPredicatesAndTailingPartValueValue() throws Exception {
 		expression = "/events[at0004, 'interval event']/data/items[at0014, 'element 1']/value/value";
 		ret = history.itemAtPath(expression);
 		

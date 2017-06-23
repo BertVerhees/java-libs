@@ -13,9 +13,14 @@
  */
 package org.openehr.rm.composition;
 
+import org.junit.Test;
 import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.support.terminology.TestCodeSetAccess;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * EventContextTest
@@ -25,14 +30,8 @@ import org.openehr.rm.support.terminology.TestCodeSetAccess;
  */
 public class EventContextTest extends CompositionTestBase {
 
-    public EventContextTest(String test) {
-        super(test);
-    }
-    /**
-     * Tests null checking for setting within the constructor
-     *
-     * @throws Exception
-     */
+
+    @Test
     public void testCreateEventContextWithNullSetting() throws Exception {
         try {
 
@@ -48,7 +47,8 @@ public class EventContextTest extends CompositionTestBase {
                     e.getMessage().contains("setting"));
         }
     }
-    
+
+    @Test
     public void testCreateSimpleEventContext() {
     	DvDateTime startTime = new DvDateTime("2006-11-22T18:57:01");	
 		DvCodedText setting = TestCodeSetAccess.SETTING;
@@ -64,6 +64,7 @@ public class EventContextTest extends CompositionTestBase {
      *
      * @throws Exception
      */
+    @Test
     public void testGetParticipations() throws Exception {
 
         EventContext eventContext = new EventContext(null, time("2006-06-11T12:22:25"), null, 

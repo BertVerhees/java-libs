@@ -15,12 +15,16 @@
 
 package org.openehr.rm.demographic;
 
+import org.junit.Test;
 import org.openehr.rm.datatypes.quantity.datetime.DvDate;
 import org.openehr.rm.datatypes.quantity.DvInterval;
 import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.support.identification.ObjectRef;
 import org.openehr.rm.support.identification.UIDBasedID;
 import org.openehr.rm.datastructure.itemstructure.ItemStructure;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * PartyRelationshipTest
@@ -30,10 +34,7 @@ import org.openehr.rm.datastructure.itemstructure.ItemStructure;
  */
 public class PartyRelationshipTest extends DemographicTestBase {
 
-	public PartyRelationshipTest(String name) {
-		super(name);
-	}
-
+	@Test
 	public void testConstructor() throws Exception {
 		UIDBasedID oid = oid("1.5.2.34.0.4.3");
 		String meaning = "at0000";

@@ -20,6 +20,7 @@
  */
 package org.openehr.rm.datatypes.quantity;
 
+import org.junit.Test;
 import org.openehr.rm.datatypes.text.DvText;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import static org.junit.Assert.assertTrue;
 
 public class DvCountTest  {
 
+    @Test
     public void testAdd() throws Exception {
         DvCount c1 = new DvCount(3);
         DvCount c2 = new DvCount(5);
@@ -40,6 +42,7 @@ public class DvCountTest  {
         assertEquals(expected, c2.add(c1));
     }
 
+    @Test
     public void testSubtract() throws Exception {
         DvCount c1 = new DvCount(3);
         DvCount c2 = new DvCount(5);
@@ -47,6 +50,7 @@ public class DvCountTest  {
         assertEquals(expected, c2.subtract(c1));
     }
 
+    @Test
     public void testCompareTo() throws Exception {
         DvCount c1 = new DvCount(3);
         DvCount c2 = new DvCount(5);
@@ -57,7 +61,8 @@ public class DvCountTest  {
         assertTrue("c3 == c1", c3.compareTo(c1) == 0);
         assertTrue("c1 == c3", c1.compareTo(c3) == 0);
     }
-    
+
+    @Test
     public void testGetOtherReferenceRanges() throws Exception {
     	Map<String, Object> values = new HashMap<String, Object>();
         DvText normal = new DvText(ReferenceRange.NORMAL);
@@ -76,6 +81,7 @@ public class DvCountTest  {
         				count.getOtherReferenceRanges());
     }
 
+    @Test
     public void testValueOf() {
         DvCount dvCount = DvCount.valueOf("5");
         assertEquals(5, dvCount.getMagnitude().intValue());

@@ -13,6 +13,8 @@
  */
 package org.openehr.rm.demographic;
 
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.support.identification.ArchetypeID;
 import org.openehr.rm.datastructure.itemstructure.ItemSingle;
@@ -25,6 +27,8 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * PartyTest
  *
@@ -33,45 +37,48 @@ import java.util.List;
  */
 public class PartyTest extends DemographicTestBase {
 
-    public PartyTest(String name) {
-        super(name);
-    }
-    
+    @Before
     public void setUp() {
     	init();
     }
-    
+
+    @Test
     public void testItemAtPathWhole() {
     	path = "/";
     	value = person.itemAtPath(path);
     	assertEquals("wrong result for path: " + path, person, value);
     }
-    
+
+    @Test
     public void testItemAtPathDetails() {
     	path = "/details";
     	value = person.itemAtPath(path);
     	assertEquals("wrong result for path: " + path, person.getDetails(), 
     			value);
     }
-    
+
+    @Test
     public void testItemAtPathLegalIdentity() {
     	path = "/identities['legal identity']";
     	value = person.itemAtPath(path);
     	assertEquals("wrong result for path: " + path, identity, value);
     }
-    
+
+    @Test
     public void testItemAtPathContact() {
     	path = "/contacts['contact 1']";
     	value = person.itemAtPath(path);
     	assertEquals("wrong result for path: " + path, contact, value);
     }
-    
+
+    @Test
     public void testItemAtPathAddressOne() {
     	path = "/contacts['contact 1']/addresses['address 1']";
     	value = person.itemAtPath(path);
     	assertEquals("wrong result for path: " + path, addressOne, value);
     }
-    
+
+    @Test
     public void testItemAtPathAddressTwo() {
     	path = "/contacts['contact 1']/addresses['address 2']";
     	value = person.itemAtPath(path);

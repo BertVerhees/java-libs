@@ -21,26 +21,13 @@
  */
 package org.openehr.rm.support.identification;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class ObjectRefTest  {
 
-	public ObjectRefTest(String test) {
-		super(test);
-	}
-
-	/**
-	 * The fixture set up called before every test method.
-	 */
-	protected void setUp() throws Exception {
-	}
-
-	/**
-	 * The fixture clean up called after every test method.
-	 */
-	protected void tearDown() throws Exception {
-	}
-
+	@Test
 	public void testConstructor() throws Exception {
 		assertExceptionThrown(null, "LOCAL", "EHR", "id");
 
@@ -56,6 +43,7 @@ public class ObjectRefTest  {
 		return new HierObjectID(value);
 	}
 
+	@Test
 	public void testEquals() throws Exception {
 		ObjectRef or1 = new ObjectRef(hid("1-2-80-11-1"), "LOCAL", "EHR");
 		ObjectRef or2 = new ObjectRef(hid("1-2-80-11-1"), "LOCAL", "EHR");
@@ -75,6 +63,7 @@ public class ObjectRefTest  {
 		assertFalse(or3.equals(or1));
 	}
 
+	@Test
 	private void assertExceptionThrown(ObjectID id, String namespace,
 			String type, String cause) {
 		try {

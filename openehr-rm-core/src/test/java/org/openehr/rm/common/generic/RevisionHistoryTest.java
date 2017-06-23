@@ -21,9 +21,8 @@
  */
 package org.openehr.rm.common.generic;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
 import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
@@ -71,20 +70,12 @@ public class RevisionHistoryTest  {
         
     }
 
-    protected void tearDown() throws Exception {
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(RevisionHistoryTest.class);
-        
-        return suite;
-    }
-
-
+    @Test
     public void testMostRecentVersionId() {
         assertEquals("1.4.4.5::1.2.840.114.1.2.2::123::2", rh.mostRecentVersionId());
     }
 
+    @Test
     public void testMostRecentVersionTime() {
         assertEquals("2006-06-01T10:10:00", rh.mostRecentVersionTime());
     }

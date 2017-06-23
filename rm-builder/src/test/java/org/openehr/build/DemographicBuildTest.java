@@ -15,6 +15,7 @@
 
 package org.openehr.build;
 
+import org.junit.Test;
 import org.openehr.rm.RMObject;
 import org.openehr.rm.support.identification.*;
 import org.openehr.rm.common.archetyped.Archetyped;
@@ -27,6 +28,9 @@ import org.openehr.rm.demographic.*;
 
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Testcase for demographic object building
  * 
@@ -35,6 +39,7 @@ import java.util.*;
  */
 public class DemographicBuildTest extends BuildTestBase {
 
+	@Test
 	public void testBuildAddress() throws Exception {
 		String type = "Address";
 		Map<String, Object> values = new HashMap<String, Object>();
@@ -55,6 +60,7 @@ public class DemographicBuildTest extends BuildTestBase {
 		assertEquals("details wrong", item, addr.getDetails());
 	}
 
+	@Test
 	public void testBuildPartyIdentity() throws Exception {
 		String type = "PartyIdentity";
 		Map<String, Object> values = new HashMap<String, Object>();
@@ -75,6 +81,7 @@ public class DemographicBuildTest extends BuildTestBase {
 		assertEquals("details wrong", item, pid.getDetails());
 	}
 
+	@Test
 	public void testBuildContact() throws Exception {
 		String type = "Contact";
 		Map<String, Object> values = new HashMap<String, Object>();
@@ -106,6 +113,7 @@ public class DemographicBuildTest extends BuildTestBase {
 				.getTimeValidity());
 	}
 
+	@Test
 	public void testBuildPartyRelationship() throws Exception {
 		String type = "PartyRelationship";
 		Map<String, Object> values = new HashMap<String, Object>();
@@ -140,6 +148,7 @@ public class DemographicBuildTest extends BuildTestBase {
 		assertEquals("target wrong", target, pi.getTarget());
 	}
 
+	@Test
 	public void testBuildCapability() throws Exception {
 		String type = "Capability";
 		Map<String, Object> values = new HashMap<String, Object>();
@@ -163,6 +172,7 @@ public class DemographicBuildTest extends BuildTestBase {
 		assertEquals("timeValidity wrong", timeValidity, cap.getTimeValidity());
 	}
 
+	@Test
 	public void testBuildRole() throws Exception {
 		Map<String, Object> values = new HashMap<String, Object>();
 		ObjectID uid = hid("1.13.23.9");
@@ -197,6 +207,7 @@ public class DemographicBuildTest extends BuildTestBase {
 		assertEquals("performer wrong", performer, role.getPerformer());
 	}
 
+	@Test
 	public void testBuildActorSubclasses() throws Exception {
 		verityBuildActor("Agent");
 		verityBuildActor("Group");
@@ -204,6 +215,7 @@ public class DemographicBuildTest extends BuildTestBase {
 		verityBuildActor("Person");
 	}
 
+	@Test
 	private void verityBuildActor(String subclass) throws Exception {
 		Map<String, Object> values = new HashMap<String, Object>();
 		ObjectID uid = hid("1.2.4.6.17.12.5");

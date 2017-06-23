@@ -21,8 +21,8 @@
  */
 package org.openehr.rm.datastructure.history;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.datastructure.DataStructureTestBase;
 import org.openehr.rm.datastructure.itemstructure.ItemSingle;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
@@ -34,7 +34,8 @@ import static org.junit.Assert.assertEquals;
 
 public class IntervalEventTest extends DataStructureTestBase {
     
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         Element element = element("element name", "element value");
         item = new ItemSingle(null, "at0001", text("interval event item"),
                 null, null, null, null, element);
@@ -49,16 +50,7 @@ public class IntervalEventTest extends DataStructureTestBase {
                 DvDuration.getInstance("PT3h"), summary);
     }
 
-    protected void tearDown() throws Exception {
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(IntervalEventTest.class);
-        
-        return suite;
-    }
-
-
+    @Test
     public void testIntervalStartTime() {
         assertEquals(null, ie.getParent());
         assertEquals(new DvDateTime("2004-12-07T09:29:00"), ie.intervalStartTime());

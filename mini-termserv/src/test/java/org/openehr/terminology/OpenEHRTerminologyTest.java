@@ -1,5 +1,6 @@
 package org.openehr.terminology;
 
+import org.junit.Test;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.terminology.CodeSetAccess;
 import org.openehr.rm.support.terminology.OpenEHRCodeSetIdentifiers;
@@ -15,7 +16,8 @@ public class OpenEHRTerminologyTest  {
 	public OpenEHRTerminologyTest() throws Exception {
 		service = SimpleTerminologyService.getInstance();
 	}
-	
+
+	@Test
 	public void testHasOpenEHRSettingCode() {
 		
 		TerminologyAccess terminology = service.terminology(
@@ -31,7 +33,8 @@ public class OpenEHRTerminologyTest  {
 		
 		assertTrue("code 225 (home) doesn't exist..", codes.contains(home));
 	}
-	
+
+	@Test
 	public void testRubricForCode() throws Exception {
 		TerminologyAccess terminology = service.terminology(
 				TerminologyService.OPENEHR);
@@ -39,7 +42,8 @@ public class OpenEHRTerminologyTest  {
 		assertEquals("event", terminology.rubricForCode("433", "en"));		
 		assertEquals("initial", terminology.rubricForCode("524", "en"));		
 	}
-	
+
+	@Test
 	public void testHasCountryCodes() throws Exception {
 		CodeSetAccess codeSet = service.codeSetForId(
 				OpenEHRCodeSetIdentifiers.COUNTRIES);
@@ -57,7 +61,8 @@ public class OpenEHRTerminologyTest  {
 		assertTrue("France missing", 
 				codeSet.hasCode(new CodePhrase("ISO_3166-1", "FR")));
 	}
-	
+
+	@Test
 	public void testHasOpenEHRCode() throws Exception {
 		TerminologyAccess terminology = service.terminology(
 				TerminologyService.OPENEHR);
@@ -66,13 +71,15 @@ public class OpenEHRTerminologyTest  {
 	}
 	
 	// TODO some test isolation issue here.. 
+	@Test
 	public void _testHasPlainTextMediaType() throws Exception {
 		CodeSetAccess codeSet = service.codeSetForId(
         		OpenEHRCodeSetIdentifiers.MEDIA_TYPES);
 		CodePhrase mediaType = new CodePhrase("IANA_media-types", "text/plain");
 		assertTrue("media type: text/plain is missing", codeSet.hasCode(mediaType));
 	}
-	
+
+	@Test
 	public void __testHasCompressionAlgorithmsOther() throws Exception {
 		CodeSetAccess codeSet = service.codeSetForId(
         		OpenEHRCodeSetIdentifiers.COMPRESSION_ALGORITHMS);

@@ -14,33 +14,34 @@
  */
 package org.openehr.build;
 
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.RMObject;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.common.generic.PartyProxy;
-import org.openehr.rm.composition.content.entry.Action;
-import org.openehr.rm.composition.content.entry.ISMTransition;
-import org.openehr.rm.support.identification.ArchetypeID;
 import org.openehr.rm.composition.Composition;
 import org.openehr.rm.composition.EventContext;
 import org.openehr.rm.composition.content.ContentItem;
-import org.openehr.rm.composition.content.entry.Evaluation;
-import org.openehr.rm.composition.content.entry.Instruction;
-import org.openehr.rm.composition.content.entry.Observation;
+import org.openehr.rm.composition.content.entry.*;
 import org.openehr.rm.composition.content.navigation.Section;
+import org.openehr.rm.datastructure.history.Event;
 import org.openehr.rm.datastructure.history.History;
+import org.openehr.rm.datastructure.history.PointEvent;
 import org.openehr.rm.datastructure.itemstructure.ItemStructure;
 import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
+import org.openehr.rm.datatypes.quantity.datetime.DvDuration;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.datatypes.text.DvText;
+import org.openehr.rm.support.identification.ArchetypeID;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.openehr.rm.datastructure.history.Event;
-import org.openehr.rm.datastructure.history.PointEvent;
-import org.openehr.rm.datatypes.quantity.datetime.DvDuration;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test case for EHR objects building
@@ -56,7 +57,8 @@ public class EHRBuildTest extends BuildTestBase {
     /**
      * The fixture set up called before every test method.
      */
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         Map<SystemValue,Object> values = new HashMap<SystemValue,Object>();
         values.put(SystemValue.LANGUAGE, lang);
         values.put(SystemValue.ENCODING, charset);
@@ -76,7 +78,8 @@ public class EHRBuildTest extends BuildTestBase {
         builder = new RMObjectBuilder(values);
     }
 
-    
+
+    @Test
     public void testBuildObservation() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         DvText name = new DvText("test observation", lang, charset, ts);
@@ -109,6 +112,7 @@ public class EHRBuildTest extends BuildTestBase {
         assertEquals("guidelineId", null, observation.getGuidelineId());
     }
 
+    @Test
     public void testBuildEvaluation() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         DvText name = new DvText("test evlauation", lang, charset, ts);
@@ -140,6 +144,7 @@ public class EHRBuildTest extends BuildTestBase {
         assertEquals("guidelineID", null, evaluation.getGuidelineId());
     }
 
+    @Test
     public void testBuildInstruction() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         String node = "at0001";
@@ -175,7 +180,8 @@ public class EHRBuildTest extends BuildTestBase {
         // test with class name in upper case
         builder.construct("INSTRUCTION", values);
     }
-    
+
+    @Test
     public void testBuildAction() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         String node = "at0001";
@@ -218,6 +224,7 @@ public class EHRBuildTest extends BuildTestBase {
         builder.construct("ACTION", values);
     }
 
+    @Test
     public void testBuildSection() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         String node = "at0001";
@@ -236,6 +243,7 @@ public class EHRBuildTest extends BuildTestBase {
         assertEquals("items", items, section.getItems());
     }
 
+    @Test
     public void testBuildComposition() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         String node = "at0001";

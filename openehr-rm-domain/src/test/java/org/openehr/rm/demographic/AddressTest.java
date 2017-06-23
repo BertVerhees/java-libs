@@ -15,24 +15,14 @@
 
 package org.openehr.rm.demographic;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 public class AddressTest extends DemographicTestBase {
 
-    public AddressTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
-
+    @Test
     public void testConstructor() throws Exception {
 
         new Address(oid("address.trial"), "at0000",

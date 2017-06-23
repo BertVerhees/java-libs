@@ -20,35 +20,23 @@
  */
 package org.openehr.rm.support.identification;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
-public class ArchetypeIDTest extends TestCase {
+public class ArchetypeIDTest {
 
-    public ArchetypeIDTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
-
+    @Test
     public void testConstructorTakesStringValue() throws Exception {
         for (int i = 0; i < STRING_VALUE.length; i++) {
             assertArchetypeID(new ArchetypeID(STRING_VALUE[ i ]), i);
         }
     }
 
+    @Test
     public void testConstructorTakesSections() throws Exception {
         for (int i = 0; i < SECTIONS.length; i++) {
 
@@ -63,6 +51,7 @@ public class ArchetypeIDTest extends TestCase {
         }
     }
 
+    @Test
     public void testConstructorWithInvalidValue() {
         String[] data = {
             // rm entity part
@@ -88,6 +77,7 @@ public class ArchetypeIDTest extends TestCase {
         }
     }
 
+    @Test
     public void testEqualsIgnoreVersionID() throws Exception {
         String base1 = "openehr-ehr_rm-section.physical_examination.";
         String base2 = "openehr-ehr_rm-section.simple_medication.";
@@ -114,11 +104,13 @@ public class ArchetypeIDTest extends TestCase {
 
     }
 
+    @Test
     public void testBase() {
         String base = "openehr-ehr_rm-section.physical_examination";
         assertEquals(base, new ArchetypeID(base + ".v1").base());
     }
-    
+
+    @Test
     public void testMultipleSpecialisation() {
     	ArchetypeID aid = null;
     	try {
@@ -135,7 +127,8 @@ public class ArchetypeIDTest extends TestCase {
     		fail("failed to create ArchetypeID with multiple specialisation");
     	}
     }
-    
+
+    @Test
     public void testWithConceptInSwedish() {
     	ArchetypeID aid = null;
     	try {
@@ -149,8 +142,9 @@ public class ArchetypeIDTest extends TestCase {
     		
     	}
     }
-	
-	public void testArchetypeBase() {
+
+    @Test
+    public void testArchetypeBase() {
     	ArchetypeID aid = null;
     	try {
     		aid = new ArchetypeID("openEHR-EHR-CLUSTER.exam.v1");

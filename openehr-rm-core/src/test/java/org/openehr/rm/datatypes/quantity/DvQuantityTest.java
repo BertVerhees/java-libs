@@ -20,21 +20,19 @@
  */
 package org.openehr.rm.datatypes.quantity;
 
-import junit.framework.TestCase;
-
+import org.junit.Test;
 import org.openehr.rm.datatypes.basic.DataValue;
 import org.openehr.rm.support.measurement.MeasurementService;
 import org.openehr.rm.support.measurement.TestMeasurementService;
 
-import java.text.DecimalFormatSymbols;
+import static org.junit.Assert.*;
 
-public class DvQuantityTest extends TestCase {
+public class DvQuantityTest {
 
-    public DvQuantityTest(String test) {
-        super(test);
-    }
+    private static final double DELTA = 1e-15;
 
     // also test equals() from both Quantified and Measurable
+    @Test
     public void testEquals() throws Exception {
         DvQuantity q1 = new DvQuantity("mg", 10, 2, ms);
         DvQuantity q2 = new DvQuantity("mg", 10, 2, ms);
@@ -78,6 +76,7 @@ public class DvQuantityTest extends TestCase {
         assertFalse(q1 + " not equals " + q2, q1.equals(q2));
     }
 
+    @Test
     public void testToString() throws Exception {
         DvQuantity q = new DvQuantity("kg", 78, 2, ms);
         String expected = "78.00,kg";
@@ -104,6 +103,7 @@ public class DvQuantityTest extends TestCase {
         assertEquals(expected, q.toString());
     }
 
+    @Test
     public void testParseQuantityWithPrecision() throws Exception {
     	String value = "78.500,kg";
     	DvQuantity expected = new DvQuantity("kg", 78.5, 3);
@@ -111,19 +111,22 @@ public class DvQuantityTest extends TestCase {
     	assertEquals("failed to parse quantity with precision", expected, q);
     }
 
+    @Test
     public void testValueOfWithIntegerValue() {
         DvQuantity dvQuantity = DvQuantity.valueOf("113,min/wk");
-        assertEquals(113.0, dvQuantity.getMagnitude());
-        assertEquals("min/wk", dvQuantity.getUnits());
+        assertEquals(113.0, dvQuantity.getMagnitude(), DELTA);
+        assertEquals("Strings do not compare","min/wk", dvQuantity.getUnits());
     }
 
+    @Test
     public void testValueOfWithDecimalValue() {
         DvQuantity dvQuantity = DvQuantity.valueOf("78.500,kg");
-        assertEquals(78.5, dvQuantity.getMagnitude());
+        assertEquals(78.5, dvQuantity.getMagnitude(), DELTA);
         assertEquals("kg", dvQuantity.getUnits());
         assertEquals(3, dvQuantity.getPrecision());
     }
 
+    @Test
     public void testParseQuantityWithoutPrecision() throws Exception {
     	String value = "78,kg";
     	DvQuantity expected = new DvQuantity("kg", 78, 0);
@@ -131,6 +134,7 @@ public class DvQuantityTest extends TestCase {
     	assertEquals("failed to parse quantity without precision", expected, q);
     }
 
+    @Test
     public void testParseQuantityWithoutUnit() throws Exception {
       String value = "78";
       DvQuantity expected = new DvQuantity(78);
@@ -138,6 +142,7 @@ public class DvQuantityTest extends TestCase {
       assertEquals("failed to parse quantity without unit", expected, q);
     }
 
+    @Test
     public void testDataValueParseQuantityWithoutPrecision() throws Exception {
     	String value = "78,kg";
     	DvQuantity expected = new DvQuantity("kg", 78, 0);
@@ -145,6 +150,7 @@ public class DvQuantityTest extends TestCase {
     	assertEquals("failed to parse quantity as DataValue without precision", expected, q);
     }
 
+    @Test
     public void testCreateWithUnlimitedPrecision() {
     	try {
     		new DvQuantity("mg", 12, -1, ms);

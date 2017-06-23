@@ -21,29 +21,14 @@
  */
 package org.openehr.rm.support.identification;
 
-import junit.framework.*;
-import org.apache.commons.lang.StringUtils;
-import org.openehr.rm.RMObject;
+import org.junit.Test;
 
-public class VersionTreeIDTest extends TestCase {
-    
-    public VersionTreeIDTest(String testName) {
-        super(testName);
-    }
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-    protected void setUp() throws Exception {
-    }
+public class VersionTreeIDTest {
 
-    protected void tearDown() throws Exception {
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(VersionTreeIDTest.class);
-        
-        return suite;
-    }
-
-
+    @Test
     public void testConstructors() throws Exception {
         String[] values = {
             "1.1.2", "2", "1.3.24", "10", "3.0.0"
@@ -72,7 +57,8 @@ public class VersionTreeIDTest extends TestCase {
         }
         
     }
-    
+
+    @Test
     public void testConstructorsFail() throws Exception {
         String[] values = {
             "1.0.2", "0", "0.3.24", "1.1.0", "0.0.0", "1.1"
@@ -110,7 +96,8 @@ public class VersionTreeIDTest extends TestCase {
         }
         return v;
     }
-    
+
+    @Test
     public void testIsFirst() {
         
         String[] values = {"1", "1.0.0", "1.1.1", "2"};
@@ -121,6 +108,7 @@ public class VersionTreeIDTest extends TestCase {
          
     }
 
+    @Test
     public void testNext() {
         String[] values = {"1", "1.0.0", "1.1.1", "2"};
         String[] nextV = {"2", "2", "1.1.2", "3"};
@@ -129,6 +117,7 @@ public class VersionTreeIDTest extends TestCase {
         }
     }
 
+    @Test
     public void testToString() {
         int[][] intS = {
             {1, 1, 2},

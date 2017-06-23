@@ -1,12 +1,14 @@
 package org.openehr.am.archetype.constraintmodel;
 
+import org.junit.Test;
 import org.openehr.rm.support.basic.Interval;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class CObjectTest  {
-	
+
+	@Test
 	public void testCreateCObjectWithNullOccurrences() {
 		boolean anyAllowed = false;
 		String path = "/[at001]";
@@ -23,11 +25,13 @@ public class CObjectTest  {
         	// expected
         }
  	}
-	
+
+	@Test
 	public CObject copy() {
 		return null;
 	}
-	
+
+	@Test
 	public void testCreateCObjectWithDefaultOccurrences() {
 		boolean anyAllowed = false;
 		String path = "/[at001]";
@@ -43,7 +47,8 @@ public class CObjectTest  {
         	fail("failed to create CObject with default occurrences");
         }
 	}
-	
+
+	@Test
 	public void testIsRequiredWithDefaultOccurrences() throws Exception {
 		boolean anyAllowed = false;
 		String path = "/[at001]";
@@ -57,7 +62,8 @@ public class CObjectTest  {
         
         assertTrue("expected to be required", cobj.isRequired());
 	}
-	
+
+	@Test
 	public void testIsRequiredWithOnlyLowerLimitOccurrences() throws Exception {
 		boolean anyAllowed = false;
 		String path = "/[at001]";

@@ -13,20 +13,25 @@
  */
 package org.openehr.rm.datatypes.quantity;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class DvProportionTest  {
-	
+
+	@Test
 	public void testIsIntegeralWithFraction() {
 		DvProportion p = new DvProportion(1, 2, ProportionKind.FRACTION, 0);
 		assertTrue("fraction expected to be integral", p.isIntegral());
 	}
-	
+
+	@Test
 	public void testIsIntegeralWithPercent() {
 		DvProportion p = new DvProportion(1.2, 100, ProportionKind.PERCENT, 1);
 		assertFalse("percent expected not to be integral", p.isIntegral());
 	}
-	
+
+	@Test
 	public void testCreateFractionProportionWithNonZeroPrecision() {
 		try {
 			new DvProportion(1, 10, ProportionKind.FRACTION, 1);
@@ -35,7 +40,8 @@ public class DvProportionTest  {
 			assertTrue(e instanceof IllegalArgumentException);
 		}
 	}
-	
+
+	@Test
 	public void testCreateProportionWithZeroPrecisionAndNonIntegral() {
 		try {
 			new DvProportion(1.3, 10, ProportionKind.RATIO, 0);
@@ -44,7 +50,8 @@ public class DvProportionTest  {
 			assertTrue(e instanceof IllegalArgumentException);
 		}
 	}
-	
+
+	@Test
 	public void testCreateIntegralProportionWithNonIntegralNumer() {
 		try {
 			new DvProportion(1.3, 10, ProportionKind.FRACTION, 0);
@@ -53,7 +60,8 @@ public class DvProportionTest  {
 			assertTrue(e instanceof IllegalArgumentException);
 		}		
 	}
-	
+
+	@Test
 	public void testCreateUnitaryProportionWithBadDenominator() {
 		try {
 			new DvProportion(1.3, 2, ProportionKind.UNITARY, 1);
@@ -62,11 +70,13 @@ public class DvProportionTest  {
 			assertTrue(e instanceof IllegalArgumentException);
 		}
 	}
-	
+
+	@Test
 	public void testCreateUnitaryProportionWithRightDenominator() {
 		new DvProportion(1.3, 1, ProportionKind.UNITARY, 1);		
 	}
-	
+
+	@Test
 	public void testCreateIngegerProportionWithoutPricision() {
 		try {
 			new DvProportion(1.0, 1.0, ProportionKind.RATIO, null);
@@ -74,7 +84,8 @@ public class DvProportionTest  {
 			assertTrue(e instanceof IllegalArgumentException);
 		}
 	}
-	
+
+	@Test
 	public void testCreateDoubleProportionWithoutPricision() {
 		try {
 			new DvProportion(0.5, 1.0, ProportionKind.RATIO, null);
@@ -82,7 +93,8 @@ public class DvProportionTest  {
 			assertTrue(e instanceof IllegalArgumentException);
 		}
 	}
-	
+
+	@Test
 	public void testCreatePercentProportionWithBadDenominator() {
 		try {
 			new DvProportion(1.25, 10, ProportionKind.PERCENT, 2);
@@ -91,25 +103,30 @@ public class DvProportionTest  {
 			assertTrue(e instanceof IllegalArgumentException);
 		}
 	}
-	
+
+	@Test
 	public void testCreatePercentProportionWithRightDenominator() {
 		new DvProportion(1.25, 100, ProportionKind.PERCENT, 2);		
 	}
-	
+
+	@Test
 	public void testCreateUnitaryProportionUsingFactoryMethod() {
 		DvProportion dp = DvProportion.createUnitaryProportion(1.2, 1);
 		assertEquals(1.2, dp.getNumerator(), 0);
 	}
-	
+
+	@Test
 	public void testParsingDvProportion() {
 		DvProportion dp = new DvProportion(25.3, 100, ProportionKind.PERCENT, 1);
 		assertEquals(DvProportion.parseValue("DV_PROPORTION,25.3,100,2"), dp);
 	}
-	
+
+	@Test
 	public void testParsingDvProportion2() {
 		DvProportion dp = new DvProportion(21, 24, ProportionKind.FRACTION, 0);
 		assertEquals(DvProportion.parseValue("DV_PROPORTION,21,24,3"), dp);
 	}
+	@Test
 	public void testParsingDvProportion3() {
 		DvProportion dp = new DvProportion(29, 24, ProportionKind.INTEGER_FRACTION, 0);
 		assertEquals(DvProportion.parseValue("DV_PROPORTION,29,24,3"), dp);

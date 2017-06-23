@@ -13,11 +13,9 @@
  */
 package org.openehr.rm.composition;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.composition.content.ContentItem;
 import org.openehr.rm.datatypes.text.CodePhrase;
@@ -26,13 +24,15 @@ import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.support.identification.ArchetypeID;
 import org.openehr.rm.support.identification.HierObjectID;
 import org.openehr.rm.support.identification.UIDBasedID;
-import org.openehr.rm.support.terminology.CodeSetAccess;
-import org.openehr.rm.support.terminology.OpenEHRCodeSetIdentifiers;
-import org.openehr.rm.support.terminology.TerminologyAccess;
-import org.openehr.rm.support.terminology.TerminologyService;
-import org.openehr.rm.support.terminology.TestCodeSetAccess;
-import org.openehr.rm.support.terminology.TestTerminologyAccess;
+import org.openehr.rm.support.terminology.*;
 import org.openehr.terminology.SimpleTerminologyService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * CompositionTest
@@ -42,10 +42,7 @@ import org.openehr.terminology.SimpleTerminologyService;
  */
 public class CompositionTest extends CompositionTestBase {
 
-    public CompositionTest(String test) {
-        super(test);
-    }
-
+    @Before
     public void setUp() throws Exception {
         DvText name = new DvText("composition");
         UIDBasedID id = new HierObjectID("1.11.2.3.4.5.0");
@@ -62,6 +59,7 @@ public class CompositionTest extends CompositionTestBase {
  
     }
 
+    @After
     public void tearDown() throws Exception {
         composition = null;
     }
@@ -71,6 +69,7 @@ public class CompositionTest extends CompositionTestBase {
      *
      * @throws Exception
      */
+    @Test
     public void testTerritoryCheckInConstructor() throws Exception {
 
         /**
@@ -223,7 +222,8 @@ public class CompositionTest extends CompositionTestBase {
                 null, null, null, content, TestTerminologyAccess.ENGLISH, context(), 
                 provider(), category, territory(), ts);
     }
-    
+
+    @Test
     public void testBuildCompositionWithOpenEHRTerminology() throws Exception {
     	DvText name = new DvText("composition2");
         UIDBasedID id = new HierObjectID("1.11.2.4.22.5.3");
@@ -245,6 +245,7 @@ public class CompositionTest extends CompositionTestBase {
                 provider(), category, territory, ts);
     }
 
+    @Test
     public void testItemAtPathWhole() throws Exception {
     	path = "/";
     	value = composition.itemAtPath(path);    		

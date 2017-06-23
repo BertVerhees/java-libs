@@ -20,26 +20,13 @@
  */
 package org.openehr.rm.support.identification;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class ISO_OIDTest  {
 
-    public ISO_OIDTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
-
+    @Test
     public void testEquals() throws Exception {
         String value = "1.2.840.113554.1.2.2";
         ISO_OID oid1 = new ISO_OID(value);

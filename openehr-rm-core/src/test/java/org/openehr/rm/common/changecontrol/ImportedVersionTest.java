@@ -21,21 +21,16 @@
  */
 package org.openehr.rm.common.changecontrol;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.Test;
 import org.openehr.rm.support.identification.ObjectVersionID;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
 import static org.junit.Assert.assertEquals;
 
 public class ImportedVersionTest extends ChangeControlTestBase {
-    
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ImportedVersionTest.class);
-        
-        return suite;
-    }
 
+
+    @Test
     public void test() {
         OriginalVersion<String> ov = new OriginalVersion<String>(
             new ObjectVersionID("1.4.4.5::1.2.840.114.1.2.2::1"), null, "a name", 

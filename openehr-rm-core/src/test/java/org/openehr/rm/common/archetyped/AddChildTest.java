@@ -1,5 +1,6 @@
 package org.openehr.rm.common.archetyped;
 
+import org.junit.Test;
 import org.openehr.rm.datastructure.itemstructure.ItemList;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datatypes.text.DvText;
@@ -11,7 +12,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class AddChildTest  {
-	
+
+	@Test
 	public void testAddItemToList() throws Exception {
 		ItemList list = itemList();
 		int count = list.itemCount();

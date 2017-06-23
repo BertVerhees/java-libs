@@ -2,6 +2,7 @@ package org.openehr.am.archetype.ontology;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,8 @@ public class ArchetypeOntologyTest {
 		item0002 = null;
 		item0003 = null;
 	}
-	
+
+	@Test
 	public void testFetchTermDefinitionWithGivenLanguage() {
 		assertEquals("termDefinition wrong", item0001, 
 				ontology.termDefinition("en", "at0001"));
@@ -73,7 +75,8 @@ public class ArchetypeOntologyTest {
 		assertEquals("termDefinition of item00004 wrong", item0004, 
 				ontology.termDefinition("sv", "at0004"));
 	}
-	
+
+	@Test
 	public void testFetchTermDefinitionWithPrimaryLanguage() {
 		assertEquals("termDefinition wrong", item0001, 
 				ontology.termDefinition("at0001"));
@@ -84,6 +87,7 @@ public class ArchetypeOntologyTest {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void testCreateAndGetDefinitions() throws Exception {
 		
 		// check term definition

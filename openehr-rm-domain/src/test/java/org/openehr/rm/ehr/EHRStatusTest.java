@@ -21,19 +21,20 @@
  */
 package org.openehr.rm.ehr;
 
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.common.generic.PartyProxy;
 import org.openehr.rm.composition.CompositionTestBase;
 import org.openehr.rm.datastructure.itemstructure.ItemStructure;
 import org.openehr.rm.support.identification.ArchetypeID;
 
-public class EHRStatusTest extends CompositionTestBase {
-    
-    public EHRStatusTest(String testName) {
-        super(testName);
-    }
+import static org.junit.Assert.assertEquals;
 
-    protected void setUp() throws Exception {
+public class EHRStatusTest extends CompositionTestBase {
+
+    @Before
+    public void setUp() throws Exception {
         otherDetails = list("list other details");
         Archetyped arch = new Archetyped(
                 new ArchetypeID("openehr-ehr_rm-ehrstatus.XYZ.v2"),
@@ -42,12 +43,14 @@ public class EHRStatusTest extends CompositionTestBase {
                 arch, null, null, null, subject(), true, true, otherDetails);
     }
 
+    @Test
     public void testItemAtPathWhole() throws Exception {
     	path = "/";
     	value = ehrStatus.itemAtPath(path);    		
         assertEquals(ehrStatus, value);        
     }
-    
+
+    @Test
     public void testItemAtPathOtherDetails() throws Exception {
     	path = "/otherDetails";
     	value = ehrStatus.itemAtPath(path);    		

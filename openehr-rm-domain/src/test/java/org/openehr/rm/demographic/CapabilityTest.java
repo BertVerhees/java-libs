@@ -15,8 +15,12 @@
 
 package org.openehr.rm.demographic;
 
+import org.junit.Test;
 import org.openehr.rm.datatypes.quantity.datetime.DvDate;
 import org.openehr.rm.datatypes.quantity.DvInterval;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * CapabilityTest
@@ -26,10 +30,7 @@ import org.openehr.rm.datatypes.quantity.DvInterval;
  */
 public class CapabilityTest extends DemographicTestBase {
 
-    public CapabilityTest(String name) {
-        super(name);
-    }
-
+    @Test
     public void testConstructor() throws Exception {
         DvInterval<DvDate> timeValidity = new DvInterval<DvDate>(
                 date("2000-01-01"), date("2010-10-30"));

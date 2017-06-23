@@ -20,12 +20,15 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
+import org.junit.Test;
+
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
 public class CStringTest {
 
+    @Test
     public void testValidValue() throws Exception {
         CString cs = new CString("file.*", null);
         assertTrue(cs.validValue("file.txt"));
@@ -47,6 +50,7 @@ public class CStringTest {
         assertFalse(cs.validValue("melon"));
     }
 
+    @Test
     public void testAssignedValue() throws Exception {
 
         // with pattern
@@ -67,7 +71,8 @@ public class CStringTest {
         String text = cs.assignedValue();
         assertEquals("wrong value", "apple", text);
     }
-    
+
+    @Test
     public void testConstructorWithoutAssumedValue() throws Exception {
     	CString cs = new CString("file.*", null);
         assertFalse("shouldn't have an assumed value", cs.hasAssumedValue());        

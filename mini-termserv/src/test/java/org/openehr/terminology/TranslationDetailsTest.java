@@ -1,5 +1,6 @@
 package org.openehr.terminology;
 
+import org.junit.Test;
 import org.openehr.rm.common.resource.TranslationDetails;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.terminology.TerminologyService;
@@ -8,7 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TranslationDetailsTest  {
-	
+
+	@Test
 	public void testCreateTranslationDetails() throws Exception {
 		CodePhrase language = new CodePhrase("ISO_639-1", "en");
 		Map<String, String> author = new HashMap<String, String>();

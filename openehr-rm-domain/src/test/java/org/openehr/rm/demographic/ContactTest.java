@@ -15,11 +15,15 @@
 
 package org.openehr.rm.demographic;
 
+import org.junit.Test;
 import org.openehr.rm.datatypes.quantity.datetime.DvDate;
 import org.openehr.rm.datatypes.quantity.DvInterval;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * ContactTest
@@ -29,10 +33,7 @@ import java.util.ArrayList;
  */
 public class ContactTest extends DemographicTestBase {
 
-    public ContactTest(String name) {
-        super(name);
-    }
-
+    @Test
     public void testConstructor() throws Exception {
         DvInterval<DvDate> timeValidity = new DvInterval<DvDate>(
                 date("2005-01-01"), date("2005-12-31"));

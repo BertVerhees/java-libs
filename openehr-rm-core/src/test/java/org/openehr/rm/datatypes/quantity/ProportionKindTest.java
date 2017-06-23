@@ -13,7 +13,7 @@
  */
 package org.openehr.rm.datatypes.quantity;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,27 +23,32 @@ import static org.junit.Assert.assertEquals;
  * @author Rong Chen 
  */
 public class ProportionKindTest  {
-	
+
+	@Test
 	public void testGetRatioFromValue() {
 		assertEquals("Ratio kind expected", ProportionKind.RATIO,
 				ProportionKind.fromValue(0));
 	}
-	
+
+	@Test
 	public void testGetUnitaryFromValue() {
 		assertEquals("Unitar kind expected", ProportionKind.UNITARY,
 				ProportionKind.fromValue(1));
 	}
-	
+
+	@Test
 	public void testGetPercentFromValue() {
 		assertEquals("Percent kind expected", ProportionKind.PERCENT, 
 				ProportionKind.fromValue(2));
 	}
-	
+
+	@Test
 	public void testGetFractionFromValue() {
 		assertEquals("Fraction kind expected", ProportionKind.FRACTION, 
 				ProportionKind.fromValue(3));
 	}
-	
+
+	@Test
 	public void testGetIntegerFractionFromValue() {
 		assertEquals("Integer fraction kind expected", 
 				ProportionKind.INTEGER_FRACTION, ProportionKind.fromValue(4));

@@ -1,5 +1,6 @@
 package org.openehr.am.archetype.assertion;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.primitive.CString;
 
 import static org.junit.Assert.assertEquals;
@@ -12,6 +13,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class ExpressionToStringTest {
 
+	@Test
 	public void testSimpleInvariantToString() throws Exception {
 		ExpressionLeaf num = new ExpressionLeaf(ExpressionItem.REAL,
 				new Double(1.6), ExpressionLeaf.ReferenceType.CONSTANT);
@@ -39,7 +41,8 @@ public class ExpressionToStringTest {
 		assertEquals("expressionItem.toString() fails, got " + whole.toString(),
 				expected, whole.toString());		
 	}
-	
+
+	@Test
 	public void testSimpleArchetypeSlotToString() {
 		ExpressionItem concept = new ExpressionLeaf(ExpressionItem.ARCHETYPE,
 				"domain_concept", ExpressionLeaf.ReferenceType.ATTRIBUTE);
@@ -53,8 +56,9 @@ public class ExpressionToStringTest {
 		
 		assertEquals("toString fails, got: " + whole.toString(), 
 				expected, whole.toString());
-	}	
-	
+	}
+
+	@Test
 	public void testSimpleArchetypeSlotToStringUsingCString() {
 		ExpressionItem concept = new ExpressionLeaf(ExpressionItem.ARCHETYPE,
 				"domain_concept", ExpressionLeaf.ReferenceType.ATTRIBUTE);

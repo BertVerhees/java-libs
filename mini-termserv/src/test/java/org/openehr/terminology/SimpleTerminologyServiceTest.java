@@ -15,6 +15,7 @@ package org.openehr.terminology;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.support.terminology.CodeSetAccess;
 import org.openehr.rm.support.terminology.OpenEHRCodeSetIdentifiers;
 import org.openehr.rm.support.terminology.TerminologyAccess;
@@ -41,13 +42,15 @@ public class SimpleTerminologyServiceTest  {
 	public void tearDown() throws Exception {
 		instance = null;
 	}
-	
+
+	@Test
 	public void testGetTerminology() {
 		TerminologyAccess terminology =	
 			instance.terminology(TerminologyService.OPENEHR);
 		assertNotNull("failed to get openehr terminology", terminology);
 	}
 
+	@Test
 	public void testGetCodeSetWithAllValidIds() {
 		for(OpenEHRCodeSetIdentifiers id : OpenEHRCodeSetIdentifiers.values()) {
 			CodeSetAccess codeSet = instance.codeSetForId(id);
@@ -55,12 +58,14 @@ public class SimpleTerminologyServiceTest  {
 		}
 	}
 
+	@Test
 	public void testHasTerminologyWithOpenEHR() {
 		String name = TerminologyService.OPENEHR;
 		assertTrue("terminology " + name + " should exist", 
 				instance.hasTerminology(name));
 	}
 
+	@Test
 	public void testHasCodeSet(String name) {
 		for(OpenEHRCodeSetIdentifiers id : OpenEHRCodeSetIdentifiers.values()) {
 			assertNotNull("code set " + id + " should exist", 
@@ -68,24 +73,28 @@ public class SimpleTerminologyServiceTest  {
 		}
 	}
 
+	@Test
 	public void testGetTerminologyIdentifiers() {
 		List<String> ids = instance.terminologyIdentifiers();
 		assertNotNull("terminology ids should not be null", ids);
 		assertTrue("terminology ids should not be empty", ids.size() > 0);
 	}
 
+	@Test
 	public void testGetCodeSetIdentifiers() {
 		List<String> ids = instance.codeSetIdentifiers();
 		assertNotNull("code set ids should not be null", ids);
 		assertTrue("code set ids should not be empty", ids.size() > 0);
 	}
 
+	@Test
 	public void testGetOpenehrCodeSets() {
 		Map<String, String> codeSets = instance.openehrCodeSets();
 		assertNotNull("code set ids should not be null", codeSets);
 		assertTrue("code set ids should not be empty", codeSets.size() > 0);
 	}
-	
+
+	@Test
 	public void testGetCountryCodeSetByExternalName() {
 		String[] externalNames = { 
 				"ISO_3166-1", "IANA_character-sets", 

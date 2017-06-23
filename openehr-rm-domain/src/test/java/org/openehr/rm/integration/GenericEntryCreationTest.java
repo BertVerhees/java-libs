@@ -14,16 +14,21 @@
  */
 package org.openehr.rm.integration;
 
-import java.util.*;
-
+import org.junit.Test;
 import org.openehr.rm.datastructure.itemstructure.ItemTree;
-import org.openehr.rm.datastructure.itemstructure.representation.*;
+import org.openehr.rm.datastructure.itemstructure.representation.Element;
+import org.openehr.rm.datastructure.itemstructure.representation.Item;
 import org.openehr.rm.datatypes.quantity.DvQuantity;
 
-import junit.framework.TestCase;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class GenericEntryCreationTest  {
-	
+
+	@Test
 	public void testCreateGenericEntry() {
 		String archetypeNodeId = "at0001";
 		String name = "test generic entry";

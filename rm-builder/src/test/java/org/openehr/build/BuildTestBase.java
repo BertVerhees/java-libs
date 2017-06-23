@@ -14,11 +14,11 @@
  */
 package org.openehr.build;
 
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
 import org.openehr.rm.common.generic.PartyIdentified;
+import org.openehr.rm.common.generic.PartySelf;
 import org.openehr.rm.datastructure.itemstructure.ItemList;
-import org.openehr.rm.support.identification.*;
-import org.openehr.rm.support.measurement.*;
 import org.openehr.rm.datastructure.itemstructure.ItemSingle;
 import org.openehr.rm.datastructure.itemstructure.representation.Cluster;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
@@ -28,11 +28,17 @@ import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.datatypes.text.DvText;
+import org.openehr.rm.support.identification.HierObjectID;
+import org.openehr.rm.support.identification.PartyRef;
+import org.openehr.rm.support.measurement.MeasurementService;
+import org.openehr.rm.support.measurement.SimpleMeasurementService;
 import org.openehr.rm.support.terminology.TerminologyService;
-import org.openehr.rm.common.generic.PartySelf;
 import org.openehr.terminology.SimpleTerminologyService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Base class for all RM object building test providing common test fixture
@@ -44,7 +50,8 @@ public class BuildTestBase  {
 	/**
 	 * The fixture set up called before every test method.
 	 */
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		Map<SystemValue, Object> values = new HashMap<SystemValue, Object>();
 		values.put(SystemValue.LANGUAGE, lang);
 		values.put(SystemValue.CHARSET, charset);
@@ -57,6 +64,7 @@ public class BuildTestBase  {
 	/**
 	 * The fixture clean up called after every test method.
 	 */
+	@After
 	protected void tearDown() throws Exception {
 		builder = null;
 	}

@@ -15,6 +15,7 @@
 
 package org.openehr.build;
 
+import org.junit.Test;
 import org.openehr.rm.RMObject;
 import org.openehr.rm.datatypes.basic.DvBoolean;
 import org.openehr.rm.datatypes.basic.DvState;
@@ -36,10 +37,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 public class DataTypesBuildTest extends BuildTestBase {
+
+    private static final double DELTA = 1e-15;
 	
 	 // test classes from datatypes.basic package
-    public void testBuildDvBoolean() throws Exception {
+     @Test
+     public void testBuildDvBoolean() throws Exception {
         String type = "DV_BOOLEAN";
         Map<String, Object> values = new HashMap<String, Object>();
 
@@ -74,6 +82,7 @@ public class DataTypesBuildTest extends BuildTestBase {
         assertEquals("value", false, booleanObj.getValue());
     }
 
+    @Test
     public void testBuildDvState() throws Exception {
         String type = "DV_STATE";
         Map<String, Object> values = new HashMap<String, Object>();
@@ -98,6 +107,7 @@ public class DataTypesBuildTest extends BuildTestBase {
     }
 
     // test classes from datatypes.text package
+    @Test
     public void testBuildDvText() throws Exception {
         String type = "DV_TEXT";
         Map<String, Object> values = new HashMap<String, Object>();
@@ -109,7 +119,8 @@ public class DataTypesBuildTest extends BuildTestBase {
         DvText text = (DvText) obj;
         assertEquals("value", value, text.getValue());
     }
-    
+
+    @Test
     public void testBuildCodePhrase() throws Exception {
         String type = "CODE_PHRASE";
         Map<String, Object> values = new HashMap<String, Object>();
@@ -125,6 +136,7 @@ public class DataTypesBuildTest extends BuildTestBase {
         assertEquals("codeString wrong", "1234", cp.getCodeString());
     }
 
+    @Test
     public void testBuildDvCodeText() throws Exception {
         String type = "DV_CODED_TEXT";
         Map<String, Object> values = new HashMap<String, Object>();
@@ -141,6 +153,7 @@ public class DataTypesBuildTest extends BuildTestBase {
         assertEquals("definingCode", definingCode, text.getDefiningCode());
     }
 
+    @Test
     public void testBuildDvParagraph() throws Exception {
         String type = "DV_PARAGRAPH";
         Map<String, Object> values = new HashMap<String, Object>();
@@ -162,6 +175,7 @@ public class DataTypesBuildTest extends BuildTestBase {
         assertEquals("items", items, paragraph.getItems());
     }
 
+    @Test
     public void testBuildOrdinal() throws Exception {
         String type = "DV_ORDINAL";
         Map<String, Object> values = new HashMap<String, Object>();
@@ -177,6 +191,7 @@ public class DataTypesBuildTest extends BuildTestBase {
         assertEquals("symbol", symbol, ordinal.getSymbol());
     }
 
+    @Test
     public void testBuildQuantity() throws Exception {
         String type = "DV_QUANTITY";
         Map<String, Object> values = new HashMap<String, Object>();
@@ -186,7 +201,7 @@ public class DataTypesBuildTest extends BuildTestBase {
         assertTrue(obj instanceof DvQuantity);
         DvQuantity quantity = (DvQuantity) obj;
         assertEquals("units", "kg/L", quantity.getUnits());
-        assertEquals("magnitude", 100.0, quantity.getMagnitude());
+        assertEquals("magnitude", 100.0, quantity.getMagnitude(), DELTA);
 
         // test with good string value
         values.clear();
@@ -208,6 +223,7 @@ public class DataTypesBuildTest extends BuildTestBase {
     }
 
     // test datatypes.quantity.datetime classes
+    @Test
     public void testBuildDvDate() throws Exception {
         String type = "DV_DATE";
 
@@ -242,6 +258,7 @@ public class DataTypesBuildTest extends BuildTestBase {
         }
     }
 
+    @Test
     public void testBuildDvDateTime() throws Exception {
         String type = "DV_DATE_TIME";
 
@@ -260,6 +277,7 @@ public class DataTypesBuildTest extends BuildTestBase {
         assertEquals("second", 45, datetime.getSecond());
     }
 
+    @Test
     public void testBuildDvTime() throws Exception {
         String type = "DV_TIME";
 
@@ -275,6 +293,7 @@ public class DataTypesBuildTest extends BuildTestBase {
         assertEquals("second", 45, datetime.getSecond());
     }
 
+    @Test
     public void testBuildDvDuration() throws Exception {
         String type = "DV_DURATION";
 
@@ -293,6 +312,7 @@ public class DataTypesBuildTest extends BuildTestBase {
     }
 
     // test datatypes.encapsulated classes
+    @Test
     public void testBuildParsable() throws Exception {
         String type = "DV_PARSABLE";
         Map<String, Object> values = new HashMap<String, Object>();

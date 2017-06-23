@@ -20,6 +20,7 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
+import org.junit.Test;
 import org.openehr.rm.datatypes.quantity.datetime.DvTime;
 import org.openehr.rm.support.basic.Interval;
 
@@ -30,11 +31,13 @@ import static org.junit.Assert.*;
 
 public class CTimeTest {
 
+    @Test
     public void testCreateCTimeWithPattern() {
     	CTime ctime = new CTime("HH:MM:SS");
     	assertNotNull(ctime);
     }
 
+    @Test
     public void testValidateByTimeInterval() throws Exception {
         CTime ct = new CTime(null, new Interval<DvTime>(dvTime(
                 "10:20:30"), dvTime("12:10:45")), null);
@@ -52,6 +55,7 @@ public class CTimeTest {
         assertValues(ct, values, false);
     }
 
+    @Test
     public void testValidateByTimeList() throws Exception {
         String[] values = {
             "00:01:10", "05:10:59", "06:20:50", "22:00:00",
@@ -67,6 +71,7 @@ public class CTimeTest {
         assertValues(ct, values, false);
     }
 
+    @Test
     public void testAssignedValue() throws Exception {
         CTime cd = new CTime(null,
                 new Interval<DvTime>(dvTime("00:00:00"),

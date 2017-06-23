@@ -21,21 +21,15 @@
  */
 package org.openehr.rm.common.generic;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.Test;
 import org.openehr.rm.support.identification.HierObjectID;
 import org.openehr.rm.support.identification.PartyRef;
 
 import static junit.framework.Assert.assertEquals;
 
 public class PartyIdentifiedTest {
-    
-    public static Test suite() {
-        TestSuite suite = new TestSuite(PartyIdentifiedTest.class);
-        
-        return suite;
-    }
 
+    @Test
     public void test() {
         PartyRef pr = new PartyRef(new HierObjectID("1-2-3-4-5"),"PARTY");
         PartyIdentified pi = new PartyIdentified(pr, "party name", null);

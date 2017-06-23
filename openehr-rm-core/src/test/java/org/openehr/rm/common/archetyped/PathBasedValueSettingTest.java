@@ -1,5 +1,6 @@
 package org.openehr.rm.common.archetyped;
 
+import org.junit.Test;
 import org.openehr.rm.datastructure.itemstructure.ItemList;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datatypes.quantity.DvOrdinal;
@@ -25,7 +26,8 @@ import static org.junit.Assert.assertEquals;
 public class PathBasedValueSettingTest  {
 
 	private static final double DELTA = 1e-15;
-	
+
+	@Test
 	public void testSetDvTextOnElement() throws Exception {
 		String text = "test text";
 		DvText dvText = new DvText(text);
@@ -41,7 +43,8 @@ public class PathBasedValueSettingTest  {
 		assertEquals("failed to set dvText value with path", text, 
 				actual.getValue());
 	}
-	
+
+	@Test
 	public void testSetDvTexStringValuetOnElement() throws Exception {
 		String text = "test text";
 		DvText dvText = new DvText(text);
@@ -56,7 +59,8 @@ public class PathBasedValueSettingTest  {
 		assertEquals("failed to set dvText string value with path", text, 
 				actual.getValue());
 	}
-	
+
+	@Test
 	public void testSetDvQuantityOnItemList() throws Exception {
 		DvQuantity dvq = new DvQuantity("mg", 2.3, 1, ms);
 		Element element = new Element("at0002", "element", dvq);
@@ -71,7 +75,8 @@ public class PathBasedValueSettingTest  {
 		DvQuantity actual = (DvQuantity) list.getItems().get(0).getValue();
 		assertEquals("failed to set dvQuantity on list", 6.2, actual.getMagnitude(), DELTA);
 	}
-	
+
+	@Test
 	public void testSetDvQuantityMagnitudeOnItemList() throws Exception {
 		DvQuantity dvq = new DvQuantity("mg", 2.3, 1, ms);
 		Element element = new Element("at0002", "element", dvq);
@@ -86,7 +91,8 @@ public class PathBasedValueSettingTest  {
 		DvQuantity actual = (DvQuantity) list.getItems().get(0).getValue();
 		assertEquals("failed to set dvQuantity on list", 6.2, actual.getMagnitude(), DELTA);
 	}
-	
+
+	@Test
 	public void testSetDvCodedTextOnItemList() throws Exception {
 		CodePhrase cp = new CodePhrase("SNOMED-CT", "12345678");
 		DvCodedText coded = new DvCodedText("yes", cp);
@@ -105,7 +111,8 @@ public class PathBasedValueSettingTest  {
 		assertEquals("failed to set codedText.definingCode on list", "12340000", 
 				actual.getDefiningCode().getCodeString());
 	}
-	
+
+	@Test
 	public void testSetDvCodedTextDefiningCodeStringOnItemList() throws Exception {
 		CodePhrase cp = new CodePhrase("SNOMED-CT", "12345678");
 		DvCodedText coded = new DvCodedText("yes", cp);
@@ -122,7 +129,8 @@ public class PathBasedValueSettingTest  {
 		assertEquals("failed to set codedText.definingCode on list", "12340000", 
 				actual.getDefiningCode().getCodeString());
 	}
-	
+
+	@Test
 	public void testSetDvCodedTextStringValueOnItemList() throws Exception {
 		CodePhrase cp = new CodePhrase("SNOMED-CT", "12345678");
 		DvCodedText coded = new DvCodedText("yes", cp);
@@ -138,7 +146,8 @@ public class PathBasedValueSettingTest  {
 		DvCodedText actual = (DvCodedText) list.getItems().get(0).getValue();
 		assertEquals("failed to set codedText.value on list", "nope", actual.getValue());
 	}
-	
+
+	@Test
 	public void testSetDvOrdinalOnItemList() throws Exception {
 		CodePhrase cp = new CodePhrase("SNOMED-CT", "12345678");
 		DvCodedText coded = new DvCodedText("yes", cp);

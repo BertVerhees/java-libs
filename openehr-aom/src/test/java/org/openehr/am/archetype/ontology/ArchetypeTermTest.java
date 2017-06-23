@@ -1,6 +1,7 @@
 package org.openehr.am.archetype.ontology;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,11 +14,13 @@ public class ArchetypeTermTest {
 	public void tearDown() {
 		term = null;		
 	}
-	
+
+	@Test
 	public void testGetText() {
 		assertEquals("text wrong", TEXT, term.getText());
 	}
-	
+
+	@Test
 	public void testGetDescription() {
 		assertEquals("description wrong", DESC, term.getDescription());
 	}

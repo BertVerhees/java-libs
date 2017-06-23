@@ -22,33 +22,22 @@
 
 package org.openehr.rm.common.resource;
 
-import junit.framework.*;
-import java.util.HashMap;
-import java.util.HashSet;
+import org.junit.Test;
 import org.openehr.rm.common.generic.RevisionHistory;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.identification.TestTerminologyID;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 public class AuthoredResourceTest extends ResourceTestBase {
-    
-    public AuthoredResourceTest(String testName) {
-        super(testName);
-    }
 
-    protected void setUp() throws Exception {
-    }
-
-    protected void tearDown() throws Exception {
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(AuthoredResourceTest.class);
-        
-        return suite;
-    }
-
+    @Test
     public void test() {
         CodePhrase orgLang = new CodePhrase(TestTerminologyID.LANGUAGE, "en");
         
@@ -69,7 +58,8 @@ public class AuthoredResourceTest extends ResourceTestBase {
     }
 
 
-    
+
+    @Test
     public void testFails() {
         
         CodePhrase orgLang = new CodePhrase(TestTerminologyID.LANGUAGE, "en");

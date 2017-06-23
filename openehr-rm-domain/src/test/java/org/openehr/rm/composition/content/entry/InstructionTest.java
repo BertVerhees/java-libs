@@ -13,14 +13,19 @@
  */
 package org.openehr.rm.composition.content.entry;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.composition.CompositionTestBase;
 import org.openehr.rm.datastructure.itemstructure.ItemStructure;
 import org.openehr.rm.datatypes.encapsulated.DvParsable;
 import org.openehr.rm.support.identification.ArchetypeID;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * InstructionTest
@@ -30,14 +35,13 @@ import org.openehr.rm.support.identification.ArchetypeID;
  */
 public class InstructionTest extends CompositionTestBase {
 
-    public InstructionTest(String test) {
-        super(test);
-    }
 
-    public void tearDown() throws Exception {
+    @After
+	public void tearDown() throws Exception {
         instruction = null;
     }
 
+    @Before
     public void setUp() throws Exception {
         ItemStructure protocol = list("list protocol");
         Archetyped arch = new Archetyped(
@@ -53,7 +57,8 @@ public class InstructionTest extends CompositionTestBase {
                 arch, null, null, null, language("en"), language("en"), subject(), provider(), 
                 null, null, protocol, null, text("narrative"), activities, null, null, ts);
     }
-    
+
+	@Test
 	public void testEquals() throws Exception {
 		ItemStructure protocol = list("list protocol");
 		Archetyped arch = new Archetyped(new ArchetypeID(
@@ -77,6 +82,7 @@ public class InstructionTest extends CompositionTestBase {
 		assertTrue(instruction1.equals(instruction2));
 	}
 
+	@Test
 	public void testNotEqualActivity() throws Exception {
 		ItemStructure protocol = list("list protocol");
 		Archetyped arch = new Archetyped(new ArchetypeID(
@@ -108,6 +114,7 @@ public class InstructionTest extends CompositionTestBase {
 		assertFalse(instruction1.equals(instruction2));
 	}
 
+	@Test
 	public void testNotEqualProtocol() throws Exception {
 		ItemStructure protocol = list("list protocol");
 		Archetyped arch = new Archetyped(new ArchetypeID(
@@ -132,6 +139,7 @@ public class InstructionTest extends CompositionTestBase {
 		assertFalse(instruction1.equals(instruction2));
 	}
 
+	@Test
 	public void testNotEqualTiming() throws Exception {
 		ItemStructure protocol = list("list protocol");
 		Archetyped arch = new Archetyped(new ArchetypeID(
@@ -164,6 +172,7 @@ public class InstructionTest extends CompositionTestBase {
 		assertFalse(instruction1.equals(instruction2));
 	}
 
+	@Test
 	public void testNotEqualActivitySize() throws Exception {
 		ItemStructure protocol = list("list protocol");
 		Archetyped arch = new Archetyped(new ArchetypeID(
@@ -196,7 +205,8 @@ public class InstructionTest extends CompositionTestBase {
 		assertFalse(instruction1.equals(instruction2));
 	}
 
-    public void testItemAtPath() {
+	@Test
+	public void testItemAtPath() {
     	path = "/";
     	value = instruction.itemAtPath(path);
     	assertEquals(instruction, value);

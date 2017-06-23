@@ -20,6 +20,7 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
+import org.junit.Test;
 import org.openehr.rm.support.basic.Interval;
 
 import java.util.Arrays;
@@ -29,6 +30,7 @@ import static org.junit.Assert.assertTrue;
 
 public class CIntegerTest {
 
+    @Test
     public void testValidValue() {
         CInteger ci = new CInteger(new Interval<Integer>(null, new Integer(10),
                 false, false), null);

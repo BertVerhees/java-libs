@@ -15,13 +15,6 @@
 
 package org.openehr.rm.demographic;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import junit.framework.TestCase;
-
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.common.archetyped.FeederAudit;
 import org.openehr.rm.common.archetyped.Link;
@@ -50,17 +43,16 @@ import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.datatypes.uri.DvEHRURI;
-import org.openehr.rm.support.identification.ArchetypeID;
-import org.openehr.rm.support.identification.HierObjectID;
-import org.openehr.rm.support.identification.ObjectRef;
-import org.openehr.rm.support.identification.ObjectVersionID;
-import org.openehr.rm.support.identification.PartyRef;
-import org.openehr.rm.support.identification.TerminologyID;
-import org.openehr.rm.support.identification.UIDBasedID;
+import org.openehr.rm.support.identification.*;
 import org.openehr.rm.support.measurement.MeasurementService;
 import org.openehr.rm.support.measurement.TestMeasurementService;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.rm.support.terminology.TestTerminologyService;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * DemographicTestBase
@@ -73,10 +65,6 @@ public class DemographicTestBase  {
 	/**
 	 * Constructs a test case with the given name.
 	 */
-	public DemographicTestBase(String name) {
-		super(name);
-	}
-
 	protected ItemSingle itemSingle(String value) {
 		Element element = element("test element", text(value));
 		return new ItemSingle("at0000", text("item single"), element);

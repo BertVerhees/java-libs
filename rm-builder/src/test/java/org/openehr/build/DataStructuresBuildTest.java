@@ -20,6 +20,7 @@
  */
 package org.openehr.build;
 
+import org.junit.Test;
 import org.openehr.rm.RMObject;
 import org.openehr.rm.datastructure.history.Event;
 import org.openehr.rm.datastructure.history.History;
@@ -38,8 +39,12 @@ import org.openehr.rm.datatypes.text.DvText;
 
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class DataStructuresBuildTest extends BuildTestBase {
-    
+
+    @Test
     public void testBuildElement() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         String node = "at0001";
@@ -56,7 +61,8 @@ public class DataStructuresBuildTest extends BuildTestBase {
         assertEquals("name", name, element.getName());
         assertEquals("value", value, element.getValue());
     }
-    
+
+    @Test
     public void testBuildElementWithUnderscoreSeparatedAttrName() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         String node = "at0001";
@@ -68,7 +74,8 @@ public class DataStructuresBuildTest extends BuildTestBase {
         RMObject obj = builder.construct("Element", values);
         assertTrue(obj instanceof Element);
     }
-    
+
+    @Test
     public void testBuildCluster() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         String archetypeNodeId = "at0001";
@@ -91,6 +98,7 @@ public class DataStructuresBuildTest extends BuildTestBase {
         assertEquals("items", items, cluster.getItems());
     }
 
+    @Test
     public void testBuildItemList() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         String archetypeNodeId = "at0001";
@@ -113,6 +121,7 @@ public class DataStructuresBuildTest extends BuildTestBase {
         assertEquals("items", items, itemList.getItems());
     }
 
+    @Test
     public void testBuildItemSingle() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
 
@@ -135,6 +144,7 @@ public class DataStructuresBuildTest extends BuildTestBase {
         builder.construct("ITEM_SINGLE", values);
     }
 
+    @Test
     public void testBuildItemTable() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         String archetypeNodeId = "at0001";
@@ -153,6 +163,7 @@ public class DataStructuresBuildTest extends BuildTestBase {
         assertEquals("rows", rows, itemTable.getRows());
     }
 
+    @Test
     public void testBuildItemTree() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         String archetypeNodeId = "at0001";
@@ -172,6 +183,7 @@ public class DataStructuresBuildTest extends BuildTestBase {
         assertEquals("items", items, itemTree.getItems());
     }
 
+    @Test
     public void testBuildPointEvent() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         String archetypeNodeId = "at0001";
@@ -191,6 +203,7 @@ public class DataStructuresBuildTest extends BuildTestBase {
         assertEquals("time", time, event.getTime());
     }
 
+    @Test
     public void testBuildIntervalEvent() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         String archetypeNodeId = "at0001";
@@ -222,6 +235,7 @@ public class DataStructuresBuildTest extends BuildTestBase {
                 intEvent.intervalStartTime());
     }
 
+    @Test
     public void testBuildHistoy() throws Exception {
         Map<String, Object> values = new HashMap<String, Object>();
         String archetypeNodeId = "at0001";

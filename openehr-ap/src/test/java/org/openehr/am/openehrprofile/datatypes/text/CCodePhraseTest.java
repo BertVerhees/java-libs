@@ -1,5 +1,6 @@
 package org.openehr.am.openehrprofile.datatypes.text;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.CAttribute;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.basic.Interval;
@@ -16,7 +17,8 @@ import static org.junit.Assert.*;
  * @author Rong.Chen
  */
 public class CCodePhraseTest  {
-	
+
+	@Test
 	public void testCreateEmptyCCodePhrase() {
 		String path = "/term_definitions[en]/items[at0001]/text/";
 		Interval<Integer> occurrences = new Interval<Integer>(1,1);
@@ -29,6 +31,7 @@ public class CCodePhraseTest  {
 		assertTrue("anyAllowed expected", constraint.isAnyAllowed());
 	}
 
+	@Test
 	public void testCreateCCodePhraseWithCodeList() {
 		String path = "/term_definitions[en]/items[at0001]/text/";
 		Interval<Integer> occurrences = new Interval<Integer>(0, 1);
@@ -45,7 +48,8 @@ public class CCodePhraseTest  {
 		assertFalse("anyAllowed unexpected", constraint.isAnyAllowed());
 		assertEquals("codeList wrong", codeList, constraint.getCodeList());		
 	}
-	
+
+	@Test
 	public void testValidValue() {
 		String path = "/term_definitions[en]/items[at0001]/text/";
 		Interval<Integer> occurrences = new Interval<Integer>(0, 1);
@@ -72,8 +76,9 @@ public class CCodePhraseTest  {
 		assertTrue("expected valid", 
 				constraint.validValue(new CodePhrase("test", "101")));		
 	}
-	
-	
+
+
+	@Test
 	public void testEqualsWithDifferentCode() {
 		CCodePhrase planned = new CCodePhrase("/defining_code", "openehr", 
 				"524");
@@ -86,7 +91,8 @@ public class CCodePhraseTest  {
 		assertFalse("two CCodePhrase with different code should not be equal",
 				postponed.equals(planned));		
 	}
-	
+
+	@Test
 	public void testEqualsWithDifferentTerminology() {
 		CCodePhrase planned = new CCodePhrase("/defining_code", "openehr", 
 				"524");
@@ -99,7 +105,8 @@ public class CCodePhraseTest  {
 		assertFalse("two CCodePhrase with different terminology should not be equal",
 				postponed.equals(planned));		
 	}
-	
+
+	@Test
 	public void testEqualsWithSameCodeAndTerminology() {
 		CCodePhrase planned = new CCodePhrase("/defining_code", "openehr", 
 				"527");

@@ -21,8 +21,8 @@
  */
 package org.openehr.rm.composition.content.entry;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.composition.CompositionTestBase;
 import org.openehr.rm.datastructure.itemstructure.ItemStructure;
@@ -31,13 +31,14 @@ import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.support.identification.ArchetypeID;
 import org.openehr.rm.support.terminology.TestCodeSetAccess;
 
-public class ActionTest extends CompositionTestBase {
-    
-    public ActionTest(String testName) {
-        super(testName);
-    }
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-    protected void setUp() throws Exception {
+public class ActionTest extends CompositionTestBase {
+
+	@Before
+    public void setUp() throws Exception {
         ItemStructure description = list("list description");
         ItemStructure protocol = list("list protocol");
         Archetyped arch = new Archetyped(
@@ -51,51 +52,49 @@ public class ActionTest extends CompositionTestBase {
                 ismT, null, ts);
     }
 
-    protected void tearDown() throws Exception {
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ActionTest.class);
-        
-        return suite;
-    }
-
-    public void testItemAtPathWhole() {
+	@Test
+	public void testItemAtPathWhole() {
     	path = "/";
     	value = action.itemAtPath(path);
     	assertEquals(action, value);
     }
-    
-    public void testItemAtPathSubject() {
+
+	@Test
+	public void testItemAtPathSubject() {
     	path = "/subject";
     	value = action.itemAtPath(path);
     	assertEquals(action.getSubject(), value);
     }
-    
-    public void testItemAtPathProvider() {
+
+	@Test
+	public void testItemAtPathProvider() {
     	path = "/provider";
     	value = action.itemAtPath(path);
     	assertEquals(action.getProvider(), value);
     }
-    
-    public void testItemAtPathProtocol() {
+
+	@Test
+	public void testItemAtPathProtocol() {
     	path = "/protocol";
     	value = action.itemAtPath(path);
     	assertEquals(action.getProtocol(), value);
     }
-    
-    public void testItemAtPathDescription() {
+
+	@Test
+	public void testItemAtPathDescription() {
     	path = "/description";
     	value = action.itemAtPath(path);
     	assertEquals(action.getDescription(), value);
     }
-    
-    public void testItemAtPathTime() {
+
+	@Test
+	public void testItemAtPathTime() {
     	path = "/time";
     	value = action.itemAtPath(path);
     	assertEquals(action.getTime(), value);
     }
-    
+
+	@Test
 	public void testEquals() throws Exception {
 		ItemStructure description = list("list description");
 		ItemStructure protocol = list("list protocol");
@@ -116,6 +115,7 @@ public class ActionTest extends CompositionTestBase {
 		assertTrue(action.equals(action2));
 	}
 
+	@Test
 	public void testNotEquals() throws Exception {
 		ItemStructure description = list("list description");
 		ItemStructure protocol = list("list protocol");
@@ -137,6 +137,7 @@ public class ActionTest extends CompositionTestBase {
 		assertFalse(action.equals(action2));
 	}
 
+	@Test
 	public void testNotEqualsProtocol() throws Exception {
 		ItemStructure description = list("list description");
 		ItemStructure protocol = list("list protocol");

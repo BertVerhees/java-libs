@@ -20,9 +20,7 @@
  */
 package org.openehr.rm.ehr;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.common.generic.AuditDetails;
 import org.openehr.rm.composition.Composition;
@@ -35,27 +33,26 @@ import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.datatypes.text.DvText;
-import org.openehr.rm.support.identification.ArchetypeID;
-import org.openehr.rm.support.identification.HierObjectID;
-import org.openehr.rm.support.identification.ObjectRef;
-import org.openehr.rm.support.identification.ObjectVersionID;
-import org.openehr.rm.support.identification.UIDBasedID;
+import org.openehr.rm.support.identification.*;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.rm.support.terminology.TestCodeSetAccess;
 import org.openehr.rm.support.terminology.TestTerminologyAccess;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
+
 public class VersionedCompositionTest extends CompositionTestBase {
 
-	public VersionedCompositionTest(String test) {
-		super(test);
-	}
-
+	@Test
 	public void testCreateVersionedComposition() throws Exception {
 		VersionedComposition vc = versionedComposition("at0001", "first");
 		assertEquals("size", 1, vc.allVersions().size());
 	}
 
+	@Test
 	public void testCommit() throws Exception {
 		VersionedComposition vc = versionedComposition("at0001", "first");
 

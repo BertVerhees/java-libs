@@ -1,5 +1,6 @@
 package org.openehr.am.openehrprofile.datatypes.quantity;
 
+import org.junit.Test;
 import org.openehr.am.archetype.constraintmodel.CAttribute;
 import org.openehr.rm.datatypes.quantity.DvQuantity;
 import org.openehr.rm.datatypes.text.CodePhrase;
@@ -13,7 +14,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class CDvQuantityTest  {
-	
+
+	@Test
 	public void testCreateEmptyCDvQuantity() {
 		String path = "/term_definitions[en]/items[at0001]/text/";
 		Interval<Integer> occurrences = new Interval<Integer>(1,1);
@@ -26,12 +28,14 @@ public class CDvQuantityTest  {
 				parent, list, property, null, null);
 		assertTrue("anyAllowed expected", constraint.isAnyAllowed());
 	}
-	
+
+	@Test
 	public void testCreateAnyAllowed() {
 		CDvQuantity dq = CDvQuantity.anyAllowed("/at0001");
 		assertNotNull("failed to create anyAllowed");
 	}
-	
+
+	@Test
 	public void testCreateWithAssumedValue() {
 		String path = "/term_definitions[en]/items[at0001]/text/";
 		Interval<Integer> occurrences = new Interval<Integer>(1,1);
@@ -46,7 +50,8 @@ public class CDvQuantityTest  {
 				parent, list, property, null, assumed);
 		assertEquals("assumed wrong", assumed, constraint.getAssumedValue());
 	}
-	
+
+	@Test
 	public void testCreateWithDefaultValue() {
 		String path = "/term_definitions[en]/items[at0001]/text/";
 		Interval<Integer> occurrences = new Interval<Integer>(1,1);
@@ -61,7 +66,8 @@ public class CDvQuantityTest  {
 				parent, list, property, defaultValue, null);
 		assertEquals("default wrong", defaultValue, constraint.getDefaultValue());
 	}
-	
+
+	@Test
 	public void testEqualsWithDifferentQuantityItems() {
 		Interval<Integer> required = new Interval<Integer>(1,1);
 		CDvQuantityItem item1 = new CDvQuantityItem(
@@ -83,7 +89,8 @@ public class CDvQuantityTest  {
 		assertFalse("CDvQuantity with different items should not equal",
 				cq2.equals(cq1));
 	}
-	
+
+	@Test
 	public void testEqualsWithSameQuantityItems() {
 		Interval<Integer> required = new Interval<Integer>(1,1);
 		CDvQuantityItem item1 = new CDvQuantityItem(
@@ -105,7 +112,8 @@ public class CDvQuantityTest  {
 		assertTrue("CDvQuantity with the same quantity items should equal",
 				cq2.equals(cq1));
 	}
-	
+
+	@Test
 	public void testValidValueExpected() throws Exception {
 		Interval<Integer> required = new Interval<Integer>(1,1);
 		CDvQuantityItem item1 = new CDvQuantityItem(
@@ -119,7 +127,8 @@ public class CDvQuantityTest  {
 		
 		assertTrue("expected valid value expected", cdq.validValue(dq));				
 	}
-	
+
+	@Test
 	public void testValidValueValueOutOfRange() throws Exception {
 		Interval<Integer> required = new Interval<Integer>(1,1);
 		CDvQuantityItem item1 = new CDvQuantityItem(

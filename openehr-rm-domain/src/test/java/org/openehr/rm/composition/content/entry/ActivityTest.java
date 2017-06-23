@@ -22,34 +22,24 @@
 
 package org.openehr.rm.composition.content.entry;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
+import org.junit.Before;
 import org.openehr.rm.composition.CompositionTestBase;
 import org.openehr.rm.datatypes.encapsulated.DvParsable;
 
+import static org.junit.Assert.assertEquals;
+
 public class ActivityTest extends CompositionTestBase {
 
-	public ActivityTest(String testName) {
-		super(testName);
-	}
 
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		DvParsable timing = new DvParsable("timing value", "fomalism");
 		activity = new Activity("at0004", text("activity 1"),
 				list("list activity"), timing,
 				"openEHR-EHR-ITEM_TREE.intravenous_fluids.v1");
 	}
 
-	protected void tearDown() throws Exception {
-	}
-
-	public static Test suite() {
-		TestSuite suite = new TestSuite(ActivityTest.class);
-
-		return suite;
-	}
-
+	@org.junit.Test
 	public void testItemAtPath() {
     	path = "/";
     	value = activity.itemAtPath(path);

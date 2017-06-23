@@ -20,6 +20,7 @@
  */
 package org.openehr.rm.common.directory;
 
+import org.junit.Test;
 import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.support.identification.HierObjectID;
 import org.openehr.rm.support.identification.UIDBasedID;
@@ -28,6 +29,7 @@ import org.openehr.rm.support.terminology.TestTerminologyService;
 
 public class FolderTest  {
 
+    @Test
     public void testConstructor() throws Exception {
     	UIDBasedID uid = new HierObjectID("1.4.7.23.4.7.23");
 

@@ -20,30 +20,18 @@
  */
 package org.openehr.rm.datatypes.basic;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.support.terminology.TestCodeSetAccess;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
-public class DvStateTest extends TestCase {
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-    public DvStateTest(String test) {
-        super(test);
-    }
+public class DvStateTest {
 
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
-
+    @Test
     public void testEquals() throws Exception {
         DvCodedText codeOne = new DvCodedText("some text",
                 TestCodeSetAccess.ENGLISH, TestCodeSetAccess.LATIN_1,

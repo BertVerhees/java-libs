@@ -22,32 +22,30 @@
 
 package org.openehr.rm.datatypes.quantity.datetime;
 
-import junit.framework.*;
-
-import java.util.Locale;
-import java.util.TimeZone;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.ISODateTimeFormat;
+import org.junit.Before;
+import org.junit.Test;
 
-public class DvDateTimeParserTest extends TestCase {
+import java.util.Locale;
+import java.util.TimeZone;
+
+import static org.junit.Assert.*;
+
+public class DvDateTimeParserTest {
 	
-	public DvDateTimeParserTest(String testName) {
-        super(testName);
-    }
-
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         defZoneStr = DvDateTimeParser.convertTimeZone(
                 DateTimeZone.getDefault().getOffset(new DateTime()), false);
-    }
-
-    protected void tearDown() throws Exception {
     }
 
     /**
      * Test of parseTime method, of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
-    public void testParseTime() {        
+    @Test
+    public void testParseTime() {
         String[] values = {
         		"23", "23:30", "23:30Z", "23+11", "2330", "1000Z", "11Z", "153722", 
                 "225523.9", "102030.01", "191817.289",
@@ -59,7 +57,8 @@ public class DvDateTimeParserTest extends TestCase {
         	assertNotNull(result);
         }
     }
-    
+
+    @Test
     public void testParseTimeWithPtBrLocale() {
     	Locale defaultLocale = Locale.getDefault();
     	Locale.setDefault(new Locale("pt", "BR"));
@@ -75,7 +74,8 @@ public class DvDateTimeParserTest extends TestCase {
     /**
      * Test of parseDate method, of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
-    public void testParseDate() {        
+    @Test
+    public void testParseDate() {
         //String value = "199912";
         String[] values = {
         		"1333", "1982-02-19", "1982-02", "29491213", "199002"        		
@@ -90,6 +90,7 @@ public class DvDateTimeParserTest extends TestCase {
     /**
      * Test of parseDateTime method, of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testParseDateTime() {
        
         String[] values = {
@@ -106,6 +107,7 @@ public class DvDateTimeParserTest extends TestCase {
     /**
      * Test of padTimeValue method, of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testPadValue() {
         assertEquals("232922.000" + defZoneStr, DvDateTimeParser.padTimeValue("232922"));
         assertEquals("232922,099" + defZoneStr, DvDateTimeParser.padTimeValue("232922,099"));
@@ -117,6 +119,7 @@ public class DvDateTimeParserTest extends TestCase {
     /**
      * Test of convertTimeZone method, of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testConvertTimeZone() {
      
         assertEquals("+0200", DvDateTimeParser.convertTimeZone(7200000, false));
@@ -128,7 +131,8 @@ public class DvDateTimeParserTest extends TestCase {
     /**
      * Test of convertTime method, of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
-    public void testConvertTime() {        
+    @Test
+    public void testConvertTime() {
         TimeZone timezone = TimeZone.getTimeZone("GMT+04");
         
         assertNotNull(DvDateTimeParser.convertTime(0, 0, 0, 0, null));
@@ -145,6 +149,7 @@ public class DvDateTimeParserTest extends TestCase {
     /**
      * Test of convertDate method, of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testConvertDate() {
         
         int year = 1900;
@@ -158,15 +163,10 @@ public class DvDateTimeParserTest extends TestCase {
         
     }
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(DvDateTimeParserTest.class);
-        
-        return suite;
-    }
-
     /**
      * Test of convertDateTime method, of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testConvertDateTime() {
         
         int year = 1000;
@@ -187,6 +187,7 @@ public class DvDateTimeParserTest extends TestCase {
     /**
      * Test of defaultTime method, of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testDefaultTime() {
         
         DateTime expResult = null;
@@ -197,6 +198,7 @@ public class DvDateTimeParserTest extends TestCase {
     /**
      * Test of defaultDate method, of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testDefaultDate() {
         
         DateTime expResult = null;
@@ -208,6 +210,7 @@ public class DvDateTimeParserTest extends TestCase {
     /**
      * Test of defaultDateTime method, of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testDefaultDateTime() {
         
         DateTime expResult = null;
@@ -220,6 +223,7 @@ public class DvDateTimeParserTest extends TestCase {
      * Test of toTimeString method, 
      * of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testToTimeString() {
         
         //int[] timeElems = {1, 23, 7, 12};
@@ -256,6 +260,7 @@ public class DvDateTimeParserTest extends TestCase {
      * Test of toDateString method, 
      * of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testToDateString() {
         
         //int[] timeElems = {1, 23, 7, 12};
@@ -277,6 +282,7 @@ public class DvDateTimeParserTest extends TestCase {
      * Test of toDateTimeString method
      *
      */
+    @Test
     public void testToDateTimeString() {
         TimeZone timezone = TimeZone.getTimeZone("UTC");
         DateTime time = new DateTime(1343, 3, 6 , 0, 22, 19, 0, DateTimeZone.forTimeZone(timezone));
@@ -303,6 +309,7 @@ public class DvDateTimeParserTest extends TestCase {
      * Test of concatenateTimeElems method, 
      * of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testAddExtension() {
         
         String pattern = "HHmmss.SSS";
@@ -323,6 +330,7 @@ public class DvDateTimeParserTest extends TestCase {
      * Test of concatenateTimeElems method, 
      * of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testAnalyseTimeString() {
        
         assertEquals(4, DvDateTimeParser.analyseTimeString("13:29:40.345Z"));
@@ -339,6 +347,7 @@ public class DvDateTimeParserTest extends TestCase {
      * Test of concatenateTimeElems method, 
      * of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testAnalyseDateString() {
        
         assertEquals(3, DvDateTimeParser.analyseDateString("1990-07-23"));
@@ -354,6 +363,7 @@ public class DvDateTimeParserTest extends TestCase {
      * Test of basicToExtendedTime method, 
      * of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testBasicToExtendedTime() {
 
         assertEquals("23:29:00.809-02:30", DvDateTimeParser.basicToExtendedTime("232900.809-0230"));
@@ -371,6 +381,7 @@ public class DvDateTimeParserTest extends TestCase {
      * Test of basicToExtendedDate method, 
      * of class org.openehr.rm.datatypes.quantity.datetime.DvDateTimeParser.
      */
+    @Test
     public void testBasicToExtendedDate() {
        
         assertEquals("1999", DvDateTimeParser.basicToExtendedDate("1999"));
@@ -378,7 +389,8 @@ public class DvDateTimeParserTest extends TestCase {
         assertEquals("1700-09-01", DvDateTimeParser.basicToExtendedDate("17000901"));
 
     }
-    
+
+    @Test
     public void testBasicToTextendedDateTime() {
         
         assertEquals("1999-09-09T21", DvDateTimeParser.basicToExtendedDateTime("19990909T21"));

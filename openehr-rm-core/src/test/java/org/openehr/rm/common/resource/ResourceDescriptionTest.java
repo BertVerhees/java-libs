@@ -21,6 +21,7 @@
  */
 package org.openehr.rm.common.resource;
 
+import org.junit.Test;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.identification.TestTerminologyID;
 import org.openehr.rm.support.terminology.TestTerminologyService;
@@ -33,7 +34,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class ResourceDescriptionTest extends ResourceTestBase {
-    
+
+    @Test
     public void test() {
         String[] fr = {"fr"};
         String[] en = {"en"};
@@ -54,7 +56,8 @@ public class ResourceDescriptionTest extends ResourceTestBase {
                 null, "initial", details(en, purpose), null, null, ar);
         
     }
-    
+
+    @Test
     public void testFails() {
        /* CodePhrase orgLang = new CodePhrase(TestTerminologyID.LANGUAGE, "en");
         String[] languages = {"en", "fr"};

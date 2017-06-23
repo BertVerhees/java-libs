@@ -20,29 +20,15 @@
  */
 package org.openehr.rm.datatypes.text;
 
+import org.junit.Test;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
-public class DvTextTest extends TestCase {
+public class DvTextTest {
 
-    public DvTextTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
-
+    @Test
     public void testValidValue() throws Exception {
         assertTrue("good value", DvText.validValue("good value"));
         assertFalse("null value", DvText.validValue(null));
@@ -52,6 +38,7 @@ public class DvTextTest extends TestCase {
         assertFalse("empty value", DvText.validValue(""));
     }
 
+    @Test
     public void testConstructor() throws Exception {
         DvText text;
 
@@ -61,7 +48,8 @@ public class DvTextTest extends TestCase {
         // try the new minimal constructor
         text = new DvText("value");
     }
-    
+
+    @Test
     public void testCreateWithNullEncoding() throws Exception {
     	TerminologyService ts = TestTerminologyService.getInstance();
     	CodePhrase lang = new CodePhrase("ISO_639-1", "en");
@@ -69,7 +57,8 @@ public class DvTextTest extends TestCase {
     	DvText dt = new DvText("test", lang, charset, ts);
     	assertNotNull("failed to create dvText", dt);
     }
-    
+
+    @Test
     public void testCreateWithNullLanguage() throws Exception {
     	TerminologyService ts = TestTerminologyService.getInstance();
     	CodePhrase lang = null;

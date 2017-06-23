@@ -1,7 +1,6 @@
 package org.openehr.am.template;
 
 import com.thoughtworks.xstream.XStream;
-import junit.framework.TestCase;
 import openEHR.v1.template.TEMPLATE;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
