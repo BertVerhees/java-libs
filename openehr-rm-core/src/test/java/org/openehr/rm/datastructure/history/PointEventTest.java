@@ -21,9 +21,7 @@
  */
 package org.openehr.rm.datastructure.history;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
+import org.junit.After;
 import org.openehr.rm.datastructure.DataStructureTestBase;
 import org.openehr.rm.datastructure.itemstructure.ItemSingle;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
@@ -31,21 +29,13 @@ import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.quantity.datetime.DvDuration;
 import org.openehr.rm.datatypes.text.DvText;
 
+import static org.junit.Assert.assertEquals;
+
 public class PointEventTest extends DataStructureTestBase {
-
-	public PointEventTest(String testName) {
-		super(testName);
-	}
-
+	@After
 	protected void tearDown() throws Exception {
 		element = null;
 		pointEvent = null;
-	}
-
-	public static Test suite() {
-		TestSuite suite = new TestSuite(PointEventTest.class);
-
-		return suite;
 	}
 
 	/**

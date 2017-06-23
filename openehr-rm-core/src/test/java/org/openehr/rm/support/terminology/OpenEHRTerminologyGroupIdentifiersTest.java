@@ -1,7 +1,6 @@
 package org.openehr.rm.support.terminology;
 
-import junit.framework.TestCase;
-
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class OpenEHRTerminologyGroupIdentifiersTest  {

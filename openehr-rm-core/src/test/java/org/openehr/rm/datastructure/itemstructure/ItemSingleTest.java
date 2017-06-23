@@ -21,20 +21,17 @@
 package org.openehr.rm.datastructure.itemstructure;
 
 
+import org.junit.Before;
 import org.openehr.rm.datastructure.DataStructureTestBase;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datatypes.text.DvText;
 
+import static org.junit.Assert.*;
+
 public class ItemSingleTest extends DataStructureTestBase {
 
-    public ItemSingleTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
+	@Before
+    public void setUp() throws Exception {
         element = new Element("at0002", new DvText("test element"), 
         		new DvText("text value"));
         itemSingle = new ItemSingle(null, "at0001", text("single item"),

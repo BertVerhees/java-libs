@@ -22,34 +22,19 @@
 
 package org.openehr.rm.common.changecontrol;
 
-import java.util.HashSet;
-import java.util.Set;
-import junit.framework.*;
 import org.openehr.rm.common.generic.AuditDetails;
 import org.openehr.rm.common.generic.PartyIdentified;
 import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.datatypes.text.TestCodePhrase;
-import org.openehr.rm.support.identification.HierObjectID;
-import org.openehr.rm.support.identification.LocatableRef;
-import org.openehr.rm.support.identification.ObjectRef;
-import org.openehr.rm.support.identification.ObjectVersionID;
-import org.openehr.rm.support.identification.PartyRef;
-import org.openehr.rm.support.identification.TestTerminologyID;
+import org.openehr.rm.support.identification.*;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ChangeControlTestBase  {
-
-	public ChangeControlTestBase(String testName) {
-		super(testName);
-	}
-
-	protected void setUp() throws Exception {
-	}
-
-	protected void tearDown() throws Exception {
-	}
 
 	protected DvCodedText lifeCycleState(String state) {
 		CodePhrase codePhrase = new CodePhrase(TestTerminologyID.SNOMEDCT,

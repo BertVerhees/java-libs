@@ -20,25 +20,9 @@
  */
 package org.openehr.rm.support.basic;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 public class IntervalTest  {
-
-    public IntervalTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
 
     public void testConstructor() throws Exception {
         try {

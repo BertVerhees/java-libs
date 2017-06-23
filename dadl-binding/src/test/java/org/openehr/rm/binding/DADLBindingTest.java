@@ -13,11 +13,9 @@
  */
 package org.openehr.rm.binding;
 
-import java.io.InputStream;
-import java.util.TimeZone;
-
-import org.joda.time.DateTime;
-import org.openehr.am.parser.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.common.generic.PartySelf;
 import org.openehr.rm.composition.content.entry.Observation;
@@ -33,20 +31,24 @@ import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.datatypes.text.DvText;
-import org.openehr.rm.support.identification.*;
+import org.openehr.rm.support.identification.ArchetypeID;
+import org.openehr.rm.support.identification.TerminologyID;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 public class DADLBindingTest extends DADLBindingTestBase {
-	
+
+	@Before
 	public void setUp() throws Exception {
 		binding = new DADLBinding();
 	}
-	
+
+	@After
 	public void tearDown() throws Exception {
 		rmObj = null;
 	}
-	
+
+	@Test
 	public void testBindTypedDvQuantity() throws Exception {
 		rmObj = bind("typed_dv_quantity.dadl");
 		assertTrue("rmObject not DvQuantity", rmObj instanceof DvQuantity);
@@ -55,7 +57,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 		assertEquals("DvQuantity magnitude wrong", 120.0, dq.getMagnitude(), 0);
 		assertEquals("DvQuantity units wrong", "mmHg", dq.getUnits());
 	}
-	
+
+	@Test
 	public void testBindTypedDvOrdinal() throws Exception {
 		rmObj = bind("typed_dv_ordinal.dadl");
 		assertTrue("rmObject not DvOrdinal", rmObj instanceof DvOrdinal);
@@ -63,7 +66,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 		DvOrdinal expected = new DvOrdinal(1, new DvCodedText("Sitting", 
 						new CodePhrase("SNOMED-CT", "12345678")));
 	}
-	
+
+	@Test
 	public void testBindUntypedDvQuantity() throws Exception {
 		rmObj = bind("dv_quantity.dadl");
 		assertTrue("rmObject not DvQuantity", rmObj instanceof DvQuantity);
@@ -73,6 +77,7 @@ public class DADLBindingTest extends DADLBindingTestBase {
 		assertEquals("DvQuantity units wrong", "mmHg", dq.getUnits());
 	}
 
+	@Test
 	public void testBindTypedDvText() throws Exception {
 		rmObj = bind("typed_dv_text.dadl");
 		assertTrue("rmObject not DvText", rmObj instanceof DvText);
@@ -80,7 +85,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 		DvText dt = (DvText) rmObj;
 		assertEquals("DvText value wrong", "sitting", dt.getValue());		
 	}
-	
+
+	@Test
 	public void testBindUntypedElement() throws Exception {
 		rmObj = bind("element.dadl");
 		
@@ -96,7 +102,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 		assertEquals("dvQuantity magnitude wrong", 120.0, dq.getMagnitude(), 0);
 		assertEquals("dvQuantity units wrong", "mmHg", dq.getUnits());
 	}
-	
+
+	@Test
 	public void testBindTypedEmptyElement() throws Exception {
 		rmObj = bind("empty_element_with_null_flavour.dadl");
 		
@@ -108,7 +115,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 				element.getArchetypeNodeId());
 		assertNull(element.getValue());
 	}
-	
+
+	@Test
 	public void testBindTypedTextElement() throws Exception {
 		rmObj = bind("element_with_text.dadl");
 		
@@ -121,7 +129,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 		DvText text = (DvText) element.getValue();
 		assertEquals("text value", text.getValue());
 	}
-	
+
+	@Test
 	public void testBindUntypedItemList() throws Exception {
 		rmObj = bind("item_list.dadl");
 		
@@ -138,7 +147,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 		assertEquals("itemList.items[1].value.magnitude wrong", 80.0,
 				((DvQuantity) itemList.ithItem(1).getValue()).getMagnitude(), 0);
 	}
-	
+
+	@Test
 	public void testBindEmptyItemList() throws Exception {
 		rmObj = bind("empty_item_list.dadl");
 		
@@ -151,7 +161,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 				itemList.getName().getValue());
 		assertEquals("ItemList.items size wrong", 0, itemList.getItems().size());
 	}
-	
+
+	@Test
 	public void testBindPointEvent() throws Exception {
 		rmObj = bind("point_event.dadl");
 		
@@ -165,7 +176,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 		assertEquals("pointEvent.name.value wrong", "sitting",
 				event.getName().getValue());
 	}
-	
+
+	@Test
 	public void testBindHistory() throws Exception {
 		rmObj = bind("history.dadl");
 		
@@ -183,7 +195,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 				new DvDateTime("2005-12-03T09:22:00"),
 				((Event) history.getEvents().get(0)).getTime());
 	}
-	
+
+	@Test
 	public void testBindTypedArchetypID() throws Exception {
 		rmObj = bind("typed_archetype_id.dadl");
 		assertNotNull("rmObject null", rmObj);
@@ -194,7 +207,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 				"openEHR-EHR-OBSERVATION.blood_pressure.v1", 
 				archetypeId.getValue());
 	}
-	
+
+	@Test
 	public void testBindTypedTerminologyID() throws Exception {
 		rmObj = bind("typed_terminology_id.dadl");
 		assertNotNull("rmObject null", rmObj);
@@ -203,7 +217,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 		TerminologyID id = (TerminologyID) rmObj;
 		assertEquals("archetypeId.value wrong", "openehr", id.getValue());
 	}
-	
+
+	@Test
 	public void testBindArchetyped() throws Exception {
 		rmObj = bind("archetyped.dadl");
 		assertNotNull("rmObject null", rmObj);
@@ -216,7 +231,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 		assertEquals("archtyped.rmVersion wrong", "1.0.1", 
 				archetyped.getRmVersion());
 	}
-	
+
+	@Test
 	public void testBindCodePhrase() throws Exception {
 		rmObj = bind("code_phrase.dadl");
 		assertNotNull("rmObject null", rmObj);
@@ -227,7 +243,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 				cp.getTerminologyId().getValue());
 		assertEquals("codePhrase.codeString", "en", cp.getCodeString());		
 	}
-	
+
+	@Test
 	public void testUntypedDvCodedText() throws Exception {
 		rmObj = bind("dv_coded_text.dadl");
 		assertNotNull("rmObject null", rmObj);
@@ -241,14 +258,16 @@ public class DADLBindingTest extends DADLBindingTestBase {
 		assertEquals("dvCodedText.value wrong", "sitting", 
 				dt.getValue());		
 	}
-	
+
+	@Test
 	public void testBindTypedPartySelf() throws Exception {
 		rmObj = bind("typed_party_self.dadl");
 		assertNotNull("rmObject null", rmObj);
 		assertTrue("rmObject not PartySelf: "	+ rmObj.getClass().getName(), 
 				rmObj instanceof PartySelf);
 	}
-	
+
+	@Test
 	public void testBindSimpleObservation() throws Exception {
 		rmObj = bind("observation.dadl");
 		assertNotNull("rmObject null", rmObj);
@@ -269,7 +288,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 		
 		assertNull("data.events[0].state not null", event.getState());
 	}
-	
+
+	@Test
 	public void testBindObservationWithEventState() throws Exception {
 		rmObj = bind("observation2.dadl");
 		assertNotNull("rmObject null", rmObj);
@@ -302,7 +322,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 		// test with paths
 		String path = "/data/events[0]/data/items[0]/value/magnitude";		
 	}
-	
+
+	@Test
 	public void testBindSimpleTypedItemTree() throws Exception {
 		rmObj = bind("item_tree_bp2.dadl");
 		assertNotNull("rmObject null", rmObj);
@@ -319,7 +340,8 @@ public class DADLBindingTest extends DADLBindingTestBase {
 				((DvQuantity) ((Element) itemTree.getItems().get(1)).getValue()).getMagnitude(), 0);
 		
 	}
-	
+
+	@Test
 	public void testBindComplexItemTree() throws Exception {
 		rmObj = bind("item_tree_bp.dadl");
 		assertNotNull("rmObject null", rmObj);

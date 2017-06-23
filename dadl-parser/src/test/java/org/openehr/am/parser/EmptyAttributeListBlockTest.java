@@ -1,7 +1,12 @@
 package org.openehr.am.parser;
 
+import org.junit.Test;
+
+import static junit.framework.Assert.*;
+
 public class EmptyAttributeListBlockTest extends ParserTestBase {
-	
+
+	@Test
 	public void testParseBlockWithEmptyAttrList() throws Exception {
 		DADLParser parser = new DADLParser(loadFromClasspath(
 			"empty_attr_list.dadl"));
@@ -13,7 +18,8 @@ public class EmptyAttributeListBlockTest extends ParserTestBase {
 		
 		assertTrue(obj.getComplexObjectBlock() instanceof SingleAttributeObjectBlock);
 	}
-	
+
+	@Test
 	public void testParseEmptyAttrListWithoutTypeIdentifier() throws Exception {
 		DADLParser parser = new DADLParser(loadFromClasspath(
 			"empty_attr_list_without_type.dadl"));

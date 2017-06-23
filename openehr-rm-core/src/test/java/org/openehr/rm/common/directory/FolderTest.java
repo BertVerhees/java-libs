@@ -20,30 +20,13 @@
  */
 package org.openehr.rm.common.directory;
 
-import junit.framework.TestCase;
+import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.support.identification.HierObjectID;
 import org.openehr.rm.support.identification.UIDBasedID;
-import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.support.terminology.TestCodeSetAccess;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
 public class FolderTest  {
-
-    public FolderTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
 
     public void testConstructor() throws Exception {
     	UIDBasedID uid = new HierObjectID("1.4.7.23.4.7.23");

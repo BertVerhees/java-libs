@@ -1,14 +1,18 @@
 package org.openehr.am.parser;
 
-import java.util.List;
-
+import org.junit.Test;
 import org.openehr.rm.datatypes.quantity.datetime.DvDate;
 import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.quantity.datetime.DvDuration;
 import org.openehr.rm.datatypes.quantity.datetime.DvTime;
 
+import java.util.List;
+
+import static org.junit.Assert.*;
+
 public class SimpleValuesTest extends ParserTestBase {
-	
+
+	@Test
 	public void testParseAndVerifySimpleValues() throws Exception {
 		DADLParser parser = new DADLParser(loadFromClasspath(
 			"simple_values.dadl"));

@@ -1,7 +1,5 @@
 package org.openehr.rm.common.archetyped;
 
-import java.util.*;
-
 import org.openehr.rm.datastructure.itemstructure.ItemList;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datatypes.quantity.DvOrdinal;
@@ -12,7 +10,10 @@ import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.support.measurement.MeasurementService;
 import org.openehr.rm.support.measurement.TestMeasurementService;
 
-import junit.framework.TestCase;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test cases for path-based value setting implemented in Locatable class.
@@ -22,6 +23,8 @@ import junit.framework.TestCase;
  */
 
 public class PathBasedValueSettingTest  {
+
+	private static final double DELTA = 1e-15;
 	
 	public void testSetDvTextOnElement() throws Exception {
 		String text = "test text";
@@ -66,7 +69,7 @@ public class PathBasedValueSettingTest  {
 		list.set("/items[at0002]/value", dvq);
 		
 		DvQuantity actual = (DvQuantity) list.getItems().get(0).getValue();
-		assertEquals("failed to set dvQuantity on list", 6.2, actual.getMagnitude());
+		assertEquals("failed to set dvQuantity on list", 6.2, actual.getMagnitude(), DELTA);
 	}
 	
 	public void testSetDvQuantityMagnitudeOnItemList() throws Exception {
@@ -81,7 +84,7 @@ public class PathBasedValueSettingTest  {
 		list.set("/items[at0002]/value/magnitude", d);
 		
 		DvQuantity actual = (DvQuantity) list.getItems().get(0).getValue();
-		assertEquals("failed to set dvQuantity on list", 6.2, actual.getMagnitude());
+		assertEquals("failed to set dvQuantity on list", 6.2, actual.getMagnitude(), DELTA);
 	}
 	
 	public void testSetDvCodedTextOnItemList() throws Exception {

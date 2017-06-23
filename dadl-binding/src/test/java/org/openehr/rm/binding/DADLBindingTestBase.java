@@ -1,5 +1,7 @@
 package org.openehr.rm.binding;
 
+import org.junit.After;
+import org.junit.Before;
 import org.openehr.am.parser.ContentObject;
 import org.openehr.am.parser.DADLParser;
 
@@ -7,10 +9,12 @@ import java.io.InputStream;
 
 public class DADLBindingTestBase  {
 
+	@Before
 	public void setUp() throws Exception {
 		binding = new DADLBinding();
 	}
-	
+
+	@After
 	public void tearDown() throws Exception {
 		rmObj = null;
 	}

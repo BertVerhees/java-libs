@@ -37,6 +37,8 @@ import org.openehr.rm.support.terminology.TestTerminologyService;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class RevisionHistoryTest  {
 
     @Before

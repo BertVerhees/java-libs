@@ -21,29 +21,19 @@
  */
 package org.openehr.rm.datastructure.history;
 
-import java.util.ArrayList;
-import java.util.List;
-import junit.framework.*;
-import java.util.Set;
-import org.openehr.rm.Attribute;
-import org.openehr.rm.common.archetyped.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import org.openehr.rm.datastructure.DataStructureTestBase;
 import org.openehr.rm.datastructure.itemstructure.ItemSingle;
-import org.openehr.rm.datastructure.itemstructure.ItemStructure;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.quantity.datetime.DvDuration;
-import org.openehr.rm.datatypes.text.DvCodedText;
-import org.openehr.rm.datatypes.text.DvText;
-import org.openehr.rm.support.identification.ObjectID;
 import org.openehr.rm.support.terminology.TestTerminologyService;
+
+import static org.junit.Assert.assertEquals;
 
 public class IntervalEventTest extends DataStructureTestBase {
     
-    public IntervalEventTest(String testName) {
-        super(testName);
-    }
-
     protected void setUp() throws Exception {
         Element element = element("element name", "element value");
         item = new ItemSingle(null, "at0001", text("interval event item"),

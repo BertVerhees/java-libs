@@ -1,9 +1,14 @@
 package org.openehr.am.parser;
 
+import org.junit.Test;
+
 import java.util.List;
 
+import static org.junit.Assert.*;
+
 public class KeyedObjectTest extends ParserTestBase {
-	
+
+	@Test
 	public void testParseAndVerifySimpleValues() throws Exception {
 		DADLParser parser = new DADLParser(loadFromClasspath(
 			"keyed_objects.dadl"));
@@ -36,7 +41,8 @@ public class KeyedObjectTest extends ParserTestBase {
 		assertKeyedObject(keyedObjects.get(0), 1, "name", "systolic");
 		assertKeyedObject(keyedObjects.get(1), 2, "name", "diastolic");
 	}
-	
+
+	@Test
 	public void testParseCodePhraseAsKey() throws Exception {
 		DADLParser parser = new DADLParser(loadFromClasspath(
 			"keyed_objects2.dadl"));

@@ -5,7 +5,7 @@ import org.openehr.rm.datatypes.uri.DvURI;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertNotNull;
 
 public class DvMultimediaTest  {
 	

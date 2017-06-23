@@ -20,27 +20,10 @@
  */
 package org.openehr.rm.datatypes.quantity.datetime;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 public class DvDurationTest  {
 
-    public DvDurationTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    @Override
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    @Override
-    protected void tearDown() throws Exception {
-    }
 
     public void testConstructorTakesString() throws Exception {
 

@@ -7,30 +7,17 @@
 
 package org.openehr.rm.support.identification;
 
-import junit.framework.*;
+import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  *
  * @author yinsulim
  */
 public class UUIDTest  {
-    
-    public UUIDTest(String testName) {
-        super(testName);
-    }
 
-    protected void setUp() throws Exception {
-    }
-
-    protected void tearDown() throws Exception {
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(UUIDTest.class);
-        
-        return suite;
-    }
-    
+    @Test
     public void testConstructorTakeString() {
         assertNotNull(new UUID("128-1-1-12-15"));
     }

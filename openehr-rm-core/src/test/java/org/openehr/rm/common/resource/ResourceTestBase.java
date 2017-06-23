@@ -21,25 +21,17 @@
  */
 package org.openehr.rm.common.resource;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import junit.framework.TestCase;
 import org.openehr.rm.common.generic.RevisionHistory;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.identification.TestTerminologyID;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ResourceTestBase  {
     
-    /** Creates a new instance of ResourceTestBase */
-    public ResourceTestBase(String name) {
-        super(name);
-    }
-
     protected Map<String, ResourceDescriptionItem> details(String[] languages, String[] purposes) {
         Map<String, ResourceDescriptionItem> rdiList = new HashMap();
         for(int i = 0; i < languages.length; i++) {

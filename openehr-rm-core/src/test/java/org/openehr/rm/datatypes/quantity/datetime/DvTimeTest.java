@@ -21,20 +21,17 @@
  */
 package org.openehr.rm.datatypes.quantity.datetime;
 
-import junit.framework.TestCase;
-import java.util.TimeZone;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.junit.Before;
+
+import java.util.TimeZone;
+
+import static org.junit.Assert.*;
 
 public class DvTimeTest  {
 
-    public DvTimeTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
+    @Before
     protected void setUp() throws Exception {
         zoneStr = DvDateTimeParser.convertTimeZone(
                 DateTimeZone.getDefault().getOffset(new DateTime()), false);

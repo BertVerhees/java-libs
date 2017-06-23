@@ -21,33 +21,19 @@
  */
 package org.openehr.rm.common.resource;
 
-import junit.framework.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.identification.TestTerminologyID;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 public class ResourceDescriptionTest extends ResourceTestBase {
     
-    public ResourceDescriptionTest(String testName) {
-        super(testName);
-    }
-
-    protected void setUp() throws Exception {
-    }
-
-    protected void tearDown() throws Exception {
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ResourceDescriptionTest.class);
-        
-        return suite;
-    }
-
     public void test() {
         String[] fr = {"fr"};
         String[] en = {"en"};

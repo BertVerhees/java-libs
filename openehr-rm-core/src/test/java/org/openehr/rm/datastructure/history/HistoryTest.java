@@ -21,9 +21,7 @@
 
 package org.openehr.rm.datastructure.history;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.junit.Before;
 import org.openehr.rm.common.archetyped.Locatable;
 import org.openehr.rm.datastructure.DataStructureTestBase;
 import org.openehr.rm.datastructure.itemstructure.ItemList;
@@ -34,12 +32,14 @@ import org.openehr.rm.datatypes.quantity.datetime.DvDuration;
 import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.support.terminology.TestTerminologyService;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
+
 public class HistoryTest extends DataStructureTestBase {
 
-	public HistoryTest(String testName) {
-		super(testName);	
-	}
-	
+	@Before
 	public void setUp() {
 		history = initWithItemList();
 	}

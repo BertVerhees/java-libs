@@ -1,8 +1,13 @@
 package org.openehr.am.parser;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
 public class SingleValueListTest extends ParserTestBase {
 	
 	// verify the fix of a bug introducing duplicated items in single value list
+	@Test
 	public void testParseSingleValueLists() throws Exception {
 		DADLParser parser = new DADLParser(loadFromClasspath(
 			"single_values_list.dadl"));

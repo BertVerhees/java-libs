@@ -20,6 +20,7 @@
  */
 package org.openehr.rm.datastructure.itemstructure;
 
+import org.junit.Before;
 import org.openehr.rm.datastructure.DataStructureTestBase;
 import org.openehr.rm.datastructure.itemstructure.representation.Cluster;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
@@ -29,15 +30,13 @@ import org.openehr.rm.datatypes.text.DvText;
 
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 public class ItemTableTest extends DataStructureTestBase {
 
-    public ItemTableTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
+    @Before
     protected void setUp() throws Exception {
     	createTable();       
     }

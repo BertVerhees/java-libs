@@ -1,7 +1,13 @@
 package org.openehr.am.parser;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class ItemListTest extends ParserTestBase {
-	
+
+	@Test
 	public void testParseBlockWithEmptyAttrList() throws Exception {
 		DADLParser parser = new DADLParser(loadFromClasspath(
 			"state_item_list.dadl"));

@@ -1,13 +1,13 @@
 package org.openehr.rm.common.archetyped;
 
+import org.openehr.rm.datastructure.itemstructure.ItemList;
+import org.openehr.rm.datastructure.itemstructure.representation.Element;
+import org.openehr.rm.datatypes.text.DvText;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
-
-import org.openehr.rm.datastructure.itemstructure.ItemList;
-import org.openehr.rm.datastructure.itemstructure.representation.Element;
-import org.openehr.rm.datatypes.text.*;
+import static org.junit.Assert.assertNotNull;
 
 public class PathBasedQueryTest  {
 

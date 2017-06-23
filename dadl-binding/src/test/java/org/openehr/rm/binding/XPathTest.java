@@ -1,12 +1,8 @@
 package org.openehr.rm.binding;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.*;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.jxpath.JXPathContext;
-import org.openehr.am.archetype.Archetype;
+import org.junit.Test;
 import org.openehr.rm.Attribute;
 import org.openehr.rm.common.archetyped.Archetyped;
 import org.openehr.rm.composition.Composition;
@@ -20,13 +16,25 @@ import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.datatypes.text.DvText;
 import org.openehr.rm.support.measurement.MeasurementService;
 
+import java.io.File;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class XPathTest extends DADLBindingTestBase {
 
+	@Test
 	public void testCreatePathMapWithOrderSet() throws Exception {
 		Composition composition = (Composition) bind("order_set1.dadl");
 		assertEquals(3, composition.getContent().size());
 	}
 
+	@Test
 	public void testGetValue() throws Exception {
 		ItemTree tree = createTree();
 		JXPathContext context = JXPathContext.newContext(tree);
@@ -35,12 +43,14 @@ public class XPathTest extends DADLBindingTestBase {
 				context.getValue("/items[2]/items[2]/name/value"));
 	}
 
+	@Test
 	public void testAttributeItemsExistsInCluster() throws Exception {
 		RMInspector inspector = RMInspector.getInstance();
 		Map<String, Attribute> attributeMap = inspector.attributeMap(Cluster.class);
 		assertTrue(attributeMap.containsKey("items"));
 	}
 
+	@Test
 	public void testCreatePathMapWithDefaultTree() throws Exception {
 		ItemTree tree = createTree();
 		XPathUtil util = new XPathUtil();
@@ -74,6 +84,7 @@ public class XPathTest extends DADLBindingTestBase {
 		assertEquals("/items[3]", set.toArray()[0]);
 	}
 
+	@Test
 	public void testCreatePathMapWithRepeatedCluster() throws Exception {
 		ItemTree tree = createTreeWithRepeatedCluster();
 		XPathUtil util = new XPathUtil();
@@ -109,6 +120,7 @@ public class XPathTest extends DADLBindingTestBase {
 		assertTrue(set.contains("/items[4]"));
 	}
 
+	@Test
 	public void testCreatePathMapWithRepeatedSampleElement() throws Exception {
 		ItemTree tree = createTreeWithRepeatedElement();
 		XPathUtil util = new XPathUtil();
@@ -143,6 +155,7 @@ public class XPathTest extends DADLBindingTestBase {
 		assertTrue(set.contains("/items[4]"));
 	}
 
+	@Test
 	public void testExtratRootPathWithOneSlot() throws Exception {
 		ItemTree tree = (ItemTree) bind("tree_slot.dadl");
 		Set<String> paths = new XPathUtil().extractRootXPaths(tree);
@@ -150,6 +163,7 @@ public class XPathTest extends DADLBindingTestBase {
 		assertTrue(paths.contains("/items[4]"));
 	}
 
+	@Test
 	public void testExtratRootPathWithTwoSlots() throws Exception {
 		ItemTree tree = (ItemTree) bind("tree_2_slots.dadl");
 		Set<String> paths = new XPathUtil().extractRootXPaths(tree);
@@ -158,6 +172,7 @@ public class XPathTest extends DADLBindingTestBase {
 		assertTrue(paths.contains("/items[5]"));
 	}
 
+	@Test
 	public void testExtracRootPathWithNestedSlot() throws Exception {
 		ItemTree tree = (ItemTree) bind("tree_nested_slot.dadl");
 		Set<String> paths = new XPathUtil().extractRootXPaths(tree);
@@ -165,6 +180,7 @@ public class XPathTest extends DADLBindingTestBase {
 		assertTrue(paths.contains("/items[4]"));
 	}
 
+	@Test
 	public void testExtracRootPathWithDoubleNestedSlot() throws Exception {
 		ItemTree tree = (ItemTree) bind("tree_nested_slot2.dadl");
 		Set<String> paths = new XPathUtil().extractRootXPaths(tree);
@@ -172,6 +188,7 @@ public class XPathTest extends DADLBindingTestBase {
 		assertTrue(paths.contains("/items[4]"));
 	}
 
+	@Test
 	public void testCreatePathMapWithSlottedCluster() throws Exception {
 		ItemTree tree = (ItemTree) bind("tree_slot.dadl");
 
@@ -224,6 +241,7 @@ public class XPathTest extends DADLBindingTestBase {
 		assertTrue(set.contains("/items[4]/items[3]"));
 	}
 
+	@Test
 	public void testCreatePathMapWithNestedClusters() throws Exception {
 		ItemTree tree = (ItemTree) bind("tree_nested_slot3.dadl");
 
@@ -254,6 +272,7 @@ public class XPathTest extends DADLBindingTestBase {
 		assertTrue(set.contains("/items[3]/items[2]/items[1]"));
 	}
 
+	@Test
 	public void testCreatePathMapDoubleNestedClusters() throws Exception {
 		ItemTree tree = (ItemTree) bind("tree_nested_slot4.dadl");
 		XPathUtil util = new XPathUtil();
@@ -286,6 +305,7 @@ public class XPathTest extends DADLBindingTestBase {
 		assertTrue(set.contains("/items[4]/items[2]/items[1]"));
 	}
 
+	@Test
 	public void testCreatePathMapWithTwoSlottedClusters() throws Exception {
 		ItemTree tree = createRootTreeWithTwoSlottedClusters();
 		XPathUtil util = new XPathUtil();
@@ -344,6 +364,7 @@ public class XPathTest extends DADLBindingTestBase {
 		return this.getClass().getClassLoader().getResourceAsStream(adl);
 	}
 
+	@Test
 	public void testExtractXPaths() throws Exception {
 		ItemTree tree = createTree();
 		XPathUtil util = new XPathUtil();
@@ -357,6 +378,7 @@ public class XPathTest extends DADLBindingTestBase {
 	}
 
 	// the nested structure shouldn't produce more xpath of elements
+	@Test
 	public void testExtractXPathsWithNestedSlot() throws Exception {
 		ItemTree tree = (ItemTree) bind("tree_nested_slot.dadl");
 		XPathUtil util = new XPathUtil();

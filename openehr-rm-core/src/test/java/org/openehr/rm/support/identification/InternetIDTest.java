@@ -21,26 +21,11 @@
  */
 package org.openehr.rm.support.identification;
 
-import junit.framework.*;
+import static org.junit.Assert.*;
 
 public class InternetIDTest {
     
-    public InternetIDTest(String testName) {
-        super(testName);
-    }
 
-    protected void setUp() throws Exception {
-    }
-
-    protected void tearDown() throws Exception {
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(InternetIDTest.class);
-        
-        return suite;
-    }
-    
     public void testConstructorTakeString() throws Exception {
         assertNotNull(new InternetID("www.google.com"));
         assertNotNull(new InternetID("m-2.d2"));

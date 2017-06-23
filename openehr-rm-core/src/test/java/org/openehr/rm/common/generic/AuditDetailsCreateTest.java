@@ -1,15 +1,19 @@
 package org.openehr.rm.common.generic;
 
+import org.junit.Before;
 import org.openehr.rm.datatypes.quantity.datetime.DvDateTime;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.support.identification.HierObjectID;
 import org.openehr.rm.support.identification.PartyRef;
-import org.openehr.rm.support.terminology.*;
-import junit.framework.TestCase;
+import org.openehr.rm.support.terminology.TerminologyService;
+import org.openehr.rm.support.terminology.TestTerminologyService;
+
+import static org.junit.Assert.assertNotNull;
 
 public class AuditDetailsCreateTest  {
-	 
+
+	@Before
 	public void setUp() throws Exception {
 		termServ = TestTerminologyService.getInstance();		
 	}

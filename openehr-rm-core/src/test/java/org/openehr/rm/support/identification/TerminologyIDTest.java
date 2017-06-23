@@ -20,25 +20,10 @@
  */
 package org.openehr.rm.support.identification;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TerminologyIDTest  {
-
-    public TerminologyIDTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
 
     public void testConstrcutorTakesStringValue() throws Exception {
         for(int i = 0; i < STRING_VALUE.length; i++) {

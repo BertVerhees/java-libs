@@ -1,8 +1,7 @@
 package org.openehr.rm.binding;
 
-import java.io.*;
-import java.util.*;
-
+import org.junit.After;
+import org.junit.Test;
 import org.openehr.rm.composition.content.entry.Observation;
 import org.openehr.rm.datastructure.history.History;
 import org.openehr.rm.datastructure.history.PointEvent;
@@ -14,34 +13,48 @@ import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.datatypes.text.DvCodedText;
 import org.openehr.rm.datatypes.text.DvText;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.TimeZone;
+
+import static junit.framework.Assert.*;
+
 public class BindRMToDADLTest extends DADLBindingTestBase {
-	
+
+	@After
 	public void tearDown() {
 		expected = null;
 		actual = null;
 	}
-	
+
+	@Test
 	public void testBindDvText() throws Exception {
 		DvText dvText = new DvText("sitting");
 		expected = readLines("typed_dv_text.dadl");
 		actual = binding.toDADL(dvText);
 		assertEquals(expected, actual);
 	}
-	
+
+	@Test
 	public void testBindDvBoolean() throws Exception {
 		DvBoolean dv = new DvBoolean("true");
 		expected = readLines("typed_dv_boolean.dadl");
 		actual = binding.toDADL(dv);
 		assertEquals(expected, actual);
 	}
-	
+
+	@Test
 	public void testBindDvQuantity() throws Exception {
 		DvQuantity q = new DvQuantity("mmHg", 120.0, 1);
 		expected = readLines("typed_dv_quantity2.dadl");
 		actual = binding.toDADL(q);		
 		assertEquals(expected, actual);		
 	}
-	
+
+	@Test
 	public void testBindDvOrdinal() throws Exception {
 		DvOrdinal ordinal = new DvOrdinal(1, 
 				new DvCodedText("Sitting", 
@@ -52,14 +65,16 @@ public class BindRMToDADLTest extends DADLBindingTestBase {
 		
 		assertLinesEqual(expected, actual);
 	}
-	
+
+	@Test
 	public void testBindDvDateTime() throws Exception {
 	    DvDateTime dv = (new DvDateTime(2013, 03, 04, 16, 46, 16, TimeZone.getDefault()));
 	    List<String> dvStrLines = binding.toDADL(dv);
 	    Object rmObj2 = bindString(toString(dvStrLines));
 	    assertEquals(dv, rmObj2);
 	}
-	
+
+	@Test
 	public void testBindPointEvent() throws Exception {
 		rmObj = bind("point_event2.dadl");
 		
@@ -74,7 +89,8 @@ public class BindRMToDADLTest extends DADLBindingTestBase {
 		
 		assertLinesEqual(expected, actual);
 	}
-	
+
+	@Test
 	public void testBindHistory() throws Exception {
 		rmObj = bind("history.dadl");
 		
@@ -91,7 +107,8 @@ public class BindRMToDADLTest extends DADLBindingTestBase {
 		
 		assertLinesEqual(expected, actual);
 	}
-	
+
+	@Test
 	public void testBindObservation() throws Exception {
 		rmObj = bind("observation.dadl");
 		

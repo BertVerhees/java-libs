@@ -21,28 +21,15 @@
  */
 package org.openehr.rm.common.changecontrol;
 
-import junit.framework.*;
-import java.util.List;
-import org.openehr.rm.common.generic.Attestation;
-import org.openehr.rm.common.generic.AuditDetails;
-import org.openehr.rm.datatypes.text.DvCodedText;
-import org.openehr.rm.support.identification.ObjectRef;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import org.openehr.rm.support.identification.ObjectVersionID;
-import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.rm.support.terminology.TestTerminologyService;
+
+import static org.junit.Assert.assertEquals;
 
 public class ImportedVersionTest extends ChangeControlTestBase {
     
-    public ImportedVersionTest(String testName) {
-        super(testName);
-    }
-
-    protected void setUp() throws Exception {
-    }
-
-    protected void tearDown() throws Exception {
-    }
-
     public static Test suite() {
         TestSuite suite = new TestSuite(ImportedVersionTest.class);
         

@@ -21,25 +21,9 @@
  */
 package org.openehr.rm.datatypes.quantity.datetime;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 public class DvDateTest  {
-
-    public DvDateTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
-    }
-
-    /**
-     * The fixture clean up called after every test method.
-     */
-    protected void tearDown() throws Exception {
-    }
 
     public void testCompareTo() throws Exception {
         assertTrue(dvDate("1999-12-31").compareTo(dvDate("2000-01-01")) < 0);

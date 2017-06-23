@@ -7,8 +7,8 @@
 
 package org.openehr.rm.support.identification;
 
-import junit.framework.*;
-import org.apache.commons.lang.StringUtils;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -16,22 +16,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class ObjectVersionIDTest  {
     
-    public ObjectVersionIDTest(String testName) {
-        super(testName);
-    }
-
-    protected void setUp() throws Exception {
-    }
-
-    protected void tearDown() throws Exception {
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ObjectVersionIDTest.class);
-        
-        return suite;
-    }
-
     public void testContructorTakeString() {
         String[][] ids = {
             {"1.4.4.5", "1.2.840.114.1.2.2::123", "1"},
