@@ -1,6 +1,8 @@
 package se.acode.openehr.parser;
 
-import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.openehr.am.archetype.Archetype;
 import org.openehr.am.archetype.assertion.Assertion;
@@ -26,8 +28,8 @@ import se.acode.openehr.parser.errors.ArchetypeADLParserErrors;
 import se.acode.openehr.parser.errors.ArchetypeADLParserMessage;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -102,10 +104,6 @@ public class ADLParser {
 
   /* =========================  public interface ======================== */
 
-    public CollectionErrorListener errorCollector = null;
-    public CollectionErrorListener getErrorCollector() {
-        return errorCollector;
-    }
 
     public static TerminologyService terminologyService;
     static{
@@ -128,14 +126,18 @@ public class ADLParser {
     private ArchetypeADLParserErrors errors;
     public ArchetypeADLErrorListener errorListener;
 
-    private  ArchetypeParser  parser() throws IOException {
-        errorCollector = new CollectionErrorListener();
+    private  ArchetypeParser  parser() {
         errors = new ArchetypeADLParserErrors();
         errorListener = new ArchetypeADLErrorListener(errors);
-
-        CharStream input = CharStreams.fromStream(inputStream);
+        CharStream input = null;
+        try {
+            input = CharStreams.fromStream(inputStream);
+        }catch(Exception e){
+            errorListener.getParserErrors().addError("ArchetypeParser: "+e.getMessage());
+        }
         ArchetypeLexer lexer = new ArchetypeLexer(input);
-        lexer.addErrorListener(errorCollector);
+        lexer.addErrorListener(errorListener);
+        
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ArchetypeParser parser = new ArchetypeParser(tokens);
         parser.removeErrorListeners();
@@ -147,7 +149,7 @@ public class ADLParser {
         if(identificationContext.arch_meta_data()==null) {
             String s = "Not Fatal: No arch_meta_data, no ADL-version, assuming 1.4";
             logger.warn(s);
-            errorListener.getErrors().addWarning(s);
+            errorListener.getParserErrors().addWarning(s);
             return "1.4"; //probably old archetype
         }
         for(ArchetypeParser.Arch_meta_data_itemContext metaDataItemContext : identificationContext.arch_meta_data().arch_meta_data_item()){
@@ -160,7 +162,7 @@ public class ADLParser {
         }
         String s = "Not Fatal: No ADL-version, assuming 1.4";
         logger.warn(s);
-        errorListener.getErrors().addWarning(s);
+        errorListener.getParserErrors().addWarning(s);
         return "1.4"; //probably old archetype
     }
 
@@ -168,23 +170,20 @@ public class ADLParser {
         if(identificationContext.arch_meta_data()==null) {
             String s = "Not Fatal: No arch_meta_data, no uid";
             logger.warn(s);
-            errorListener.getErrors().addWarning(s);
+            errorListener.getParserErrors().addWarning(s);
             return null;
         }
         for(ArchetypeParser.Arch_meta_data_itemContext metaDataItemContext : identificationContext.arch_meta_data().arch_meta_data_item()) {
             if (metaDataItemContext.uid() != null) {
-                if (metaDataItemContext.uid().GUID() == null) {
-                    String s = "Not Fatal: Uid is not of UUID-kind, which is not accepted by this code, it will be replaced by a UUID at serializing";
-                    logger.warn(s);
-                    errorListener.getErrors().addWarning(s);
-                    return null;
-                }
-                return metaDataItemContext.uid().GUID().getText();
+                if(metaDataItemContext.uid().GUID()!=null)
+                    return metaDataItemContext.uid().GUID().getText();
+                else if(metaDataItemContext.uid().OID()!=null)
+                    return metaDataItemContext.uid().OID().getText();
             }
         }
         String s = "Not Fatal: No uid";
         logger.warn(s);
-        errorListener.getErrors().addWarning(s);
+        errorListener.getParserErrors().addWarning(s);
         return null;
     }
 
@@ -197,7 +196,7 @@ public class ADLParser {
         else {
             String s = "Not Fatal: No arch_meta_data, no is_controlled, returning false";
             logger.debug(s);
-            errorListener.getErrors().addWarning(s);
+            errorListener.getParserErrors().addWarning(s);
         }
         return false;
     }
@@ -215,7 +214,7 @@ public class ADLParser {
     }
 
     /* execute the parsing */
-    public Archetype parseArchetype() throws Exception {
+    public Archetype parseArchetype() {
         ArchetypeParser  parser = parser();
         ArchetypeParser.ArchetypeContext archetypeContext =  parser.archetype();
         ArchetypeParser.Arch_identificationContext identificationContext = archetypeContext.arch_identification();
@@ -233,10 +232,10 @@ public class ADLParser {
                 parentId = specialisationContext.ARCHETYPE_HRID().getText();
         String concept = conceptContext.AT_CODE().getText();
         concept = concept.substring(1,concept.length()-1);
-        CodePhrase originalLanguage = LanguagesSectionsBuilder.getInstance().getOriginalLanguage(languageContext);
-        Map<String, TranslationDetails> translations = LanguagesSectionsBuilder.getInstance().getTranslations(languageContext, terminologyService);
+        CodePhrase originalLanguage = LanguagesSectionsBuilder.getInstance().getOriginalLanguage(languageContext, errorListener);
+        Map<String, TranslationDetails> translations = LanguagesSectionsBuilder.getInstance().getTranslations(languageContext, terminologyService, errorListener);
 
-        ResourceDescription description = DescriptionSectionBuilder.getInstance().getDescription(descriptionContext, terminologyService, RM_VERSION, null);
+        ResourceDescription description = DescriptionSectionBuilder.getInstance().getDescription(descriptionContext, terminologyService, RM_VERSION, null, errorListener);
 
         RevisionHistory revisionHistory = null;
         boolean isControlled = isControlled(identificationContext);
@@ -244,8 +243,8 @@ public class ADLParser {
         HierObjectID uid = null;
         if(guid!=null)
             uid = new HierObjectID(guid);
-        CComplexObject definition = DefinitionSectionBuilder.getInstance().getDefinition(definitionContext, measurementService);
-        ArchetypeOntology ontology = OntologySectionBuilder.getInstance().getOntology(ontologyContext, terminologyService);
+        CComplexObject definition = DefinitionSectionBuilder.getInstance().getDefinition(definitionContext, measurementService, errorListener);
+        ArchetypeOntology ontology = OntologySectionBuilder.getInstance().getOntology(ontologyContext, terminologyService, errorListener);
         Set<Assertion> invariants = null;
         if(originalLanguage == null && missingLanguageCompatible) {
             String langCode = ontology.getPrimaryLanguage();
@@ -255,40 +254,64 @@ public class ADLParser {
             String purpose = description.getDetails().get(originalLanguage.getCodeString()).getPurpose();
             if ((purpose == null || purpose.length() == 0) && emptyPurposeCompatible) {
                 purpose = ATTRIBUTE_UNKNOWN;
-                description = DescriptionSectionBuilder.getInstance().getDescription(descriptionContext, terminologyService, RM_VERSION, purpose);
+                description = DescriptionSectionBuilder.getInstance().getDescription(descriptionContext, terminologyService, RM_VERSION, purpose, errorListener);
             }
         }
+        Archetype archetype = null;
+        try {
+            archetype = new Archetype(adlVersion,
+                    id,
+                    parentId,
+                    concept,
+                    originalLanguage,
+                    translations,
+                    description,
+                    revisionHistory,
+                    isControlled,
+                    uid,
+                    definition,
+                    ontology,
+                    invariants,
+                    terminologyService);
+        }catch(Exception e){
+            Throwable t = e.getCause();
+            if(t!=null) {
+                while (t.getCause() != null) {
+                    errorListener.getParserErrors().addError(t.getMessage());
+                    t = t.getCause();
+                }
+            }
+            errorListener.getParserErrors().addError(e.getMessage());
+        }
+        return archetype;
+    }
 
-        return new Archetype(   adlVersion,
-                id,
-                parentId,
-                concept,
-                originalLanguage,
-                translations,
-                description,
-                revisionHistory,
-                isControlled,
-                uid,
-                definition,
-                ontology,
-                invariants,
-                terminologyService);
+    public void generatedParserException() throws Exception{
+        if(errorListener.getParserErrors().getErrors().size()>0) {
+            ListIterator <ArchetypeADLParserMessage> it = errorListener.getParserErrors().getErrors().listIterator();
+            Exception e = null;
+            while (it.hasNext()) {
+                if (e != null)
+                    e = new Exception(it.next().getMessage(), e);
+                else
+                    e = new Exception(it.next().getMessage());
+            }
+            if(e!=null)
+                throw e;
+        }
     }
 
     /* execute the parsing */
-    private ArchetypeParser.ArchetypeContext parseArchetypeContext() throws Exception {
+    private ArchetypeParser.ArchetypeContext parseArchetypeContext() {
         ArchetypeParser  parser = parser();
         ArchetypeParser.ArchetypeContext archetypeContext =  parser.archetype();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new ArchetypeBaseListener(), archetypeContext);
-        if(errors.getErrors().size()>0){
-            throw new Exception(errors.getErrors().get(0).getMessage());
-        }
         return archetypeContext;
     }
 
     /* execute the parsing */
-    public ArchetypeParser.Arch_descriptionContext parseDescriptionContext() throws Exception {
+    public ArchetypeParser.Arch_descriptionContext parseDescriptionContext() {
         ArchetypeParser parser = parser();
         parser.arch_identification();
         parser.arch_specialisation();
@@ -297,13 +320,10 @@ public class ADLParser {
         ArchetypeParser.Arch_descriptionContext descriptionContext =  parser.arch_description();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new ArchetypeBaseListener(), descriptionContext);
-        if(errors.getErrors().size()>0){
-            throw new Exception(errors.getErrors().get(0).getMessage());
-        }
         return descriptionContext;
     }
 
-    public ArchetypeParser.Arch_definitionContext parseDefinitionContext() throws Exception {
+    public ArchetypeParser.Arch_definitionContext parseDefinitionContext() {
         ArchetypeParser  parser = parser();
         parser.arch_identification();
         parser.arch_specialisation();
@@ -313,30 +333,21 @@ public class ADLParser {
         ArchetypeParser.Arch_definitionContext definitionContext  =  parser.arch_definition();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new ArchetypeBaseListener(), definitionContext);
-        if(errors.getErrors().size()>0){
-            throw new Exception(errors.getErrors().get(0).getMessage());
-        }
         return definitionContext;
     }
 
-    public ArchetypeParser.Arch_ontologyContext parseOntologyContext() throws Exception {
+    public ArchetypeParser.Arch_ontologyContext parseOntologyContext() {
         ArchetypeParser  parser = parser();
         ArchetypeParser.Arch_ontologyContext ontologyContext  =  parser.arch_ontology();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new ArchetypeBaseListener(), ontologyContext);
-        if(errors.getErrors().size()>0){
-            throw new Exception(errors.getErrors().get(0).getMessage());
-        }
         return ontologyContext;
     }
 
-    public ArchetypeParser.Arch_identificationContext parseIdentification() throws Exception {
+    public ArchetypeParser.Arch_identificationContext parseIdentification() {
         ArchetypeParser parser = parser();
         int numberOfErrors = parser.getNumberOfSyntaxErrors();
         ArchetypeParser.Arch_identificationContext identificationContext  =  parser.arch_identification();
-        if(errors.getErrors().size()>0){
-            throw new Exception(errors.getErrors().get(0).getMessage());
-        }
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new ArchetypeBaseListener(), identificationContext);
         return identificationContext;
@@ -350,32 +361,26 @@ public class ADLParser {
         return  errors.getWarnings();
     }
 
-    public ArchetypeParser.Arch_specialisationContext parseSpecialisationContext() throws Exception {
+    public ArchetypeParser.Arch_specialisationContext parseSpecialisationContext() {
         ArchetypeParser  parser = parser();
         parser.arch_identification();
         ArchetypeParser.Arch_specialisationContext specialisationContext  =  parser.arch_specialisation();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new ArchetypeBaseListener(), specialisationContext);
-        if(errors.getErrors().size()>0){
-            throw new Exception(errors.getErrors().get(0).getMessage());
-        }
         return specialisationContext;
     }
 
-    public ArchetypeParser.Arch_conceptContext parseConceptContext() throws Exception {
+    public ArchetypeParser.Arch_conceptContext parseConceptContext() {
         ArchetypeParser  parser = parser();
         parser.arch_identification();
         parser.arch_specialisation();
         ArchetypeParser.Arch_conceptContext conceptContext  =  parser.arch_concept();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new ArchetypeBaseListener(), conceptContext);
-        if(errors.getErrors().size()>0){
-            throw new Exception(errors.getErrors().get(0).getMessage());
-        }
         return conceptContext;
     }
 
-    public ArchetypeParser.Arch_languageContext parseLanguageContext() throws Exception {
+    public ArchetypeParser.Arch_languageContext parseLanguageContext() {
         ArchetypeParser  parser = parser();
         parser.arch_identification();
         parser.arch_specialisation();
@@ -383,20 +388,14 @@ public class ADLParser {
         ArchetypeParser.Arch_languageContext languageContext =  parser.arch_language();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new ArchetypeBaseListener(), languageContext);
-        if(errors.getErrors().size()>0){
-            throw new Exception(errors.getErrors().get(0).getMessage());
-        }
         return languageContext;
     }
 
-    public Archetype parseInvariantContext() throws Exception {
+    public Archetype parseInvariantContext() {
         ArchetypeParser  parser = parser();
         ArchetypeParser.Arch_invariantContext invariantContext =  parser.arch_invariant();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new ArchetypeBaseListener(), invariantContext);
-        if(errors.getErrors().size()>0){
-            throw new Exception(errors.getErrors().get(0).getMessage());
-        }
         return null;
     }
 

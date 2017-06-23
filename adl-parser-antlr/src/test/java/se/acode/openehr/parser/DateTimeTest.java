@@ -2,6 +2,7 @@ package se.acode.openehr.parser;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openehr.am.archetype.Archetype;
 import org.openehr.am.archetype.constraintmodel.CAttribute;
 import org.openehr.am.archetype.constraintmodel.CComplexObject;
 import org.openehr.rm.datatypes.quantity.datetime.DvDate;
@@ -29,7 +30,9 @@ public class DateTimeTest extends ParserTestBase {
 	public void DateTimeTest() throws Exception {
 		ADLParser parser = new ADLParser(loadFromClasspath(
 			"adl-test-entry.datetime.test.adl"));
-		attributeList = parser.parse().getDefinition().getAttributes();
+		Archetype archetype = parser.parse();
+		parser.generatedParserException();
+		attributeList = archetype.getDefinition().getAttributes();
 	}
 
 	private List getConstraints(int index) {

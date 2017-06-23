@@ -22,6 +22,7 @@ public class PathTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-car.paths.test.adl"));
         archetype = parser.parse();
+		parser.generatedParserException();
         definition = archetype.getDefinition();
     }
 

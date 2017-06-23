@@ -30,6 +30,7 @@ public class ArchetypeSlotTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.archetype_slot.test.adl"));
         Archetype archetype = parser.parse();
+        parser.generatedParserException();
         assertNotNull(archetype);
         
         ArchetypeConstraint node = archetype.node("/content[at0001]");
@@ -75,6 +76,7 @@ public class ArchetypeSlotTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.archetype_slot.test2.adl"));
         Archetype archetype = parser.parse();
+        parser.generatedParserException();
         assertNotNull(archetype);
         
         ArchetypeConstraint node = archetype.node("/content[at0001]");

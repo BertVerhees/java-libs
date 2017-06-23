@@ -14,6 +14,7 @@ public class MissingPurposeTest extends ParserTestBase {
 				"adl-test-entry.archetype_desc_missing_purpose.test.adl"), 
 				missingLanguageCompatible, emptyPurposeCompatible);
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		assertNotNull(archetype);
 		
 		assertNotNull("purpose null", 

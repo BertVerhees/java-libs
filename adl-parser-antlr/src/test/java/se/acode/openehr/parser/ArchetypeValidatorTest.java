@@ -22,6 +22,7 @@ public class ArchetypeValidatorTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-car.use_node.test.adl"));
         archetype = parser.parse();
+        parser.generatedParserException();
         validator = new ArchetypeValidator(archetype);
     }
 

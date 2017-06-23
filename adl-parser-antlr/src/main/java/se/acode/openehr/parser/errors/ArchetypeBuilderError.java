@@ -1,11 +1,11 @@
-package se.acode.openehr.parser.exception;
+package se.acode.openehr.parser.errors;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 
 /**
  * Created by verhees on 16-6-17.
  */
-public class ArchetypeBuilderException extends Exception{
+public class ArchetypeBuilderError {
 
     public static String buildMessage(ParserRuleContext parserRuleContext, String message){
         String exception = message;

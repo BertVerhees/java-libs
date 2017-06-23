@@ -16,6 +16,7 @@ public class DvCodedTextTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-composition.dv_coded_text.test.adl"));
         Archetype archetype = parser.parse();
+        parser.generatedParserException();
         assertNotNull(archetype);
         
         ArchetypeConstraint node = archetype.node("/category/defining_code");

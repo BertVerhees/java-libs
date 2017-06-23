@@ -11,6 +11,7 @@ public class BasicGenericTypeTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-SOME_TYPE.generic_type_basic.draft.adl"));
         Archetype archetype = parser.parse();
+        parser.generatedParserException();
         assertNotNull(archetype);
 	}
 }

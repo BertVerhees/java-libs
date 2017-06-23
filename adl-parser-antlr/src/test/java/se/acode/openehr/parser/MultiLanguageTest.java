@@ -30,6 +30,7 @@ public class MultiLanguageTest extends ParserTestBase {
 				"adl-test-entry.multi_language.test.adl"));
 		
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		List<OntologyDefinitions> list =
 			archetype.getOntology().getTermDefinitionsList();
 		
@@ -53,6 +54,7 @@ public class MultiLanguageTest extends ParserTestBase {
 				"adl-test-entry.multi_language.test.adl"));
 
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		List<OntologyDefinitions> list =
 			archetype.getOntology().getConstraintDefinitionsList();
 		assertEquals("expected number of constraintDefinitionsList", 2, list.size());
@@ -75,6 +77,7 @@ public class MultiLanguageTest extends ParserTestBase {
 				"adl-test-entry.testtranslations.test.adl"));
 		
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		Map<String, TranslationDetails> translations = archetype.getTranslations();
 		
 		for (Entry<String, TranslationDetails> translation : translations.entrySet()) {

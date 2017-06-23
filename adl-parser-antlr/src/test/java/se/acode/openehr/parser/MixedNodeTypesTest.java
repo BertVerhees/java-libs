@@ -15,6 +15,7 @@ public class MixedNodeTypesTest extends ParserTestBase {
 		
 		try {
 			Archetype archetype = parser.parse();
+			parser.generatedParserException();
 			assertNotNull(archetype);
 		} catch(Exception e) {
 			e.printStackTrace();

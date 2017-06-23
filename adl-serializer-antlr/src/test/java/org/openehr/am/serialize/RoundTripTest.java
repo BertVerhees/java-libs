@@ -17,12 +17,14 @@ public class RoundTripTest extends SerializerTestBase {
 		adlFile = "openEHR-EHR-EVALUATION.test_concept.v1.adl";
 		ADLParser parser = new ADLParser(loadFromClasspath(adlFile));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 
 		outputter.output(archetype, out);
 
 		parser.ReInit(new BufferedInputStream(IOUtils.toInputStream(out.toString(), "UTF-8")));
 
 		Archetype roundTripedArchetype = parser.parse();
+		parser.generatedParserException();
 
 		assertEquals("adlVersion diff", archetype.getAdlVersion(),
 				roundTripedArchetype.getAdlVersion());

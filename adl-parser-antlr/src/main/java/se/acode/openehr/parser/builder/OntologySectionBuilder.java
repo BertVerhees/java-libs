@@ -32,7 +32,7 @@ import org.openehr.am.archetype.ontology.*;
 import org.openehr.rm.support.terminology.TerminologyService;
 import se.acode.openehr.parser.ArchetypeParser;
 import se.acode.openehr.parser.errors.ArchetypeADLErrorListener;
-import se.acode.openehr.parser.exception.ArchetypeBuilderException;
+import se.acode.openehr.parser.errors.ArchetypeBuilderError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -171,12 +171,12 @@ public class OntologySectionBuilder {
             }
             if (languagesAvailable != null) {
                 if (languagesAvailable.size() != termDefinitionsList.size()) {
-                    errorListener.getErrors().addError("There is a different size in \"languages_available\" (" + languagesAvailable.size() + ") then available in \"term_definitions\" (" + termDefinitionsList.size() + ").");
+                    errorListener.getParserErrors().addError("There is a different size in \"languages_available\" (" + languagesAvailable.size() + ") then available in \"term_definitions\" (" + termDefinitionsList.size() + ").");
                 }
             }
             return new ArchetypeOntology(primaryLanguage, terminologies, termDefinitionsList, constraintDefinitionsList, termBindingList, constraintBindingList);
         } catch (Exception e) {
-            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(ontologyContext, e.getMessage()));
+            errorListener.getParserErrors().addError(ArchetypeBuilderError.buildMessage(ontologyContext, e.getMessage()));
             return null;
         }
     }

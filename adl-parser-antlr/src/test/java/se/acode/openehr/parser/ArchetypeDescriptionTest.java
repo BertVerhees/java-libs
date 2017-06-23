@@ -30,6 +30,7 @@ public class ArchetypeDescriptionTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(
 				loadFromClasspath("adl-test-entry.archetype_description.test.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		ResourceDescription description = archetype.getDescription();
 
 		assertNotNull("description null", description);
@@ -110,6 +111,7 @@ public class ArchetypeDescriptionTest extends ParserTestBase {
 				loadFromClasspath("adl-test-entry.archetype_description2.test.adl"));
 		try {
 			parser.parse();
+			parser.generatedParserException();
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("failed to parse original author as last");
@@ -121,6 +123,7 @@ public class ArchetypeDescriptionTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(
 				loadFromClasspath("adl-test-entry.empty_other_contributors.test.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		assertNotNull("failed to parse empty other contributors", archetype);
 		assertNull("other_contributors not null", archetype.getDescription()
 				.getOtherContributors());

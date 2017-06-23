@@ -16,7 +16,7 @@ public class BuilderUtils {
         }
         String[] parts = termCodeRef.split("::");
         if (parts.length != 2) {
-            errorListener.getErrors().addError("Term code:\"" + termCodeRef + "\" wrong formatted.");
+            errorListener.getParserErrors().addError("Term code:\"" + termCodeRef + "\" wrong formatted.");
             return null;
         }
         return new CodePhrase(parts[0], parts[1]);
@@ -30,7 +30,7 @@ public class BuilderUtils {
                         (o.object_value_block().primitive_object()!=null)&&
                         (o.object_value_block().primitive_object().primitive_value()!=null)&&
                         (o.object_value_block().primitive_object().primitive_value().string_value()!=null)){
-            errorListener.getErrors().addError("Expected a single/simple string as value for \""+keyString+"\".");
+            errorListener.getParserErrors().addError("Expected a single/simple string as value for \""+keyString+"\".");
             return;
         }
         String value = o.object_value_block().primitive_object().primitive_value().string_value().STRING().getText();

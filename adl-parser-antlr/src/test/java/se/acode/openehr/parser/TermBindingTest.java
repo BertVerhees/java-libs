@@ -33,6 +33,7 @@ public class TermBindingTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.term_binding.test.adl"));
         Archetype archetype = parser.parse();
+        parser.generatedParserException();
 
         // verify the first term binding
         OntologyBinding binding = archetype.getOntology().getTermBindingList().get(0);
@@ -61,6 +62,7 @@ public class TermBindingTest extends ParserTestBase {
     	ADLParser parser = new ADLParser(loadFromClasspath(
         	"adl-test-entry.term_binding2.test.adl"));
     	Archetype archetype = parser.parse();
+        parser.generatedParserException();
 
     	OntologyBinding binding = archetype.getOntology().getTermBindingList().get(0);
         assertEquals("wrong binding terminology", "LNC205", binding.getTerminology());
@@ -80,6 +82,7 @@ public class TermBindingTest extends ParserTestBase {
     	ADLParser parser = new ADLParser(loadFromClasspath(
         	"openEHR-EHR-OBSERVATION.test_internal_ref_binding.v1.adl"));
     	Archetype archetype = parser.parse();
+        parser.generatedParserException();
 
     	OntologyBinding binding = archetype.getOntology().getTermBindingList().get(0);
         assertEquals("wrong binding terminology", "DDB00", binding.getTerminology());

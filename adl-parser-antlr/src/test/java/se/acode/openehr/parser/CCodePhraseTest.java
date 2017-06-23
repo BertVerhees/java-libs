@@ -28,6 +28,7 @@ public class CCodePhraseTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(
 				loadFromClasspath("adl-test-entry.c_code_phrase.test.adl"));
 		archetype = parser.parse();
+		parser.generatedParserException();
 	}
 
 	/**

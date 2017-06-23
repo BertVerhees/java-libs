@@ -1,7 +1,6 @@
 package se.acode.openehr.parser;
 
 import org.junit.Test;
-import org.openehr.am.archetype.Archetype;
 
 /**
  * Created by verhees on 12-6-17.
@@ -13,7 +12,8 @@ public class LineCommentAndLineBreakTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.archetype_comment_line_breaks1.test.adl"));
         try {
-            Archetype archetype = parser.parse();
+            parser.parse();
+            parser.generatedParserException();
         }catch(Exception e){
             if("null originalLanguage".equals(e.getMessage())){
                 throw new Exception("Error in parsing:\n"
@@ -30,7 +30,8 @@ public class LineCommentAndLineBreakTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.archetype_comment_line_breaks2.test.adl"));
         try {
-            Archetype archetype = parser.parse();
+            parser.parse();
+            parser.generatedParserException();
         }catch(Exception e){
             if("null originalLanguage".equals(e.getMessage())){
                 throw new Exception("Error in parsing:\n"
@@ -48,7 +49,8 @@ public class LineCommentAndLineBreakTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.archetype_comment_line_breaks3.test.adl"));
         try {
-            Archetype archetype = parser.parse();
+            parser.parse();
+            parser.generatedParserException();
         }catch(Exception e){
             if("null originalLanguage".equals(e.getMessage())){
                 throw new Exception("Error in parsing:\n"
@@ -65,7 +67,8 @@ public class LineCommentAndLineBreakTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.archetype_comment_line_breaks4.test.adl"));
         try {
-            Archetype archetype = parser.parse();
+            parser.parse();
+            parser.generatedParserException();
         }catch(Exception e){
             if("null originalLanguage".equals(e.getMessage())){
                 throw new Exception("Error in parsing:\n"
@@ -83,7 +86,8 @@ public class LineCommentAndLineBreakTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.archetype_comment_line_breaks5.test.adl"));
         try {
-            Archetype archetype = parser.parse();
+            parser.parse();
+            parser.generatedParserException();
         }catch(Exception e){
             if("null originalLanguage".equals(e.getMessage())){
                 throw new Exception("Error in parsing:\n"
@@ -101,7 +105,8 @@ public class LineCommentAndLineBreakTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.archetype_comment_line_breaks6.test.adl"));
         try {
-            Archetype archetype = parser.parse();
+            parser.parse();
+            parser.generatedParserException();
         }catch(Exception e){
             if("null originalLanguage".equals(e.getMessage())){
                 throw new Exception("Error in parsing:\n"

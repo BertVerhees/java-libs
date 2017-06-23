@@ -26,7 +26,9 @@ public class StructureTest extends ParserTestBase {
     public void setUp() throws Exception {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.structure_test1.test.adl"));
-        definition = parser.parse().getDefinition();
+        Archetype archetype = parser.parse();
+        parser.generatedParserException();
+        definition = archetype.getDefinition();
     }
 
     public void tearDown() throws Exception {
@@ -91,6 +93,7 @@ public class StructureTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.structure_test2.test.adl"));
         Archetype archetype = parser.parse();
+        parser.generatedParserException();
         assertNotNull(archetype);        
     }
 
@@ -99,6 +102,7 @@ public class StructureTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "openEHR-EHR-CLUSTER.auscultation.v1.adl"));
         Archetype archetype = parser.parse();
+        parser.generatedParserException();
         assertNotNull(archetype);        
     }
 

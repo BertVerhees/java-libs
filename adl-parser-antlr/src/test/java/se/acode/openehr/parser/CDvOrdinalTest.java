@@ -30,6 +30,7 @@ public class CDvOrdinalTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.c_dv_ordinal.test.adl"));
         archetype = parser.parse();
+        parser.generatedParserException();
     }
 
     /**

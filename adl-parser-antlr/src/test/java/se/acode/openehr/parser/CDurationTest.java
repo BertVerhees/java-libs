@@ -19,6 +19,7 @@ public class CDurationTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(
 				loadFromClasspath("adl-test-entry.durations.test.adl"));
 		archetype = parser.parse();
+		parser.generatedParserException();
 	}
 
 	/**

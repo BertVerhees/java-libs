@@ -33,6 +33,7 @@ public class ConstraintBindingTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.constraint_binding.test.adl"));
         Archetype archetype = parser.parse();
+        parser.generatedParserException();
         List<OntologyBinding> list = archetype.getOntology().getConstraintBindingList();
         
         assertEquals("unexpected number of onotology binding", 2, list.size());

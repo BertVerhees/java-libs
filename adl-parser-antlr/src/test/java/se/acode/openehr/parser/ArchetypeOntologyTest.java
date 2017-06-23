@@ -16,6 +16,7 @@ public class ArchetypeOntologyTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(loadFromClasspath(
 				"adl-test-entry.archetype_ontology.test.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
         assertNotNull(archetype);
         ArchetypeOntology ontology = archetype.getOntology();
         
@@ -33,6 +34,7 @@ public class ArchetypeOntologyTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(loadFromClasspath(
 				"adl-test-entry.archetype_bindings.test.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
         assertNotNull(archetype);
         ArchetypeOntology ontology = archetype.getOntology();
         List<OntologyBinding> termBindings = ontology.getTermBindingList();

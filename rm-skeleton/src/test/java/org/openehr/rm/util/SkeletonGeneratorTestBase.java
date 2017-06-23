@@ -55,8 +55,9 @@ public class SkeletonGeneratorTestBase  {
 	}
 	
 	protected Archetype loadArchetype(String id) throws Exception {
-		ADLParser adlParser = new ADLParser(fromClasspath(ARCHETYPE_PATH + id));
-		archetype = adlParser.parse();
+		ADLParser parser = new ADLParser(fromClasspath(ARCHETYPE_PATH + id));
+		archetype = parser.parse();
+		parser.generatedParserException();
 		return archetype;
     }
 	

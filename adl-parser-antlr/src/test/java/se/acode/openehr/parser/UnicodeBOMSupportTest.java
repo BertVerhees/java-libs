@@ -33,6 +33,7 @@ public class UnicodeBOMSupportTest extends ParserTestBase {
 			ADLParser parser = new ADLParser(loadFromClasspath(
 				"adl-test-entry.unicode_BOM_support.test.adl"), "UTF-8");
 			parser.parse();
+			parser.generatedParserException();
 		
 		} catch(Throwable t) {
 			fail("failed to parse BOM with UTF8 encoding..");
@@ -45,6 +46,7 @@ public class UnicodeBOMSupportTest extends ParserTestBase {
 			ADLParser parser = new ADLParser(loadFromClasspath(
 				"adl-test-entry.unicode_BOM_support.test.adl"), "ISO-8859-1");
 			parser.parse();
+			parser.generatedParserException();
 		
 		} catch(Throwable t) {
 			fail("failed to parse BOM without UTF8 encoding..");

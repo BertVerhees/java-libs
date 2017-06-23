@@ -21,7 +21,7 @@ arch_identification: SYM_ARCHETYPE arch_meta_data? ARCHETYPE_HRID ;
 arch_meta_data: '(' arch_meta_data_item (';' arch_meta_data_item)* ')' ;
 arch_meta_data_item: adl_version | uid | is_controlled ;
 adl_version: 'adl_version' '=' REAL_VALUE|VERSION_ID; //this is because in ADL 1.4 the adl-version only has one dot, and then it cannot be distinguished from a REAL_VALUE
-uid: 'uid' '=' GUID;
+uid: 'uid' '=' (GUID | OID) ;
 is_controlled: 'is_controlled' ;
 
 arch_specialisation: |SYM_SPECIALISE ARCHETYPE_HRID ;
@@ -50,7 +50,7 @@ resource_package_uri: 'resource_package_uri' '=' '<' string_value '>' ;
 parent_resource:  'parent_resource' '=' '<' string_value '>' ;
 details_object_block: resource_description_item+ ;
 resource_description_item: language|purpose|keywords|use|misuse|copyright|original_resource_uri|other_details  ;
-purpose:  'purpose' '=' '<' string_value '>' ;
+purpose:  'purpose' SYM_EQ '<' string_value '>' ;
 keywords: 'keywords' '=' '<' string_value (',' string_value)* '>' ;
 use:  'use' '=' '<' string_value '>' ;
 misuse:  'misuse' '=' '<' string_value '>' ;
@@ -221,7 +221,11 @@ c_primitive:
     | c_boolean
     ;
 c_any: '*' ;
-c_attribute: ALPHA_LC_ID (c_existence?  c_cardinality? | c_cardinality? c_existence?)  SYM_MATCHES ( '{' c_attr_value+ '}') ;
+//c_attribute: ALPHA_LC_ID (c_existence?  c_cardinality? | c_cardinality? c_existence?)  SYM_MATCHES ( '{' c_attr_value+ '}') ;
+
+c_attribute:  ALPHA_LC_ID (c_existence?  c_cardinality? | c_cardinality? c_existence?) ( SYM_MATCHES ('{' c_attr_value+ '}'| CONTAINED_REGEXP))? ;
+
+
 c_attr_value: c_object | c_any ;
 
 c_existence: ('existence' | 'EXISTENCE') SYM_MATCHES '{' existence_spec '}' ;
@@ -509,10 +513,13 @@ fragment CARET_REGEXP_CHAR: ~[^\n\r] | ESCAPE_SEQ | '\\^';
 ARCHETYPE_HRID      : ARCHETYPE_HRID_ROOT '.v' [1-9][0-9]* ;
 ARCHETYPE_REF       : ARCHETYPE_HRID_ROOT '.v' INTEGER ( '.' DIGIT+ )* ;
 fragment ARCHETYPE_HRID_ROOT : (NAMESPACE '::')? IDENTIFIER '-' IDENTIFIER '-' IDENTIFIER '.' LABEL ;
+
+OID : VERSION_ID ;
+GUID : HEX_DIGIT+ '-' HEX_DIGIT+ '-' HEX_DIGIT+ '-' HEX_DIGIT+ '-' HEX_DIGIT+ ;
+
 VERSION_ID          : DIGIT+ '.' DIGIT+ '.' DIGIT+ ( ( '-rc' | '-alpha' ) ( '.' DIGIT+ )? )? ;
 fragment IDENTIFIER : ALPHA_CHAR WORD_CHAR* ;
 
-GUID : HEX_DIGIT+ '-' HEX_DIGIT+ '-' HEX_DIGIT+ '-' HEX_DIGIT+ '-' HEX_DIGIT+ ;
 
 fragment WORD_CHAR     : ALPHANUM_CHAR | '_' ;
 fragment ALPHANUM_CHAR : ALPHA_CHAR | DIGIT ;

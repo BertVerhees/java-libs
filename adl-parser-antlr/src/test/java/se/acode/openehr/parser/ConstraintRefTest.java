@@ -16,6 +16,8 @@ public class ConstraintRefTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.constraint_ref.test.adl"));
         Archetype archetype = parser.parse();
+        parser.generatedParserException();
+
         assertNotNull(archetype);
         
         String path = "/content[at0001]/items[at0002]/value/defining_code";

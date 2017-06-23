@@ -32,6 +32,7 @@ public class UnicodeSupportTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(loadFromClasspath(
 				"adl-test-entry.unicode_support.test.adl"), "UTF-8");
 		archetype = parser.parse();
+		parser.generatedParserException();
 	}
 
 	@After

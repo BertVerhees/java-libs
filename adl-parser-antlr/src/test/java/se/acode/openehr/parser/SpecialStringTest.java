@@ -2,6 +2,7 @@ package se.acode.openehr.parser;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openehr.am.archetype.Archetype;
 import org.openehr.am.archetype.constraintmodel.CAttribute;
 import org.openehr.am.archetype.constraintmodel.CComplexObject;
 
@@ -13,7 +14,9 @@ public class SpecialStringTest extends ParserTestBase {
 	public void SpecialStringTest() throws Exception {
 		ADLParser parser = new ADLParser(loadFromClasspath(
 			"adl-test-entry.special_string.test.adl"));
-		attributeList = parser.parse().getDefinition().getAttributes();
+		Archetype archetype = parser.parse();
+		parser.generatedParserException();
+		attributeList = archetype.getDefinition().getAttributes();
 	}
 
 	@Test

@@ -16,6 +16,7 @@ public class ArchetypeInternalRefTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(loadFromClasspath(
 				"adl-test-entry.archetype_internal_ref.test.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		assertNotNull(archetype);
 
 		assertNotNull(archetype.node("/attribute3"));
@@ -30,6 +31,7 @@ public class ArchetypeInternalRefTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(loadFromClasspath(
 				"adl-test-entry.archetype_internal_ref.test.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		assertNotNull(archetype);
 
 		ArchetypeConstraint node = archetype.node("/attribute2");
@@ -50,6 +52,7 @@ public class ArchetypeInternalRefTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(loadFromClasspath(
 				"adl-test-SOME_TYPE.generic_type_use_node.draft.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		assertNotNull(archetype);
 		
 		ArchetypeConstraint node = archetype.node("/interval_attr2");
@@ -69,6 +72,7 @@ public class ArchetypeInternalRefTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(loadFromClasspath(
 				"adl-test-entry.archetype_internal_ref2.test.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		assertNotNull(archetype);
 
 	}

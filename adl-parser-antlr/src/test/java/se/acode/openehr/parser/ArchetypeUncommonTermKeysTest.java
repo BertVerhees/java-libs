@@ -25,6 +25,7 @@ public class ArchetypeUncommonTermKeysTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(
 				loadFromClasspath("adl-test-entry.archetype_uncommonkeys.test.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		ArchetypeTerm aterm = archetype.getOntology().termDefinition("at0000");
 	
 		assertEquals("key value wrong", "another key value", aterm.getItem("anotherkey"));

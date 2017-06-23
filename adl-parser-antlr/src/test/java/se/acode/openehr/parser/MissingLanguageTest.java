@@ -22,6 +22,7 @@ public class MissingLanguageTest extends ParserTestBase {
 				"adl-test-entry.missing_language.test.adl"), 
 				missingLanguageCompatible, emptyPurposeCompatible);
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		assertNotNull(archetype);
 		
 		assertEquals("originalLanguage wrong", "zh", 

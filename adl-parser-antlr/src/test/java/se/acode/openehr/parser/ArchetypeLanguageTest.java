@@ -28,6 +28,7 @@ public class ArchetypeLanguageTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(
 				loadFromClasspath("adl-test-entry.archetype_language.test.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		assertNotNull(archetype);
 
 		Map<String, TranslationDetails> translations = archetype
@@ -55,6 +56,7 @@ public class ArchetypeLanguageTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(loadFromClasspath(
 				"adl-test-entry.archetype_language_no_accreditation.test.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		assertNotNull(archetype);
 
 		Map<String, TranslationDetails> translations = archetype
@@ -81,6 +83,7 @@ public class ArchetypeLanguageTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(loadFromClasspath(
 				"adl-test-entry.archetype_language_order_of_translation_details.test.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		assertNotNull(archetype);
 
 		Map<String, TranslationDetails> translations = archetype
@@ -107,6 +110,7 @@ public class ArchetypeLanguageTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(loadFromClasspath(
 				"adl-test-entry.archetype_language_translations_author.test.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		assertNotNull(archetype);
 
 		Map<String, TranslationDetails> translations = archetype
@@ -125,6 +129,7 @@ public class ArchetypeLanguageTest extends ParserTestBase {
 		ADLParser parser = new ADLParser(loadFromClasspath(
 				"adl-test-entry.archetype_language_translations_author.test.adl"));
 		Archetype archetype = parser.parse();
+		parser.generatedParserException();
 		assertNotNull(archetype);
 
 		Map<String, TranslationDetails> translations = archetype
@@ -142,6 +147,7 @@ public class ArchetypeLanguageTest extends ParserTestBase {
         ADLParser parser = new ADLParser(loadFromClasspath(
                 "adl-test-entry.archetype_language.test2.adl"));
         Archetype archetype = parser.parse();
+		parser.generatedParserException();
         assertNotNull(archetype);
 
         assertEquals(2, archetype.getOntology().getLanguages().size());

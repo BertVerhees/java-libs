@@ -39,7 +39,9 @@ public class SpecialisedArchetypeValidationTestBase  {
     	InputStream input = 
     		this.getClass().getClassLoader().getResourceAsStream(name);
     	ADLParser parser = new ADLParser(input, "UTF-8");
-		return parser.parse();
+		Archetype archetype = parser.parse();
+		parser.generatedParserException();
+		return archetype;
     }
 	
 	/**
