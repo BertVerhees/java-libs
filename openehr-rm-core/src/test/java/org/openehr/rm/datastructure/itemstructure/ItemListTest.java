@@ -20,41 +20,46 @@
  */
 package org.openehr.rm.datastructure.itemstructure;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.datastructure.DataStructureTestBase;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
 import org.openehr.rm.datatypes.text.DvText;
 
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 public class ItemListTest extends DataStructureTestBase {
 
-    public ItemListTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         itemList = init();
     }
 
     /**
      * The fixture clean up called after every test method.
      */
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         itemList = null;
     }
 
-    public void testItemCount() throws Exception {
+	@Test
+	public void testItemCount() throws Exception {
         assertEquals("itemCount", NAMES.length, itemList.itemCount());
     }
 
-    public void testItems() throws Exception {
+	@Test
+	public void testItems() throws Exception {
         assertEquals("items", elements, itemList.getItems());
     }
 
-    public void testNames() throws Exception {
+	@Test
+	public void testNames() throws Exception {
         List<DvText> expected = new ArrayList<DvText>();
         for (int i = 0; i < NAMES.length; i++) {
             expected.add(text(NAMES[ i ]));
@@ -62,20 +67,23 @@ public class ItemListTest extends DataStructureTestBase {
         assertEquals("names", expected, itemList.names());
     }
 
-    public void testNamedItem() throws Exception {
+	@Test
+	public void testNamedItem() throws Exception {
         for (int i = 0; i < NAMES.length; i++) {
             assertEquals(elements.get(i), itemList.namedItem(NAMES[ i ]));
         }
         assertTrue(itemList.namedItem("unknown name") == null);
     }
 
-    public void testIthItem() throws Exception {
+	@Test
+	public void testIthItem() throws Exception {
         for (int i = 0; i < NAMES.length; i++) {
             assertEquals(elements.get(i), itemList.ithItem(i));
         }
         assertTrue(itemList.namedItem("unknown name") == null);
     }
-    
+
+	@Test
 	public void testEquals() {
 		List<Element> elementsOne = new ArrayList<Element>();
 
@@ -98,6 +106,7 @@ public class ItemListTest extends DataStructureTestBase {
 		assertTrue(itemListOne.equals(itemListTwo));
 	}
 
+	@Test
 	public void testEqualsElementsInMixedOrder() {
 		List<Element> elementsOne = new ArrayList<Element>();
 
@@ -120,6 +129,7 @@ public class ItemListTest extends DataStructureTestBase {
 		assertTrue(itemListOne.equals(itemListTwo));
 	}
 
+	@Test
 	public void testNotEqualSize() {
 		List<Element> elementsOne = new ArrayList<Element>();
 
@@ -141,6 +151,7 @@ public class ItemListTest extends DataStructureTestBase {
 		assertFalse(itemListOne.equals(itemListTwo));
 	}
 
+	@Test
 	public void testNotEqual() {
 		List<Element> elementsOne = new ArrayList<Element>();
 

@@ -20,6 +20,9 @@
  */
 package org.openehr.rm.datastructure.itemstructure;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openehr.rm.datastructure.DataStructureTestBase;
 import org.openehr.rm.datastructure.itemstructure.representation.Cluster;
 import org.openehr.rm.datastructure.itemstructure.representation.Element;
@@ -34,23 +37,20 @@ import org.openehr.rm.support.measurement.TestMeasurementService;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.*;
+
 public class ItemTreeTest extends DataStructureTestBase {
 
-    public ItemTreeTest(String test) {
-        super(test);
-    }
-
-    /**
-     * The fixture set up called before every test method.
-     */
-    protected void setUp() throws Exception {
+    @Before
+	public void setUp() throws Exception {
         init();
     }
 
     /**
      * The fixture clean up called after every test method.
      */
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         itemTree = null;
     }
 
@@ -86,114 +86,137 @@ public class ItemTreeTest extends DataStructureTestBase {
     	items.add(comment);
     	itemTree = new ItemTree("at0007", new DvText("biochemstry result"), items);
     }
-    
-    public void testItemAtPathWhole() {
+
+	@Test
+	public void testItemAtPathWhole() {
     	assertEquals(itemTree, itemTree.itemAtPath("/"));
     }
-    
-    public void testItemAtPathSample() {
+
+	@Test
+	public void testItemAtPathSample() {
     	assertEquals(sample, itemTree.itemAtPath("/items[at0001]"));
-    }    
-    
-    public void testItemAtPathComment() {
+    }
+
+	@Test
+	public void testItemAtPathComment() {
     	assertEquals(comment, itemTree.itemAtPath("/items[at0006]"));
     }
-    
-    public void testItemAtPathSampleName() {
+
+	@Test
+	public void testItemAtPathSampleName() {
     	assertEquals(sample, itemTree.itemAtPath("/items['sample']"));
-    }    
-    
-    public void testItemAtPathCommentName() {
+    }
+
+	@Test
+	public void testItemAtPathCommentName() {
     	assertEquals(comment, itemTree.itemAtPath("/items['comment']"));
     }
-    
-    public void testItemAtPathSampleBoth() {
+
+	@Test
+	public void testItemAtPathSampleBoth() {
     	assertEquals(sample, itemTree.itemAtPath("/items[at0001, 'sample']"));
-    }    
-    
-    public void testItemAtPathCommentBoth() {
+    }
+
+	@Test
+	public void testItemAtPathCommentBoth() {
     	assertEquals(comment, itemTree.itemAtPath("/items[at0006, 'comment']"));
     }
-    
-    public void testItemAtPathTotalCholesterol() {
+
+	@Test
+	public void testItemAtPathTotalCholesterol() {
     	assertEquals(totalCholesterol, 
     			itemTree.itemAtPath("/items[at0005]/items[at0002]"));
     }
-    
-    public void testItemAtPathLDLCholesterol() {
+
+	@Test
+	public void testItemAtPathLDLCholesterol() {
     	assertEquals(ldlCholesterol, 
     			itemTree.itemAtPath("/items[at0005]/items[at0003]"));
     }
-    
-    public void testItemAtPathHDLCholesterol() {
+
+	@Test
+	public void testItemAtPathHDLCholesterol() {
     	assertEquals(hdlCholesterol, 
     			itemTree.itemAtPath("/items[at0005]/items[at0004]"));
     }
-    
-    public void testItemAtPathTotalCholesterolName() {
+
+	@Test
+	public void testItemAtPathTotalCholesterolName() {
     	assertEquals(totalCholesterol, 
     			itemTree.itemAtPath(
     					"/items['lipid studies']/items['total cholesterol']"));
     }
-    
-    public void testItemAtPathLDLCholesterolName() {
+
+	@Test
+	public void testItemAtPathLDLCholesterolName() {
     	assertEquals(ldlCholesterol, 
     			itemTree.itemAtPath(
     					"/items['lipid studies']/items['LDL cholesterol']"));
     }
-    
-    public void testItemAtPathHDLCholesterolName() {
+
+	@Test
+	public void testItemAtPathHDLCholesterolName() {
     	assertEquals(hdlCholesterol, 
     			itemTree.itemAtPath(
     					"/items['lipid studies']/items['HDL cholesterol']"));
     }
-    
-    public void testItemAtPathTotalCholesterolBoth() {
+
+	@Test
+	public void testItemAtPathTotalCholesterolBoth() {
     	assertEquals(totalCholesterol, 
     			itemTree.itemAtPath(
     					"/items[at0005, 'lipid studies']/items[at0002]"));
     }
-    
-    public void testItemAtPathLDLCholesterolBoth() {
+
+	@Test
+	public void testItemAtPathLDLCholesterolBoth() {
     	assertEquals(ldlCholesterol, 
     			itemTree.itemAtPath(
     					"/items[at0005, 'lipid studies']/items[at0003]"));
     }
-    
-    public void testItemAtPathHDLCholesterolBoth() {
+
+	@Test
+	public void testItemAtPathHDLCholesterolBoth() {
     	assertEquals(hdlCholesterol, 
     			itemTree.itemAtPath(
     					"/items[at0005, 'lipid studies']/items[at0004]"));
     }
-    
-    public void testItemAtPathTotalCholesterolValue() {
+
+	@Test
+	public void testItemAtPathTotalCholesterolValue() {
     	assertEquals(totalCholesterol.getValue(), 
     			itemTree.itemAtPath("/items[at0005]/items[at0002]/value"));
     }
-    
-    public void testItemAtPathLDLCholesterolValue() {
+
+	@Test
+	public void testItemAtPathLDLCholesterolValue() {
     	assertEquals(ldlCholesterol.getValue(), 
     			itemTree.itemAtPath("/items[at0005]/items[at0003]/value"));
     }
-    
-    public void testItemAtPathHDLCholesterolValue() {
+
+	@Test
+	public void testItemAtPathHDLCholesterolValue() {
     	assertEquals(hdlCholesterol.getValue(), 
     			itemTree.itemAtPath("/items[at0005]/items[at0004]/value"));
     }
-    
-    public void testCreateEmptyTree() {
+
+	@Test
+	public void testCreateEmptyTree() {
     	ItemTree empty = new ItemTree("at0001", new DvText("tree"), null);
     	assertNotNull(empty);
     }
 
+	@Test
 	public void testEquals() {
 		assertTrue(getItemTreeOne().equals(getItemTreeOne()));
 	}
 
+	@Test
 	public void testEqualsMixedItemOrder() {
 		assertTrue(getItemTreeOne().equals(getItemTreeOneMixedOrder()));
 	}
 
+	@Test
 	public void testNotEquals() {
 		assertFalse(getItemTreeOne().equals(getItemTreeTwo()));
 	}
