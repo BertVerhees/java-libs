@@ -400,41 +400,6 @@ public class ADLParser {
         return null;
     }
 
-    public static class CollectionErrorListener extends BaseErrorListener {
-        private final List<SyntaxError> errors = new ArrayList<SyntaxError>();
-        public List<SyntaxError> getErrors() {
-            return errors;
-        }
-        @Override
-        public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
-            if (e == null) {
-                // e is null when the parser was able to recover in line without exiting the surrounding rule.
-                e = new InlineRecognitionException(msg, recognizer, ((org.antlr.v4.runtime.Parser)recognizer).getInputStream(),
-                        ((org.antlr.v4.runtime.Parser)recognizer).getContext(), (Token) offendingSymbol);
-            }
-            this.errors.add(new SyntaxError(msg, e, line, charPositionInLine));
-        }
-    }
-
-    public static class SyntaxError extends RecognitionException {
-        int line;
-        int charPositionInLine;
-        public SyntaxError(String message, RecognitionException e, int line, int charPositionInLine) {
-            super(message, e.getRecognizer(), e.getInputStream(), (ParserRuleContext) e.getCtx());
-            this.setOffendingToken(e.getOffendingToken());
-            this.initCause(e);
-            this.line = line;
-            this.charPositionInLine = charPositionInLine;
-        }
-    }
-    public static class InlineRecognitionException extends RecognitionException {
-        public InlineRecognitionException(String message, Recognizer<?, ?> recognizer, IntStream input, ParserRuleContext ctx, Token offendingToken) {
-            super(message, recognizer, input, ctx);
-            this.setOffendingToken(offendingToken);
-        }
-    }
-
-
     /* ===================  entry point from command-line  ================ */
     public static void main(String args[]) throws IOException {
         ADLParser parser = null;

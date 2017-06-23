@@ -5,6 +5,7 @@ import org.openehr.rm.common.resource.ResourceDescriptionItem;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.terminology.TerminologyService;
 import se.acode.openehr.parser.ArchetypeParser;
+import se.acode.openehr.parser.errors.ArchetypeADLErrorListener;
 import se.acode.openehr.parser.exception.ArchetypeBuilderException;
 
 import java.util.ArrayList;
@@ -20,8 +21,10 @@ public class DescriptionSectionBuilder {
     public static DescriptionSectionBuilder getInstance(){
         return new DescriptionSectionBuilder();
     }
+    private ArchetypeADLErrorListener errorListener;
 
-    public ResourceDescription getDescription(ArchetypeParser.Arch_descriptionContext descriptionSection, TerminologyService terminologyService, String rmRelease, String purpose) throws Exception {
+    public ResourceDescription getDescription(ArchetypeParser.Arch_descriptionContext descriptionSection, TerminologyService terminologyService, String rmRelease, String purpose, ArchetypeADLErrorListener errorListener) {
+        this.errorListener = errorListener;
         try {
             ArchetypeParser.Description_textContext textContext = descriptionSection.description_text();
             Map<String, String> originalAuthor = null;
@@ -37,14 +40,14 @@ public class DescriptionSectionBuilder {
                         if (originalAuthor == null) {
                             originalAuthor = new HashMap<>();
                         } else {
-                            throw new Exception("There can be only one original_author-section per description.");
+                            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one original_author-section per description.");
                         }
                         ArchetypeParser.Original_authorContext original_authorContext = textItemContext.original_author();
                         int j = 0;
                         for (ArchetypeParser.String_valueContext sa : original_authorContext.string_value()) {
                             ArchetypeParser.Object_blockContext o = original_authorContext.object_block(j);
                             j++;
-                            BuilderUtils.addEntry(sa, o, originalAuthor);
+                            BuilderUtils.addEntry(sa, o, originalAuthor, errorListener);
                         }
                     } else if (textItemContext.other_contributors() != null) {
                         if (otherContributors == null) {
@@ -52,7 +55,7 @@ public class DescriptionSectionBuilder {
                                 otherContributors = new ArrayList<>();
                             }
                         } else {
-                            throw new Exception("There can be only one other_contributors-section per description.");
+                            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one other_contributors-section per description.");
                         }
                         if(textItemContext.other_contributors().string_value()!=null) {
                             for (ArchetypeParser.String_valueContext stringValueContext : textItemContext.other_contributors().string_value()) {
@@ -72,13 +75,13 @@ public class DescriptionSectionBuilder {
                             lifeCycleState = textItemContext.lifecycle_state().string_value().STRING().getText();
                             lifeCycleState = lifeCycleState.substring(1, lifeCycleState.length() - 1);
                         } else {
-                            throw new Exception("There can be only one lifecycle_state-section per description.");
+                            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one lifecycle_state-section per description.");
                         }
                     } else if (textItemContext.details() != null) {
                         if (details == null) {
                             details = new HashMap<>();
                         } else {
-                            throw new Exception("There can be only one details-section per description.");
+                            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one details-section per description.");
                         }
                         ArchetypeParser.DetailsContext detailsContext = textItemContext.details();
                         int j = 0;
@@ -95,39 +98,39 @@ public class DescriptionSectionBuilder {
                             resourcePackageUri = textItemContext.resource_package_uri().string_value().STRING().getText();
                             resourcePackageUri = resourcePackageUri.substring(1, resourcePackageUri.length() - 1);
                         } else {
-                            throw new Exception("There can be only one resource_package_uri-section per description.");
+                            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one resource_package_uri-section per description.");
                         }
                     } else if (textItemContext.other_details() != null) {
                         if (otherDetails == null) {
                             otherDetails = new HashMap<>();
                         } else {
-                            throw new Exception("There can be only one other_details-section per description.");
+                            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one other_details-section per description.");
                         }
                         ArchetypeParser.Other_detailsContext otherDetailsContext = textItemContext.other_details();
                         int j = 0;
                         for (ArchetypeParser.String_valueContext sa : otherDetailsContext.string_value()) {
                             ArchetypeParser.Object_blockContext o = otherDetailsContext.object_block(j);
                             j++;
-                            BuilderUtils.addEntry(sa, o, otherDetails);
+                            BuilderUtils.addEntry(sa, o, otherDetails, errorListener);
                         }
                     } else if (textItemContext.parent_resource() != null) {
                         if (parentResource == null) {
                             parentResource = textItemContext.parent_resource().string_value().STRING().getText();
                             parentResource = parentResource.substring(1, parentResource.length() - 1);
                         } else {
-                            throw new Exception("There can be only one parent_resource-section per description.");
+                            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one parent_resource-section per description.");
                         }
                     }
                 }
                 return new ResourceDescription(originalAuthor, otherContributors, lifeCycleState, details, resourcePackageUri, otherDetails, null);
             }
         }catch(Exception e){
-            throw new ArchetypeBuilderException(descriptionSection,  e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(descriptionSection,  e.getMessage()));
         }
         return null;
     }
 
-    private ResourceDescriptionItem buildResourceDescriptionItem(ArchetypeParser.Details_object_blockContext blockContext, TerminologyService terminologyService, String purposeParam) throws Exception {
+    private ResourceDescriptionItem buildResourceDescriptionItem(ArchetypeParser.Details_object_blockContext blockContext, TerminologyService terminologyService, String purposeParam) {
         try {
             ResourceDescriptionItem resourceDescriptionItem = null;
             CodePhrase language = null;
@@ -141,9 +144,9 @@ public class DescriptionSectionBuilder {
             for (ArchetypeParser.Resource_description_itemContext itemContext : blockContext.resource_description_item()) {
                 if (itemContext.language() != null) {
                     if (language == null) {
-                        language = BuilderUtils.returnCodePhraseFromTermCodeRefString(itemContext.language().TERM_CODE_REF().getText());
+                        language = BuilderUtils.returnCodePhraseFromTermCodeRefString(itemContext.language().TERM_CODE_REF().getText(), errorListener);
                     } else {
-                        throw new Exception("There can be only one language-section per description.");
+                        errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one language-section per description.");
                     }
                 } else if ((itemContext.purpose() != null)||(purposeParam!=null)) {
                     if (purpose == null) {
@@ -155,13 +158,13 @@ public class DescriptionSectionBuilder {
                             purpose = purpose.substring(1, purpose.length() - 1);
                         }
                     } else {
-                        throw new Exception("There can be only one purpose-section per description.");
+                        errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one purpose-section per description.");
                     }
                 } else if (itemContext.keywords() != null) {
                     if (keywords == null) {
                         keywords = new ArrayList<>();
                     } else {
-                        throw new Exception("There can be only one keywords-section per resource-description-item.");
+                        errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one keywords-section per resource-description-item.");
                     }
                     for (ArchetypeParser.String_valueContext svc : itemContext.keywords().string_value()) {
                         String keyWord = svc.STRING().getText();
@@ -173,47 +176,47 @@ public class DescriptionSectionBuilder {
                         use = itemContext.use().string_value().STRING().getText();
                         use = use.substring(1, use.length() - 1);
                     } else {
-                        throw new Exception("There can be only one use-section per resource-description-item.");
+                        errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one use-section per resource-description-item.");
                     }
                 } else if (itemContext.misuse() != null) {
                     if (misuse == null) {
                         misuse = itemContext.misuse().string_value().STRING().getText();
                         misuse = misuse.substring(1, misuse.length() - 1);
                     } else {
-                        throw new Exception("There can be only one misuse-section per resource-description-item.");
+                        errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one misuse-section per resource-description-item.");
                     }
                 } else if (itemContext.copyright() != null) {
                     if (copyRight == null) {
                         copyRight = itemContext.copyright().string_value().STRING().getText();
                         copyRight = copyRight.substring(1, copyRight.length() - 1);
                     } else {
-                        throw new Exception("There can be only one copyright-section per resource-description-item.");
+                        errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one copyright-section per resource-description-item.");
                     }
                 } else if (itemContext.original_resource_uri() != null) {
                     if (originalResourceUri == null) {
                         originalResourceUri = new HashMap<>();
                     } else {
-                        throw new Exception("There can be only one original_resource_uri-section per resource-description-item.");
+                        errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one original_resource_uri-section per resource-description-item.");
                     }
                     ArchetypeParser.Original_resource_uriContext originalResourceUriContext = itemContext.original_resource_uri();
                     int j = 0;
                     for (ArchetypeParser.String_valueContext sa : originalResourceUriContext.string_value()) {
                         ArchetypeParser.Object_blockContext o = originalResourceUriContext.object_block(j);
                         j++;
-                        BuilderUtils.addEntry(sa, o, originalResourceUri);
+                        BuilderUtils.addEntry(sa, o, originalResourceUri, errorListener);
                     }
                 } else if (itemContext.other_details() != null) {
                     if (otherDetails == null) {
                         otherDetails = new HashMap<>();
                     } else {
-                        throw new Exception("There can be only one other_details-section per resource-description-item.");
+                        errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one other_details-section per resource-description-item.");
                     }
                     ArchetypeParser.Other_detailsContext otherDetailsContext = itemContext.other_details();
                     int j = 0;
                     for (ArchetypeParser.String_valueContext sa : otherDetailsContext.string_value()) {
                         ArchetypeParser.Object_blockContext o = otherDetailsContext.object_block(j);
                         j++;
-                        BuilderUtils.addEntry(sa, o, otherDetails);
+                        BuilderUtils.addEntry(sa, o, otherDetails, errorListener);
                     }
                 }
             }
@@ -228,7 +231,8 @@ public class DescriptionSectionBuilder {
             }
             return new ResourceDescriptionItem(language, purpose, keywords, use, misuse, copyRight, originalResourceUri, otherDetails, terminologyService);
         }catch(Exception e){
-            throw new ArchetypeBuilderException(blockContext,  e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(blockContext,  e.getMessage()));
+            return null;
         }
     }
 }

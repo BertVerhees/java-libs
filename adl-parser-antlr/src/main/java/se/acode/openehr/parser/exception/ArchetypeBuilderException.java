@@ -7,18 +7,6 @@ import org.antlr.v4.runtime.ParserRuleContext;
  */
 public class ArchetypeBuilderException extends Exception{
 
-    public ArchetypeBuilderException(ParserRuleContext parserRuleContext, String message){
-        super(buildMessage(parserRuleContext, message));
-    }
-
-    public ArchetypeBuilderException(String message){
-        super(message);
-    }
-
-    public ArchetypeBuilderException(ParserRuleContext parserRuleContext, String message, Exception e){
-        super(buildMessage(parserRuleContext, message), e);
-    }
-
     public static String buildMessage(ParserRuleContext parserRuleContext, String message){
         String exception = message;
         if(parserRuleContext!=null) {

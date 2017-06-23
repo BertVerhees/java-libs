@@ -31,6 +31,7 @@ package se.acode.openehr.parser.builder;
 import org.openehr.am.archetype.ontology.*;
 import org.openehr.rm.support.terminology.TerminologyService;
 import se.acode.openehr.parser.ArchetypeParser;
+import se.acode.openehr.parser.errors.ArchetypeADLErrorListener;
 import se.acode.openehr.parser.exception.ArchetypeBuilderException;
 
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public class OntologySectionBuilder {
         return list;
     }
 
-    public ArchetypeOntology getOntology(ArchetypeParser.Arch_ontologyContext ontologyContext, TerminologyService terminologyService) throws Exception {
+    public ArchetypeOntology getOntology(ArchetypeParser.Arch_ontologyContext ontologyContext, TerminologyService terminologyService, ArchetypeADLErrorListener errorListener)  {
         try {
             String primaryLanguage = null;
             List<String> terminologies = null;
@@ -170,12 +171,13 @@ public class OntologySectionBuilder {
             }
             if (languagesAvailable != null) {
                 if (languagesAvailable.size() != termDefinitionsList.size()) {
-                    throw new ArchetypeBuilderException("There is a different size in \"languages_available\" (" + languagesAvailable.size() + ") then available in \"term_definitions\" (" + termDefinitionsList.size() + ").");
+                    errorListener.getErrors().addError("There is a different size in \"languages_available\" (" + languagesAvailable.size() + ") then available in \"term_definitions\" (" + termDefinitionsList.size() + ").");
                 }
             }
             return new ArchetypeOntology(primaryLanguage, terminologies, termDefinitionsList, constraintDefinitionsList, termBindingList, constraintBindingList);
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(ontologyContext, e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(ontologyContext, e.getMessage()));
+            return null;
         }
     }
 }

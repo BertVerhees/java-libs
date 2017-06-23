@@ -49,6 +49,7 @@ import org.openehr.rm.support.basic.Interval;
 import org.openehr.rm.support.identification.TerminologyID;
 import org.openehr.rm.support.measurement.MeasurementService;
 import se.acode.openehr.parser.ArchetypeParser;
+import se.acode.openehr.parser.errors.ArchetypeADLErrorListener;
 import se.acode.openehr.parser.exception.ArchetypeBuilderException;
 
 import java.util.*;
@@ -64,10 +65,12 @@ public class DefinitionSectionBuilder {
     public static DefinitionSectionBuilder getInstance() {
         return new DefinitionSectionBuilder();
     }
+    private ArchetypeADLErrorListener errorListener;
 
     // Starting point, the only public function
     public CComplexObject getDefinition(ArchetypeParser.Arch_definitionContext definitionSectionContext,
-                                        MeasurementService measurementService) throws Exception {
+                                        MeasurementService measurementService, ArchetypeADLErrorListener errorListener)  {
+        this.errorListener = errorListener;
         try {
             CComplexObject definition = c_complex_object(
                     new String("/"),
@@ -77,8 +80,9 @@ public class DefinitionSectionBuilder {
             //---------------------
             return definition;
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(definitionSectionContext,  e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(definitionSectionContext,  e.getMessage()));
         }
+        return null;
     }
 
     private String getNodeId(TerminalNode terminalNode) {
@@ -92,7 +96,7 @@ public class DefinitionSectionBuilder {
 
     private CComplexObject c_complex_object(String path,
                                             ArchetypeParser.C_complex_objectContext cComplexObjectContext,
-                                            MeasurementService measurementService) throws Exception {
+                                            MeasurementService measurementService) {
         List<CAttribute> attributes = null;
         if (cComplexObjectContext.c_complex_object_body() == null) {
             return null;
@@ -120,7 +124,7 @@ public class DefinitionSectionBuilder {
                     null
             );
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(cComplexObjectContext,  e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(cComplexObjectContext,  e.getMessage()));
         }
         return cComplexObject;
     }
@@ -133,7 +137,7 @@ public class DefinitionSectionBuilder {
 
     private List<CAttribute> attributes(String path,
                                         List<ArchetypeParser.C_attributeContext> cAttributeContextList,
-                                        MeasurementService measurementService) throws Exception {
+                                        MeasurementService measurementService) {
         if ((cAttributeContextList == null) || (cAttributeContextList.size() == 0))
             return null;
         List<CAttribute> result = new ArrayList<>();
@@ -179,7 +183,7 @@ public class DefinitionSectionBuilder {
         return result;
     }
 
-    private CAttribute.Existence existence(ArchetypeParser.Existence_specContext existenceSpecContext) throws Exception {
+    private CAttribute.Existence existence(ArchetypeParser.Existence_specContext existenceSpecContext) {
         Integer lower = -1, upper = -1;
         if (existenceSpecContext.INTEGER_VALUE().size() > 0) {
             lower = Integer.valueOf(existenceSpecContext.INTEGER_VALUE(0).getText());
@@ -200,7 +204,8 @@ public class DefinitionSectionBuilder {
                 return CAttribute.Existence.REQUIRED;
             }
         }
-        throw new ArchetypeBuilderException(existenceSpecContext,  "Illegal Existence encountered:" + existenceSpecContext.getPayload().getText());
+        errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(existenceSpecContext,  "Illegal Existence encountered:" + existenceSpecContext.getPayload().getText()));
+        return null;
     }
 
     private Interval<Integer> occurrences(ArchetypeParser.C_occurrencesContext occurrenceContext) {
@@ -231,13 +236,14 @@ public class DefinitionSectionBuilder {
         }
     }
 
-    private Cardinality cardinality(ArchetypeParser.Cardinality_specContext cardinalityContext) throws Exception {
+    private Cardinality cardinality(ArchetypeParser.Cardinality_specContext cardinalityContext)  {
         if (cardinalityContext != null) {
             Boolean ordered = true, unique = false;
             try {
                 if(cardinalityContext.multiplicity_mod()!=null) {
                     if (cardinalityContext.multiplicity_mod().size() > 2) {
-                        throw new ArchetypeBuilderException(cardinalityContext,  "Only two multiplicity-modes are allowed: (non-)unique and (un)ordered:" + cardinalityContext.getPayload().toString());
+                        errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(cardinalityContext,  "Only two multiplicity-modes are allowed: (non-)unique and (un)ordered:" + cardinalityContext.getPayload().toString()));
+                        return null;
                     }
                     for (ArchetypeParser.Multiplicity_modContext multiplicityModContext : cardinalityContext.multiplicity_mod()) {
                         if (multiplicityModContext.ordering_mod() != null) {
@@ -251,7 +257,7 @@ public class DefinitionSectionBuilder {
                 Interval<Integer> multiplicityInterval = processMultiplicity(cardinalityContext.multiplicity_spec().getText());
                 return new Cardinality(ordered, unique, multiplicityInterval);
             } catch (Exception e) {
-                throw new ArchetypeBuilderException(cardinalityContext, e.getMessage(), e);
+                errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(cardinalityContext, e.getMessage()));
             }
         }
         return null;
@@ -259,7 +265,7 @@ public class DefinitionSectionBuilder {
 
     private List<CObject> children(String path,
                                    List<ArchetypeParser.C_attr_valueContext> c_attr_value,
-                                   MeasurementService measurementService) throws Exception {
+                                   MeasurementService measurementService) {
         List<CObject> cObjects = new ArrayList<>();
         for (ArchetypeParser.C_attr_valueContext cAttrValueContext : c_attr_value) {
             ArchetypeParser.C_objectContext c_object = cAttrValueContext.c_object();
@@ -291,14 +297,14 @@ public class DefinitionSectionBuilder {
     }
 
     private ConstraintRef constraint_ref(String path,
-                                         ArchetypeParser.Constraint_refContext constraint_ref) throws Exception {
+                                         ArchetypeParser.Constraint_refContext constraint_ref) {
         String reference = constraint_ref.AC_CODE().getText();
         reference = reference.substring(1,reference.length()-1);
         return new ConstraintRef(path, "CODE_PHRASE", new Interval(1, 1),  null, null, reference);
     }
 
     private ArchetypeInternalRef archetype_internal_ref(String path,
-                                                        ArchetypeParser.Archetype_internal_refContext internalRefContext) throws Exception {
+                                                        ArchetypeParser.Archetype_internal_refContext internalRefContext) {
         Interval<Integer> occurrences = null;
         if (internalRefContext.c_occurrences() != null) {
             occurrences = occurrences(internalRefContext.c_occurrences());
@@ -324,7 +330,7 @@ public class DefinitionSectionBuilder {
 
     private CPrimitiveObject c_primitive_object(String path,
                                                 ArchetypeParser.C_primitive_objectContext cPrimitiveObjectContext,
-                                                CPrimitive item) throws Exception {
+                                                CPrimitive item) {
         String nodeId = null;
         if (cPrimitiveObjectContext.AT_CODE() != null)
             nodeId = getNodeId(cPrimitiveObjectContext.AT_CODE());
@@ -342,7 +348,7 @@ public class DefinitionSectionBuilder {
     }
 
     private CDvOrdinal c_dv_ordinal(String path,
-                                    ArchetypeParser.C_dv_ordinalContext cDvOrdinalContext) throws Exception {
+                                    ArchetypeParser.C_dv_ordinalContext cDvOrdinalContext) {
         Interval<Integer> occurrences = new Interval<Integer>(1, 1);
         int assumed = -1;
         Ordinal assumedValue = null;
@@ -380,7 +386,7 @@ public class DefinitionSectionBuilder {
 
     private CDvQuantity c_dv_quantity(String path,
                                       ArchetypeParser.C_dv_quantityContext cDvQuantityContext,
-                                      MeasurementService measurementService) throws Exception {
+                                      MeasurementService measurementService) {
         CodePhrase property = null;
         List<CDvQuantityItem> list = null;
         CDvQuantityItem item = null;
@@ -392,15 +398,15 @@ public class DefinitionSectionBuilder {
             if (cDvQuantityMainItemsContext.property() != null) {
                 if (cDvQuantityMainItemsContext.property().TERM_CODE_REF() != null) {
                     if (property != null)
-                        throw new Exception("Property may not occur more then once in a c_dv_quantity set.");
+                        errorListener.getErrors().addError("Property may not occur more then once in a c_dv_quantity set.");
                     String cp = cDvQuantityMainItemsContext.property().TERM_CODE_REF().getText();
-                    property = BuilderUtils.returnCodePhraseFromTermCodeRefString(cp);
+                    property = BuilderUtils.returnCodePhraseFromTermCodeRefString(cp, errorListener);
                 }
             }
             if (cDvQuantityMainItemsContext.c_dv_quantity_list() != null) {
                 if (cDvQuantityMainItemsContext.c_dv_quantity_list() != null) {
                     if (list != null)
-                        throw new Exception("List may not occur more then once in a c_dv_quantity set.");
+                        errorListener.getErrors().addError("List may not occur more then once in a c_dv_quantity set.");
                     if (cDvQuantityMainItemsContext.c_dv_quantity_list().c_dv_quantity_list_item().size() > 0) {
                         list = new ArrayList<>();
                         for (ArchetypeParser.C_dv_quantity_list_itemContext cDvQuantityListItemContext : cDvQuantityMainItemsContext.c_dv_quantity_list().c_dv_quantity_list_item()) {
@@ -412,21 +418,21 @@ public class DefinitionSectionBuilder {
                                     if (cDvQuantityListItemItemContext.magnitude() != null) {
                                         if (cDvQuantityListItemItemContext.magnitude().real_interval_value() != null) {
                                             if (magnitude != null)
-                                                throw new Exception("Magnitude may not occur more then once in a dv_quantity set.");
+                                                errorListener.getErrors().addError("Magnitude may not occur more then once in a dv_quantity set.");
                                             magnitude = processRealInterval(cDvQuantityListItemItemContext.magnitude().real_interval_value());
                                         }
                                     }
                                     if (cDvQuantityListItemItemContext.precision() != null) {
                                         if (cDvQuantityListItemItemContext.precision().integer_interval_value() != null) {
                                             if (precision != null)
-                                                throw new Exception("Precision may not occur more then once in a dv_quantity set.");
+                                                errorListener.getErrors().addError("Precision may not occur more then once in a dv_quantity set.");
                                             precision = processIntegerInterval(cDvQuantityListItemItemContext.precision().integer_interval_value());
                                         }
                                     }
                                     if (cDvQuantityListItemItemContext.units() != null) {
                                         if (cDvQuantityListItemItemContext.units().string_value() != null) {
                                             if (units != null)
-                                                throw new Exception("Units may not occur more then once in a dv_quantity set.");
+                                                errorListener.getErrors().addError("Units may not occur more then once in a dv_quantity set.");
                                             units = cDvQuantityListItemItemContext.units().string_value().getText();
                                             units = units.substring(1, units.length() - 1);
                                         }
@@ -447,17 +453,17 @@ public class DefinitionSectionBuilder {
                     for (ArchetypeParser.Dv_quantity_assumedContext dvQuantityAssumedContext : cDvQuantityMainItemsContext.c_dv_quantity_assumed_value().dv_quantity_assumed()) {
                         if (dvQuantityAssumedContext.magnitude_assumed() != null) {
                             if (magnitude != null)
-                                throw new Exception("Magnitude may not occur more then once in a assumed set.");
+                                errorListener.getErrors().addError("Magnitude may not occur more then once in a assumed set.");
                             magnitude = new Double(dvQuantityAssumedContext.magnitude_assumed().REAL_VALUE().getText());
                         }
                         if (dvQuantityAssumedContext.precision_assumed() != null) {
                             if (precision != null)
-                                throw new Exception("Precision may not occur more then once in a assumed set.");
+                                errorListener.getErrors().addError("Precision may not occur more then once in a assumed set.");
                             precision = new Integer(dvQuantityAssumedContext.precision_assumed().INTEGER_VALUE().getText());
                         }
                         if (dvQuantityAssumedContext.units() != null) {
                             if (units != null)
-                                throw new Exception("Units may not occur more then once in a assumed set.");
+                                errorListener.getErrors().addError("Units may not occur more then once in a assumed set.");
                             units = dvQuantityAssumedContext.units().string_value().getText();
                             units = units.substring(1, units.length() - 1);
                         }
@@ -470,7 +476,7 @@ public class DefinitionSectionBuilder {
     }
 
     private CCodePhrase c_codephrase(String path,
-                                     ArchetypeParser.C_codephraseContext cCodephraseContext) throws Exception {
+                                     ArchetypeParser.C_codephraseContext cCodephraseContext) {
         String terminology;
         TerminologyID terminologyId = null;
         List<String> codeList = null;
@@ -482,7 +488,7 @@ public class DefinitionSectionBuilder {
         codeList = null;
         if (cCodephraseContext.TERM_CODE_REF() != null) {
             codeList = new ArrayList<>();
-            singleValue = BuilderUtils.returnCodePhraseFromTermCodeRefString(cCodephraseContext.TERM_CODE_REF().getText());
+            singleValue = BuilderUtils.returnCodePhraseFromTermCodeRefString(cCodephraseContext.TERM_CODE_REF().getText(), errorListener);
             codeList.add(singleValue.getCodeString());
             terminologyId = singleValue.getTerminologyId();
             return new CCodePhrase(path, occurrences, null, null, terminologyId, codeList, defaultValue, assumedValue);
@@ -515,7 +521,7 @@ public class DefinitionSectionBuilder {
         return new CCodePhrase(path, occurrences, null, null, terminologyId, codeList, defaultValue, assumedValue);
     }
 
-    private CPrimitive c_primitive(ArchetypeParser.C_primitiveContext primitiveContext) throws Exception {
+    private CPrimitive c_primitive(ArchetypeParser.C_primitiveContext primitiveContext) {
         if (primitiveContext.c_integer() != null) {
             return c_integer(primitiveContext.c_integer());
         } else if (primitiveContext.c_real() != null) {
@@ -536,7 +542,7 @@ public class DefinitionSectionBuilder {
         return null;
     }
 
-    private CInteger c_integer(ArchetypeParser.C_integerContext cIntegerContext) throws Exception {
+    private CInteger c_integer(ArchetypeParser.C_integerContext cIntegerContext)  {
         Interval<Integer> interval = null;
         Integer assumed = null;
         List<Integer> list = null;
@@ -557,7 +563,8 @@ public class DefinitionSectionBuilder {
             }
             return new CInteger(interval, list, assumed, null);
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(cIntegerContext,  e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(cIntegerContext,  e.getMessage()));
+            return null;
         }
     }
 
@@ -641,7 +648,7 @@ public class DefinitionSectionBuilder {
         return new Interval<>(lower, upper, lowerIncluded, upperIncluded);
     }
 
-    private CReal c_real(ArchetypeParser.C_realContext cRealContext) throws Exception {
+    private CReal c_real(ArchetypeParser.C_realContext cRealContext)  {
         Interval<Double> interval = null;
         Double assumed = null;
         List<Double> list = null;
@@ -662,11 +669,12 @@ public class DefinitionSectionBuilder {
             }
             return new CReal(interval, list, assumed, null);
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(cRealContext,  e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(cRealContext,  e.getMessage()));
+            return null;
         }
     }
 
-    private CDate c_date(ArchetypeParser.C_dateContext cDateContext) throws Exception {
+    private CDate c_date(ArchetypeParser.C_dateContext cDateContext)  {
         String pattern = null;
         Interval<DvDate> interval = null;
         DvDate assumed = null;
@@ -728,20 +736,18 @@ public class DefinitionSectionBuilder {
             }
             return new CDate(pattern, interval, list, assumed, null);
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(cDateContext,  e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(cDateContext,  e.getMessage()));
+            return null;
         }
     }
 
     /**
      * A decimal mark, either a comma or a dot (without any preference as stated in resolution 10 of the 22nd General Conference CGPM in 2003,[15] but with a preference for a
      * comma according to ISO 8601:2004)[16] is used as a separator between the time element and its fraction.
-     *
      * @param cTimeContext
      * @return
-     * @throws Exception
      */
-
-    private CTime c_time(ArchetypeParser.C_timeContext cTimeContext) throws Exception {
+    private CTime c_time(ArchetypeParser.C_timeContext cTimeContext)  {
         String pattern = null;
         Interval<DvTime> interval = null;
         DvTime assumed = null;
@@ -803,11 +809,12 @@ public class DefinitionSectionBuilder {
             }
             return new CTime(pattern, interval, list, assumed, null);
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(cTimeContext,  e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(cTimeContext,  e.getMessage()));
         }
+        return null;
     }
 
-    private CDateTime c_date_time(ArchetypeParser.C_date_timeContext cDateTimeContext) throws Exception {
+    private CDateTime c_date_time(ArchetypeParser.C_date_timeContext cDateTimeContext)  {
         String pattern = null;
         Interval<DvDateTime> interval = null;
         DvDateTime assumed = null;
@@ -869,11 +876,12 @@ public class DefinitionSectionBuilder {
             }
             return new CDateTime(pattern, interval, list, assumed, null);
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(cDateTimeContext,  e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(cDateTimeContext,  e.getMessage()));
+            return null;
         }
     }
 
-    private CDuration c_duration(ArchetypeParser.C_durationContext cDurationContext) throws Exception {
+    private CDuration c_duration(ArchetypeParser.C_durationContext cDurationContext)  {
         DvDuration value = null;
         Interval<DvDuration> interval = null;
         DvDuration assumed = null;
@@ -932,7 +940,7 @@ public class DefinitionSectionBuilder {
                 return new CDuration(value, interval, assumed, pattern, null);
             }
         } catch(Exception e){
-                throw new ArchetypeBuilderException(cDurationContext, e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(cDurationContext, e.getMessage()));
         }
         return null;
     }
@@ -947,7 +955,7 @@ public class DefinitionSectionBuilder {
         return value;
     }
 
-    private CString c_string(ArchetypeParser.C_stringContext cStringContext) throws Exception {
+    private CString c_string(ArchetypeParser.C_stringContext cStringContext)  {
         Token t = null;
         String value = null;
         String pattern = null;
@@ -996,11 +1004,12 @@ public class DefinitionSectionBuilder {
             }
             return new CString(null, constraint, assumed, null);
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(cStringContext,  e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(cStringContext,  e.getMessage()));
+            return null;
         }
     }
 
-    private CBoolean c_boolean(ArchetypeParser.C_booleanContext cBooleanContext) throws Exception {
+    private CBoolean c_boolean(ArchetypeParser.C_booleanContext cBooleanContext)  {
         ArchetypeParser.C_boolean_specContext cBooleanSpecContext = cBooleanContext.c_boolean_spec();
         boolean trueAllowed = false;
         boolean falseAllowed = false;
@@ -1024,12 +1033,13 @@ public class DefinitionSectionBuilder {
             }
             return new CBoolean(trueAllowed, falseAllowed, assumed, hasAssumed);
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(cBooleanContext,  e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(cBooleanContext,  e.getMessage()));
+            return null;
         }
     }
 
     private ArchetypeSlot archetype_slot(String path,
-                                         ArchetypeParser.Archetype_slotContext archetypeSlotContext) throws Exception {
+                                         ArchetypeParser.Archetype_slotContext archetypeSlotContext)  {
         try {
             String rmTypeName;
             String nodeId = null;
@@ -1070,11 +1080,12 @@ public class DefinitionSectionBuilder {
             );
             return archetypeSlot;
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(archetypeSlotContext,  e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(archetypeSlotContext,  e.getMessage()));
+            return null;
         }
     }
 
-    private Assertion assertion(ArchetypeParser.AssertionContext assertionContext) throws Exception {
+    private Assertion assertion(ArchetypeParser.AssertionContext assertionContext) {
         if (assertionContext.boolean_assertion() != null) {
             ArchetypeParser.Boolean_assertionContext context = assertionContext.boolean_assertion();
             String tag = null;
@@ -1088,7 +1099,7 @@ public class DefinitionSectionBuilder {
         return null;
     }
 
-    private ExpressionItem boolean_expression(ArchetypeParser.Boolean_expressionContext booleanExprContext) throws Exception {
+    private ExpressionItem boolean_expression(ArchetypeParser.Boolean_expressionContext booleanExprContext) {
         try {
             if (booleanExprContext.boolean_leaf() != null) {
                 return boolean_leaf(booleanExprContext.boolean_leaf());
@@ -1096,12 +1107,12 @@ public class DefinitionSectionBuilder {
                 return boolean_node(booleanExprContext.boolean_node());
             }
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(booleanExprContext,  e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(booleanExprContext,  e.getMessage()));
         }
         return null;
     }
 
-    private ExpressionItem boolean_node(ArchetypeParser.Boolean_nodeContext booleanNodeContext) throws Exception {
+    private ExpressionItem boolean_node(ArchetypeParser.Boolean_nodeContext booleanNodeContext) {
         ExpressionItem item;
         ExpressionItem item2;
         String attrId;
@@ -1117,7 +1128,13 @@ public class DefinitionSectionBuilder {
         } else if (booleanNodeContext.adl_relative_path() != null) {
             attrId = booleanNodeContext.adl_relative_path().getText();
 //            if (booleanNodeContext.NOT_CONTAINED_REGEXP() == null) {
-            CPrimitive cp = c_primitive(booleanNodeContext.c_primitive());
+            CPrimitive cp;
+            try {
+                cp = c_primitive(booleanNodeContext.c_primitive());
+            }catch(Exception e){
+                errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(booleanNodeContext.c_primitive(), e.getMessage()));
+                return null;
+            }
             item2 = new ExpressionLeaf("C_" + cp.getType().toUpperCase(), cp, ExpressionLeaf.ReferenceType.CONSTRAINT);
 //            } else {
 //                item2 = ExpressionLeaf.stringConstant(booleanNodeContext.NOT_CONTAINED_REGEXP().getText());
@@ -1166,7 +1183,7 @@ public class DefinitionSectionBuilder {
         return null;
     }
 
-    private ExpressionItem boolean_leaf(ArchetypeParser.Boolean_leafContext booleanLeafContext) throws Exception {
+    private ExpressionItem boolean_leaf(ArchetypeParser.Boolean_leafContext booleanLeafContext) {
         if (booleanLeafContext.boolean_expression() != null) {
             return boolean_expression(booleanLeafContext.boolean_expression());
         } else if (booleanLeafContext.SYM_TRUE() != null) {

@@ -32,6 +32,7 @@ import org.openehr.rm.common.resource.TranslationDetails;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.terminology.TerminologyService;
 import se.acode.openehr.parser.ArchetypeParser;
+import se.acode.openehr.parser.errors.ArchetypeADLErrorListener;
 import se.acode.openehr.parser.exception.ArchetypeBuilderException;
 
 import java.util.HashMap;
@@ -46,19 +47,20 @@ public class LanguagesSectionsBuilder {
         return new LanguagesSectionsBuilder();
     }
 
-    public CodePhrase getOriginalLanguage(ArchetypeParser.Arch_languageContext languageSection) throws Exception {
+    public CodePhrase getOriginalLanguage(ArchetypeParser.Arch_languageContext languageSection, ArchetypeADLErrorListener errorListener) {
         try {
             ArchetypeParser.Language_textContext languageTextContext = languageSection.language_text();
             if (languageTextContext == null) return null;
             ArchetypeParser.Original_languageContext originalLanguageContext = languageTextContext.original_language();
-            return BuilderUtils.returnCodePhraseFromTermCodeRefString(languageTextContext.original_language().TERM_CODE_REF().getText());
+            return BuilderUtils.returnCodePhraseFromTermCodeRefString(languageTextContext.original_language().TERM_CODE_REF().getText(), errorListener);
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(languageSection, e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(languageSection, e.getMessage()));
+            return null;
         }
     }
 
 
-    public Map<String, TranslationDetails> getTranslations(ArchetypeParser.Arch_languageContext languageSection, TerminologyService terminologyService) throws Exception {
+    public Map<String, TranslationDetails> getTranslations(ArchetypeParser.Arch_languageContext languageSection, TerminologyService terminologyService, ArchetypeADLErrorListener errorListener) {
         try {
             ArchetypeParser.Language_textContext languageTextContext = languageSection.language_text();
             if (languageTextContext == null) return null;
@@ -82,38 +84,38 @@ public class LanguagesSectionsBuilder {
                         if (author == null) {
                             author = new HashMap<>();
                         } else {
-                            throw new Exception("There can be only one author-section per translation.");
+                            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one author-section per translation.");
                         }
                         ArchetypeParser.AuthorContext authorContext = lobItem.author();
                         int j = 0;
                         for (ArchetypeParser.String_valueContext sa : authorContext.string_value()) {
                             ArchetypeParser.Object_blockContext o = authorContext.object_block(j);
                             j++;
-                            BuilderUtils.addEntry(sa, o, author);
+                            BuilderUtils.addEntry(sa, o, author, errorListener);
                         }
                     } else if (lobItem.accreditation() != null) {
                         if (accreditation != null) {
-                            throw new Exception("There can be only one accreditation-section per translation.");
+                            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one accreditation-section per translation.");
                         }
                         accreditation = lobItem.accreditation().string_value().STRING().getText();
                         accreditation = accreditation.substring(1, accreditation.length() - 1);
                     } else if (lobItem.language() != null) {
                         if (language != null) {
-                            throw new Exception("There can be only one language-section per translation.");
+                            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one language-section per translation.");
                         }
-                        language = BuilderUtils.returnCodePhraseFromTermCodeRefString(lobItem.language().TERM_CODE_REF().getText());
+                        language = BuilderUtils.returnCodePhraseFromTermCodeRefString(lobItem.language().TERM_CODE_REF().getText(), errorListener);
                     } else if (lobItem.other_details() != null) {
                         if (otherDetails == null) {
                             otherDetails = new HashMap<>();
                         } else {
-                            throw new Exception("There can be only one otherDetails-section per translation.");
+                            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage("There can be only one otherDetails-section per translation.");
                         }
                         ArchetypeParser.Other_detailsContext otherDetailsContext = lobItem.other_details();
                         int j = 0;
                         for (ArchetypeParser.String_valueContext sa : otherDetailsContext.string_value()) {
                             ArchetypeParser.Object_blockContext o = otherDetailsContext.object_block(j);
                             j++;
-                            BuilderUtils.addEntry(sa, o, otherDetails);
+                            BuilderUtils.addEntry(sa, o, otherDetails,errorListener);
                         }
                     }
                 }
@@ -128,7 +130,8 @@ public class LanguagesSectionsBuilder {
             }
             return translationDetailsHashMap;
         } catch (Exception e) {
-            throw new ArchetypeBuilderException(languageSection, e.getMessage(), e);
+            errorListener.getErrors().addError(ArchetypeBuilderException.buildMessage(languageSection, e.getMessage()));
+            return null;
         }
     }
 }
