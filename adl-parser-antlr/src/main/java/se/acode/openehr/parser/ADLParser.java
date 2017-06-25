@@ -217,6 +217,20 @@ public class ADLParser {
     public Archetype parseArchetype() {
         ArchetypeParser  parser = parser();
         ArchetypeParser.ArchetypeContext archetypeContext =  parser.archetype();
+        if(missingLanguageCompatible){
+            int index = -1;
+            int i = 0;
+            for(ArchetypeADLParserMessage s:errorListener.getParserErrors().getErrors()){
+                if(s.getMessage().contains("expecting SYM_LANGUAGE")){
+                    index = i;
+                    break;
+                }
+                i++;
+            }
+            if(index>-1){
+                errorListener.getParserErrors().getErrors().remove(index);
+            }
+        }
         ArchetypeParser.Arch_identificationContext identificationContext = archetypeContext.arch_identification();
         ArchetypeParser.Arch_specialisationContext specialisationContext = archetypeContext.arch_specialisation();
         ArchetypeParser.Arch_descriptionContext descriptionContext = archetypeContext.arch_description();
