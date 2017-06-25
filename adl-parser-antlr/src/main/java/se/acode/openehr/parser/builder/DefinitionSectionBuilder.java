@@ -144,7 +144,22 @@ public class DefinitionSectionBuilder {
         for (ArchetypeParser.C_attributeContext cAttributeContext : cAttributeContextList) {
             if (cAttributeContext.c_attr_value() != null) {
                 String attributeName = cAttributeContext.ALPHA_LC_ID().getText();
-                List<CObject> cObjects = children(extendPath(path, attributeName), cAttributeContext.c_attr_value(), measurementService);
+                List<CObject> cObjects;
+                if(cAttributeContext.CONTAINED_REGEXP()!=null){
+                    Interval<Integer> occurrences = new Interval<Integer>(1, 1);
+                    CString cString = processRegEx(cAttributeContext.CONTAINED_REGEXP());
+                    CPrimitiveObject cPrimitiveObject = new CPrimitiveObject(
+                            path,
+                            occurrences,
+                            null,
+                            null,
+                            cString
+                    );
+                    cObjects = new ArrayList<>();
+                    cObjects.add(cPrimitiveObject);
+                }else {
+                    cObjects = children(extendPath(path, attributeName), cAttributeContext.c_attr_value(), measurementService);
+                }
                 CAttribute.Existence existence = null;
                 if ((cAttributeContext != null) && (cAttributeContext.c_existence() != null) && (cAttributeContext.c_existence().existence_spec() != null)) {
                     existence = existence(cAttributeContext.c_existence().existence_spec());
@@ -181,6 +196,31 @@ public class DefinitionSectionBuilder {
         if (result.size() == 0)
             return null;
         return result;
+    }
+
+    private CString processRegEx(TerminalNode regEx){
+        char regChar;
+        String regexConstraint = regEx.getText();
+        if(regexConstraint.startsWith("{/")) regChar = '/';
+        else regChar = '^';
+        String assumed = null;
+        if((regexConstraint.startsWith("{"+regChar))&&(regexConstraint.endsWith(regChar+"}"))) {
+            regexConstraint = regexConstraint.substring(2, regexConstraint.length() - 2);
+        }
+        else {
+            String tmp = regexConstraint.substring(regexConstraint.lastIndexOf(regChar)).trim();
+            if (!"".equals(tmp)) {
+                if (tmp.indexOf(';') > 0) {
+                    assumed = tmp.substring(tmp.indexOf(';')+1, tmp.length() - 1).trim();
+                    assumed = assumed.substring(1, assumed.length() - 1);
+                    regexConstraint = regexConstraint.substring(2, regexConstraint.lastIndexOf(regChar));
+                }
+            }
+        }
+////                regexConstraint.replaceAll("\\/", "/");
+        Interval<Integer> occurrences = new Interval<Integer>(1, 1);
+        CString cString = new CString(regexConstraint, null, assumed);
+        return cString;
     }
 
     private CAttribute.Existence existence(ArchetypeParser.Existence_specContext existenceSpecContext) {
@@ -983,24 +1023,7 @@ public class DefinitionSectionBuilder {
                 }
             }
             if (cStringContext.CONTAINED_REGEXP() != null) {
-                regexConstraint = cStringContext.CONTAINED_REGEXP().getText();
-                char regChar;
-                if(regexConstraint.startsWith("{/")) regChar = '/';
-                else regChar = '^';
-                if((regexConstraint.startsWith("{"+regChar))&&(regexConstraint.endsWith(regChar+"}"))) {
-                    regexConstraint = regexConstraint.substring(2, regexConstraint.length() - 2);
-                }else {
-                    String tmp = regexConstraint.substring(regexConstraint.lastIndexOf(regChar)).trim();
-                    if (!"".equals(tmp)) {
-                        if (tmp.indexOf(';') > 0) {
-                            assumed = tmp.substring(tmp.indexOf(';')+1, tmp.length() - 1).trim();
-                            assumed = assumed.substring(1, assumed.length() - 1);
-                            regexConstraint = regexConstraint.substring(2, regexConstraint.lastIndexOf(regChar));
-                        }
-                    }
-                }
-////                regexConstraint.replaceAll("\\/", "/");
-                return new CString(regexConstraint, null, assumed);
+                return processRegEx(cStringContext.CONTAINED_REGEXP());
             }
             return new CString(null, constraint, assumed, null);
         } catch (Exception e) {

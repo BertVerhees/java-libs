@@ -181,7 +181,7 @@ DURATION_VALUE: ISO8601_DURATION ;
 duration_pattern :  ISO8601_DURATION_CONSTRAINT_PATTERN (SYM_SLASH duration_interval_value)?  ;
 duration_interval_value : '|' duration_interval '|' | '|' relop? DURATION_VALUE '|' ;
 duration_interval : (SYM_GT )? DURATION_VALUE SYM_INTERVAL_SEP (SYM_LT)? DURATION_VALUE ;
-duration_assumed : ';' DURATION_VALUE ;
+duration_assumed : DURATION_VALUE ;
 
 term_code:
     TERM_CODE_REF
