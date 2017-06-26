@@ -18,6 +18,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.openehr.am.validation.ErrorType;
+import org.openehr.am.validation.ValidationError;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -66,8 +68,12 @@ public class ArchetypeOntology  implements Serializable{
         this.languages = new ArrayList<String>();
         this.languages.addAll(termDefinitionMap.keySet());
 
+        errors = new ArrayList<>();
+
         loadDefs(constraintDefinitionMap, constDefinitionsList);
     }
+
+    private List<ValidationError> errors;
 
     private void loadDefs(Map<String, Map<String, ArchetypeTerm>> map,
                           List<OntologyDefinitions> list) throws Exception {
@@ -85,6 +91,7 @@ public class ArchetypeOntology  implements Serializable{
             }
             Map<String, ArchetypeTerm> codeMapAdded = map.put(defs.getLanguage(), codeMap);
             if(codeMapAdded!=null){
+                ValidationError validationError = new ValidationError(ErrorType.VDL, )
                 throw new Exception("The language:"+defs.getLanguage()+" seems to appear more then one time in this definition list.");
             }
         }

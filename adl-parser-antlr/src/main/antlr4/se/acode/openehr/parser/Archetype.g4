@@ -51,7 +51,7 @@ parent_resource:  'parent_resource' '=' '<' string_value '>' ;
 details_object_block: resource_description_item+ ;
 resource_description_item: language|purpose|keywords|use|misuse|copyright|original_resource_uri|other_details  ;
 purpose:  'purpose' SYM_EQ '<' string_value '>' ;
-keywords: 'keywords' '=' '<' string_value (',' string_value)* '>' ;
+keywords: 'keywords' '=' '<' ((((string_value (',' string_value)*))?)| string_list_value) '>' ;
 use:  'use' '=' '<' string_value '>' ;
 misuse:  'misuse' '=' '<' string_value '>' ;
 copyright:  'copyright' '=' '<' string_value '>' ;

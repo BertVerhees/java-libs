@@ -176,7 +176,6 @@ public class FindMatchingRMClassTest  {
 		assertMatchedRMClass("Archetyped");
 	}
 
-	@Test
 	private void assertMatchedRMClass(String expectedRMClass) {
 		String actualRMClass = builder.findMatchingRMClass(valueMap);
 		assertEquals("failed to match " + expectedRMClass, expectedRMClass,

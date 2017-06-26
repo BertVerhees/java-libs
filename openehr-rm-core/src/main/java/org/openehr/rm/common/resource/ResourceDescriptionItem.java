@@ -14,14 +14,16 @@
  */
 package org.openehr.rm.common.resource;
 
-import java.util.Map;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.openehr.rm.RMObject;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.terminology.OpenEHRCodeSetIdentifiers;
 import org.openehr.rm.support.terminology.TerminologyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Language specific detail of resource description. When a resource is
@@ -34,6 +36,8 @@ import org.openehr.rm.support.terminology.TerminologyService;
  */
 public class ResourceDescriptionItem extends RMObject {
 
+	private static final Logger logger = LoggerFactory.getLogger(ResourceDescriptionItem.class);
+
 	/**
 	 * Construct ResourceDescriptionItem
 	 */
@@ -43,12 +47,12 @@ public class ResourceDescriptionItem extends RMObject {
 			TerminologyService terminologyService) {
 		if (language == null) {
 			//throw new IllegalArgumentException("null language");
-			System.out.println("WARNING: Archetype parsed that has wrong language handling...language set to ISO_639-1::en");
+			logger.warn("WARNING: Archetype parsed that has wrong language handling...language set to ISO_639-1::en");
 		    language = new CodePhrase("ISO_639-1","en"); 
 		}
 		if (StringUtils.isEmpty(purpose)) {
 		//	throw new IllegalArgumentException("null or empty purpose");
-		System.out.println("WARNING: Archetype parsed that has null or empty purpose...");
+			logger.warn("WARNING: Archetype parsed that has null or empty purpose...");
 		}
 		if (use != null && StringUtils.isEmpty(use)) {
 			throw new IllegalArgumentException("empty use");

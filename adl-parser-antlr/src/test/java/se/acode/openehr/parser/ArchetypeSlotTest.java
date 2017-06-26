@@ -9,12 +9,11 @@ import org.openehr.am.archetype.assertion.ExpressionLeaf;
 import org.openehr.am.archetype.assertion.ExpressionLeaf.ReferenceType;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 import org.openehr.am.archetype.constraintmodel.ArchetypeSlot;
+import org.openehr.am.archetype.constraintmodel.CComplexObject;
 import org.openehr.am.archetype.constraintmodel.primitive.CString;
 import org.openehr.rm.support.basic.Interval;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ArchetypeSlotTest extends ParserTestBase {
 
@@ -25,6 +24,19 @@ public class ArchetypeSlotTest extends ParserTestBase {
      * @throws Exception
      */
 
+    @Test
+    public void testCheckParent() throws Exception {
+        ADLParser parser = new ADLParser(loadFromClasspath(
+                "openEHR-EHR-INSTRUCTION.medication.v1.adl"));
+        Archetype archetype = parser.parse();
+        parser.generatedParserException();
+        assertNotNull(archetype);
+
+        ArchetypeConstraint node = archetype.node("/activities[at0001]");
+        if( ! (node instanceof CComplexObject)) {
+            fail("parent node should be of ComplexObject");
+        }
+    }
     @Test
     public void testParseIncludesExcludes() throws Exception {
         ADLParser parser = new ADLParser(loadFromClasspath(

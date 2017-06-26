@@ -80,10 +80,10 @@ public class OpenEHRTerminologyTest  {
 	}
 
 	@Test
-	public void __testHasCompressionAlgorithmsOther() throws Exception {
+	public void testHasCompressionAlgorithmsOther() throws Exception {
 		CodeSetAccess codeSet = service.codeSetForId(
         		OpenEHRCodeSetIdentifiers.COMPRESSION_ALGORITHMS);
-		CodePhrase mediaType = new CodePhrase("openehr_compression_algorithms", "others");
+		CodePhrase mediaType = new CodePhrase("openehr_compression_algorithms", "other");
 		assertTrue("openehr_compression_algorithms is missing", codeSet.hasCode(mediaType));
 	}
 	

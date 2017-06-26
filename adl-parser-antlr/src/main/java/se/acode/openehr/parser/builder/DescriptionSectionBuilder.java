@@ -176,10 +176,18 @@ public class DescriptionSectionBuilder {
                         errorListener.getParserErrors().addError(ArchetypeBuilderError.buildMessage(itemContext.keywords(), "There can be only one keywords-section per resource-description-item."));
                         return null;
                     }
-                    for (ArchetypeParser.String_valueContext svc : itemContext.keywords().string_value()) {
-                        String keyWord = svc.STRING().getText();
-                        keyWord = keyWord.substring(1, keyWord.length() - 1);
-                        keywords.add(keyWord);
+                    if(itemContext.keywords().string_value()!=null) {
+                        for (ArchetypeParser.String_valueContext svc : itemContext.keywords().string_value()) {
+                            String keyword = svc.STRING().getText();
+                            keyword = keyword.substring(1, keyword.length() - 1);
+                            keywords.add(keyword);
+                        }
+                    }else if(itemContext.keywords().string_list_value()!=null){
+                        for (ArchetypeParser.String_valueContext iv : itemContext.keywords().string_list_value().string_value()) {
+                            String keyword = iv.STRING().getText();
+                            keyword = keyword.substring(1, keyword.length() - 1);
+                            keywords.add(keyword);
+                        }
                     }
                 } else if (itemContext.use() != null) {
                     if (use == null) {

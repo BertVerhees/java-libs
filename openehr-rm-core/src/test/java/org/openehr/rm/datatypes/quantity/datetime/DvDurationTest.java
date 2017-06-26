@@ -26,6 +26,7 @@ import static org.junit.Assert.*;
 
 public class DvDurationTest  {
 
+    private static final double DELTA = 1e-15;
 
     @Test
     public void testConstructorTakesString() throws Exception {
@@ -135,7 +136,7 @@ public class DvDurationTest  {
         assertEquals("mintues", 33, d.getMinutes());
         assertEquals("seconds", 44, d.getSeconds());
         assertEquals("fractionalSeconds", .55,
-                d.getFractionalSeconds());
+                d.getFractionalSeconds(), DELTA);
 
         DvDuration three = new DvDuration("P1y2WT2H10m1,60S");
         d = (DvDuration)d.add(three);
@@ -147,7 +148,7 @@ public class DvDurationTest  {
         assertEquals("mintues", 43, d.getMinutes());
         assertEquals("seconds", 46, d.getSeconds());
         assertEquals("fractionalSeconds", .15,
-                d.getFractionalSeconds());
+                d.getFractionalSeconds(), DELTA);
 
     }
 
@@ -165,7 +166,7 @@ public class DvDurationTest  {
         assertEquals("mintues", 27, d.getMinutes());
         assertEquals("seconds", 36, d.getSeconds());
         assertEquals("fractionalSeconds", .45,
-                d.getFractionalSeconds());
+                d.getFractionalSeconds(), DELTA);
         DvDuration three = new DvDuration("P5D");
         d = (DvDuration) d.subtract(three);
         //System.out.println("after second subtraction: " + d.toString());
@@ -177,7 +178,7 @@ public class DvDurationTest  {
         assertEquals("mintues", -32, d.getMinutes());
         assertEquals("seconds", -23, d.getSeconds());
         assertEquals("fractionalSeconds", -0.55,
-                d.getFractionalSeconds());
+                d.getFractionalSeconds(), DELTA);
         assertEquals("value", "-P1DT5H32M23,550S", d.toString());
     }
 

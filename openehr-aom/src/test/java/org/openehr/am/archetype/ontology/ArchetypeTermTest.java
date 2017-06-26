@@ -1,5 +1,6 @@
 package org.openehr.am.archetype.ontology;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +11,7 @@ public class ArchetypeTermTest {
 	public void setUp() {
 		term = new ArchetypeTerm("at0001", TEXT, DESC);
 	}
-	@Before
+	@After
 	public void tearDown() {
 		term = null;		
 	}

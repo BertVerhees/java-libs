@@ -26,7 +26,6 @@ public class CObjectTest  {
         }
  	}
 
-	@Test
 	public CObject copy() {
 		return null;
 	}

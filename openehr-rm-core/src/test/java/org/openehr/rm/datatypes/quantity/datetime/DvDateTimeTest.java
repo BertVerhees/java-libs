@@ -29,6 +29,8 @@ import static org.junit.Assert.*;
 
 public class DvDateTimeTest  {
 
+    private static final double DELTA = 1e-15;
+
     @Test
     public void testCompareTo() throws Exception {
         assertTrue(dvDate("1999-12-31T00:00:00").compareTo(dvDate("2000-01-01T00:00:00")) < 0);
@@ -85,7 +87,7 @@ public class DvDateTimeTest  {
         assertEquals("hour", 18, datetime.getHour());
         assertEquals("minute", 15, datetime.getMinute());
         assertEquals("second", 45, datetime.getSecond());
-        assertEquals("fracSecond", -0.1, datetime.getFractionalSecond());
+        assertEquals("fracSecond", -0.1, datetime.getFractionalSecond(), DELTA);
     }
 
     @Test

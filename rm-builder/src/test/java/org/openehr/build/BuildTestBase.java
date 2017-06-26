@@ -65,7 +65,7 @@ public class BuildTestBase  {
 	 * The fixture clean up called after every test method.
 	 */
 	@After
-	protected void tearDown() throws Exception {
+	public void tearDown() throws Exception {
 		builder = null;
 	}
 

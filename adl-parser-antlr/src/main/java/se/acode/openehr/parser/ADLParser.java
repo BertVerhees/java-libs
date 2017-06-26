@@ -282,10 +282,12 @@ public class ADLParser {
             originalLanguage = new CodePhrase("ISO_639-1", langCode);
         }
         if(description!=null){
-            String purpose = description.getDetails().get(originalLanguage.getCodeString()).getPurpose();
-            if ((purpose == null || purpose.length() == 0) && emptyPurposeCompatible) {
-                purpose = ATTRIBUTE_UNKNOWN;
-                description = DescriptionSectionBuilder.getInstance().getDescription(descriptionContext, terminologyService, RM_VERSION, purpose, errorListener);
+            if(description.getDetails().get(originalLanguage.getCodeString())!=null) {
+                String purpose = description.getDetails().get(originalLanguage.getCodeString()).getPurpose();
+                if ((purpose == null || purpose.length() == 0) && emptyPurposeCompatible) {
+                    purpose = ATTRIBUTE_UNKNOWN;
+                    description = DescriptionSectionBuilder.getInstance().getDescription(descriptionContext, terminologyService, RM_VERSION, purpose, errorListener);
+                }
             }
         }
         Archetype archetype = null;

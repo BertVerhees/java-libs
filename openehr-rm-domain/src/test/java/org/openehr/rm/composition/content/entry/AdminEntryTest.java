@@ -49,7 +49,7 @@ public class AdminEntryTest extends CompositionTestBase {
     }
 
     @After
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
     	itemList = null;
     	adminEntry = null;
     }

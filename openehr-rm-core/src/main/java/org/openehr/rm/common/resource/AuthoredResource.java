@@ -14,8 +14,6 @@
  */
 package org.openehr.rm.common.resource;
 
-import java.util.*;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.openehr.rm.RMObject;
@@ -23,6 +21,10 @@ import org.openehr.rm.common.generic.RevisionHistory;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.terminology.OpenEHRCodeSetIdentifiers;
 import org.openehr.rm.support.terminology.TerminologyService;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Abstract idea of an online resource created by a human author
@@ -211,6 +213,17 @@ public abstract class AuthoredResource extends RMObject {
 		if (description != null && description.getParentResource() != this) {
 			description.setParentResource(this);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "AuthoredResource{" +
+				"originalLanguage=" + originalLanguage +
+				", translations=" + translations +
+				", description=" + description +
+				", revisionHistory=" + revisionHistory +
+				", isControlled=" + isControlled +
+				"} " + super.toString();
 	}
 
 	void setControlled(boolean isControlled) {

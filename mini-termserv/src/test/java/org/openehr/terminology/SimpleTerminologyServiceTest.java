@@ -66,7 +66,7 @@ public class SimpleTerminologyServiceTest  {
 	}
 
 	@Test
-	public void testHasCodeSet(String name) {
+	public void testHasCodeSet() {
 		for(OpenEHRCodeSetIdentifiers id : OpenEHRCodeSetIdentifiers.values()) {
 			assertNotNull("code set " + id + " should exist", 
 					instance.hasCodeSet(id.toString()));			

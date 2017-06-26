@@ -39,7 +39,7 @@ public class ArchetypeValidationTestBase {
     		this.getClass().getClassLoader().getResourceAsStream(name);
     	ADLParser parser = new ADLParser(input, "UTF-8");
 		Archetype archetype =  parser.parse();
-		parser.generatedParserException();
+//		parser.generatedParserException();
 		return archetype;
     }
 	

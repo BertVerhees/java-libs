@@ -209,14 +209,13 @@ public class DemographicBuildTest extends BuildTestBase {
 
 	@Test
 	public void testBuildActorSubclasses() throws Exception {
-		verityBuildActor("Agent");
-		verityBuildActor("Group");
-		verityBuildActor("Organisation");
-		verityBuildActor("Person");
+		verifyBuildActor("Agent");
+		verifyBuildActor("Group");
+		verifyBuildActor("Organisation");
+		verifyBuildActor("Person");
 	}
 
-	@Test
-	private void verityBuildActor(String subclass) throws Exception {
+	private void verifyBuildActor(String subclass) throws Exception {
 		Map<String, Object> values = new HashMap<String, Object>();
 		ObjectID uid = hid("1.2.4.6.17.12.5");
 		DvText text = text("actor");

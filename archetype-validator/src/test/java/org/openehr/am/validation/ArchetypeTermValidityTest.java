@@ -3,6 +3,7 @@ package org.openehr.am.validation;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class ArchetypeTermValidityTest extends ArchetypeValidationTestBase {
 
@@ -74,9 +75,18 @@ public class ArchetypeTermValidityTest extends ArchetypeValidationTestBase {
 
 	@Test
 	public void testCheckDoubleLanguage_Ontology() throws Exception {
-		archetype = loadArchetype("adl-test-ENTRY.term_definition.v6");
+		try {
+			archetype = loadArchetype("adl-test-ENTRY.term_definition.v6");
+			fail("An exception should occur here");
+		}catch (Exception e){
+			if(!e.getCause().getMessage().contains("The language:en seems to appear more then one time in this definition list.. ")) {
+				throw e;
+			}
+		}
+
+		//irrelevant, exception thrown, no ontology, cannot check ontology, non created
 		validator.checkOntologyTranslation(archetype, errors);
-		
+
 		assertEquals("expected validation error in term def checking", 1, errors.size());
 		for(ValidationError error : errors) {
 			assertEquals("validation error type wrong", ErrorType.VDL, error.getType());

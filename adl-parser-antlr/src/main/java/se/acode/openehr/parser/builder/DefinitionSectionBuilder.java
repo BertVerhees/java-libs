@@ -149,7 +149,7 @@ public class DefinitionSectionBuilder {
                     Interval<Integer> occurrences = new Interval<Integer>(1, 1);
                     CString cString = processRegEx(cAttributeContext.CONTAINED_REGEXP());
                     CPrimitiveObject cPrimitiveObject = new CPrimitiveObject(
-                            path,
+                            extendPath(path, attributeName),
                             occurrences,
                             null,
                             null,

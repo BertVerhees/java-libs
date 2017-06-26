@@ -17,6 +17,8 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 public class BuildDvCountTest extends BuildTestBase {
+
+    private static final double DELTA = 1e-15;
 	
 	@Before
     public void setUp() throws Exception {
@@ -51,7 +53,7 @@ public class BuildDvCountTest extends BuildTestBase {
         assertEquals("magnitude", 5, count.getMagnitude().intValue());
         assertEquals("otherReferenceRanges", otherReferenceRanges,
                 count.getOtherReferenceRanges());
-        assertEquals("accuracy", 0.0, count.getAccuracy());
+        assertEquals("accuracy", 0.0, count.getAccuracy(), DELTA);
         assertEquals("accuracyPercent", false, count.isAccuracyPercent());        
     }
 
@@ -63,7 +65,7 @@ public class BuildDvCountTest extends BuildTestBase {
         DvCount count = (DvCount) obj;
         assertEquals("magnitude", 3, count.getMagnitude().intValue());
         assertEquals("referenceRanges", null, count.getOtherReferenceRanges());
-        assertEquals("accuracy", 0.0, count.getAccuracy());
+        assertEquals("accuracy", 0.0, count.getAccuracy(), DELTA);
         assertEquals("accuracyPercent", false, count.isAccuracyPercent());
     }
 

@@ -63,7 +63,6 @@ public class ObjectRefTest  {
 		assertFalse(or3.equals(or1));
 	}
 
-	@Test
 	private void assertExceptionThrown(ObjectID id, String namespace,
 			String type, String cause) {
 		try {

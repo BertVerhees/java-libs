@@ -102,7 +102,7 @@ public class TemplateTestBase {
 		ADLParser adlParser = new ADLParser(fromClasspath(ARCHETYPE_PATH + 
     			id));
     	Archetype archetype = adlParser.parse();
-        parser.generatedParserException();
+		adlParser.generatedParserException();
         return archetype;
     }
 	
@@ -119,7 +119,7 @@ public class TemplateTestBase {
 			if(file.getName().contains(".adl")) {
 				ADLParser adlParser = new ADLParser(file);
 		    	Archetype archetype = adlParser.parse();
-				parser.generatedParserException();
+				adlParser.generatedParserException();
 		    	archetypeMap.put(archetype.getArchetypeId().toString(), archetype);
 			}
 		}		    	

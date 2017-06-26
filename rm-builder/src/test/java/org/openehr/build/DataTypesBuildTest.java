@@ -308,7 +308,7 @@ public class DataTypesBuildTest extends BuildTestBase {
         assertEquals("hours", 20, duration.getHours());
         assertEquals("minutes", 30, duration.getMinutes());
         assertEquals("seconds", 40, duration.getSeconds());
-        assertEquals("fractionalSeconds", 0.0, duration.getFractionalSeconds());
+        assertEquals("fractionalSeconds", 0.0, duration.getFractionalSeconds(), DELTA);
     }
 
     // test datatypes.encapsulated classes

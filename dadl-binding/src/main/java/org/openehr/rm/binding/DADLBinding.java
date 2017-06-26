@@ -13,29 +13,9 @@
  */
 package org.openehr.rm.binding;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.openehr.am.parser.AttributeValue;
-import org.openehr.am.parser.ComplexObjectBlock;
-import org.openehr.am.parser.ContentObject;
-import org.openehr.am.parser.KeyedObject;
-import org.openehr.am.parser.MultipleAttributeObjectBlock;
-import org.openehr.am.parser.ObjectBlock;
-import org.openehr.am.parser.PrimitiveObjectBlock;
-import org.openehr.am.parser.SimpleValue;
-import org.openehr.am.parser.SingleAttributeObjectBlock;
+import org.openehr.am.parser.*;
 import org.openehr.build.RMObjectBuilder;
 import org.openehr.build.RMObjectBuildingException;
 import org.openehr.build.SystemValue;
@@ -44,11 +24,16 @@ import org.openehr.rm.FullConstructor;
 import org.openehr.rm.RMObject;
 import org.openehr.rm.datatypes.quantity.ProportionKind;
 import org.openehr.rm.datatypes.text.CodePhrase;
-import org.openehr.rm.support.basic.Interval;
 import org.openehr.rm.support.measurement.MeasurementService;
 import org.openehr.rm.support.measurement.SimpleMeasurementService;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.terminology.SimpleTerminologyService;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.*;
 
 /**
  * Utility class that binds data in DADL format to openEHR RM

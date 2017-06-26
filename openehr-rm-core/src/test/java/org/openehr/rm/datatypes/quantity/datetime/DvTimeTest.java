@@ -32,8 +32,11 @@ import static org.junit.Assert.*;
 
 public class DvTimeTest  {
 
+    private static final double DELTA = 1e-15;
+
+
     @Before
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         zoneStr = DvDateTimeParser.convertTimeZone(
                 DateTimeZone.getDefault().getOffset(new DateTime()), false);
     }
@@ -192,37 +195,37 @@ public class DvTimeTest  {
         assertEquals(17, dTime.getHour());
         assertEquals(49, dTime.getMinute());
         assertEquals(8, dTime.getSecond());
-        assertEquals(0.679, dTime.getFractionalSecond());
+        assertEquals(0.679, dTime.getFractionalSecond(), DELTA);
         dTime = dvTime("142908-02");
         assertEquals(14, dTime.getHour());
         assertEquals(29, dTime.getMinute());
         assertEquals(8, dTime.getSecond());
-        assertEquals(-0.1, dTime.getFractionalSecond());
+        assertEquals(-0.1, dTime.getFractionalSecond(), DELTA);
         dTime = dvTime("1225-0200");
         assertEquals(12, dTime.getHour());
         assertEquals(25, dTime.getMinute());
         assertEquals(-1, dTime.getSecond());
-        assertEquals(-0.1, dTime.getFractionalSecond());
+        assertEquals(-0.1, dTime.getFractionalSecond(), DELTA);
         dTime = dvTime("22-0100");
         assertEquals(22, dTime.getHour());
         assertEquals(-1, dTime.getMinute());
         assertEquals(-1, dTime.getSecond());
-        assertEquals(-0.1, dTime.getFractionalSecond());
+        assertEquals(-0.1, dTime.getFractionalSecond(), DELTA);
         dTime = new DvTime(8, 0, 16, null);
         assertEquals(8, dTime.getHour());
         assertEquals(0, dTime.getMinute());
         assertEquals(16, dTime.getSecond());
-        assertEquals(-0.1, dTime.getFractionalSecond());
+        assertEquals(-0.1, dTime.getFractionalSecond(), DELTA);
         dTime = new DvTime(13, 39, TimeZone.getTimeZone("GMT-09"));
         assertEquals(13, dTime.getHour());
         assertEquals(39, dTime.getMinute());
         assertEquals(-1, dTime.getSecond());
-        assertEquals(-0.1, dTime.getFractionalSecond());
+        assertEquals(-0.1, dTime.getFractionalSecond(), DELTA);
         dTime = new DvTime(1, TimeZone.getTimeZone("UTC"));
         assertEquals(1, dTime.getHour());
         assertEquals(-1, dTime.getMinute());
         assertEquals(-1, dTime.getSecond());
-        assertEquals(-0.1, dTime.getFractionalSecond());
+        assertEquals(-0.1, dTime.getFractionalSecond(), DELTA);
     }
 
     @Test

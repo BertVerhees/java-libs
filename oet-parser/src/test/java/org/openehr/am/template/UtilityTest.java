@@ -5,7 +5,7 @@ import org.openehr.am.archetype.constraintmodel.CComplexObject;
 
 import static org.junit.Assert.assertEquals;
 
-	public class UtilityTest extends TemplateTestBase {
+public class UtilityTest extends TemplateTestBase {
 
 	@Test
 	public void testNextNodeId() throws Exception {

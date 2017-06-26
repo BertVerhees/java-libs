@@ -43,7 +43,6 @@ public class HierObjectIDTest {
         }
     }
 
-    @Test
     private void assertHOID(HierObjectID hoid, int i) throws Exception {
         //System.out.println("matches? " + SECTIONS[i][0].matches("(\\d)+(\\.(\\d)+)*"));
         assertEquals("value", STRING_VALUES[i], hoid.getValue());
