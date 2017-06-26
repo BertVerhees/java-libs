@@ -48,7 +48,7 @@ import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.basic.Interval;
 import org.openehr.rm.support.identification.TerminologyID;
 import org.openehr.rm.support.measurement.MeasurementService;
-import se.acode.openehr.parser.ArchetypeParser;
+import se.acode.openehr.parser.v1_4.ArchetypeParser;
 import se.acode.openehr.parser.errors.ArchetypeADLErrorListener;
 import se.acode.openehr.parser.errors.ArchetypeBuilderError;
 

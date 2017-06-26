@@ -6,8 +6,8 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.Interval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.acode.openehr.parser.ArchetypeLexer;
-import se.acode.openehr.parser.ArchetypeParser;
+import se.acode.openehr.parser.v1_4.ArchetypeLexer;
+import se.acode.openehr.parser.v1_4.ArchetypeParser;
 
 import java.util.BitSet;
 

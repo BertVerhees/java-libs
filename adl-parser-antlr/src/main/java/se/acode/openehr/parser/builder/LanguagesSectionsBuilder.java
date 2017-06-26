@@ -31,7 +31,7 @@ package se.acode.openehr.parser.builder;
 import org.openehr.rm.common.resource.TranslationDetails;
 import org.openehr.rm.datatypes.text.CodePhrase;
 import org.openehr.rm.support.terminology.TerminologyService;
-import se.acode.openehr.parser.ArchetypeParser;
+import se.acode.openehr.parser.v1_4.ArchetypeParser;
 import se.acode.openehr.parser.errors.ArchetypeADLErrorListener;
 import se.acode.openehr.parser.errors.ArchetypeBuilderError;
 
