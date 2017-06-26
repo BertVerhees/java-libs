@@ -95,7 +95,10 @@ public class ArchetypeOntology  implements Serializable{
             }
             Map<String, ArchetypeTerm> codeMapAdded = map.put(defs.getLanguage(), codeMap);
             if(codeMapAdded!=null){
-                ValidationError validationError = new ValidationError(ErrorType.VDL, "Language occuring more times", "The language:"+defs.getLanguage()+" seems to appear more then one time in this definition list.");
+                ValidationError validationError = new ValidationError(
+                        ErrorType.VDL,
+                        "Language occuring more times",
+                        "The language:"+defs.getLanguage()+" seems to appear more then one time in this definition list.");
                 errors.add(validationError);
             }
         }
