@@ -18,6 +18,12 @@
 	<inceptionYear>2007</inceptionYear>
 	
 	<description>Java implementation of the openEHR Measurement Service</description>
+
+	<build>
+		<resources>
+			<resource><directory>src/main/resources</directory></resource>
+		</resources>
+	</build>
 	
 	<dependencies>		
 		<dependency>

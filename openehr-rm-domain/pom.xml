@@ -18,6 +18,12 @@
 	<inceptionYear>2004</inceptionYear>
 	
 	<description>Java implementation of the openEHR Reference Model Domain</description>
+
+	<build>
+	<resources>
+		<resource><directory>src/main/resources</directory></resource>
+	</resources>
+	</build>
 	
 	<dependencies>
 		<dependency>

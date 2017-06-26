@@ -19,6 +19,12 @@
 
 	<description>Java implementation of the openEHR Archetype Profile</description>
 
+	<build>
+		<resources>
+			<resource><directory>src/main/resources</directory></resource>
+		</resources>
+	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>openehr</groupId>

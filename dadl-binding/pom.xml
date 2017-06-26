@@ -16,6 +16,12 @@
 	</organization>
 	<inceptionYear>2008</inceptionYear>
 	<description>java openEHR RM and dADL Binding Component</description>
+
+	<build>
+		<resources>
+			<resource><directory>src/main/resources</directory></resource>
+		</resources>
+	</build>
 	
 	<dependencies>
 		<dependency>

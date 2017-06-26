@@ -217,6 +217,23 @@ public class ADLParser {
     public Archetype parseArchetype() {
         ArchetypeParser  parser = parser();
         ArchetypeParser.ArchetypeContext archetypeContext =  parser.archetype();
+        //line 1:0 token recognition error at: '﻿'
+        //filtering out the BOM error message
+        {
+            int index = -1;
+            int i = 0;
+            for (ArchetypeADLParserMessage s : errorListener.getParserErrors().getErrors()) {
+                if (s.getMessage().contains("syntax error at 1:0: null .  msg: token recognition error at: '\uFEFF'")) {
+                    index = i;
+                    break;
+                }
+                i++;
+            }
+            if (index > -1) {
+                errorListener.getParserErrors().getErrors().remove(index);
+            }
+        }
+        ////filtering out the missing language section-error
         if(missingLanguageCompatible){
             int index = -1;
             int i = 0;

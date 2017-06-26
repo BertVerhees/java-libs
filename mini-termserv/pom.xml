@@ -18,6 +18,11 @@
 	<inceptionYear>2007</inceptionYear>
 	
 	<description>The minimum terminology service required by the Java kernel</description>
+	<build>
+		<resources>
+			<resource><directory>src/main/resources</directory></resource>
+		</resources>
+	</build>
 	
 	<dependencies>
 		<dependency>

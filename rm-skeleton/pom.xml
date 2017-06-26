@@ -10,6 +10,12 @@
 	<packaging>jar</packaging>
 	<name>openEHR RM Skeleton Instance Generator</name>
 
+	<build>
+		<resources>
+			<resource><directory>src/main/resources</directory></resource>
+		</resources>
+	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>openehr</groupId>

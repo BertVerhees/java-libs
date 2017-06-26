@@ -27,6 +27,7 @@
 			<resource>
 				<directory>src/main/antlr4</directory>
 			</resource>
+			<resource><directory>src/main/resources</directory></resource>
 		</resources>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
