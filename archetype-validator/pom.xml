@@ -82,6 +82,11 @@
 		</dependency>
 		<dependency>
 			<groupId>openehr</groupId>
+			<artifactId>validation-error</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>openehr</groupId>
 			<artifactId>adl-parser-antlr</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>			

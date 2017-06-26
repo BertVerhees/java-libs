@@ -54,7 +54,7 @@
 		</dependency>
 		<dependency>
 			<groupId>openehr</groupId>
-			<artifactId>archetype-validator</artifactId>
+			<artifactId>validation-error</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

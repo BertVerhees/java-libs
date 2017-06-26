@@ -75,6 +75,10 @@ public class ArchetypeOntology  implements Serializable{
 
     private List<ValidationError> errors;
 
+    public  List<ValidationError> getValidationErrors(){
+        return errors;
+    }
+
     private void loadDefs(Map<String, Map<String, ArchetypeTerm>> map,
                           List<OntologyDefinitions> list) throws Exception {
         if (list == null) {
@@ -91,8 +95,8 @@ public class ArchetypeOntology  implements Serializable{
             }
             Map<String, ArchetypeTerm> codeMapAdded = map.put(defs.getLanguage(), codeMap);
             if(codeMapAdded!=null){
-                ValidationError validationError = new ValidationError(ErrorType.VDL, )
-                throw new Exception("The language:"+defs.getLanguage()+" seems to appear more then one time in this definition list.");
+                ValidationError validationError = new ValidationError(ErrorType.VDL, "Language occuring more times", "The language:"+defs.getLanguage()+" seems to appear more then one time in this definition list.");
+                errors.add(validationError);
             }
         }
     }
