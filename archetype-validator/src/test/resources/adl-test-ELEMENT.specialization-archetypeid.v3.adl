@@ -1,7 +1,7 @@
 archetype
     adl-test-ELEMENT.specialization-archetypeid.v3
 
-specialize
+specialise
     adl-test-ELEMENT.specialization.v3draft
 
 concept 

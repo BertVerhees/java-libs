@@ -20,6 +20,7 @@ import org.openehr.am.archetype.assertion.Assertion;
 import org.openehr.am.archetype.constraintmodel.*;
 import org.openehr.am.archetype.ontology.ArchetypeOntology;
 import org.openehr.am.archetype.ontology.ArchetypeTerm;
+import org.openehr.am.validation.ValidationError;
 import org.openehr.rm.common.generic.RevisionHistory;
 import org.openehr.rm.common.resource.AuthoredResource;
 import org.openehr.rm.common.resource.ResourceDescription;
@@ -29,10 +30,7 @@ import org.openehr.rm.support.identification.ArchetypeID;
 import org.openehr.rm.support.identification.HierObjectID;
 import org.openehr.rm.support.terminology.TerminologyService;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Archetype equivalent to ARCHETYPED class in Common reference model. Defines
@@ -80,6 +78,8 @@ public Archetype(String adlVersion, String id, String parentId, String concept,
 		
 		super(originalLanguage, translations, description, revisionHistory,
 			isControlled, terminologyService);
+
+		validationErrors = new ArrayList<>();
 		
 		if (id == null) {
 			throw new IllegalArgumentException("archetypeId null");
@@ -106,7 +106,17 @@ public Archetype(String adlVersion, String id, String parentId, String concept,
 		reloadNodeMaps();
 	}
 
-	public Archetype copy() {
+	private List<ValidationError> validationErrors;
+
+    public List<ValidationError> getValidationErrors() {
+        return validationErrors;
+    }
+
+    public void setValidationErrors(List<ValidationError> validationErrors) {
+        this.validationErrors = validationErrors;
+    }
+
+    public Archetype copy() {
 		String parentId = 
 			parentArchetypeId == null ? null : parentArchetypeId.toString();
 		

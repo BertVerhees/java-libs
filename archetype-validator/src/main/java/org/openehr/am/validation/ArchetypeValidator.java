@@ -14,32 +14,13 @@
  */
 package org.openehr.am.validation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.StringTokenizer;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.openehr.am.archetype.Archetype;
 import org.openehr.am.archetype.assertion.Assertion;
 import org.openehr.am.archetype.assertion.ExpressionBinaryOperator;
 import org.openehr.am.archetype.assertion.ExpressionLeaf;
-import org.openehr.am.archetype.constraintmodel.ArchetypeInternalRef;
-import org.openehr.am.archetype.constraintmodel.ArchetypeSlot;
-import org.openehr.am.archetype.constraintmodel.CAttribute;
-import org.openehr.am.archetype.constraintmodel.CComplexObject;
-import org.openehr.am.archetype.constraintmodel.CDomainType;
-import org.openehr.am.archetype.constraintmodel.CMultipleAttribute;
-import org.openehr.am.archetype.constraintmodel.CObject;
-import org.openehr.am.archetype.constraintmodel.CPrimitiveObject;
-import org.openehr.am.archetype.constraintmodel.CSingleAttribute;
-import org.openehr.am.archetype.constraintmodel.ConstraintRef;
+import org.openehr.am.archetype.constraintmodel.*;
 import org.openehr.am.archetype.constraintmodel.primitive.CPrimitive;
 import org.openehr.am.archetype.constraintmodel.primitive.CString;
 import org.openehr.am.archetype.ontology.ArchetypeTerm;
@@ -61,6 +42,9 @@ import org.openehr.rm.support.measurement.SimpleMeasurementService;
 import org.openehr.rm.support.terminology.TerminologyAccess;
 import org.openehr.rm.support.terminology.TerminologyService;
 import org.openehr.terminology.SimpleTerminologyService;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * Validator for archetypes
@@ -126,6 +110,7 @@ public class ArchetypeValidator {
             throws RMInspectionException {
         this.reportConstraintsOnCommonFunctionalPropertiesAsInfo = reportConstraintsOnCommonFunctionalPropertiesAsInfo;
         List<ValidationError> errors = new ArrayList<ValidationError>();
+        errors.addAll(archetype.getValidationErrors());
 
         checkDescription(archetype, errors);
         checkArchetypeDefinitionTypename(archetype, errors);
@@ -310,11 +295,13 @@ public class ArchetypeValidator {
                                           List<ValidationError> errors, int level) {
 
         ValidationError error = null;
-        for (OntologyDefinitions defs : defList) {
-            for (ArchetypeTerm term : defs.getDefinitions()) {
-                if (hasGreaterSpecialisationLevel(term.getCode(), level)) {
-                    error = new ValidationError(ErrorType.VONSD, null, term.getCode(), level);
-                    errors.add(error);
+        if(defList!=null) {
+            for (OntologyDefinitions defs : defList) {
+                for (ArchetypeTerm term : defs.getDefinitions()) {
+                    if (hasGreaterSpecialisationLevel(term.getCode(), level)) {
+                        error = new ValidationError(ErrorType.VONSD, null, term.getCode(), level);
+                        errors.add(error);
+                    }
                 }
             }
         }
@@ -1097,10 +1084,12 @@ public class ArchetypeValidator {
         String primaryLang = archetype.getOriginalLanguage().getCodeString();
 
         List<OntologyDefinitions> termDefList = archetype.getOntology().getTermDefinitionsList();
-        checkDuplicateLanguage(errors, termDefList);
+        if(termDefList!=null)
+            checkDuplicateLanguage(errors, termDefList);
 
         List<OntologyDefinitions> constraintDefList = archetype.getOntology().getConstraintDefinitionsList();
-        checkDuplicateLanguage(errors, constraintDefList);
+        if(constraintDefList!=null)
+            checkDuplicateLanguage(errors, constraintDefList);
 
         Set<String> termDefLangs = retrieveLanguageSet(termDefList);
         Set<String> constraintDefLangs = retrieveLanguageSet(constraintDefList);
@@ -1115,7 +1104,7 @@ public class ArchetypeValidator {
                 errors.add(error);
             }
 
-            if (!constraintDefList.isEmpty()
+            if ((constraintDefList!=null)&&(!constraintDefList.isEmpty())
                     && !constraintDefLangs.contains(lang)) {
                 error = new ValidationError(ErrorType.VOTM, "CONSTRAINT",
                         lang);
@@ -1135,10 +1124,22 @@ public class ArchetypeValidator {
         }
     }
 
+    public static List<ValidationError> filterVDLErrors(Archetype archetype) {
+        List<ValidationError> result = new ArrayList<>();
+        for(ValidationError validationError: archetype.getValidationErrors()){
+            if(validationError.getType()==ErrorType.VDL){
+                result.add(validationError);
+            }
+        }
+        return result;
+    }
+
     private Set<String> retrieveLanguageSet(List<OntologyDefinitions> list) {
         Set<String> set = new LinkedHashSet<String>();
-        for (OntologyDefinitions defs : list) {
-            set.add(defs.getLanguage());
+        if(list!=null) {
+            for (OntologyDefinitions defs : list) {
+                set.add(defs.getLanguage());
+            }
         }
         return set;
     }
@@ -1254,11 +1255,13 @@ public class ArchetypeValidator {
         ValidationError error = null;
 
         ArrayList<OntologyDefinitions> secondaryLanguageOntDefs = new ArrayList<OntologyDefinitions>();
-        for (OntologyDefinitions defs : defList) {
-            if (lang.equals(defs.getLanguage())) {
-                priDefs = defs;
-            } else {
-                secondaryLanguageOntDefs.add(defs);
+        if(defList!=null) {
+            for (OntologyDefinitions defs : defList) {
+                if (lang.equals(defs.getLanguage())) {
+                    priDefs = defs;
+                } else {
+                    secondaryLanguageOntDefs.add(defs);
+                }
             }
         }
 
@@ -1322,15 +1325,17 @@ public class ArchetypeValidator {
 
         // now check for each code if it exists in the definition
         ValidationError error = null;
-        for (OntologyDefinitions defs : defList) {
-            for (ArchetypeTerm term : defs.getDefinitions()) {
-                if (!actuallyUsedCodes.contains(term.getCode())) {
-                    // at the moment, we only want to report on unused codes 
-                    // that are on the same specialisation depth as this archetype. 
-                    if (specialisationDepth == StringUtils.countMatches(term.getCode(), ".")) {
-                        error = new ValidationError(ErrorType.WOUC, null,
-                                term.getCode(), defs.getLanguage());
-                        errors.add(error);
+        if(defList!=null) {
+            for (OntologyDefinitions defs : defList) {
+                for (ArchetypeTerm term : defs.getDefinitions()) {
+                    if (!actuallyUsedCodes.contains(term.getCode())) {
+                        // at the moment, we only want to report on unused codes
+                        // that are on the same specialisation depth as this archetype.
+                        if (specialisationDepth == StringUtils.countMatches(term.getCode(), ".")) {
+                            error = new ValidationError(ErrorType.WOUC, null,
+                                    term.getCode(), defs.getLanguage());
+                            errors.add(error);
+                        }
                     }
                 }
             }
@@ -1349,17 +1354,19 @@ public class ArchetypeValidator {
 
         // now check for each code if it exists in the definition
         ValidationError error = null;
-        for (OntologyDefinitions defs : defList) {
-            HashSet<String> foundCodes = new HashSet<String>();
-            for (ArchetypeTerm term : defs.getDefinitions()) {
-                if (foundCodes.contains(term.getCode())) {
-                    // at the moment, we only want to report on unused codes 
-                    // that are on the same specialisation depth as this archetype. 
-                    error = new ValidationError(ErrorType.VOKU, null,
-                            term.getCode(), defs.getLanguage());
-                    errors.add(error);
-                } else {
-                    foundCodes.add(term.getCode());
+        if(defList!=null) {
+            for (OntologyDefinitions defs : defList) {
+                HashSet<String> foundCodes = new HashSet<String>();
+                for (ArchetypeTerm term : defs.getDefinitions()) {
+                    if (foundCodes.contains(term.getCode())) {
+                        // at the moment, we only want to report on unused codes
+                        // that are on the same specialisation depth as this archetype.
+                        error = new ValidationError(ErrorType.VOKU, null,
+                                term.getCode(), defs.getLanguage());
+                        errors.add(error);
+                    } else {
+                        foundCodes.add(term.getCode());
+                    }
                 }
             }
         }

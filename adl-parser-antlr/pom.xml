@@ -55,7 +55,8 @@
                     <arguments>
                         <argument>-package</argument>
                         <argument>se.acode.openehr.parser.v1_4</argument>
-                    </arguments>
+						<argument>-no-listener</argument>
+					</arguments>
 					<sourceDirectory>${basedir}/src/main/antlr4</sourceDirectory>
 					<libDirectory>${basedir}/src/main/antlr4/imports</libDirectory>
 				</configuration>

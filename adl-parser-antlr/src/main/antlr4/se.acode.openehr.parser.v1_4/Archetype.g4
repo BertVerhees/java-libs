@@ -395,7 +395,7 @@ SYM_SATISFIES:
     'satisfies'; //from xpath - solves some parser ambiguity in future cases!
 // CADL keywords
 SYM_ARCHETYPE   : [Aa][Rr][Cc][Hh][Ee][Tt][Yy][Pp][Ee];
-SYM_SPECIALISE  : [Ss][Pp][Ee][Cc][Ii][Aa][Ll][Ii][Ss][Ee];
+SYM_SPECIALISE  : [Ss][Pp][Ee][Cc][Ii][Aa][Ll][Ii][SsZz][Ee];
 SYM_DESCRIPTION : LINE [Dd][Ee][Ss][Cc][Rr][Ii][Pp][Tt][Ii][Oo][Nn] ;
 SYM_DEFINITION  : LINE [Dd][Ee][Ff][Ii][Nn][Ii][Tt][Ii][Oo][Nn];
 SYM_ONTOLOGY    : LINE [Oo][Nn][Tt][Oo][Ll][Oo][Gg][Yy] ;
@@ -510,14 +510,14 @@ fragment CARET_REGEXP: '^' CARET_REGEXP_CHAR+ '^';
 fragment CARET_REGEXP_CHAR: ~[^\n\r] | ESCAPE_SEQ | '\\^';
 
 // ---------------------- Identifiers ---------------------
-ARCHETYPE_HRID      : ARCHETYPE_HRID_ROOT '.v' [1-9][0-9]* ;
+ARCHETYPE_HRID      : ARCHETYPE_HRID_ROOT '.v' [1-9][0-9]* ( '-rc' | '-alpha' | '-draft' | 'rc' | 'alpha' | 'draft')? ;
 ARCHETYPE_REF       : ARCHETYPE_HRID_ROOT '.v' INTEGER ( '.' DIGIT+ )* ;
 fragment ARCHETYPE_HRID_ROOT : (NAMESPACE '::')? IDENTIFIER '-' IDENTIFIER '-' IDENTIFIER '.' LABEL ;
 
 OID : VERSION_ID ;
 GUID : HEX_DIGIT+ '-' HEX_DIGIT+ '-' HEX_DIGIT+ '-' HEX_DIGIT+ '-' HEX_DIGIT+ ;
 
-VERSION_ID          : DIGIT+ '.' DIGIT+ '.' DIGIT+ ( ( '-rc' | '-alpha' ) ( '.' DIGIT+ )? )? ;
+VERSION_ID          : DIGIT+ '.' DIGIT+ '.' DIGIT+ ( ( '-rc' | '-alpha' | '-draft' | 'rc' | 'alpha' | 'draft') ( '.' DIGIT+ )? )? ;
 fragment IDENTIFIER : ALPHA_CHAR WORD_CHAR* ;
 
 
@@ -573,5 +573,5 @@ fragment NATURAL  : [1-9][0-9]* ;
 fragment NAME_CHAR     : WORD_CHAR | '-' ;
 
 TERMINOLOGY_ID_BLOCK: NAME_CHAR+ ( '(' NAME_CHAR+ ')')? '::'  ;
-LOCAL_TERM_CODE_REF : ALPHANUM_CHAR+  ('.')? ALPHANUM_CHAR+  ;
+LOCAL_TERM_CODE_REF : ALPHANUM_CHAR+  (('.')? ALPHANUM_CHAR+)*  ;
 

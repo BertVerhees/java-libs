@@ -3,10 +3,12 @@ package se.acode.openehr.parser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.openehr.am.archetype.Archetype;
 import org.openehr.am.archetype.assertion.Assertion;
 import org.openehr.am.archetype.constraintmodel.CComplexObject;
 import org.openehr.am.archetype.ontology.ArchetypeOntology;
+import org.openehr.am.validation.ValidationError;
 import org.openehr.rm.common.generic.RevisionHistory;
 import org.openehr.rm.common.resource.ResourceDescription;
 import org.openehr.rm.common.resource.TranslationDetails;
@@ -28,6 +30,7 @@ import se.acode.openehr.parser.errors.ArchetypeADLParserMessage;
 import se.acode.openehr.parser.v1_4.*;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -45,6 +48,7 @@ public class ADLParser {
     private static final String ATTRIBUTE_UNKNOWN = "__unknown__";
 
     private InputStream inputStream;
+    private Charset charset = null;
 
     /* member flags for backwards compatibility */
     private boolean missingLanguageCompatible = false;
@@ -91,11 +95,12 @@ public class ADLParser {
     }
 
     public ADLParser(InputStream is) throws IOException {
-        this(is, null);
+        this.inputStream = is;
     }
 
     public ADLParser(InputStream is, String encoding) throws IOException {
         this.inputStream = is;
+        charset = Charset.forName(encoding);
     }
 
     public void ReInit(InputStream is){
@@ -130,7 +135,8 @@ public class ADLParser {
 
     private ArchetypeParser archetypeParser() {
         ArchetypeLexer archetypeLexer = new ArchetypeLexer(input);
-        archetypeLexer.addErrorListener(errorListener);
+        archetypeLexer.removeErrorListeners();
+//        archetypeLexer.addErrorListener(errorListener);
         CommonTokenStream tokens = new CommonTokenStream(archetypeLexer);
         ArchetypeParser archetypeParser = new ArchetypeParser(tokens);
         archetypeParser.removeErrorListeners();
@@ -138,38 +144,18 @@ public class ADLParser {
         return archetypeParser;
     }
 
-    private ArchIdentificationParser archIdentificationParser(){
-        ArchIdentificationLexer archIdentificationLexer = new se.acode.openehr.parser.v1_4.ArchIdentificationLexer(input);
-        archIdentificationLexer.addErrorListener(errorListener);
-        CommonTokenStream tokens = new CommonTokenStream(archIdentificationLexer);
-        ArchIdentificationParser archIdentificationParser = new ArchIdentificationParser(tokens);
-        archIdentificationParser.removeErrorListeners();
-        archIdentificationParser.addErrorListener(errorListener);
-        return archIdentificationParser;
-    }
-
-    private ArchSpecialisationParser archSpecialisationParser(){
-        ArchSpecialisationLexer archSpecialisationLexer = new ArchSpecialisationLexer(input);
-        archSpecialisationLexer.addErrorListener(errorListener);
-        CommonTokenStream tokens = new CommonTokenStream(archSpecialisationLexer);
-        ArchSpecialisationParser archSpecialisationParser = new ArchSpecialisationParser(tokens);
-        archSpecialisationParser.removeErrorListeners();
-        archSpecialisationParser.addErrorListener(errorListener);
-        return archSpecialisationParser;
-    }
-
-    private String getADLVersion(ArchIdentificationParser.Arch_identificationContext identificationContext){
+    private String getADLVersion(ArchetypeParser.Arch_identificationContext identificationContext){
         if(identificationContext.arch_meta_data()==null) {
             String s = "Not Fatal: No arch_meta_data, no ADL-version, assuming 1.4";
             logger.warn(s);
             errorListener.getParserErrors().addWarning(s);
             return "1.4"; //probably old archetype
         }
-        for(ArchIdentificationParser.Arch_meta_data_itemContext metaDataItemContext : identificationContext.arch_meta_data().arch_meta_data_item()){
+        for(ArchetypeParser.Arch_meta_data_itemContext metaDataItemContext : identificationContext.arch_meta_data().arch_meta_data_item()){
             if(metaDataItemContext.adl_version()!=null)
                 //this is because in ADL 1.4 the adl-version only has one dot, and then it cannot be distinguished from a REAL_VALUE
-                if(metaDataItemContext.adl_version().ARCHETYPE_VERSION_ID()!=null)
-                    return metaDataItemContext.adl_version().ARCHETYPE_VERSION_ID().getText();
+                if(metaDataItemContext.adl_version().VERSION_ID()!=null)
+                    return metaDataItemContext.adl_version().VERSION_ID().getText();
                 else
                     return metaDataItemContext.adl_version().REAL_VALUE().getText();
         }
@@ -231,23 +217,15 @@ public class ADLParser {
         errors = new ArchetypeADLParserErrors();
         errorListener = new ArchetypeADLErrorListener(errors);
         try {
-            input = CharStreams.fromStream(inputStream);
+            if(charset==null)
+                input = CharStreams.fromStream(inputStream);
+            else
+                input = CharStreams.fromStream(inputStream, charset);
         }catch(Exception e){
             errorListener.getParserErrors().addError("ArchetypeParser: "+e.getMessage());
         }
 
-        ArchIdentificationParser archIdentificationParser = archIdentificationParser();
-        ArchIdentificationParser.Arch_identificationContext  archIdentificationContext = archIdentificationParser.arch_identification();
-        String adlVersion = getADLVersion(archIdentificationContext);
-
-        System.out.println("+"+input.index());
-        ArchSpecialisationParser archSpecialisationParser = archSpecialisationParser();
-        ArchSpecialisationParser.Arch_specialisationContext archSpecialisationContext = archSpecialisationParser.arch_specialisation();
-        String parentId = null;
-        if(archSpecialisationContext!=null)
-            if(archSpecialisationContext.ARCHETYPE_HRID()!=null)
-                parentId = archSpecialisationContext.ARCHETYPE_HRID().getText();
-
+        ParseTreeWalker walker;
 
         ArchetypeParser parser = archetypeParser();
         ArchetypeParser.ArchetypeContext archetypeContext =  parser.archetype();
@@ -289,9 +267,9 @@ public class ADLParser {
         ArchetypeParser.Arch_languageContext languageContext = archetypeContext.arch_language();
         ArchetypeParser.Arch_definitionContext definitionContext = archetypeContext.arch_definition();
         ArchetypeParser.Arch_ontologyContext ontologyContext = archetypeContext.arch_ontology();
-//        adlVersion = getADLVersion(identificationContext);
+        String adlVersion = getADLVersion(identificationContext);
         String id = getArchetypeId(identificationContext);
-//        String parentId = null;
+        String parentId = null;
         if(specialisationContext!=null)
             if(specialisationContext.ARCHETYPE_HRID()!=null)
                 parentId = specialisationContext.ARCHETYPE_HRID().getText();
@@ -350,6 +328,7 @@ public class ADLParser {
             }
             errorListener.getParserErrors().addError(e.getMessage());
         }
+        archetype.setValidationErrors(getValidationErrors());
         return archetype;
     }
 
@@ -371,6 +350,10 @@ public class ADLParser {
 
     public List<ArchetypeADLParserMessage> getErrors(){
         return  errors.getErrors();
+    }
+
+    private List<ValidationError> getValidationErrors(){
+        return  errors.getValidationErrors();
     }
 
     public List<ArchetypeADLParserMessage> getWarnings(){

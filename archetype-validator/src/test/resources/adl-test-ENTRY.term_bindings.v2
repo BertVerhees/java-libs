@@ -63,7 +63,7 @@ ontology
 			>
 		>	
 	>	
-	term_binding = <
+	term_bindings = <
 		["LNC205"] = <
 			items = <
 				["/data[at0002]/events[at0003]/data[at0001]/items[at0005]"] = <[LNC205::1234-1]>

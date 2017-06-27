@@ -1,6 +1,6 @@
 ﻿archetype (adl_version=1.4)
 	openEHR-EHR-OBSERVATION.order1-order2-order3.v1
-specialize
+specialise
 	openEHR-EHR-OBSERVATION.order1-order2.v1
 
 concept

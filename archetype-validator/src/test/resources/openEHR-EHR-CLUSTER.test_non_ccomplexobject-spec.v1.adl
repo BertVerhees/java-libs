@@ -1,6 +1,6 @@
 archetype (adl_version=1.4)
 	openEHR-EHR-CLUSTER.test_non_ccomplexobject-spec.v1
-specialize
+specialise
 	openEHR-EHR-CLUSTER.test_non_ccomplexobject.v1
 
 concept

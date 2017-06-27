@@ -29,10 +29,11 @@
 package se.acode.openehr.parser.builder;
 
 import org.openehr.am.archetype.ontology.*;
+import org.openehr.am.validation.ValidationError;
 import org.openehr.rm.support.terminology.TerminologyService;
-import se.acode.openehr.parser.v1_4.ArchetypeParser;
 import se.acode.openehr.parser.errors.ArchetypeADLErrorListener;
 import se.acode.openehr.parser.errors.ArchetypeBuilderError;
+import se.acode.openehr.parser.v1_4.ArchetypeParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +112,6 @@ public class OntologySectionBuilder {
                                     termBindingItem = new TermBindingItem(atCode, terms);
                                     termBindingItems.add(termBindingItem);
                                     binding = new OntologyBinding(terminologyId, termBindingItems);
-                                    termBindingList.add(binding);
                                 }else if(koc2.key_object_value().object_value_block().primitive_object().primitive_list_value()!=null){
                                     for(ArchetypeParser.Primitive_valueContext primitiveValueContext:koc2.key_object_value().object_value_block().primitive_object().primitive_list_value().primitive_value()) {
                                         String term = primitiveValueContext.getText();
@@ -120,10 +120,10 @@ public class OntologySectionBuilder {
                                         termBindingItems.add(termBindingItem);
                                     }
                                     binding = new OntologyBinding(terminologyId, termBindingItems);
-                                    termBindingList.add(binding);
                                 }
                             }
                         }
+                        termBindingList.add(binding);
                     }
                 } else if (ontologyItemContext.constraint_bindings() != null) {
                     constraintBindingList = new ArrayList<>();
@@ -174,7 +174,11 @@ public class OntologySectionBuilder {
                     errorListener.getParserErrors().addError("There is a different size in \"languages_available\" (" + languagesAvailable.size() + ") then available in \"term_definitions\" (" + termDefinitionsList.size() + ").");
                 }
             }
-            return new ArchetypeOntology(primaryLanguage, terminologies, termDefinitionsList, constraintDefinitionsList, termBindingList, constraintBindingList);
+            ArchetypeOntology archetypeOntology = new ArchetypeOntology(primaryLanguage, terminologies, termDefinitionsList, constraintDefinitionsList, termBindingList, constraintBindingList);
+            for(ValidationError validationError : archetypeOntology.getValidationErrors()){
+                errorListener.getParserErrors().addValidationError(validationError);
+            }
+            return archetypeOntology;
         } catch (Exception e) {
             errorListener.getParserErrors().addError(ArchetypeBuilderError.buildMessage(ontologyContext, e.getMessage()));
             return null;

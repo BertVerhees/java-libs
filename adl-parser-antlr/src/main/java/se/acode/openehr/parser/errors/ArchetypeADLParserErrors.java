@@ -1,5 +1,6 @@
 package se.acode.openehr.parser.errors;
 
+import org.openehr.am.validation.ValidationError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,10 +15,14 @@ public class ArchetypeADLParserErrors {
     private static final Logger logger = LoggerFactory.getLogger(ArchetypeADLParserErrors.class);
 
     private List<ArchetypeADLParserMessage> errors = new ArrayList<>();
+    private List<ValidationError> validationErrors = new ArrayList<>();
     private List<ArchetypeADLParserMessage> warnings = new ArrayList<>();
 
     public void addError(String error) {
         errors.add(new ArchetypeADLParserMessage(error));
+    }
+    public void addValidationError(ValidationError error) {
+        validationErrors.add(error);
     }
 
     public void addWarning(String error) {
@@ -35,6 +40,10 @@ public class ArchetypeADLParserErrors {
 
     public List<ArchetypeADLParserMessage> getErrors() {
         return errors;
+    }
+
+    public List<ValidationError> getValidationErrors() {
+        return validationErrors;
     }
 
     public void setErrors(List<ArchetypeADLParserMessage> errors) {
