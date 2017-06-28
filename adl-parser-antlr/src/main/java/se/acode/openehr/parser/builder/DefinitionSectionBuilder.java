@@ -98,17 +98,14 @@ public class DefinitionSectionBuilder {
                                             ArchetypeParser.C_complex_objectContext cComplexObjectContext,
                                             MeasurementService measurementService) {
         List<CAttribute> attributes = null;
-        if (cComplexObjectContext.c_complex_object_body() == null) {
-            return null;
-        }
         String nodeId = null;
         if (cComplexObjectContext.AT_CODE() != null) {
             nodeId = getNodeId(cComplexObjectContext.AT_CODE());
         }
         if ((nodeId != null) && (!("/".equals(path))))
             path = path + "[" + nodeId + "]";
-        if (!(cComplexObjectContext.c_complex_object_body().c_attribute() == null) || (cComplexObjectContext.c_complex_object_body().c_attribute().size() == 0)) {
-            attributes = attributes(path, cComplexObjectContext.c_complex_object_body().c_attribute(), measurementService);
+        if (!(cComplexObjectContext.c_attribute() == null) || (cComplexObjectContext.c_attribute().size() == 0)) {
+            attributes = attributes(path, cComplexObjectContext.c_attribute(), measurementService);
         }
         String rmTypeName = cComplexObjectContext.rm_type_id().getText();
         Interval<Integer> occurrences = null;
@@ -308,29 +305,30 @@ public class DefinitionSectionBuilder {
                                    MeasurementService measurementService) {
         List<CObject> cObjects = new ArrayList<>();
         for (ArchetypeParser.C_attr_valueContext cAttrValueContext : c_attr_value) {
-            ArchetypeParser.C_objectContext c_object = cAttrValueContext.c_object();
-            if (c_object != null) {
-                CObject cObject = null;
-                if (c_object.archetype_internal_ref() != null) {
-                    cObject = archetype_internal_ref(path, c_object.archetype_internal_ref());
-                } else if (c_object.archetype_slot() != null) {
-                    cObject = archetype_slot(path, c_object.archetype_slot());
-                } else if (c_object.c_complex_object() != null) {
-                    cObject = c_complex_object(path, c_object.c_complex_object(), measurementService);
-                } else if (c_object.c_dv_quantity() != null) {
-                    cObject = c_dv_quantity(path, c_object.c_dv_quantity(), measurementService);
-                } else if (c_object.c_codephrase() != null) {
-                    cObject = c_codephrase(path, c_object.c_codephrase());
-                } else if (c_object.c_dv_ordinal() != null) {
-                    cObject = c_dv_ordinal(path, c_object.c_dv_ordinal());
-                } else if (c_object.c_primitive_object() != null) {
-                    CPrimitive item = c_primitive(c_object.c_primitive_object().c_primitive());
-                    cObject = c_primitive_object(path, c_object.c_primitive_object(), item);
-                } else if (c_object.constraint_ref() != null) {
-                    cObject = constraint_ref(path, c_object.constraint_ref());
+            for (ArchetypeParser.C_objectContext cObjectContext : cAttrValueContext.c_object()) {
+                if (cObjectContext != null) {
+                    CObject cObject = null;
+                    if (cObjectContext.archetype_internal_ref() != null) {
+                        cObject = archetype_internal_ref(path, cObjectContext.archetype_internal_ref());
+                    } else if (cObjectContext.archetype_slot() != null) {
+                        cObject = archetype_slot(path, cObjectContext.archetype_slot());
+                    } else if (cObjectContext.c_complex_object() != null) {
+                        cObject = c_complex_object(path, cObjectContext.c_complex_object(), measurementService);
+                    } else if (cObjectContext.c_dv_quantity() != null) {
+                        cObject = c_dv_quantity(path, cObjectContext.c_dv_quantity(), measurementService);
+                    } else if (cObjectContext.c_codephrase() != null) {
+                        cObject = c_codephrase(path, cObjectContext.c_codephrase());
+                    } else if (cObjectContext.c_dv_ordinal() != null) {
+                        cObject = c_dv_ordinal(path, cObjectContext.c_dv_ordinal());
+                    } else if (cObjectContext.c_primitive_object() != null) {
+                        CPrimitive item = c_primitive(cObjectContext.c_primitive_object().c_primitive());
+                        cObject = c_primitive_object(path, cObjectContext.c_primitive_object(), item);
+                    } else if (cObjectContext.constraint_ref() != null) {
+                        cObject = constraint_ref(path, cObjectContext.constraint_ref());
+                    }
+                    if (cObject != null)
+                        cObjects.add(cObject);
                 }
-                if (cObject != null)
-                    cObjects.add(cObject);
             }
         }
         return cObjects;

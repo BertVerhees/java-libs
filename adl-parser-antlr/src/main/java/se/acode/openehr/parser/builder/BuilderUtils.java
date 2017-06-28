@@ -22,18 +22,14 @@ public class BuilderUtils {
         return new CodePhrase(parts[0], parts[1]);
     }
 
-    static void addEntry(ArchetypeParser.String_valueContext s, ArchetypeParser.Object_blockContext o, Map<String,String> map, ArchetypeADLErrorListener errorListener) {
+    static void addEntry(ArchetypeParser.String_valueContext s, ArchetypeParser.Object_value_blockContext o, Map<String,String> map, ArchetypeADLErrorListener errorListener) {
         String keyString = s.STRING().getText();
         keyString = keyString.substring(1, keyString.length() - 1);
-        if(
-                (o.object_value_block()==null)&&
-                        (o.object_value_block().primitive_object()!=null)&&
-                        (o.object_value_block().primitive_object().primitive_value()!=null)&&
-                        (o.object_value_block().primitive_object().primitive_value().string_value()!=null)){
+        if((o==null)||(o.primitive_object()==null)||(o.primitive_object().primitive_value()==null)||(o.primitive_object().primitive_value().string_value()==null)){
             errorListener.getParserErrors().addError("Expected a single/simple string as value for \""+keyString+"\".");
             return;
         }
-        String value = o.object_value_block().primitive_object().primitive_value().string_value().STRING().getText();
+        String value = o.primitive_object().primitive_value().string_value().STRING().getText();
         value = value.substring(1, value.length() - 1);
         map.put(keyString, value);
     }

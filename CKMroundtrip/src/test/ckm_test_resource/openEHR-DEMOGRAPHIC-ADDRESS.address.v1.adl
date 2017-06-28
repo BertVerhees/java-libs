@@ -49,8 +49,8 @@ description
 definition
     ADDRESS[at0000] matches { 
         name matches {
-            DV_TEXT matches {*} 
-            DV_CODED_TEXT matches { 
+            DV_TEXT matches {*}
+            DV_CODED_TEXT matches {
                 defining_code matches {
                     [local::
                     at0461,
@@ -61,16 +61,16 @@ definition
                     at0466]
                 }
             }
-        }
+        }    
         details matches {
-            ITEM_TREE[at0001] occurrences matches {0..1} matches { 
+            ITEM_TREE[at0001] occurrences matches {0..1} matches {
                 items matches {
                     CLUSTER[at0002] occurrences matches {0..*} matches {  -- Address lines
                         items cardinality matches {1..*; ordered} matches {
                             ELEMENT[at0021] occurrences matches {0..1} matches {  -- Building/complex sub-unit type—abbreviation
                                 value matches {
-				    DV_TEXT matches {*}
-                                    DV_CODED_TEXT matches {  
+				                    DV_TEXT matches {*}
+                                    DV_CODED_TEXT matches {
                                         defining_code matches {
                                             [ac0000]
                                         }
@@ -79,12 +79,12 @@ definition
                             }
                             ELEMENT[at0022] occurrences matches {0..1} matches {  -- Building/complex sub-unit number
                                 value matches {
-                                    DV_TEXT matches {*} 
+                                    DV_TEXT matches {*}
                                 }
                             }
                             ELEMENT[at0023] occurrences matches {0..1} matches {  -- Address site name
                                 value matches {
-                                    DV_TEXT matches {*} 
+                                    DV_TEXT matches {*}
                                 }
                             }
                             ELEMENT[at0024] occurrences matches {0..1} matches {  -- Floor/level number
@@ -94,18 +94,18 @@ definition
                             }
                             ELEMENT[at0025] occurrences matches {0..1} matches {  -- Floor/level type
                                 value matches {
-                                    DV_TEXT matches {*} 
+                                    DV_TEXT matches {*}
                                 }
                             }
                             ELEMENT[at0026] occurrences matches {0..1} matches {  -- Lot number
                                 value matches {
-                                    DV_TEXT matches {*} 
+                                    DV_TEXT matches {*}
                                 }
                             }
                             ELEMENT[at0027] occurrences matches {0..1} matches {  -- Street type
                                 value matches {
- 				    DV_TEXT matches {*}
-                                    DV_CODED_TEXT matches { 
+ 				                    DV_TEXT matches {*}
+                                    DV_CODED_TEXT matches {
                                         defining_code matches {
                                             [ac0001]
                                         }
@@ -114,18 +114,18 @@ definition
                             }
                             ELEMENT[at0028] occurrences matches {0..1} matches {  -- Street name
                                 value matches {
-                                    DV_TEXT matches {*}   
+                                    DV_TEXT matches {*}
                                 }
                             }
                             ELEMENT[at0029] occurrences matches {0..1} matches {  -- Number
                                 value matches {
-                                    DV_TEXT matches {*}  
+                                    DV_TEXT matches {*}
                                 }
                             }
                             ELEMENT[at0030] occurrences matches {0..1} matches {  -- Street suffix
                                 value matches {
-				    DV_TEXT matches {*}
-                                    DV_CODED_TEXT matches { 
+				                    DV_TEXT matches {*}
+                                    DV_CODED_TEXT matches {
                                         defining_code matches {
                                             [ac0002]
                                         }
@@ -134,21 +134,21 @@ definition
                             }
                             ELEMENT[at0031] occurrences matches {0..1} matches {  -- address line visualization
                                 value matches {
-                                    DV_TEXT matches {*} 
+                                    DV_TEXT matches {*}
                                 }
                             }
                         }
                     }
-		    ELEMENT[at0003] occurrences matches {0..1} matches {  -- district
-			value matches {
-			    DV_TEXT matches {*}
-			}
-		    }
-		    ELEMENT[at0004] occurrences matches {0..1} matches {  -- census area
-			value matches {
-			    DV_TEXT matches {*}
-			}
-		    }
+		            ELEMENT[at0003] occurrences matches {0..1} matches {  -- district
+			            value matches {
+			                DV_TEXT matches {*}
+			            }
+		            }
+		            ELEMENT[at0004] occurrences matches {0..1} matches {  -- census area
+			            value matches {
+			                DV_TEXT matches {*}
+			            }
+		            }
                     ELEMENT[at0005] occurrences matches {0..1} matches {  -- Delivery Point Identifier
                         value matches {
                             DV_TEXT matches {*}
@@ -156,17 +156,17 @@ definition
                     }
                     ELEMENT[at0006] occurrences matches {0..1} matches {  -- Postal code
                         value matches {
-                            DV_TEXT matches {*} 
+                            DV_TEXT matches {*}
                         }
                     }
                     ELEMENT[at0007] occurrences matches {0..1} matches {  -- Suburb/town/locality
                         value matches {
-                            DV_TEXT matches {*}   
+                            DV_TEXT matches {*}
                         }
                     }
                     ELEMENT[at0008] occurrences matches {0..1} matches {  -- State/Province/Territory
                         value matches {
-                            DV_CODED_TEXT matches { 
+                            DV_CODED_TEXT matches {
                                 defining_code matches {
                                     [ac0003]
                                 }
@@ -175,7 +175,7 @@ definition
                     }
                     ELEMENT[at0009] occurrences matches {0..1} matches {  -- Country
                         value matches {
-                            DV_CODED_TEXT matches { 
+                            DV_CODED_TEXT matches {
                                 defining_code matches {
                                     [ac0004]
                                 }
@@ -184,19 +184,19 @@ definition
                     }
                     ELEMENT[at0010] occurrences matches {0..1} matches {  -- Address type start date accuracy indicator
                         value matches {
-                            DV_TEXT matches { 
+                            DV_TEXT matches {
                                 value matches {/[AEU][AEU][AEU]/}
                             }
                         }
                     }
                     ELEMENT[at0011] occurrences matches {0..1} matches {  -- Address type end date accuracy indicator
                         value matches {
-                            DV_TEXT matches { 
+                            DV_TEXT matches {
                                 value matches {/[AEU][AEU][AEU]/}
                             }
                         }
                     }
-                 }
+                }
             }
         }
     }

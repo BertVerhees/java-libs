@@ -22,6 +22,8 @@ description
 		["email"] = <"sergio@lampada.uerj.br">
 		["date"] = <"2009-05-20">
 	>
+	lifecycle_state = <"AuthorDraft">
+	other_contributors = <"Rong Chen, Cambio Healthcare Systems, Sweden", "Ricardo Correia, SBIM/FMUP, Portugal", "Rigoleta Dutra, Ministry of Defense, Brazil (Editor)", "Shahla Foozonkhah, Ocean Informatics, Australia", "Heath Frankel, Ocean Informatics, Australia", "Sergio Freire, State University of Rio de Janeiro, Brazil (Editor)", "Heather Grain, Llewelyn Grain Informatics, Australia", "Grahame Grieve, Australia", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (Editor)">
 	details = <
 		["en"] = <
 			language = <[ISO_639-1::en]>
@@ -40,8 +42,6 @@ description
 			copyright = <"© openEHR Foundation">
 		>
 	>
-	lifecycle_state = <"AuthorDraft">
-	other_contributors = <"Rong Chen, Cambio Healthcare Systems, Sweden", "Ricardo Correia, SBIM/FMUP, Portugal", "Rigoleta Dutra, Ministry of Defense, Brazil (Editor)", "Shahla Foozonkhah, Ocean Informatics, Australia", "Heath Frankel, Ocean Informatics, Australia", "Sergio Freire, State University of Rio de Janeiro, Brazil (Editor)", "Heather Grain, Llewelyn Grain Informatics, Australia", "Grahame Grieve, Australia", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (Editor)">
 	other_details = <
 		["references"] = <"ISO/TS 22220:2008(E) - Identification of Subject of Care - Technical Specification- International Organization for Standardization.">
 		["MD5-CAM-1.0.1"] = <"7E035D4E87B475874E59571FDA7C72B8">
@@ -49,8 +49,8 @@ description
 
 definition
     PARTY_IDENTITY[at0000] matches {  -- Person name
-	name matches {		-- A classification that enables differentiation between the usage of names for a person.
-	    DV_TEXT matches {*}
+	    name matches {		-- A classification that enables differentiation between the usage of names for a person.
+	        DV_TEXT matches {*}
             DV_CODED_TEXT matches {   
                  defining_code matches {
                                         [local::
@@ -61,7 +61,7 @@ definition
                                          at0027,
                                          at0028]
                  }
-	    }
+	        }
         }
         details matches {
             ITEM_TREE[at0001] occurrences matches {0..1} matches {  -- name components

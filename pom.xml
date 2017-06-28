@@ -55,5 +55,6 @@
         <module>rm-skeleton</module>
         <module>archetype-validator</module>
         <module>validation-error</module>
+        <module>CKMroundtrip</module>
     </modules>
 </project>

@@ -34,36 +34,35 @@ original_language: 'original_language' '=' '<'TERM_CODE_REF'>';
 translations: 'translations' '=' '<' ('[' string_value ']' '=' '<'language_object_block+'>')+ '>';
 language_object_block: language_object_block_item+ ;
 language_object_block_item: language | author | accreditation | other_details ;
-language:  'language' '=' '<'TERM_CODE_REF'>' ;
+language:  'ABClanguage' '=' '<'TERM_CODE_REF'>' ;
 author: 'author' '=' '<' ('[' string_value ']' '=' object_block)+ '>' ;
 accreditation:  'accreditation' '=' '<' string_value '>' ;
-other_details:  'other_details' '=' '<' ('[' string_value ']' '=' object_block)+ '>' ;
+other_details:  'ABCother_details' '=' '<' ('[' string_value ']' '=' object_block)+ '>' ;
 
-arch_description: |SYM_DESCRIPTION description_text ;
-description_text: description_text_item+ ;
-description_text_item: original_author|other_contributors|lifecycle_state|details|resource_package_uri|other_details|parent_resource ;
-original_author: 'original_author' '=' '<' ('[' string_value ']' '=' object_block)+ '>' ;
-other_contributors: 'other_contributors' '=' '<' ((((string_value (',' string_value)*))?)| string_list_value) '>' ;
-lifecycle_state: 'lifecycle_state' '=' '<' string_value '>' ;
-details: 'details' '=' '<' ('[' string_value ']' '=' '<'details_object_block+'>')+ '>';
-resource_package_uri: 'resource_package_uri' '=' '<' string_value '>' ;
-parent_resource:  'parent_resource' '=' '<' string_value '>' ;
-details_object_block: resource_description_item+ ;
-resource_description_item: language|purpose|keywords|use|misuse|copyright|original_resource_uri|other_details  ;
-purpose:  'purpose' SYM_EQ '<' string_value '>' ;
-keywords: 'keywords' '=' '<' ((((string_value (',' string_value)*))?)| string_list_value) '>' ;
-use:  'use' '=' '<' string_value '>' ;
-misuse:  'misuse' '=' '<' string_value '>' ;
-copyright:  'copyright' '=' '<' string_value '>' ;
-original_resource_uri: 'original_resource_uri' '=' '<' ('[' string_value ']' '=' object_block)+ '>' ;
-object_block: object_value_block | object_reference_block ;
+arch_description: |SYM_DESCRIPTION dadl_text ;
+dadl_text: attr_vals | object_value_block ;
+attr_vals: ( attr_val ';'? )+ ;
+attr_val : ALPHA_LC_ID  '='  object_block ;
+//description_text_item: description__original_author|description__other_contributors|description__lifecycle_state|description__details|description__resource_package_uri|other_details|description__parent_resource ;
+//description__original_author: 'original_author' '=' '<' ('[' string_value ']' '=' object_block)+ '>' ;
+//description__other_contributors: 'other_contributors' '=' '<' ((((string_value (',' string_value)*))?)| string_list_value) '>' ;
+//description__lifecycle_state: 'lifecycle_state' '=' '<' string_value '>' ;
+//description__details: 'details' '=' '<' ('[' string_value ']' '=' '<'description__details_object_block+'>')+ '>';
+//description__resource_package_uri: 'resource_package_uri' '=' '<' string_value '>' ;
+//description__parent_resource:  'parent_resource' '=' '<' string_value '>' ;
+//description__details_object_block: resource_description_item+ ;
+//resource_description_item: language|resource_description_item__purpose|resource_description_item__keywords|resource_description_item__use|resource_description_item__misuse|resource_description_item__copyright|resource_description_item__original_resource_uri|other_details  ;
+//resource_description_item__purpose:  'purpose' SYM_EQ '<' string_value '>' ;
+//resource_description_item__keywords: 'keywords' '=' '<' ((((string_value (',' string_value)*))?)| string_list_value) '>' ;
+//resource_description_item__use:  'use' '=' '<' string_value '>' ;
+//resource_description_item__misuse:  'misuse' '=' '<' string_value '>' ;
+//resource_description_item__copyright:  'copyright' '=' '<' string_value '>' ;
+//resource_description_item__original_resource_uri: 'original_resource_uri' '=' '<' ('[' string_value ']' '=' object_block)+ '>' ;
+object_block: (object_value_block | object_reference_block) ;
+object_value_block: ( '(' rm_type_id ')' )?   SYM_LT ( primitive_object | attr_vals? | keyed_object* ) SYM_GT ;
 
-object_value_block: ( '(' rm_type_id ')' )?   SYM_LT ( primitive_object | attr_vals | keyed_object* ) SYM_GT ;
-keyed_object : '[' key ']' '='  key_object_value ; // TODO: probably should limit to String and Integer?
-key : primitive_value ;
-key_object_value : object_value_block | object_reference_block ;
-attribute :  ALPHA_LC_ID ;
-attribute_value : object_value_block | object_reference_block ;
+keyed_object : '[' primitive_value ']' '=' object_block ;
+
 
 
 arch_definition: SYM_DEFINITION c_complex_object ;
@@ -84,7 +83,10 @@ definition_key_object_value : SYM_LT ( archetype_terms ';'? )+ SYM_GT ;
 archetype_terms : attribute '=' archetype_term ;
 archetype_term : SYM_LT archetype_term_object* SYM_GT ;
 archetype_term_object : '[' string_value ']' '='  archetype_term_item_object_value ;
-archetype_term_item_object_value : key_object_value ;
+archetype_term_item_object_value : object_block ;
+
+attribute :  ALPHA_LC_ID ;
+attribute_value : object_value_block | object_reference_block ;
 
 primary_language: 'primary_language' '=' SYM_LT string_value SYM_GT;
 
@@ -100,8 +102,6 @@ languages_available : 'languages_available'  '=' SYM_LT primitive_list_value SYM
 
 terminologies_available : 'terminologies_available'  '=' SYM_LT primitive_list_value SYM_GT ;
 
-attr_vals: ( attr_val ';'? )+ ;
-attr_val: attribute '=' attribute_value ;
 
 object_reference_block: '<' dadl_path_list '>' ;
 dadl_path_list     : dadl_path ( ( ',' dadl_path )+ | SYM_LIST_CONTINUE )? ;
@@ -197,8 +197,7 @@ term_code_list_value:
 //
 //  ======================= CADL ========================
 //
-c_complex_object: rm_type_id AT_CODE? c_occurrences? SYM_MATCHES '{' c_complex_object_body '}' ;
-c_complex_object_body: '*' | c_attribute*  ;
+c_complex_object: rm_type_id AT_CODE? c_occurrences? SYM_MATCHES '{' ('*' | c_attribute+) '}' ;
 c_object: (c_complex_object | c_primitive_object | archetype_internal_ref | archetype_slot | c_dv_quantity | c_dv_ordinal | c_codephrase | constraint_ref) ;
 constraint_ref: AC_CODE ;
 
@@ -226,7 +225,7 @@ c_any: '*' ;
 c_attribute:  ALPHA_LC_ID (c_existence?  c_cardinality? | c_cardinality? c_existence?) ( SYM_MATCHES ('{' c_attr_value+ '}'| CONTAINED_REGEXP))? ;
 
 
-c_attr_value: c_object | c_any ;
+c_attr_value: c_object+ | c_any ;
 
 c_existence: ('existence' | 'EXISTENCE') SYM_MATCHES '{' existence_spec '}' ;
 existence_spec:  INTEGER_VALUE | INTEGER_VALUE '..' INTEGER_VALUE ;
@@ -510,7 +509,9 @@ fragment CARET_REGEXP: '^' CARET_REGEXP_CHAR+ '^';
 fragment CARET_REGEXP_CHAR: ~[^\n\r] | ESCAPE_SEQ | '\\^';
 
 // ---------------------- Identifiers ---------------------
-ARCHETYPE_HRID      : ARCHETYPE_HRID_ROOT '.v' [1-9][0-9]* ( '-rc' | '-alpha' | '-draft' | 'rc' | 'alpha' | 'draft')? ;
+//ARCHETYPE_HRID Version should not allow v0, see: http://www.openehr.org/releases/RM/latest/docs/support/support.html#_syntaxes
+//but since this is comon practise on CKM, we better parse it without problem.
+ARCHETYPE_HRID      : ARCHETYPE_HRID_ROOT '.v' [0-9]* ( '-rc' | '-alpha' | '-draft' | 'rc' | 'alpha' | 'draft')? ;
 ARCHETYPE_REF       : ARCHETYPE_HRID_ROOT '.v' INTEGER ( '.' DIGIT+ )* ;
 fragment ARCHETYPE_HRID_ROOT : (NAMESPACE '::')? IDENTIFIER '-' IDENTIFIER '-' IDENTIFIER '.' LABEL ;
 

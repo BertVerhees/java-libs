@@ -59,9 +59,9 @@ public class OntologySectionBuilder {
                     code = code.substring(1, code.length() - 1);
                     ArchetypeTerm archetypeTerm = new ArchetypeTerm(code);
                     definitions.add(archetypeTerm);
-                    for (ArchetypeParser.Attr_valContext keyValue : archetypeTermFromList.archetype_term_item_object_value().key_object_value().object_value_block().attr_vals().attr_val()) {
-                        String key = keyValue.attribute().ALPHA_LC_ID().getText();   ////ArchetypeTerm key
-                        String value = keyValue.attribute_value().object_value_block().primitive_object().primitive_value().string_value().getText();  //ArchetypeTerm value
+                    for (ArchetypeParser.Attr_valContext keyValue : archetypeTermFromList.archetype_term_item_object_value().object_block().object_value_block().attr_vals().attr_val()) {
+                        String key = keyValue.ALPHA_LC_ID().getText();   ////ArchetypeTerm key
+                        String value = keyValue.object_block().object_value_block().primitive_object().primitive_value().string_value().getText();  //ArchetypeTerm value
                         value = value.substring(1, value.length() - 1);
                         archetypeTerm.addItem(key, value);   //ArchetypeTerm addItem(key,value)
                     }
@@ -96,24 +96,24 @@ public class OntologySectionBuilder {
                     termBindingList = new ArrayList<>();
                     OntologyBinding binding = null;
                     for (ArchetypeParser.Keyed_objectContext koc : ontologyItemContext.term_bindings().attribute_value().object_value_block().keyed_object()) {  //ontology_binding_body
-                        String terminologyId = koc.key().primitive_value().string_value().getText();
+                        String terminologyId = koc.primitive_value().string_value().getText();
                         terminologyId = terminologyId.substring(1, terminologyId.length() - 1);
                         String atCode;
                         TermBindingItem termBindingItem = null;
                         List<OntologyBindingItem> termBindingItems = new ArrayList<>();
-                        for (ArchetypeParser.Attr_valContext avc1 : koc.key_object_value().object_value_block().attr_vals().attr_val()) {
-                            for (ArchetypeParser.Keyed_objectContext koc2 : avc1.attribute_value().object_value_block().keyed_object()) {//term_binding_item
-                                atCode = koc2.key().primitive_value().string_value().getText();
+                        for (ArchetypeParser.Attr_valContext avc1 : koc.object_block().object_value_block().attr_vals().attr_val()) {
+                            for (ArchetypeParser.Keyed_objectContext koc2 : avc1.object_block().object_value_block().keyed_object()) {//term_binding_item
+                                atCode = koc2.primitive_value().string_value().getText();
                                 atCode = atCode.substring(1, atCode.length() - 1);
                                 List<String> terms = new ArrayList();
-                                if(koc2.key_object_value().object_value_block().primitive_object().primitive_value()!=null) {
-                                    String term = koc2.key_object_value().object_value_block().primitive_object().primitive_value().getText();
+                                if(koc2.object_block().object_value_block().primitive_object().primitive_value()!=null) {
+                                    String term = koc2.object_block().object_value_block().primitive_object().primitive_value().getText();
                                     terms.add(term);
                                     termBindingItem = new TermBindingItem(atCode, terms);
                                     termBindingItems.add(termBindingItem);
                                     binding = new OntologyBinding(terminologyId, termBindingItems);
-                                }else if(koc2.key_object_value().object_value_block().primitive_object().primitive_list_value()!=null){
-                                    for(ArchetypeParser.Primitive_valueContext primitiveValueContext:koc2.key_object_value().object_value_block().primitive_object().primitive_list_value().primitive_value()) {
+                                }else if(koc2.object_block().object_value_block().primitive_object().primitive_list_value()!=null){
+                                    for(ArchetypeParser.Primitive_valueContext primitiveValueContext:koc2.object_block().object_value_block().primitive_object().primitive_list_value().primitive_value()) {
                                         String term = primitiveValueContext.getText();
                                         terms.add(term);
                                         termBindingItem = new TermBindingItem(atCode, terms);

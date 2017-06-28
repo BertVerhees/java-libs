@@ -92,7 +92,7 @@ public class LanguagesSectionsBuilder {
                         for (ArchetypeParser.String_valueContext sa : authorContext.string_value()) {
                             ArchetypeParser.Object_blockContext o = authorContext.object_block(j);
                             j++;
-                            BuilderUtils.addEntry(sa, o, author, errorListener);
+                            BuilderUtils.addEntry(sa, o.object_value_block(), author, errorListener);
                         }
                     } else if (lobItem.accreditation() != null) {
                         if (accreditation != null) {
@@ -119,7 +119,7 @@ public class LanguagesSectionsBuilder {
                         for (ArchetypeParser.String_valueContext sa : otherDetailsContext.string_value()) {
                             ArchetypeParser.Object_blockContext o = otherDetailsContext.object_block(j);
                             j++;
-                            BuilderUtils.addEntry(sa, o, otherDetails,errorListener);
+                            BuilderUtils.addEntry(sa, o.object_value_block(), otherDetails,errorListener);
                         }
                     }
                 }

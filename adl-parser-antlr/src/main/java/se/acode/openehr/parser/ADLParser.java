@@ -27,7 +27,8 @@ import se.acode.openehr.parser.builder.OntologySectionBuilder;
 import se.acode.openehr.parser.errors.ArchetypeADLErrorListener;
 import se.acode.openehr.parser.errors.ArchetypeADLParserErrors;
 import se.acode.openehr.parser.errors.ArchetypeADLParserMessage;
-import se.acode.openehr.parser.v1_4.*;
+import se.acode.openehr.parser.v1_4.ArchetypeLexer;
+import se.acode.openehr.parser.v1_4.ArchetypeParser;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -328,7 +329,9 @@ public class ADLParser {
             }
             errorListener.getParserErrors().addError(e.getMessage());
         }
-        archetype.setValidationErrors(getValidationErrors());
+        if(archetype!=null) {
+            archetype.setValidationErrors(getValidationErrors());
+        }
         return archetype;
     }
 
