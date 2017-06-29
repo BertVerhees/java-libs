@@ -28,27 +28,9 @@ arch_specialisation: |SYM_SPECIALISE ARCHETYPE_HRID ;
 
 arch_concept: SYM_CONCEPT AT_CODE ;
 
-arch_language: SYM_LANGUAGE language_text ;
-language_text: original_language translations? ;
-original_language: 'original_language' '=' '<'TERM_CODE_REF'>';
-translations: 'translations' '=' '<' ('[' string_value ']' '=' '<'language_object_block+'>')+ '>';
-language_object_block: language_object_block_item+ ;
-language_object_block_item: language | author | accreditation | other_details ;
-language:  'ABClanguage' '=' '<'TERM_CODE_REF'>' ;
-author: 'author' '=' '<' ('[' string_value ']' '=' object_block)+ '>' ;
-accreditation:  'accreditation' '=' '<' string_value '>' ;
-other_details:  'ABCother_details' '=' '<' ('[' string_value ']' '=' object_block)+ '>' ;
+arch_language: SYM_LANGUAGE dadl_text ;
 
 arch_description: |SYM_DESCRIPTION dadl_text ;
-dadl_text: attr_vals | object_value_block ;
-attr_vals: ( attr_val ';'? )+ ;
-attr_val : ALPHA_LC_ID  '='  object_block ;
-object_block: (object_value_block | object_reference_block) ;
-object_value_block: ( '(' rm_type_id ')' )?   SYM_LT ( primitive_object | attr_vals? | keyed_object* ) SYM_GT ;
-
-keyed_object : '[' primitive_value ']' '=' object_block ;
-
-
 
 arch_definition: SYM_DEFINITION c_complex_object ;
 
@@ -69,6 +51,14 @@ archetype_terms : attribute '=' archetype_term ;
 archetype_term : SYM_LT archetype_term_object* SYM_GT ;
 archetype_term_object : '[' string_value ']' '='  archetype_term_item_object_value ;
 archetype_term_item_object_value : object_block ;
+
+//dadl-section
+dadl_text: attr_vals | object_value_block ;
+attr_vals: ( attr_val ';'? )+ ;
+attr_val : ALPHA_LC_ID  '='  object_block ;
+object_block: (object_value_block | object_reference_block) ;
+object_value_block: ( '(' rm_type_id ')' )?   SYM_LT ( primitive_object | attr_vals? | keyed_object* ) SYM_GT ;
+keyed_object : '[' primitive_value ']' '=' object_block ;
 
 attribute :  ALPHA_LC_ID ;
 attribute_value : object_value_block | object_reference_block ;
