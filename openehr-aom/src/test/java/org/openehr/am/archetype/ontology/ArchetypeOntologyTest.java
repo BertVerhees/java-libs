@@ -53,7 +53,7 @@ public class ArchetypeOntologyTest {
 		constDefinitionsList.add(new OntologyDefinitions("sv", items));
 		
 		ontology = new ArchetypeOntology(primaryLanguage,
-				terminologies, termDefinitionsList, constDefinitionsList, null, null);
+				terminologies, languages, termDefinitionsList, constDefinitionsList, null, null);
 	}
 
 	@After

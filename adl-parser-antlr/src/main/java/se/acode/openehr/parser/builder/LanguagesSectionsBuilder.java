@@ -61,12 +61,11 @@ public class LanguagesSectionsBuilder {
                     if(attrValContext.ALPHA_LC_ID() != null){
                         if ("original_language".equals(attrValContext.ALPHA_LC_ID().getText())) {
                             if ((attrValContext.object_block() != null) &&
-                                (attrValContext.object_block().object_value_block() != null) &&
-                                (attrValContext.object_block().object_value_block().primitive_object() != null) &&
-                                (attrValContext.object_block().object_value_block().primitive_object().primitive_value() != null) &&
-                                (attrValContext.object_block().object_value_block().primitive_object().primitive_value().term_code_value() != null) &&
-                                (attrValContext.object_block().object_value_block().primitive_object().primitive_value().term_code_value().TERM_CODE_REF() != null)) {
-                                originalLanguage = handleSingleCodePhraseItem(originalLanguage, attrValContext.object_block().object_value_block().primitive_object().primitive_value().term_code_value().TERM_CODE_REF().getText(), attrValContext, "language", errorListener);
+                                (attrValContext.object_block().primitive_object() != null) &&
+                                (attrValContext.object_block().primitive_object().primitive_value() != null) &&
+                                (attrValContext.object_block().primitive_object().primitive_value().term_code_value() != null) &&
+                                (attrValContext.object_block().primitive_object().primitive_value().term_code_value().TERM_CODE_REF() != null)) {
+                                originalLanguage = handleSingleCodePhraseItem(originalLanguage, attrValContext.object_block().primitive_object().primitive_value().term_code_value().TERM_CODE_REF().getText(), attrValContext, "language", errorListener);
                             }
                             break;
                         }
@@ -91,29 +90,27 @@ public class LanguagesSectionsBuilder {
                     if(attrValContext.ALPHA_LC_ID() != null){
                         if ("translations".equals(attrValContext.ALPHA_LC_ID().getText())) {
                             translationDetailsHashMap = new HashMap<>();
-                            if((attrValContext.object_block()!=null)&&
-                                    (attrValContext.object_block().object_value_block()!=null)&&
-                                    (attrValContext.object_block().object_value_block().keyed_object()!=null)){
-                                for(ArchetypeParser.Keyed_objectContext keyedObjectContext:attrValContext.object_block().object_value_block().keyed_object()){
-                                    if((keyedObjectContext.primitive_value()!=null)&&
+                            if( (attrValContext.object_block()!=null)&&
+                                (attrValContext.object_block().keyed_object()!=null)){
+                                for(ArchetypeParser.Keyed_objectContext keyedObjectContext:attrValContext.object_block().keyed_object()){
+                                    if(     (keyedObjectContext.primitive_value()!=null)&&
                                             (keyedObjectContext.primitive_value().string_value()!=null)&&
                                             (keyedObjectContext.object_block()!=null)&&
-                                            (keyedObjectContext.object_block().object_value_block()!=null)&&
-                                            (keyedObjectContext.object_block().object_value_block().attr_vals()!=null)&&
-                                            keyedObjectContext.object_block().object_value_block().attr_vals().attr_val()!=null) {
+                                            (keyedObjectContext.object_block().attr_vals()!=null)&&
+                                            keyedObjectContext.object_block().attr_vals().attr_val()!=null) {
                                         String language = keyedObjectContext.primitive_value().string_value().getText();
-                                        for(ArchetypeParser.Attr_valContext languageAttrValContext : keyedObjectContext.object_block().object_value_block().attr_vals().attr_val()){
+                                        for(ArchetypeParser.Attr_valContext languageAttrValContext : keyedObjectContext.object_block().attr_vals().attr_val()){
                                             String key = languageAttrValContext.ALPHA_LC_ID().getText();
                                             CodePhrase languageCode = null;
                                             Map<String, String> author = null;
                                             String accreditation = null;
                                             Map<String, String> otherDetails = null;
                                             if("language".equals(key)){
-                                                languageCode = handleSingleCodePhraseItem(languageCode, languageAttrValContext.object_block().object_value_block().primitive_object().primitive_value().term_code_value().TERM_CODE_REF().getText(), languageAttrValContext, "language", errorListener);
+                                                languageCode = handleSingleCodePhraseItem(languageCode, languageAttrValContext.object_block().primitive_object().primitive_value().term_code_value().TERM_CODE_REF().getText(), languageAttrValContext, "language", errorListener);
                                             }else if("author".equals(key)){
                                                 author = handleStringStringMap(author, languageAttrValContext, "author", errorListener);
                                             } else if("accreditation".equals(key)){
-                                                accreditation = handleSingleStringItem(accreditation, languageAttrValContext.object_block().object_value_block().primitive_object().primitive_value().string_value().STRING().getText(), languageAttrValContext, "accreditation", errorListener);
+                                                accreditation = handleSingleStringItem(accreditation, languageAttrValContext.object_block().primitive_object().primitive_value().string_value().STRING().getText(), languageAttrValContext, "accreditation", errorListener);
                                             }else if("other_details".equals(key)){
                                                 otherDetails = handleStringStringMap(otherDetails, languageAttrValContext, "other_details", errorListener);
                                             }

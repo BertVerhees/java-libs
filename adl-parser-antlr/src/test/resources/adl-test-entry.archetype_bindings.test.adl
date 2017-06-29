@@ -9,8 +9,10 @@ language
 definition
 	ENTRY[at0000] matches {*}
 
-ontology 
-	terminologies_available = <"SNOMED-CT", ...>
+ontology
+    primary_language = <"en">
+	languages_available = <"en", ... >
+	terminologies_available = <"SNOMED-CT", "LOINC">
 	term_definitions = <
 		["en"] = <
 			items = <

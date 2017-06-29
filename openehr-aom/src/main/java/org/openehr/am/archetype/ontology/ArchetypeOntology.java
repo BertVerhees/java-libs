@@ -48,6 +48,7 @@ public class ArchetypeOntology  implements Serializable{
      */
     public ArchetypeOntology(String primaryLanguage,
                              List<String> terminologies,
+                             List<String> languages,
                              List<OntologyDefinitions> termDefinitionsList,
                              List<OntologyDefinitions> constDefinitionsList,
                              List<OntologyBinding> termBindingList,
@@ -68,6 +69,32 @@ public class ArchetypeOntology  implements Serializable{
         // make sure the languages list is consistent
         this.languages = new ArrayList<String>();
         this.languages.addAll(termDefinitionMap.keySet());
+
+        if(this.languages.size()!=languages.size()){
+            ValidationError validationError = new ValidationError(
+                    ErrorType.VDL,
+                    "Languages in TermDefinitions differ from langauges available",
+                    "The languages in TermDefinitions size:"+this.languages.size()+" seems to differ from the langauges_available-size:"+languages.size()+".");
+            errors.add(validationError);
+        }
+        for(String s:this.languages){
+            if(!languages.contains(s)){
+                ValidationError validationError = new ValidationError(
+                        ErrorType.VDL,
+                        "Languages in TermDefinitions differ from langauges available",
+                        "The language in TermDefinitions:\""+s+"\" is not in the langauges_available list.");
+                errors.add(validationError);
+            }
+        }
+        for(String s:languages){
+            if(!this.languages.contains(s)){
+                ValidationError validationError = new ValidationError(
+                        ErrorType.VDL,
+                        "Languages in TermDefinitions differ from langauges available",
+                        "The language in langauges_available:\""+s+"\" is not in the TermDefinitions.");
+                errors.add(validationError);
+            }
+        }
 
 
         loadDefs(constraintDefinitionMap, constDefinitionsList);

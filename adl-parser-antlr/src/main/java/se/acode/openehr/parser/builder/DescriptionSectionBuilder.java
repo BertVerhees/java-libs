@@ -39,12 +39,11 @@ public class DescriptionSectionBuilder {
                 for (ArchetypeParser.Attr_valContext attrValContext : textContext.attr_vals().attr_val()) {
                     String key = attrValContext.ALPHA_LC_ID().getText();
                     //values which return a single string/codephrase
-                    if((attrValContext.object_block()!=null)&&
-                            (attrValContext.object_block().object_value_block()!=null)&&
-                            (attrValContext.object_block().object_value_block().primitive_object()!=null)&&
-                            (attrValContext.object_block().object_value_block().primitive_object().primitive_value()!=null)&&
-                            (attrValContext.object_block().object_value_block().primitive_object().primitive_value().string_value()!=null)) {
-                        String item = attrValContext.object_block().object_value_block().primitive_object().primitive_value().string_value().STRING().getText();
+                    if(     (attrValContext.object_block()!=null)&&
+                            (attrValContext.object_block().primitive_object()!=null)&&
+                            (attrValContext.object_block().primitive_object().primitive_value()!=null)&&
+                            (attrValContext.object_block().primitive_object().primitive_value().string_value()!=null)) {
+                        String item = attrValContext.object_block().primitive_object().primitive_value().string_value().STRING().getText();
                         item = item.substring(1, item.length() - 1);
                         if ("lifecycle_state".equals(key)) {
                             lifeCycleState = handleSingleStringItem(lifeCycleState, item, attrValContext, "lifecycle_state", errorListener);
@@ -56,19 +55,17 @@ public class DescriptionSectionBuilder {
                             otherContributors = handleSingleStringItemList(otherContributors, item, attrValContext, "keywords", errorListener);
                         }
                         //values which return a list
-                    }else if((attrValContext.object_block()!=null)&&
-                                (attrValContext.object_block().object_value_block()!=null)&&
-                                (attrValContext.object_block().object_value_block().primitive_object()!=null)&&
-                                (attrValContext.object_block().object_value_block().primitive_object().primitive_list_value()!=null)&&
-                                (attrValContext.object_block().object_value_block().primitive_object().primitive_list_value().primitive_value()!=null)) {
+                    }else if(   (attrValContext.object_block()!=null)&&
+                                (attrValContext.object_block().primitive_object()!=null)&&
+                                (attrValContext.object_block().primitive_object().primitive_list_value()!=null)&&
+                                (attrValContext.object_block().primitive_object().primitive_list_value().primitive_value()!=null)) {
 
                         if ("other_contributors".equals(key)) {
                             otherContributors = handleStringItemList(otherContributors, attrValContext, "other_contributors", errorListener);
                         }
                         //values which return a map
-                    }else if((attrValContext.object_block()!=null)&&
-                            (attrValContext.object_block().object_value_block()!=null)&&
-                            (attrValContext.object_block().object_value_block().keyed_object()!=null)){
+                    }else if(   (attrValContext.object_block()!=null)&&
+                                (attrValContext.object_block().keyed_object()!=null)){
                         if ("original_author".equals(key)){
                             originalAuthor = handleStringStringMap(originalAuthor, attrValContext, "original_author", errorListener );
                         } else if ("other_details".equals(key)) {
@@ -82,14 +79,12 @@ public class DescriptionSectionBuilder {
                         }
                         int j = 0;
                         if (attrValContext.object_block() != null) {
-                            if (attrValContext.object_block().object_value_block() != null) {
-                                for (ArchetypeParser.Keyed_objectContext keyedObjectContext : attrValContext.object_block().object_value_block().keyed_object()) {
+                                for (ArchetypeParser.Keyed_objectContext keyedObjectContext : attrValContext.object_block().keyed_object()) {
                                     System.out.println(attrValContext.getText());
                                     String keyLanguage = keyedObjectContext.primitive_value().string_value().STRING().getText();
                                     keyLanguage = keyLanguage.substring(1, keyLanguage.length() - 1);
                                     ResourceDescriptionItem resourceDescriptionItem = buildResourceDescriptionItem(keyedObjectContext.object_block(), terminologyService, purpose);
                                     details.put(keyLanguage, resourceDescriptionItem);
-                                }
                             }
                         }
                     }
@@ -112,15 +107,14 @@ public class DescriptionSectionBuilder {
         Map<String, String> originalResourceUri = null;
         Map<String, String> otherDetails = null;
         try {
-            for (ArchetypeParser.Attr_valContext attrValContext : blockContext.object_value_block().attr_vals().attr_val()) {
+            for (ArchetypeParser.Attr_valContext attrValContext : blockContext.attr_vals().attr_val()) {
                 String key = attrValContext.ALPHA_LC_ID().getText();
                 //values which return a single string
-                if((attrValContext.object_block()!=null)&&
-                        (attrValContext.object_block().object_value_block()!=null)&&
-                        (attrValContext.object_block().object_value_block().primitive_object()!=null)&&
-                        (attrValContext.object_block().object_value_block().primitive_object().primitive_value()!=null)&&
-                        (attrValContext.object_block().object_value_block().primitive_object().primitive_value().string_value()!=null)) {
-                    String item = attrValContext.object_block().object_value_block().primitive_object().primitive_value().string_value().STRING().getText();
+                if(     (attrValContext.object_block()!=null)&&
+                        (attrValContext.object_block().primitive_object()!=null)&&
+                        (attrValContext.object_block().primitive_object().primitive_value()!=null)&&
+                        (attrValContext.object_block().primitive_object().primitive_value().string_value()!=null)) {
+                    String item = attrValContext.object_block().primitive_object().primitive_value().string_value().STRING().getText();
                     item = item.substring(1, item.length() - 1);
                     if ("purpose".equals(key)) {
                         if (purposeParam != null) {
@@ -138,28 +132,25 @@ public class DescriptionSectionBuilder {
                         keywords = handleSingleStringItemList(keywords, item, attrValContext, "keywords", errorListener);
                     }
                     //values which return a single codephrase
-                }else if((attrValContext.object_block()!=null)&&
-                        (attrValContext.object_block().object_value_block()!=null)&&
-                        (attrValContext.object_block().object_value_block().primitive_object()!=null)&&
-                        (attrValContext.object_block().object_value_block().primitive_object().primitive_value()!=null)&&
-                        (attrValContext.object_block().object_value_block().primitive_object().primitive_value().term_code_value()!=null)) {
+                }else if(   (attrValContext.object_block()!=null)&&
+                            (attrValContext.object_block().primitive_object()!=null)&&
+                            (attrValContext.object_block().primitive_object().primitive_value()!=null)&&
+                            (attrValContext.object_block().primitive_object().primitive_value().term_code_value()!=null)) {
                     if ("language".equals(key)) {
-                        language = handleSingleCodePhraseItem(language, attrValContext.object_block().object_value_block().primitive_object().primitive_value().term_code_value().TERM_CODE_REF().getText(), attrValContext, "language", errorListener);
+                        language = handleSingleCodePhraseItem(language, attrValContext.object_block().primitive_object().primitive_value().term_code_value().TERM_CODE_REF().getText(), attrValContext, "language", errorListener);
                     }
                     //values which return a list
-                }else if((attrValContext.object_block()!=null)&&
-                        (attrValContext.object_block().object_value_block()!=null)&&
-                        (attrValContext.object_block().object_value_block().primitive_object()!=null)&&
-                        (attrValContext.object_block().object_value_block().primitive_object().primitive_list_value()!=null)&&
-                        (attrValContext.object_block().object_value_block().primitive_object().primitive_list_value().primitive_value()!=null)){
+                }else if(   (attrValContext.object_block()!=null)&&
+                            (attrValContext.object_block().primitive_object()!=null)&&
+                            (attrValContext.object_block().primitive_object().primitive_list_value()!=null)&&
+                            (attrValContext.object_block().primitive_object().primitive_list_value().primitive_value()!=null)){
 
                     if ("keywords".equals(key)){
                         keywords = handleStringItemList(keywords, attrValContext, "keywords", errorListener);
                     }
                     //values which return a map
-                }else if((attrValContext.object_block()!=null)&&
-                        (attrValContext.object_block().object_value_block()!=null)&&
-                        (attrValContext.object_block().object_value_block().keyed_object()!=null)){
+                }else if(   (attrValContext.object_block()!=null)&&
+                            (attrValContext.object_block().keyed_object()!=null)){
                     if ("original_resource_uri".equals(key)){
                         originalResourceUri = handleStringStringMap(originalResourceUri, attrValContext, "keywords", errorListener);
                     } else if ("other_details".equals(key)) {

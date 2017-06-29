@@ -37,48 +37,14 @@ arch_definition: SYM_DEFINITION c_complex_object ;
 arch_invariant: |SYM_INVARIANT assertion+ ;
 
 arch_ontology:  SYM_ONTOLOGY dadl_text ;
-//ontology_text: ontology_items ;
-//ontology_items: ( ontology_item ';'? )+ ;
-//ontology_item: term_definition | constraint_definition | primary_language | term_bindings | constraint_bindings | languages_available | terminologies_available  ;
-
-//term_definition: 'term_definitions' '=' definition_value ;
-//constraint_definition: 'constraint_definitions' '=' definition_value ;
-//definition_value : SYM_LT definition_keyed_object* SYM_GT ;
-//definition_keyed_object : '[' definition_key ']' '='  definition_key_object_value;
-//definition_key : string_value ;
-//definition_key_object_value : SYM_LT ( archetype_terms ';'? )+ SYM_GT ;
-//archetype_terms : attribute '=' archetype_term ;
-//archetype_term : SYM_LT archetype_term_object* SYM_GT ;
-//archetype_term_object : '[' string_value ']' '='  archetype_term_item_object_value ;
-//archetype_term_item_object_value : object_block ;
 
 //dadl-section
-dadl_text: attr_vals | object_value_block ;
+dadl_text: attr_vals | object_block ;
 attr_vals: ( attr_val ';'? )+ ;
 attr_val : ALPHA_LC_ID  '='  object_block ;
-object_block: (object_value_block | object_reference_block) ;
-object_value_block: ( '(' rm_type_id ')' )?   SYM_LT ( primitive_object | attr_vals? | keyed_object* ) SYM_GT ;
+object_block: ( '(' rm_type_id ')' )?   SYM_LT ( primitive_object | attr_vals? | keyed_object* ) SYM_GT ;
 keyed_object : '[' primitive_value ']' '=' object_block ;
 
-//attribute :  ALPHA_LC_ID ;
-//attribute_value : object_value_block | object_reference_block ;
-
-//primary_language: 'primary_language' '=' SYM_LT string_value SYM_GT;
-//
-//term_bindings : 'term_bindings' '=' attribute_value ;
-//
-//constraint_bindings : 'constraint_bindings'  '=' SYM_LT constraint_bindings_keyed_object* SYM_GT  ;
-//constraint_bindings_keyed_object : '[' string_value ']' '='  SYM_LT ( constraint_bindings_item ';'? )+ SYM_GT ;
-//constraint_bindings_item : ALPHA_LC_ID '=' constraint_bindings_item_attribute_value ;
-//constraint_bindings_item_attribute_value : SYM_LT constraint_bindings_item_keyed_object* SYM_GT  ;
-//constraint_bindings_item_keyed_object :  '[' string_value ']' '='  SYM_LT ( (uri_value | primitive_list_value) ';'? ) SYM_GT ;
-//
-//languages_available : 'languages_available'  '=' SYM_LT primitive_list_value SYM_GT ;
-//
-//terminologies_available : 'terminologies_available'  '=' SYM_LT primitive_list_value SYM_GT ;
-
-
-object_reference_block: '<' dadl_path_list '>' ;
 dadl_path_list     : dadl_path ( ( ',' dadl_path )+ | SYM_LIST_CONTINUE )? ;
 dadl_path          : SYM_SLASH | dadl_path_segment+ ;
 dadl_path_segment  : SYM_SLASH dadl_path_element ;

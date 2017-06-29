@@ -26,7 +26,7 @@ public class BuilderUtils {
         return new CodePhrase(parts[0], parts[1]);
     }
 
-    static void addEntry(ArchetypeParser.String_valueContext s, ArchetypeParser.Object_value_blockContext o, Map<String,String> map, ArchetypeADLErrorListener errorListener) {
+    static void addEntry(ArchetypeParser.String_valueContext s, ArchetypeParser.Object_blockContext o, Map<String,String> map, ArchetypeADLErrorListener errorListener) {
         String keyString = s.STRING().getText();
         keyString = keyString.substring(1, keyString.length() - 1);
         if((o==null)||(o.primitive_object()==null)||(o.primitive_object().primitive_value()==null)||(o.primitive_object().primitive_value().string_value()==null)){
@@ -66,8 +66,8 @@ public class BuilderUtils {
         } else {
             errorListener.getParserErrors().addError(ArchetypeBuilderError.buildMessage(attrValContext, "There can be only one "+itemDesciption+"-section per resource-description-item."));
         }
-        for (ArchetypeParser.Keyed_objectContext keyedObjectContext : attrValContext.object_block().object_value_block().keyed_object()) {
-            ArchetypeParser.Object_value_blockContext o = keyedObjectContext.object_block().object_value_block();
+        for (ArchetypeParser.Keyed_objectContext keyedObjectContext : attrValContext.object_block().keyed_object()) {
+            ArchetypeParser.Object_blockContext o = keyedObjectContext.object_block();
             ArchetypeParser.String_valueContext sa = keyedObjectContext.primitive_value().string_value();
             addEntry(sa, o, map, errorListener);
         }
@@ -81,7 +81,7 @@ public class BuilderUtils {
             errorListener.getParserErrors().addError(ArchetypeBuilderError.buildMessage(attrValContext, "There can be only one "+itemDesciption+"-section per resource-description-item."));
         }
 
-        for (ArchetypeParser.Primitive_valueContext primitiveValueContext : attrValContext.object_block().object_value_block().primitive_object().primitive_list_value().primitive_value()) {
+        for (ArchetypeParser.Primitive_valueContext primitiveValueContext : attrValContext.object_block().primitive_object().primitive_list_value().primitive_value()) {
             String string = primitiveValueContext.string_value().STRING().getText();
             string = string.substring(1, string.length() - 1);
             strings.add(string);
@@ -91,7 +91,7 @@ public class BuilderUtils {
 
     static CodePhrase handleSingleCodePhraseItem(CodePhrase codePhrase, String item, ArchetypeParser.Attr_valContext attrValContext, String itemDesciption, ArchetypeADLErrorListener errorListener ){
         if (codePhrase == null) {
-            codePhrase = BuilderUtils.returnCodePhraseFromTermCodeRefString(attrValContext.object_block().object_value_block().primitive_object().primitive_value().term_code_value().TERM_CODE_REF().getText(), errorListener);;
+            codePhrase = BuilderUtils.returnCodePhraseFromTermCodeRefString(attrValContext.object_block().primitive_object().primitive_value().term_code_value().TERM_CODE_REF().getText(), errorListener);;
         } else {
             errorListener.getParserErrors().addError(ArchetypeBuilderError.buildMessage(attrValContext, "There can be only one "+itemDesciption+"-section per description."));
         }
