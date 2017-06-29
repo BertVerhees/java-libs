@@ -117,8 +117,10 @@ public class OntologySectionBuilder {
                                                         String text = handleSingleStringItem(null, definitionAttrVal.ALPHA_LC_ID().getText(), definitionAttrVal, "term_definitions", errorListener);
                                                         archetypeTerm.addItem(keyText, text);
                                                     }
-                                                    if()
-                                                    ontologyDefinitions = new OntologyDefinitions(attribute, definitions);
+                                                    if("term_definitions".equals(key))
+                                                        ontologyTermDefinitions = new OntologyDefinitions(attribute, definitions);
+                                                    else if ("constraint_definitions".equals(key))
+                                                        ontologyConstraintDefinitions = new OntologyDefinitions(attribute, definitions);
                                                 }
                                                 if ("term_bindings".equals(key)) {
                                                     List<String> terms = new ArrayList();
@@ -163,12 +165,12 @@ public class OntologySectionBuilder {
                                                 if (termDefinitionsList == null) {
                                                     termDefinitionsList = new ArrayList<>();
                                                 }
-                                                termDefinitionsList.add(ontologyDefinitions);
+                                                termDefinitionsList.add(ontologyTermDefinitions);
                                             } else if ("constraint_definitions".equals(key)) {
                                                 if (constraintDefinitionsList == null) {
                                                     constraintDefinitionsList = new ArrayList<>();
                                                 }
-                                                constraintDefinitionsList.add(ontologyDefinitions);
+                                                constraintDefinitionsList.add(ontologyConstraintDefinitions);
                                             }
                                             if ("term_bindings".equals(key)) {
                                                 if(termBindingList==null){
