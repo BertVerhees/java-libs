@@ -136,7 +136,7 @@ public class LanguagesSectionsBuilder {
             return translationDetailsHashMap;
         } catch (Exception e) {
             errorListener.getParserErrors().addError(ArchetypeBuilderError.buildMessage(languageSection, e.getMessage()));
-            return null;
         }
+        return null;
     }
 }

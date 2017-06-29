@@ -17,6 +17,24 @@ ontology
 				["at0000"] = <
 					text = <"test">; 
 					description = <"test">
+					fantasy = <"fantasy">
+				>
+				["at0001"] = <
+					text = <"test">;
+					description = <"test">
+				>
+			>
+		>
+		["ge"] = <
+			items = <
+				["at0000"] = <
+					text = <"testge">;
+					description = <"testge">
+					fantasy = <"fantasyge">
+				>
+				["at0001"] = <
+					text = <"testge">;
+					description = <"testge">
 				>
 			>
 		>
@@ -27,6 +45,24 @@ ontology
 				["ac0001"] = <
 					text = <"test constraint">
 					description = <"*">
+					fantasy = <"fantasy">
+				>
+				["ac0002"] = <
+					text = <"test constraint">
+					description = <"*">
+				>
+			>
+		>
+		["ge"] = <
+			items = <
+				["ac0001"] = <
+					text = <"test constraintge">
+					description = <"*">
+					fantasy = <"fantasyge">
+				>
+				["ac0002"] = <
+					text = <"test constraintge">
+					description = <"*">
 				>
 			>
 		>
@@ -34,14 +70,28 @@ ontology
 	term_bindings = <
 		["SNOMED-CT"] = <
 			items = <
-				["at0002"] = <[SNOMED-CT::123456]>
+			    ["at0001"] = <[SNOMED-CT::1234561]>
+				["at0002"] = <[SNOMED-CT::1234562]>
+			>
+		>
+		["LOINC"] = <
+			items = <
+			    ["at0001"] = <[LOINC::1234561]>
+				["at0002"] = <[LOINC::1234562]>
 			>
 		>
 	>
 	constraint_bindings = <
 		["SNOMED-CT"] = <
 			items = <
-				["ac0001"] = <http://openEHR.org/testconstraintbinding>
+				["ac0001"] = <http://openEHR.org/testconstraintbinding1>
+				["ac0002"] = <http://openEHR.org/testconstraintbinding2>
+			>
+		>
+		["LOINC"] = <
+			items = <
+				["ac0001"] = <http://openEHR.org/testconstraintbindingLOINC1>
+				["ac0002"] = <http://openEHR.org/testconstraintbindingLOINC2>
 			>
 		>
 	>

@@ -41,6 +41,8 @@ public class BuilderUtils {
     static String handleSingleStringItem(String string, String item, ArchetypeParser.Attr_valContext attrValContext, String itemDesciption, ArchetypeADLErrorListener errorListener ){
         if (string == null) {
             string = item;
+            if(string.startsWith("\"")&&string.endsWith("\""))
+                string = string.substring(1, string.length() - 1);
         } else {
             errorListener.getParserErrors().addError(ArchetypeBuilderError.buildMessage(attrValContext, "There can be only one "+itemDesciption+"-section per description."));
         }
