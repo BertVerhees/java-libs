@@ -2,15 +2,11 @@ This was a copy of the https://github.com/openEHR/java-libs repository.
 
 This copy is created to present a adl-parser-antlr which is a replacement of adl-parser in the original.
 This version runs through all tests of the original version parser.
-So functional it is the same.
-I do not guarantee that the java-libs will remain a copy of the original java-libs. But there won't be any big changes.
-
-The grammar for 1.4 is less generic written then the grammar for 2.0
-This is because a less generic grammmar is easier maintainable, easier to debug.
-But of course, it is a matter of opinion.
+So functional it is about the same.
+(ArchetypeOntology got one more paramater in constructor: languages_available)
 
 The parser does not break on Exceptions. This is because of a project requirement.
-It stores errormessages in a error-list.
+It stores errormessages formatted in ValidationError-format in a error-list.
 For convenience there is a generated Exception trace which can be thrown by the method: parser.generatedParserException();
 
 
@@ -28,9 +24,6 @@ For example, javacc generated code parses faster. But in my opinion, the antlr4 
 There is also on github a repository containing a ADL2.0 grammar
 You can find it here:
 https://github.com/nedap/archie
-
-Warning, not all modules of javalibs run without error, this is not my fault, they are copied. The one I need for the parser run fine.
-I will remove the others later.
 
 Have good luck.
 
