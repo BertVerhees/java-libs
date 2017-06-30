@@ -76,7 +76,7 @@ public class MultipleTerminologyTest extends SerializerTestBase {
         constraintBindingList.add(ontologyBind);
         
         ArchetypeOntology ontology = new ArchetypeOntology("en",
-                terminologies, termDefinitionsList, null, termBindingList, constraintBindingList);
+                terminologies, null, termDefinitionsList, null, termBindingList, constraintBindingList);
         clean();
         outputter.printOntology(ontology, out);
         verifyByFile("multi-terminology.adl");

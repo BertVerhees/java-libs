@@ -119,15 +119,23 @@ public class ArchetypeOntology  implements Serializable{
             if (null == codeMap) {
               codeMap = new HashMap<String, ArchetypeTerm>();
             }
-            for (ArchetypeTerm item : defs.getDefinitions()) {
-                codeMap.put(item.getCode(), item);
-            }
-            Map<String, ArchetypeTerm> codeMapAdded = map.put(defs.getLanguage(), codeMap);
-            if(codeMapAdded!=null){
+            if(defs.getDefinitions()!=null) {
+                for (ArchetypeTerm item : defs.getDefinitions()) {
+                    codeMap.put(item.getCode(), item);
+                }
+                Map<String, ArchetypeTerm> codeMapAdded = map.put(defs.getLanguage(), codeMap);
+                if (codeMapAdded != null) {
+                    ValidationError validationError = new ValidationError(
+                            ErrorType.VDL,
+                            "Language occuring more times",
+                            "The language:" + defs.getLanguage() + " seems to appear more then one time in this definition list.");
+                    errors.add(validationError);
+                }
+            }else{
                 ValidationError validationError = new ValidationError(
-                        ErrorType.VDL,
-                        "Language occuring more times",
-                        "The language:"+defs.getLanguage()+" seems to appear more then one time in this definition list.");
+                        ErrorType.VONLC,
+                        "Languages consistency",
+                        "Each archetype term used as a node identifier the archetype definition must be defined for each language term_definitions part of the ontology, missing items for:\""+defs.getLanguage()+"\".");
                 errors.add(validationError);
             }
         }

@@ -105,66 +105,81 @@ public class OntologySectionBuilder {
                                         List<OntologyBindingItem> termBindingItems = null;
                                         List<OntologyBindingItem> queryBindingItems = null;
                                         if ("items".equals(attributeAttrValContext.ALPHA_LC_ID().getText())) {
-                                            for (ArchetypeParser.Keyed_objectContext itemKeyedObject : attributeAttrValContext.object_block().keyed_object()) {
-                                                String atCode = handleSingleStringItem(null, itemKeyedObject.primitive_value().string_value().getText(), attributeAttrValContext, "term_definitions", errorListener);
-                                                if (("term_definitions".equals(ontologyKey)) || ("constraint_definitions".equals(ontologyKey))) {
-                                                    ArchetypeTerm archetypeTerm = new ArchetypeTerm(atCode);
-                                                    if (definitions == null) {
-                                                        definitions = new ArrayList<>();
-                                                    }
-                                                    for (ArchetypeParser.Attr_valContext definitionAttrVal : itemKeyedObject.object_block().attr_vals().attr_val()) {
-                                                        String keyText = handleSingleStringItem(null, definitionAttrVal.ALPHA_LC_ID().getText(), definitionAttrVal, "term_definitions", errorListener);
-                                                        String text = handleSingleStringItem(null, definitionAttrVal.object_block().primitive_object().primitive_value().string_value().getText(), definitionAttrVal, "term_definitions", errorListener);
-                                                        archetypeTerm.addItem(keyText, text);
-                                                    }
-                                                    definitions.add(archetypeTerm);
-                                                    if ("term_definitions".equals(ontologyKey)) {
-                                                        ontologyTermDefinitions = new OntologyDefinitions(langOrTermKey, definitions);
-                                                    }
-                                                    else if ("constraint_definitions".equals(ontologyKey))
-                                                        ontologyConstraintDefinitions = new OntologyDefinitions(langOrTermKey, definitions);
-                                                }
-                                                if ("term_bindings".equals(ontologyKey)) {
-                                                    List<String> terms = new ArrayList();
-                                                    TermBindingItem termBindingItem;
-                                                    if(termBindingItems==null) {
-                                                        termBindingItems = new ArrayList<>();
-                                                    }
-                                                    if (itemKeyedObject.object_block().primitive_object().primitive_value() != null) {
-                                                        String term = itemKeyedObject.object_block().primitive_object().primitive_value().getText();
-                                                        terms.add(term);
-                                                        termBindingItem = new TermBindingItem(atCode, terms);
-                                                        termBindingItems.add(termBindingItem);
-                                                        ontologyTermBinding = new OntologyBinding(langOrTermKey, termBindingItems);
-                                                    } else if (itemKeyedObject.object_block().primitive_object().primitive_list_value() != null) {
-                                                        for (ArchetypeParser.Primitive_valueContext primitiveValueContext : itemKeyedObject.object_block().primitive_object().primitive_list_value().primitive_value()) {
-                                                            String term = primitiveValueContext.getText();
+                                            if (attributeAttrValContext.object_block().keyed_object().size() > 0) {
+                                                for (ArchetypeParser.Keyed_objectContext itemKeyedObject : attributeAttrValContext.object_block().keyed_object()) {
+                                                    String atCode = handleSingleStringItem(null, itemKeyedObject.primitive_value().string_value().getText(), attributeAttrValContext, "term_definitions", errorListener);
+                                                    if (("term_definitions".equals(ontologyKey)) || ("constraint_definitions".equals(ontologyKey))) {
+                                                        ArchetypeTerm archetypeTerm = new ArchetypeTerm(atCode);
+                                                        if (definitions == null) {
+                                                            definitions = new ArrayList<>();
+                                                        }
+                                                        for (ArchetypeParser.Attr_valContext definitionAttrVal : itemKeyedObject.object_block().attr_vals().attr_val()) {
+                                                            String keyText = handleSingleStringItem(null, definitionAttrVal.ALPHA_LC_ID().getText(), definitionAttrVal, "term_definitions", errorListener);
+                                                            String text = handleSingleStringItem(null, definitionAttrVal.object_block().primitive_object().primitive_value().string_value().getText(), definitionAttrVal, "term_definitions", errorListener);
+                                                            archetypeTerm.addItem(keyText, text);
+                                                        }
+                                                        definitions.add(archetypeTerm);
+                                                        if ("term_definitions".equals(ontologyKey)) {
+                                                            ontologyTermDefinitions = new OntologyDefinitions(langOrTermKey, definitions);
+                                                        } else if ("constraint_definitions".equals(ontologyKey))
+                                                            ontologyConstraintDefinitions = new OntologyDefinitions(langOrTermKey, definitions);
+                                                    }else if ("term_bindings".equals(ontologyKey)) {
+                                                        List<String> terms = new ArrayList();
+                                                        TermBindingItem termBindingItem;
+                                                        if (termBindingItems == null) {
+                                                            termBindingItems = new ArrayList<>();
+                                                        }
+                                                        if (itemKeyedObject.object_block().primitive_object().primitive_value() != null) {
+                                                            String term = itemKeyedObject.object_block().primitive_object().primitive_value().getText();
                                                             terms.add(term);
                                                             termBindingItem = new TermBindingItem(atCode, terms);
                                                             termBindingItems.add(termBindingItem);
-                                                        }
-                                                        ontologyTermBinding = new OntologyBinding(langOrTermKey, termBindingItems);
-                                                    }
-                                                } else if ("constraint_bindings".equals(ontologyKey)) {
-                                                    QueryBindingItem queryBindingItem;
-                                                    if(queryBindingItems==null) {
-                                                        queryBindingItems = new ArrayList<>();
-                                                    }
-                                                    if (itemKeyedObject.object_block().primitive_object().primitive_value() != null) {
-                                                        if (itemKeyedObject.object_block().primitive_object().primitive_value().uri_value() != null) {
-                                                            String query = itemKeyedObject.object_block().primitive_object().primitive_value().uri_value().getText();
-                                                            queryBindingItem = new QueryBindingItem(atCode, new Query(query));
-                                                            queryBindingItems.add(queryBindingItem);
-                                                            ontologyConstraintBinding = new OntologyBinding(langOrTermKey, queryBindingItems);
+                                                            ontologyTermBinding = new OntologyBinding(langOrTermKey, termBindingItems);
                                                         } else if (itemKeyedObject.object_block().primitive_object().primitive_list_value() != null) {
                                                             for (ArchetypeParser.Primitive_valueContext primitiveValueContext : itemKeyedObject.object_block().primitive_object().primitive_list_value().primitive_value()) {
-                                                                String query = primitiveValueContext.uri_value().getText();
+                                                                String term = primitiveValueContext.getText();
+                                                                terms.add(term);
+                                                                termBindingItem = new TermBindingItem(atCode, terms);
+                                                                termBindingItems.add(termBindingItem);
+                                                            }
+                                                            ontologyTermBinding = new OntologyBinding(langOrTermKey, termBindingItems);
+                                                        }
+                                                    } else if ("constraint_bindings".equals(ontologyKey)) {
+                                                        QueryBindingItem queryBindingItem;
+                                                        if (queryBindingItems == null) {
+                                                            queryBindingItems = new ArrayList<>();
+                                                        }
+                                                        if (itemKeyedObject.object_block().primitive_object().primitive_value() != null) {
+                                                            if (itemKeyedObject.object_block().primitive_object().primitive_value().uri_value() != null) {
+                                                                String query = itemKeyedObject.object_block().primitive_object().primitive_value().uri_value().getText();
                                                                 queryBindingItem = new QueryBindingItem(atCode, new Query(query));
                                                                 queryBindingItems.add(queryBindingItem);
+                                                                ontologyConstraintBinding = new OntologyBinding(langOrTermKey, queryBindingItems);
+                                                            } else if (itemKeyedObject.object_block().primitive_object().primitive_list_value() != null) {
+                                                                for (ArchetypeParser.Primitive_valueContext primitiveValueContext : itemKeyedObject.object_block().primitive_object().primitive_list_value().primitive_value()) {
+                                                                    String query = primitiveValueContext.uri_value().getText();
+                                                                    queryBindingItem = new QueryBindingItem(atCode, new Query(query));
+                                                                    queryBindingItems.add(queryBindingItem);
+                                                                }
+                                                                ontologyConstraintBinding = new OntologyBinding(langOrTermKey, queryBindingItems);
                                                             }
-                                                            ontologyConstraintBinding = new OntologyBinding(langOrTermKey, queryBindingItems);
                                                         }
                                                     }
+                                                }
+                                            }else{
+                                                //empty items
+                                                if (("term_definitions".equals(ontologyKey)) || ("constraint_definitions".equals(ontologyKey))) {
+                                                    definitions = new ArrayList<>();
+                                                    if ("term_definitions".equals(ontologyKey)) {
+                                                        ontologyTermDefinitions = new OntologyDefinitions(langOrTermKey, definitions);
+                                                    } else if ("constraint_definitions".equals(ontologyKey))
+                                                        ontologyConstraintDefinitions = new OntologyDefinitions(langOrTermKey, definitions);
+                                                } else if ("term_bindings".equals(ontologyKey)) {
+                                                    termBindingItems = new ArrayList<>();
+                                                    ontologyTermBinding = new OntologyBinding(langOrTermKey, termBindingItems);
+                                                } else if ("constraint_bindings".equals(ontologyKey)) {
+                                                    queryBindingItems = new ArrayList<>();
+                                                    ontologyConstraintBinding = new OntologyBinding(langOrTermKey, queryBindingItems);
                                                 }
                                             }
                                             if ("term_definitions".equals(ontologyKey)) {

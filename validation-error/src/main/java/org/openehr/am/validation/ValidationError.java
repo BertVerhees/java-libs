@@ -4,6 +4,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -89,22 +90,28 @@ public class ValidationError {
     }   
 
 
+
     /**
      * String representation of this error
      */
     @Override
     public String toString() {
-        return type + ", " + getText() + ", "+ getDescription();
+        return "ValidationError{" +
+                "type=" + type +
+                ", subType='" + subType + '\'' +
+                ", params=" + Arrays.toString(params) +
+                '}';
     }
 
     /**
      * String representation of this error
      */
 
+
     public String toString(Locale locale) {
         return type + ", " + getText(locale) + ", "+ getDescription(locale);
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) { return false; }
