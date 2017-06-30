@@ -99,12 +99,14 @@ public class LanguagesSectionsBuilder {
                                             (keyedObjectContext.object_block().attr_vals()!=null)&&
                                             keyedObjectContext.object_block().attr_vals().attr_val()!=null) {
                                         String language = keyedObjectContext.primitive_value().string_value().getText();
+                                        if(language.startsWith("\"")&&language.endsWith("\""))
+                                            language = language.substring(1, language.length() - 1);
+                                        CodePhrase languageCode = null;
+                                        Map<String, String> author = null;
+                                        String accreditation = null;
+                                        Map<String, String> otherDetails = null;
                                         for(ArchetypeParser.Attr_valContext languageAttrValContext : keyedObjectContext.object_block().attr_vals().attr_val()){
                                             String key = languageAttrValContext.ALPHA_LC_ID().getText();
-                                            CodePhrase languageCode = null;
-                                            Map<String, String> author = null;
-                                            String accreditation = null;
-                                            Map<String, String> otherDetails = null;
                                             if("language".equals(key)){
                                                 languageCode = handleSingleCodePhraseItem(languageCode, languageAttrValContext.object_block().primitive_object().primitive_value().term_code_value().TERM_CODE_REF().getText(), languageAttrValContext, "language", errorListener);
                                             }else if("author".equals(key)){
@@ -114,15 +116,15 @@ public class LanguagesSectionsBuilder {
                                             }else if("other_details".equals(key)){
                                                 otherDetails = handleStringStringMap(otherDetails, languageAttrValContext, "other_details", errorListener);
                                             }
-                                            TranslationDetails td = new TranslationDetails(
-                                                    languageCode,
-                                                    author,
-                                                    accreditation,
-                                                    otherDetails,
-                                                    terminologyService
-                                            );
-                                            translationDetailsHashMap.put(language, td);
                                         }
+                                        TranslationDetails td = new TranslationDetails(
+                                                languageCode,
+                                                author,
+                                                accreditation,
+                                                otherDetails,
+                                                terminologyService
+                                        );
+                                        translationDetailsHashMap.put(language, td);
                                     }
                                 }
                             }

@@ -70,21 +70,20 @@ public class DescriptionSectionBuilder {
                             originalAuthor = handleStringStringMap(originalAuthor, attrValContext, "original_author", errorListener );
                         } else if ("other_details".equals(key)) {
                             otherDetails = handleStringStringMap(otherDetails, attrValContext, "other_details", errorListener );
-                        }
-                    }else if ("details".equals(key)) {
-                        if (details == null) {
-                            details = new HashMap<>();
-                        } else {
-                            errorListener.getParserErrors().addError(ArchetypeBuilderError.buildMessage(attrValContext, "There can be only one details-section per description."));
-                        }
-                        int j = 0;
-                        if (attrValContext.object_block() != null) {
+                        } else if ("details".equals(key)) {
+                            if (details == null) {
+                                details = new HashMap<>();
+                            } else {
+                                errorListener.getParserErrors().addError(ArchetypeBuilderError.buildMessage(attrValContext, "There can be only one details-section per description."));
+                            }
+                            int j = 0;
+                            if (attrValContext.object_block() != null) {
                                 for (ArchetypeParser.Keyed_objectContext keyedObjectContext : attrValContext.object_block().keyed_object()) {
-                                    System.out.println(attrValContext.getText());
                                     String keyLanguage = keyedObjectContext.primitive_value().string_value().STRING().getText();
                                     keyLanguage = keyLanguage.substring(1, keyLanguage.length() - 1);
                                     ResourceDescriptionItem resourceDescriptionItem = buildResourceDescriptionItem(keyedObjectContext.object_block(), terminologyService, purpose);
                                     details.put(keyLanguage, resourceDescriptionItem);
+                                }
                             }
                         }
                     }
@@ -116,11 +115,11 @@ public class DescriptionSectionBuilder {
                         (attrValContext.object_block().primitive_object().primitive_value().string_value()!=null)) {
                     String item = attrValContext.object_block().primitive_object().primitive_value().string_value().STRING().getText();
                     item = item.substring(1, item.length() - 1);
+                    if (purposeParam != null) {
+                        purpose = purposeParam;
+                        purposeParam = null;       //set null for renewed test, purposeParam may only be tested once
+                    }
                     if ("purpose".equals(key)) {
-                        if (purposeParam != null) {
-                            purpose = purposeParam;
-                            purposeParam = null;       //set null for renewed test, purposeParam may only be tested once
-                        }
                         purpose = handleSingleStringItem(purpose, item, attrValContext, "purpose", errorListener);
                     } else if ("use".equals(key)) {
                         use = handleSingleStringItem(use, item, attrValContext, "use", errorListener);

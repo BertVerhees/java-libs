@@ -177,8 +177,7 @@ public class OntologySectionBuilder {
                                                     constraintDefinitionsList = new ArrayList<>();
                                                 }
                                                 constraintDefinitionsList.add(ontologyConstraintDefinitions);
-                                            }
-                                            if ("term_bindings".equals(ontologyKey)) {
+                                            } else if ("term_bindings".equals(ontologyKey)) {
                                                 if (termBindingList == null) {
                                                     termBindingList = new ArrayList<>();
                                                 }

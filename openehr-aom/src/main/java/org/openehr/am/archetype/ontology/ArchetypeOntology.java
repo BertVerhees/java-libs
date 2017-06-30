@@ -70,34 +70,36 @@ public class ArchetypeOntology  implements Serializable{
         this.languages = new ArrayList<String>();
         this.languages.addAll(termDefinitionMap.keySet());
 
-        if(this.languages.size()!=languages.size()){
-            ValidationError validationError = new ValidationError(
-                    ErrorType.VDL,
-                    "Languages in TermDefinitions differ from langauges available",
-                    "The languages in TermDefinitions size:"+this.languages.size()+" seems to differ from the langauges_available-size:"+languages.size()+".");
-            errors.add(validationError);
-        }
-        for(String s:this.languages){
-            if(!languages.contains(s)){
-                ValidationError validationError = new ValidationError(
-                        ErrorType.VDL,
-                        "Languages in TermDefinitions differ from langauges available",
-                        "The language in TermDefinitions:\""+s+"\" is not in the langauges_available list.");
-                errors.add(validationError);
-            }
-        }
-        for(String s:languages){
-            if(!this.languages.contains(s)){
-                ValidationError validationError = new ValidationError(
-                        ErrorType.VDL,
-                        "Languages in TermDefinitions differ from langauges available",
-                        "The language in langauges_available:\""+s+"\" is not in the TermDefinitions.");
-                errors.add(validationError);
-            }
-        }
-
-
         loadDefs(constraintDefinitionMap, constDefinitionsList);
+
+        if(languages!=null) {
+            if (this.languages.size() != languages.size()) {
+                ValidationError validationError = new ValidationError(
+                        ErrorType.VDL,
+                        "Languages in TermDefinitions differ from langauges available",
+                        "The languages in TermDefinitions size:" + this.languages.size() + " seems to differ from the langauges_available-size:" + languages.size() + ".");
+                errors.add(validationError);
+            }
+            for (String s : this.languages) {
+                if (!languages.contains(s)) {
+                    ValidationError validationError = new ValidationError(
+                            ErrorType.VDL,
+                            "Languages in TermDefinitions differ from langauges available",
+                            "The language in TermDefinitions:\"" + s + "\" is not in the langauges_available list.");
+                    errors.add(validationError);
+                }
+            }
+            for (String s : languages) {
+                if (!this.languages.contains(s)) {
+                    ValidationError validationError = new ValidationError(
+                            ErrorType.VDL,
+                            "Languages in TermDefinitions differ from langauges available",
+                            "The language in langauges_available:\"" + s + "\" is not in the TermDefinitions.");
+                    errors.add(validationError);
+                }
+            }
+        }
+
     }
 
     private List<ValidationError> errors;

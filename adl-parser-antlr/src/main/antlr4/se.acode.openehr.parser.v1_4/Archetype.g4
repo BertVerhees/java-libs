@@ -45,11 +45,6 @@ attr_val : ALPHA_LC_ID  '='  object_block ;
 object_block: ( '(' rm_type_id ')' )?   SYM_LT ( primitive_object | attr_vals? | keyed_object* ) SYM_GT ;
 keyed_object : '[' primitive_value ']' '=' object_block ;
 
-dadl_path_list     : dadl_path ( ( ',' dadl_path )+ | SYM_LIST_CONTINUE )? ;
-dadl_path          : SYM_SLASH | dadl_path_segment+ ;
-dadl_path_segment  : SYM_SLASH dadl_path_element ;
-dadl_path_element  : ALPHA_LC_ID ( '[' ( STRING | INTEGER ) ']' )? ;
-
 primitive_object : primitive_value | primitive_list_value | primitive_interval_value ;
 primitive_value :
       string_value
@@ -236,13 +231,6 @@ SYM_FALSE : [Ff][Aa][Ll][Ss][Ee] ;
 
 
 any_identifier:  type_identifier | ALPHA_LC_ID ;
-//absolute_path : SYM_SLASH adl_path_segment+ ;
-//relative_path : adl_path_segment+ ;
-//adl_path      : SYM_SLASH adl_path_segment+;//(adl_path_segment ({_input.LA(-1) != WS && _input.LA(-1) != LINE}?))+ adl_path_segment? ;
-//adl_relative_path : adl_path_element adl_path ;  // TODO: remove when current slots no longer needed
-//unused
-//adl_path_segment  : adl_path_element ;
-//adl_path_element  : ALPHA_LC_ID AT_CODE? ;
 
 adl_path          : adl_absolute_path | adl_relative_path ;
 adl_absolute_path : (SYM_SLASH adl_path_segment)+ ;
@@ -338,7 +326,7 @@ SYM_ARCHETYPE   : [Aa][Rr][Cc][Hh][Ee][Tt][Yy][Pp][Ee];
 SYM_SPECIALISE  : [Ss][Pp][Ee][Cc][Ii][Aa][Ll][Ii][SsZz][Ee];
 SYM_DESCRIPTION : LINE [Dd][Ee][Ss][Cc][Rr][Ii][Pp][Tt][Ii][Oo][Nn] ;
 SYM_DEFINITION  : LINE [Dd][Ee][Ff][Ii][Nn][Ii][Tt][Ii][Oo][Nn];
-SYM_ONTOLOGY    : LINE [Oo][Nn][Tt][Oo][Ll][Oo][Gg][Yy] ;
+SYM_ONTOLOGY    : [Oo][Nn][Tt][Oo][Ll][Oo][Gg][Yy] ;
 SYM_INVARIANT   : [Ii][Nn][Vv][Aa][Rr][Ii][Aa][Nn][Tt] ;
 SYM_OCCURRENCES : [Oo][Cc][Cc][Uu][Rr][Rr][Ee][Nn][Cc][Ee][Ss] ;
 SYM_USE_ARCHETYPE : [Uu][Ss][Ee][_][Aa][Rr][Cc][Hh][Ee][Tt][Yy][Pp][Ee] ;
@@ -429,7 +417,8 @@ ISO8601_DURATION : 'P' (DIGIT+ [yY])? (DIGIT+ [mM])? (DIGIT+ [wW])? (DIGIT+[dD])
 
 // --------------------- composed primitive types -------------------
 
-TERM_CODE_REF : '[' NAME_CHAR+ ( '(' NAME_CHAR+ ')' )? '::' NAME_CHAR+ ']' ;  // e.g. [ICD10AM(1998)::F23]; [ISO_639-1::en]
+TERM_CODE_REF : '[' NAME_CHAR+ ( '(' NAME_CHAR+ ')' )? '::' (NAME_CHAR|'.')+ ']' ;  // e.g. [ICD10AM(1998)::F23]; [ISO_639-1::en] ;
+//added the DOT '.' so it can acccept [READ2::9x2..], this is permissive but not part of the standard.
 
 
 fragment DIGIT     : [0-9] ;

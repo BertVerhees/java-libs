@@ -82,12 +82,22 @@ ontology
 				["at0002"] = <[LOINC::1234562]>
 			>
 		>
+		["READ2"] = <
+			items = <
+				["at0004"] = <[READ2::9x2..]>
+				["at0005"] = <[READ2::9NgG.]>
+				["at0022"] = <[READ2::9NgG0]>
+				["at0027"] = <[READ2::9NgK.]>
+			>
+		>
 	>
 	constraint_bindings = <
 		["SNOMED-CT"] = <
 			items = <
 				["ac0001"] = <http://openEHR.org/testconstraintbinding1>
 				["ac0002"] = <http://openEHR.org/testconstraintbinding2>
+				["ac0003"] = <terminology://SNOMED-CT/280691005?subset=Subdivision%20of%20retina>
+				["ac0004"] = <terminology://SNOMED-CT/408733002?subset=Diabetic%20Retinopathy%20Study%20field>
 			>
 		>
 		["LOINC"] = <

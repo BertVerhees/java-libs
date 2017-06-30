@@ -370,7 +370,6 @@ public class CKMRoundtripTestBase {
                 "openEHR-DEMOGRAPHIC-CLUSTER.provider_identifier.v1",
                 "openEHR-DEMOGRAPHIC-CLUSTER.registration_other_data.v1",
                 "openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v1",
-//-------------------------
                 "openEHR-DEMOGRAPHIC-PARTY_IDENTITY.person_name.v1",
                 "openEHR-DEMOGRAPHIC-PARTY_IDENTITY.person_name-individual_provider.v1",
                 "openEHR-DEMOGRAPHIC-PERSON.person.v1",
@@ -385,8 +384,9 @@ public class CKMRoundtripTestBase {
                 "openEHR-DEMOGRAPHIC-ADDRESS.address.v1",
                 "openEHR-DEMOGRAPHIC-PARTY_IDENTITY.organisation_name.v1",
                 "openEHR-DEMOGRAPHIC-ORGANISATION.organisation.v1",
-                "openEHR-EHR-EVALUATION.advance_decision_refuse_treatment_uk.v1",
-                "openEHR-EHR-OBSERVATION.fundoscopic_examination.v1"
+                "openEHR-EHR-EVALUATION.advance_decision_refuse_treatment_uk.v1"
+//-------------------------
+                //"openEHR-EHR-OBSERVATION.fundoscopic_examination.v1", this one has wrongly formatted URL's in the constraintbindings.
         };
 
         archetypeMap = new HashMap<String, Archetype>();
