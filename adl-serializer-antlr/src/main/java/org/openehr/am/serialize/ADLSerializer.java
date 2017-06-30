@@ -59,7 +59,7 @@ public class ADLSerializer {
 	 */
 	public ADLSerializer() {
 		this.encoding = UTF8;
-		this.indent = "    "; // 4 white space characters
+		this.indent = "\t"; 
 		this.lineSeparator = "\r\n";
 	}
 
@@ -297,6 +297,10 @@ public class ADLSerializer {
 		out.write(">");
 		newline(out);
 
+		if(description.getOtherContributors()!=null) {
+            printNonEmptyStringList("other_contributors", description.getOtherContributors(), 1, out);
+        }
+
 		printNonEmptyString("resource_package_uri", description.getResourcePackageUri(), 1, out);
 		
 		indent(1, out);
@@ -305,9 +309,24 @@ public class ADLSerializer {
 		for (ResourceDescriptionItem item : description.getDetails().values()) {
 			printDescriptionItem(item, 2, out);
 		}
-		indent(1, out);
-		out.write(">");
-		newline(out);
+        indent(1, out);
+        out.write(">");
+        newline(out);
+
+        if(description.getOtherDetails()!=null) {
+            indent(1, out);
+            out.write("other_details = <");
+            newline(out);
+            Map<String, String> otherDetails = description.getOtherDetails();
+            for (String key : otherDetails.keySet()) {
+                indent(2, out);
+                out.write("[" + quoteString(key) + "] = <" + quoteTextString(otherDetails.get(key)) + ">");
+                newline(out);
+            }
+            indent(1, out);
+            out.write(">");
+            newline(out);
+        }
 	}
 
 	protected void printDescriptionItem(ResourceDescriptionItem item,
@@ -411,11 +430,11 @@ public class ADLSerializer {
 		
 		// TODO skip c_obj with [0,0] occurrences
 		Interval<Integer> occurrences = ccobj.getOccurrences();
-		if(occurrences != null 
-				&& (Integer.valueOf(0).equals(occurrences.getLower()))
-				&& (Integer.valueOf(0).equals(occurrences.getUpper()))) {
-			return;		
-		}
+//		if(occurrences != null
+//				&& (Integer.valueOf(0).equals(occurrences.getLower()))
+//				&& (Integer.valueOf(0).equals(occurrences.getUpper()))) {
+//			return;
+//		}
 						
 
 		// print rmTypeName and nodeId
@@ -867,11 +886,11 @@ public class ADLSerializer {
 		if (ontology.getTerminologies() != null) {
 			indent(1, out);
 			out.write("terminologies_available = <");
-			for (String terminology : ontology.getTerminologies()) {
-				out.write(quoteString(terminology));
-				out.write(", ");
-			}
-			out.write("...>");
+            printList(ontology.getTerminologies(), out, true);
+			if(ontology.getTerminologies().size()==1)
+			    out.write("...>");
+			else
+                out.write(">");
 			newline(out);
 		}
 
