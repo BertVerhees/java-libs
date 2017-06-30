@@ -16,8 +16,6 @@ package org.openehr.am.archetype.ontology;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.openehr.am.validation.ErrorType;
 import org.openehr.am.validation.ValidationError;
 
@@ -228,45 +226,46 @@ public class ArchetypeOntology  implements Serializable{
                 .toString();
     }
 
-    /**
-     * Equals if two has the same values
-     *
-     * @param o
-     * @return true if equals
-     */
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!( o instanceof ArchetypeOntology )) return false;
+        if (!(o instanceof ArchetypeOntology)) return false;
 
-        final ArchetypeOntology ao = (ArchetypeOntology) o;
+        ArchetypeOntology that = (ArchetypeOntology) o;
 
-        return new EqualsBuilder()
-                .append(primaryLanguage, ao.primaryLanguage)
-                .append(languages, ao.languages)
-                .append(terminologies, ao.terminologies)
-                .append(termDefinitionsList, ao.termDefinitionsList)
-                .append(constraintDefinitionsList,
-                        ao.constraintDefinitionsList)
-                .append(termBindingList, ao.termBindingList)
-                .append(constraintBindingList, ao.constraintBindingList)
-                .isEquals();
+        if (errors != null ? !errors.equals(that.errors) : that.errors != null) return false;
+        if (getPrimaryLanguage() != null ? !getPrimaryLanguage().equals(that.getPrimaryLanguage()) : that.getPrimaryLanguage() != null)
+            return false;
+        if (getLanguages() != null ? !getLanguages().equals(that.getLanguages()) : that.getLanguages() != null)
+            return false;
+        if (getTerminologies() != null ? !getTerminologies().equals(that.getTerminologies()) : that.getTerminologies() != null)
+            return false;
+        if (getTermDefinitionsList() != null ? !getTermDefinitionsList().equals(that.getTermDefinitionsList()) : that.getTermDefinitionsList() != null)
+            return false;
+        if (getConstraintDefinitionsList() != null ? !getConstraintDefinitionsList().equals(that.getConstraintDefinitionsList()) : that.getConstraintDefinitionsList() != null)
+            return false;
+        if (getTermBindingList() != null ? !getTermBindingList().equals(that.getTermBindingList()) : that.getTermBindingList() != null)
+            return false;
+        if (getConstraintBindingList() != null ? !getConstraintBindingList().equals(that.getConstraintBindingList()) : that.getConstraintBindingList() != null)
+            return false;
+        if (termDefinitionMap != null ? !termDefinitionMap.equals(that.termDefinitionMap) : that.termDefinitionMap != null)
+            return false;
+        return constraintDefinitionMap != null ? constraintDefinitionMap.equals(that.constraintDefinitionMap) : that.constraintDefinitionMap == null;
     }
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
+    @Override
     public int hashCode() {
-        return new HashCodeBuilder(7, 29)
-                .append(primaryLanguage)
-                .append(languages)
-                .append(terminologies)
-                .append(termDefinitionsList)
-                .append(constraintDefinitionsList)
-                .append(termBindingList)
-                .append(constraintBindingList)
-                .toHashCode();
+        int result = errors != null ? errors.hashCode() : 0;
+        result = 31 * result + (getPrimaryLanguage() != null ? getPrimaryLanguage().hashCode() : 0);
+        result = 31 * result + (getLanguages() != null ? getLanguages().hashCode() : 0);
+        result = 31 * result + (getTerminologies() != null ? getTerminologies().hashCode() : 0);
+        result = 31 * result + (getTermDefinitionsList() != null ? getTermDefinitionsList().hashCode() : 0);
+        result = 31 * result + (getConstraintDefinitionsList() != null ? getConstraintDefinitionsList().hashCode() : 0);
+        result = 31 * result + (getTermBindingList() != null ? getTermBindingList().hashCode() : 0);
+        result = 31 * result + (getConstraintBindingList() != null ? getConstraintBindingList().hashCode() : 0);
+        result = 31 * result + (termDefinitionMap != null ? termDefinitionMap.hashCode() : 0);
+        result = 31 * result + (constraintDefinitionMap != null ? constraintDefinitionMap.hashCode() : 0);
+        return result;
     }
 
     /* fields */

@@ -14,8 +14,6 @@
  */
 package org.openehr.am.archetype.constraintmodel;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.openehr.am.archetype.constraintmodel.primitive.CPrimitive;
 import org.openehr.rm.support.basic.Interval;
 
@@ -117,42 +115,24 @@ public class CPrimitiveObject extends CDefinedObject {
 		return false; // todo: implement this method
 	}
 
-	/**
-     * Equals if two CObject has same values
-     *
-     * @param o
-     * @return true if equals
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!( o instanceof CPrimitiveObject )) {
-            return false;
-        }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof CPrimitiveObject)) return false;
+		if (!super.equals(o)) return false;
 
-        final CPrimitiveObject cobj = (CPrimitiveObject) o;
+		CPrimitiveObject that = (CPrimitiveObject) o;
 
-        return new EqualsBuilder()
-                .appendSuper(super.equals(o))
-                .append(item, cobj.item)
-                .isEquals();
-    }
+		return getItem() != null ? getItem().equals(that.getItem()) : that.getItem() == null;
+	}
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 31)
-                .appendSuper(super.hashCode())
-                .append(item)
-                .toHashCode();
-    }
-	
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getItem() != null ? getItem().hashCode() : 0);
+		return result;
+	}
+
 	/* fields */
 	private CPrimitive item;
 }

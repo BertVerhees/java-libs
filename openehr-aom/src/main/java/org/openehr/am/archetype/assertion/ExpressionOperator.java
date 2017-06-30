@@ -15,10 +15,7 @@
  
 package org.openehr.am.archetype.assertion;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-
-public abstract class ExpressionOperator extends ExpressionItem {	
+public abstract class ExpressionOperator extends ExpressionItem {
 	private OperatorKind operator;
 	private boolean precedenceOverridden;
 	public OperatorKind getOperator() {
@@ -33,38 +30,26 @@ public abstract class ExpressionOperator extends ExpressionItem {
 		this.operator = operator;
 		this.precedenceOverridden = precedenceOverridden;
 	}
-	
-	/**	 
-     * Equals if two ExpressionOperator Objects have same values
-     *
-     * @param o
-     * @return true if equals
-     */
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!( o instanceof ExpressionOperator )) return false;
 
-        final ExpressionOperator cobj = (ExpressionOperator) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof ExpressionOperator)) return false;
+		if (!super.equals(o)) return false;
 
-        return new EqualsBuilder()     
-        .appendSuper(super.equals(o))
-        .append(operator, cobj.operator)
-        .append(precedenceOverridden, cobj.precedenceOverridden)
-        .isEquals();
-    }
+		ExpressionOperator that = (ExpressionOperator) o;
 
-   /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
-    public int hashCode() {
-        return new HashCodeBuilder(5, 23)
-                .appendSuper(super.hashCode())
-                .append(operator)
-                .append(precedenceOverridden)
-                .toHashCode();                 
-    }
+		if (isPrecedenceOverridden() != that.isPrecedenceOverridden()) return false;
+		return getOperator() == that.getOperator();
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getOperator() != null ? getOperator().hashCode() : 0);
+		result = 31 * result + (isPrecedenceOverridden() ? 1 : 0);
+		return result;
+	}
 }
 /*
  *  ***** BEGIN LICENSE BLOCK *****

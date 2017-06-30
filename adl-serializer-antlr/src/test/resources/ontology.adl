@@ -28,7 +28,7 @@ ontology
             >
         >
     >
-    term_binding = <
+    term_bindings = <
         ["local"] = <
             items = <
                 ["at0001"] = <[local::100000]>
@@ -36,7 +36,7 @@ ontology
             >
         >
     >
-    constraint_binding = <
+    constraint_bindings = <
         ["local"] = <
             items = <
                 ["ac0001"] = <http://terminology.org?terminology_id=snomed_ct&&has_relation=[102002];with_target=[128004]>

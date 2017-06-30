@@ -14,12 +14,10 @@
  */
 package org.openehr.am.archetype.ontology;
 
-import java.io.Serializable;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
+import java.io.Serializable;
 
 /**
  * The class represents a query to external terminology service. Immutable.
@@ -64,41 +62,21 @@ public class Query implements Serializable {
                 ToStringStyle.MULTI_LINE_STYLE);
     }
 
-    /**
-     * Equals if two has have same values
-     *
-     * @param o
-     * @return true if equals
-     */
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!( o instanceof Query )) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof Query)) return false;
 
-        final Query query = (Query) o;
+        Query query = (Query) o;
 
-        return new EqualsBuilder()
-                .append(url, query.url)
-                .isEquals();
+        return getUrl() != null ? getUrl().equals(query.getUrl()) : query.getUrl() == null;
     }
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(7, 47)
-        .append(url)
-        .toHashCode();
+        return getUrl() != null ? getUrl().hashCode() : 0;
     }
-    
-    
+
     /* fields */
     private String url;
 }

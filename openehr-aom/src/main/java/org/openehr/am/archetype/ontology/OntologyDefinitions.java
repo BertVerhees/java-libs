@@ -16,8 +16,6 @@ package org.openehr.am.archetype.ontology;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 import java.util.List;
@@ -60,34 +58,23 @@ public class OntologyDefinitions implements Serializable{
                 ToStringStyle.MULTI_LINE_STYLE);
     }
 
-    /**
-     * Equals if two has have same values
-     *
-     * @param o
-     * @return true if equals
-     */
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!( o instanceof OntologyDefinitions )) return false;
+        if (!(o instanceof OntologyDefinitions)) return false;
 
-        final OntologyDefinitions odefs = (OntologyDefinitions) o;
+        OntologyDefinitions that = (OntologyDefinitions) o;
 
-        return new EqualsBuilder()
-                .append(language, odefs.language)
-                .append(definitions, odefs.definitions)
-                .isEquals();
+        if (getLanguage() != null ? !getLanguage().equals(that.getLanguage()) : that.getLanguage() != null)
+            return false;
+        return getDefinitions() != null ? getDefinitions().equals(that.getDefinitions()) : that.getDefinitions() == null;
     }
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
+    @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(language)
-                .append(definitions)
-                .toHashCode();
+        int result = getLanguage() != null ? getLanguage().hashCode() : 0;
+        result = 31 * result + (getDefinitions() != null ? getDefinitions().hashCode() : 0);
+        return result;
     }
 
     /* fields */

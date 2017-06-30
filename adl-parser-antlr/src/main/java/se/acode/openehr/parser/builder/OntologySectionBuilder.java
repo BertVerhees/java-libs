@@ -42,6 +42,7 @@ import static se.acode.openehr.parser.builder.BuilderUtils.*;
 
 /**
  * Created by verhees on 9-1-16.
+ * This code follows the grammar, that is why it has this structure. To understand, keep the grammar for reference.
  */
 public class OntologySectionBuilder {
 

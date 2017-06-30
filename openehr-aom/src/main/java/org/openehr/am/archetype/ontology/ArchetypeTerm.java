@@ -15,12 +15,11 @@
 
 package org.openehr.am.archetype.ontology;
 
-import java.io.Serializable;
-import java.util.*;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+
+import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ArchetypeTerm  implements Serializable{
 
@@ -121,37 +120,33 @@ public class ArchetypeTerm  implements Serializable{
 	public String getDescription() {
 	   return this.getItem(ArchetypeTerm.DESCRIPTION);
 	}
-	
-	/**
-     * Equals if two has have same values
-     *
-     * @param o
-     * @return true if equals
-     */
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!( o instanceof ArchetypeTerm )) return false;
 
-        final ArchetypeTerm at = (ArchetypeTerm) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof ArchetypeTerm)) return false;
 
-        return new EqualsBuilder()
-                .append(code, at.code)
-                .append(items, at.items)
-                .isEquals();
-    }
+		ArchetypeTerm that = (ArchetypeTerm) o;
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
-    public int hashCode() {
-        return new HashCodeBuilder(7, 47)
-                .append(code)
-                .append(items)
-                .toHashCode();
-    }
-	
+		if (getCode() != null ? !getCode().equals(that.getCode()) : that.getCode() != null) return false;
+		return getItems() != null ? getItems().equals(that.getItems()) : that.getItems() == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = getCode() != null ? getCode().hashCode() : 0;
+		result = 31 * result + (getItems() != null ? getItems().hashCode() : 0);
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "ArchetypeTerm{" +
+				"code='" + code + '\'' +
+				", items=" + items +
+				'}';
+	}
+
 	private String code;
 
 	private Map<String, String> items;

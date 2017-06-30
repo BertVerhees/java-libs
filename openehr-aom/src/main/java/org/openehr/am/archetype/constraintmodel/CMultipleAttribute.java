@@ -100,7 +100,25 @@ public final class CMultipleAttribute extends CAttribute implements Serializable
     }
 
     /* fields */
-    private final Cardinality cardinality;	    
+    private final Cardinality cardinality;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CMultipleAttribute)) return false;
+        if (!super.equals(o)) return false;
+
+        CMultipleAttribute that = (CMultipleAttribute) o;
+
+        return getCardinality() != null ? getCardinality().equals(that.getCardinality()) : that.getCardinality() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getCardinality() != null ? getCardinality().hashCode() : 0);
+        return result;
+    }
 }
 
 /*

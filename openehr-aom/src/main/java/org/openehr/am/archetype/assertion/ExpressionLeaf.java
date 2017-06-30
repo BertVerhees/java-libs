@@ -92,41 +92,28 @@ public class ExpressionLeaf extends ExpressionItem {
 		return new ExpressionLeaf(ExpressionItem.BOOLEAN, new Boolean(b),
 				ExpressionLeaf.ReferenceType.CONSTANT);
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof ExpressionLeaf)) return false;
+		if (!super.equals(o)) return false;
+
+		ExpressionLeaf that = (ExpressionLeaf) o;
+
+		if (getItem() != null ? !getItem().equals(that.getItem()) : that.getItem() != null) return false;
+		return getReferenceType() == that.getReferenceType();
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getItem() != null ? getItem().hashCode() : 0);
+		result = 31 * result + (getReferenceType() != null ? getReferenceType().hashCode() : 0);
+		return result;
+	}
+
 	/**
-	 
-     * Equals if two ExpressionLeaf Objects have same values
-     *
-     * @param o
-     * @return true if equals
-     */
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!( o instanceof ExpressionLeaf )) return false;
-
-        final ExpressionLeaf cobj = (ExpressionLeaf) o;
-
-        return new EqualsBuilder()     
-        .appendSuper(super.equals(o))
-                .append(item, cobj.item)
-                .append(referenceType, cobj.referenceType)
-                .isEquals();
-    }
-
-   /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
-    public int hashCode() {
-        return new HashCodeBuilder(5, 23)
-                .appendSuper(super.hashCode())
-                .append(item)
-                .append(referenceType)
-                .toHashCode();                 
-    }
-    
-    /**
      * The string representation of this expression leaf
      * 
      * @return string

@@ -496,6 +496,59 @@ public Archetype(String adlVersion, String id, String parentId, String concept,
 	private final Map<String, String> inputPathMap;
 	
 	private final Map<String, String> nodeIdPathMap;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Archetype)) return false;
+		if (!super.equals(o)) return false;
+
+		Archetype archetype = (Archetype) o;
+
+		if (getValidationErrors() != null ? !getValidationErrors().equals(archetype.getValidationErrors()) : archetype.getValidationErrors() != null)
+			return false;
+		if (getAdlVersion() != null ? !getAdlVersion().equals(archetype.getAdlVersion()) : archetype.getAdlVersion() != null)
+			return false;
+		if (getArchetypeId() != null ? !getArchetypeId().equals(archetype.getArchetypeId()) : archetype.getArchetypeId() != null)
+			return false;
+		if (getUid() != null ? !getUid().equals(archetype.getUid()) : archetype.getUid() != null) return false;
+		if (getConcept() != null ? !getConcept().equals(archetype.getConcept()) : archetype.getConcept() != null)
+			return false;
+		if (getParentArchetypeId() != null ? !getParentArchetypeId().equals(archetype.getParentArchetypeId()) : archetype.getParentArchetypeId() != null)
+			return false;
+		if (getDefinition() != null ? !getDefinition().equals(archetype.getDefinition()) : archetype.getDefinition() != null)
+			return false;
+		if (getOntology() != null ? !getOntology().equals(archetype.getOntology()) : archetype.getOntology() != null)
+			return false;
+		if (getInvariants() != null ? !getInvariants().equals(archetype.getInvariants()) : archetype.getInvariants() != null)
+			return false;
+		if (getPathNodeMap() != null ? !getPathNodeMap().equals(archetype.getPathNodeMap()) : archetype.getPathNodeMap() != null)
+			return false;
+		if (pathInputMap != null ? !pathInputMap.equals(archetype.pathInputMap) : archetype.pathInputMap != null)
+			return false;
+		if (inputPathMap != null ? !inputPathMap.equals(archetype.inputPathMap) : archetype.inputPathMap != null)
+			return false;
+		return nodeIdPathMap != null ? nodeIdPathMap.equals(archetype.nodeIdPathMap) : archetype.nodeIdPathMap == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getValidationErrors() != null ? getValidationErrors().hashCode() : 0);
+		result = 31 * result + (getAdlVersion() != null ? getAdlVersion().hashCode() : 0);
+		result = 31 * result + (getArchetypeId() != null ? getArchetypeId().hashCode() : 0);
+		result = 31 * result + (getUid() != null ? getUid().hashCode() : 0);
+		result = 31 * result + (getConcept() != null ? getConcept().hashCode() : 0);
+		result = 31 * result + (getParentArchetypeId() != null ? getParentArchetypeId().hashCode() : 0);
+		result = 31 * result + (getDefinition() != null ? getDefinition().hashCode() : 0);
+		result = 31 * result + (getOntology() != null ? getOntology().hashCode() : 0);
+		result = 31 * result + (getInvariants() != null ? getInvariants().hashCode() : 0);
+		result = 31 * result + (getPathNodeMap() != null ? getPathNodeMap().hashCode() : 0);
+		result = 31 * result + (pathInputMap != null ? pathInputMap.hashCode() : 0);
+		result = 31 * result + (inputPathMap != null ? inputPathMap.hashCode() : 0);
+		result = 31 * result + (nodeIdPathMap != null ? nodeIdPathMap.hashCode() : 0);
+		return result;
+	}
 }
 
 /*

@@ -110,7 +110,23 @@ public final class CSingleAttribute extends CAttribute {
      */
     public boolean isSubsetOf(ArchetypeConstraint constraint) {
         return false;  // todo: implement this method
-    }    
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CSingleAttribute)) return false;
+        if (!super.equals(o)) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        return result;
+    }
+
+    
 }
 
 /*

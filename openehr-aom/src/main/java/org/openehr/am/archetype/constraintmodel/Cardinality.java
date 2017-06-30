@@ -14,11 +14,10 @@
  */
 package org.openehr.am.archetype.constraintmodel;
 
-import java.io.Serializable;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.openehr.rm.support.basic.Interval;
+
+import java.io.Serializable;
 
 /**
  * This class represents the semantic of a container type. Two pre-defined
@@ -99,39 +98,27 @@ public final class Cardinality  implements Serializable{
     public boolean isSet() {
     	return !ordered && unique;
     }
-    
-    /**
-     * Return ture if two Cardinality has same value
-     *
-     * @param o
-     * @return true if equals
-     */
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!( o instanceof Cardinality )) return false;
+        if (!(o instanceof Cardinality)) return false;
 
-        final Cardinality cardinality = (Cardinality) o;
+        Cardinality that = (Cardinality) o;
 
-        return new EqualsBuilder()
-        .append(ordered, cardinality.ordered)
-        .append(unique, cardinality.unique)
-        .append(interval, cardinality.interval)
-        .isEquals();
+        if (isOrdered() != that.isOrdered()) return false;
+        if (isUnique() != that.isUnique()) return false;
+        return getInterval() != null ? getInterval().equals(that.getInterval()) : that.getInterval() == null;
     }
 
-    /**
-     * Return a hash code of this cardinality
-     *
-     * @return hash code
-     */
+    @Override
     public int hashCode() {
-        int result;
-        result = ( ordered ? 1 : 0 );
-        result = 29 * result + ( unique ? 1 : 0 );
-        result = 29 * result + ( interval != null ? interval.hashCode() : 0 );
+        int result = (isOrdered() ? 1 : 0);
+        result = 31 * result + (isUnique() ? 1 : 0);
+        result = 31 * result + (getInterval() != null ? getInterval().hashCode() : 0);
         return result;
     }
-    
+
     public String toString() {
     	return new ToStringBuilder(this).
         append("ordered", ordered).

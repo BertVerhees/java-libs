@@ -1,9 +1,12 @@
 package org.openehr;
 
+import org.junit.Before;
 import org.openehr.am.archetype.Archetype;
+import org.openehr.am.serialize.ADLSerializer;
 import se.acode.openehr.parser.ADLParser;
 
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,9 +16,12 @@ import java.util.Map;
 public class CKMRoundtripTestBase {
 
     protected Map<String, Archetype> archetypeMap;
+    protected ADLSerializer outputter;
+    protected StringWriter out;
+    protected ADLParser adlParser;
 
     protected Archetype loadArchetype(String id) throws Exception {
-        ADLParser adlParser = new ADLParser(fromClasspath(id));
+        adlParser = new ADLParser(fromClasspath(id));
         Archetype archetype = adlParser.parse();
         adlParser.generatedParserException();
         return archetype;

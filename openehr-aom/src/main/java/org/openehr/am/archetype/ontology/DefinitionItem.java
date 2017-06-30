@@ -16,8 +16,6 @@ package org.openehr.am.archetype.ontology;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Definition item
@@ -57,36 +55,24 @@ public class DefinitionItem {
                 ToStringStyle.MULTI_LINE_STYLE);
     }
 
-    /**
-     * Equals if two has the same values
-     *
-     * @param o
-     * @return true if equals
-     */
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!( o instanceof DefinitionItem )) return false;
+        if (!(o instanceof DefinitionItem)) return false;
 
-        final DefinitionItem di = (DefinitionItem) o;
+        DefinitionItem that = (DefinitionItem) o;
 
-        return new EqualsBuilder()
-                .append(code, di.code)
-                .append(text, di.text)
-                .append(description, di.description)
-                .isEquals();
+        if (getCode() != null ? !getCode().equals(that.getCode()) : that.getCode() != null) return false;
+        if (getText() != null ? !getText().equals(that.getText()) : that.getText() != null) return false;
+        return getDescription() != null ? getDescription().equals(that.getDescription()) : that.getDescription() == null;
     }
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
+    @Override
     public int hashCode() {
-        return new HashCodeBuilder(3, 41)
-                .append(code)
-                .append(text)
-                .append(description)
-                .toHashCode();
+        int result = getCode() != null ? getCode().hashCode() : 0;
+        result = 31 * result + (getText() != null ? getText().hashCode() : 0);
+        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+        return result;
     }
 
     /* fields */

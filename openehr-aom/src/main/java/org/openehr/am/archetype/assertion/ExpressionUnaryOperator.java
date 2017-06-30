@@ -15,9 +15,6 @@
  
 package org.openehr.am.archetype.assertion;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-
 public class ExpressionUnaryOperator extends ExpressionOperator {
 
 	public ExpressionUnaryOperator(String type, OperatorKind operator,
@@ -29,37 +26,25 @@ public class ExpressionUnaryOperator extends ExpressionOperator {
 	public ExpressionItem getOperand() {
 		return operand;
 	}
-	
-	/**	 
-     * Equals if two ExpressionUnaryOperator Objects have same values
-     *
-     * @param o
-     * @return true if equals
-     */
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!( o instanceof ExpressionUnaryOperator )) return false;
+        if (!(o instanceof ExpressionUnaryOperator)) return false;
+        if (!super.equals(o)) return false;
 
-        final ExpressionUnaryOperator cobj = (ExpressionUnaryOperator) o;
+        ExpressionUnaryOperator that = (ExpressionUnaryOperator) o;
 
-        return new EqualsBuilder()     
-        .appendSuper(super.equals(o))
-                .append(operand, cobj.operand)
-                .isEquals();
+        return getOperand() != null ? getOperand().equals(that.getOperand()) : that.getOperand() == null;
     }
 
-   /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
+    @Override
     public int hashCode() {
-        return new HashCodeBuilder(5, 23)
-                .appendSuper(super.hashCode())
-                .append(operand)
-                .toHashCode();                 
+        int result = super.hashCode();
+        result = 31 * result + (getOperand() != null ? getOperand().hashCode() : 0);
+        return result;
     }
-    
+
     /**
      * Returns the String representation of this unary operator
      * 

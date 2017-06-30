@@ -15,9 +15,6 @@
  
 package org.openehr.am.archetype.assertion;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-
 public class AssertionVariable {
 	
 	public AssertionVariable(String name, String definition) {
@@ -32,37 +29,25 @@ public class AssertionVariable {
 	public String getName() {
 		return name;
 	}
-	
-	/**	 
-     * Equals if two AssertionVariable Objects have same values
-     *
-     * @param o
-     * @return true if equals
-     */
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!( o instanceof AssertionVariable )) return false;
 
-        final AssertionVariable cobj = (AssertionVariable) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof AssertionVariable)) return false;
 
-        return new EqualsBuilder()     
-                .append(name, cobj.name)
-                .append(definition, cobj.definition)
-                .isEquals();
-    }   
+		AssertionVariable that = (AssertionVariable) o;
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
-    public int hashCode() {
-        return new HashCodeBuilder()
-                .append(name)
-                .append(definition)
-                .toHashCode();
-    }
-    
+		if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
+		return getDefinition() != null ? getDefinition().equals(that.getDefinition()) : that.getDefinition() == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = getName() != null ? getName().hashCode() : 0;
+		result = 31 * result + (getDefinition() != null ? getDefinition().hashCode() : 0);
+		return result;
+	}
+
 	private String name;
 	private String definition;	
 }

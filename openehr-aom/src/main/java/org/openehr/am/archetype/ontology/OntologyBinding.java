@@ -14,14 +14,11 @@
  */
 package org.openehr.am.archetype.ontology;
 
-import java.util.List;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 import java.io.Serializable;
+import java.util.List;
 /**
  * This class represents a list of binding within a terminology using either
  * term binding or query binding
@@ -60,43 +57,25 @@ public class OntologyBinding implements Serializable{
                 ToStringStyle.MULTI_LINE_STYLE);
     }
 
-    /**
-     * Equals if two has have same values
-     *
-     * @param o
-     * @return true if equals
-     */
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!( o instanceof OntologyBinding )) {
+        if (this == o) return true;
+        if (!(o instanceof OntologyBinding)) return false;
+
+        OntologyBinding that = (OntologyBinding) o;
+
+        if (getTerminology() != null ? !getTerminology().equals(that.getTerminology()) : that.getTerminology() != null)
             return false;
-        }
-
-        final OntologyBinding ob = (OntologyBinding) o;
-
-        return new EqualsBuilder()
-                .append(terminology, ob.terminology)
-                .append(bindingList, ob.bindingList)
-                .isEquals();
+        return getBindingList() != null ? getBindingList().equals(that.getBindingList()) : that.getBindingList() == null;
     }
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(7, 47)
-        .append(terminology)
-        .append(bindingList)
-                .toHashCode();
+        int result = getTerminology() != null ? getTerminology().hashCode() : 0;
+        result = 31 * result + (getBindingList() != null ? getBindingList().hashCode() : 0);
+        return result;
     }
-    
-    
+
     /* fields */
     private String terminology;
     private List<OntologyBindingItem> bindingList;

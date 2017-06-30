@@ -16,6 +16,7 @@ import static se.acode.openehr.parser.builder.BuilderUtils.*;
 
 /**
  * Created by verhees on 25-5-17.
+ * This code follows the grammar, that is why it has this structure. To understand, keep the grammar for reference.
  */
 public class DescriptionSectionBuilder {
 

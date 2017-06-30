@@ -14,8 +14,6 @@
  */
 package org.openehr.am.archetype.constraintmodel;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.openehr.rm.support.basic.Interval;
 
 /**
@@ -82,39 +80,27 @@ public abstract class CDefinedObject extends CObject {
 	 */
 	public boolean hasDefaultValue() {
 		return defaultValue != null;
-	}	
-	
-	/**
-     * Equals if two CObject has same values
-     *
-     * @param o
-     * @return true if equals
-     */
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!( o instanceof CDefinedObject )) return false;
+	}
 
-        final CDefinedObject cobj = (CDefinedObject) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof CDefinedObject)) return false;
+		if (!super.equals(o)) return false;
 
-        return new EqualsBuilder()
-                .appendSuper(super.equals(o))
-                .append(assumedValue, cobj.assumedValue)
-                .append(defaultValue, cobj.defaultValue)
-                .isEquals();
-    }
+		CDefinedObject that = (CDefinedObject) o;
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
-    public int hashCode() {
-        return new HashCodeBuilder(7, 23)
-                .appendSuper(super.hashCode())
-                .append(assumedValue)
-                .append(defaultValue)
-                .toHashCode();
-    }
+		if (assumedValue != null ? !assumedValue.equals(that.assumedValue) : that.assumedValue != null) return false;
+		return defaultValue != null ? defaultValue.equals(that.defaultValue) : that.defaultValue == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (assumedValue != null ? assumedValue.hashCode() : 0);
+		result = 31 * result + (defaultValue != null ? defaultValue.hashCode() : 0);
+		return result;
+	}
 
 	/* fields */
 	private Object assumedValue;

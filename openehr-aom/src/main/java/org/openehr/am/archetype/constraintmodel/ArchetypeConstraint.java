@@ -14,13 +14,11 @@
  */
 package org.openehr.am.archetype.constraintmodel;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
+import java.io.Serializable;
 
 /**
  * Purpose Archetype equivalent to LOCATABLE class in openEHR Common reference
@@ -138,43 +136,27 @@ public abstract class ArchetypeConstraint  implements Serializable{
                 ToStringStyle.MULTI_LINE_STYLE);
     }
 
-    /**
-     * Equals if two ArchetypeConstraint have same value
-     *
-     * @param o
-     * @return true if equals
-     */
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!( o instanceof ArchetypeConstraint )) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof ArchetypeConstraint)) return false;
 
-        final ArchetypeConstraint ac = (ArchetypeConstraint) o;
+        ArchetypeConstraint that = (ArchetypeConstraint) o;
 
-        return new EqualsBuilder()
-                .append(anyAllowed, ac.anyAllowed)
-                .append(path, ac.path)
-       //         .append(hiddenOnForm, ac.hiddenOnForm)
-                .isEquals();
+        if (isAnyAllowed() != that.isAnyAllowed()) return false;
+        if (isHiddenOnForm() != that.isHiddenOnForm()) return false;
+        if (path != null ? !path.equals(that.path) : that.path != null) return false;
+        return getAnnotation() != null ? getAnnotation().equals(that.getAnnotation()) : that.getAnnotation() == null;
     }
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder()
-                .append(anyAllowed)
-                .append(path)
-         //       .append(hiddenOnForm)
-                .toHashCode();
-    }    
+        int result = (isAnyAllowed() ? 1 : 0);
+        result = 31 * result + (path != null ? path.hashCode() : 0);
+        result = 31 * result + (isHiddenOnForm() ? 1 : 0);
+        result = 31 * result + (getAnnotation() != null ? getAnnotation().hashCode() : 0);
+        return result;
+    }
 
     /* fields */
     private boolean anyAllowed;

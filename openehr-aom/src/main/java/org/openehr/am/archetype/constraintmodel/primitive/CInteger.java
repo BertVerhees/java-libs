@@ -14,13 +14,11 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
+import org.openehr.rm.support.basic.Interval;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.openehr.rm.support.basic.Interval;
 
 /**
  * Constraint on integer values. Immutable.
@@ -160,47 +158,31 @@ public final class CInteger extends CPrimitive {
 	public Object defaultValue() {
 		return defaultValue;
 	}
-	
-	/**
-     * Equals if two CObject has same values
-     *
-     * @param o
-     * @return true if equals
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!( o instanceof CInteger )) {
-            return false;
-        }
 
-        final CInteger cobj = (CInteger) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof CInteger)) return false;
 
-        return new EqualsBuilder()
-                .append(list, cobj.list)
-                .append(interval, cobj.interval)
-                .append(assumedValue, cobj.assumedValue)
-                .append(defaultValue, cobj.defaultValue)
-                .isEquals();
-    }
+		CInteger cInteger = (CInteger) o;
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(5, 43)
-                .append(list)
-                .append(interval)
-                .append(assumedValue)
-                .append(defaultValue)
-                .toHashCode();
-    }
-	
+		if (getInterval() != null ? !getInterval().equals(cInteger.getInterval()) : cInteger.getInterval() != null)
+			return false;
+		if (getList() != null ? !getList().equals(cInteger.getList()) : cInteger.getList() != null) return false;
+		if (assumedValue != null ? !assumedValue.equals(cInteger.assumedValue) : cInteger.assumedValue != null)
+			return false;
+		return defaultValue != null ? defaultValue.equals(cInteger.defaultValue) : cInteger.defaultValue == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = getInterval() != null ? getInterval().hashCode() : 0;
+		result = 31 * result + (getList() != null ? getList().hashCode() : 0);
+		result = 31 * result + (assumedValue != null ? assumedValue.hashCode() : 0);
+		result = 31 * result + (defaultValue != null ? defaultValue.hashCode() : 0);
+		return result;
+	}
+
 	/* fields */
 	private final Interval<Integer> interval;
 	private final List<Integer> list;

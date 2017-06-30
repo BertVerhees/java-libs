@@ -15,8 +15,6 @@
 package org.openehr.am.archetype.constraintmodel;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.openehr.rm.support.basic.Interval;
 
 /**
@@ -102,39 +100,23 @@ public final class ConstraintRef extends CReferenceObject {
     public boolean isSubsetOf(ArchetypeConstraint constraint) {
         return false;  // todo: implement this method
     }
-    
-    /**
-     * Equals if two CObject has same values
-     *
-     * @param o
-     * @return true if equals
-     */
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!( o instanceof ConstraintRef )) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof ConstraintRef)) return false;
+        if (!super.equals(o)) return false;
 
-        final ConstraintRef cobj = (ConstraintRef) o;
+        ConstraintRef that = (ConstraintRef) o;
 
-        return new EqualsBuilder()
-                .append(reference, cobj.reference)
-                .isEquals();
+        return getReference() != null ? getReference().equals(that.getReference()) : that.getReference() == null;
     }
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(7, 47)
-                .append(reference)
-                .toHashCode();
+        int result = super.hashCode();
+        result = 31 * result + (getReference() != null ? getReference().hashCode() : 0);
+        return result;
     }
 
     private String reference;

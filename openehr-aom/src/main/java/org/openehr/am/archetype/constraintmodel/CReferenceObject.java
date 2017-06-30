@@ -14,7 +14,6 @@
  */
 package org.openehr.am.archetype.constraintmodel;
 
-import org.openehr.am.archetype.constraintmodel.CObject;
 import org.openehr.rm.support.basic.Interval;
 
 /**
@@ -38,6 +37,8 @@ public abstract class CReferenceObject extends CObject {
 	protected CReferenceObject(boolean anyAllowed, String path, String rmTypeName, Interval<Integer> occurrences, String nodeID, CAttribute parent) {
 		super(anyAllowed, path, rmTypeName, occurrences, nodeID, parent);
 	}
+
+
 }
 
 /*

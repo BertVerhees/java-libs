@@ -14,8 +14,6 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.openehr.rm.datatypes.basic.DvBoolean;
 
 /**
@@ -146,47 +144,33 @@ public final class CBoolean extends CPrimitive {
 	public DvBoolean defaultValue() {
 		return defaultValue ? DvBoolean.TRUE : DvBoolean.FALSE;
 	}
-	
-	/**
-     * Equals if two CObject has same values
-     *
-     * @param o
-     * @return true if equals
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!( o instanceof CBoolean )) {
-            return false;
-        }
 
-        final CBoolean cobj = (CBoolean) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof CBoolean)) return false;
 
-        return new EqualsBuilder()
-                .append(trueValid, cobj.trueValid)
-                .append(falseValid, cobj.falseValid)
-                .append(assumedValue, cobj.assumedValue)
-                .append(defaultValue, cobj.defaultValue)
-                .isEquals();
-    }
+		CBoolean cBoolean = (CBoolean) o;
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(5, 37)
-                .append(trueValid)
-                .append(falseValid)
-                .append(assumedValue)
-                .append(defaultValue)
-                .toHashCode();
-    }
-    
+		if (isTrueValid() != cBoolean.isTrueValid()) return false;
+		if (isFalseValid() != cBoolean.isFalseValid()) return false;
+		if (assumedValue != cBoolean.assumedValue) return false;
+		if (hasAssumedValue != cBoolean.hasAssumedValue) return false;
+		if (defaultValue != cBoolean.defaultValue) return false;
+		return hasDefaultValue == cBoolean.hasDefaultValue;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = (isTrueValid() ? 1 : 0);
+		result = 31 * result + (isFalseValid() ? 1 : 0);
+		result = 31 * result + (assumedValue ? 1 : 0);
+		result = 31 * result + (hasAssumedValue ? 1 : 0);
+		result = 31 * result + (defaultValue ? 1 : 0);
+		result = 31 * result + (hasDefaultValue ? 1 : 0);
+		return result;
+	}
+
 	/* fields */
 	private final boolean trueValid;
 	private final boolean falseValid;

@@ -63,6 +63,24 @@ public final class ConstraintBinding {
     /* fields */
     private String target;
     private String conditions;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ConstraintBinding)) return false;
+
+        ConstraintBinding that = (ConstraintBinding) o;
+
+        if (getTarget() != null ? !getTarget().equals(that.getTarget()) : that.getTarget() != null) return false;
+        return getConditions() != null ? getConditions().equals(that.getConditions()) : that.getConditions() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getTarget() != null ? getTarget().hashCode() : 0;
+        result = 31 * result + (getConditions() != null ? getConditions().hashCode() : 0);
+        return result;
+    }
 }
 
 /*

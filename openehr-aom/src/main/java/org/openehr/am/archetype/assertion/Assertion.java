@@ -15,12 +15,10 @@
  
 package org.openehr.am.archetype.assertion;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.Serializable;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Structural model of a typed first order predicate logic assertion, in the
@@ -87,48 +85,42 @@ public class Assertion implements Serializable{
 	public List<AssertionVariable> getVariables() {
 		return variables;
 	}
-	
-	/**
-	 * Returns string expression of this assertion
-     *
-     * @return string expression
-     */
+
 	public String toString() {
 		return stringExpression;
 	}
 
-	/**	 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Assertion)) return false;
+
+		Assertion assertion = (Assertion) o;
+
+		if (getTag() != null ? !getTag().equals(assertion.getTag()) : assertion.getTag() != null) return false;
+		if (getExpression() != null ? !getExpression().equals(assertion.getExpression()) : assertion.getExpression() != null)
+			return false;
+		if (getStringExpression() != null ? !getStringExpression().equals(assertion.getStringExpression()) : assertion.getStringExpression() != null)
+			return false;
+		return getVariables() != null ? getVariables().equals(assertion.getVariables()) : assertion.getVariables() == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = getTag() != null ? getTag().hashCode() : 0;
+		result = 31 * result + (getExpression() != null ? getExpression().hashCode() : 0);
+		result = 31 * result + (getStringExpression() != null ? getStringExpression().hashCode() : 0);
+		result = 31 * result + (getVariables() != null ? getVariables().hashCode() : 0);
+		return result;
+	}
+
+	/**
      * Equals if two Assertion Objects have same values
      *
      * @param o
      * @return true if equals
      */
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!( o instanceof Assertion )) return false;
 
-        final Assertion cobj = (Assertion) o;
-        return new EqualsBuilder()
-                .append(tag, cobj.tag)
-                .append(expression, cobj.expression)
-                .append(stringExpression, cobj.stringExpression)
-                .append(variables, cobj.variables)
-                .isEquals();
-    }
-
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
-    public int hashCode() {
-        return new HashCodeBuilder(7, 19)           
-                .append(tag)
-                .append(expression)
-                .append(stringExpression)
-                .append(variables)
-                .toHashCode();
-    }	
     
 	/* fields */
 	private String tag;

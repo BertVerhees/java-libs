@@ -14,14 +14,12 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * Constraint on instances of String.
@@ -155,48 +153,31 @@ public final class CString extends CPrimitive {
 	public String defaultValue() {
         return defaultValue;
     }
-	
-	/**
-     * Return ture if two CString has same value
-     *
-     * @param o
-     * @return true if equals
-     */
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!( o instanceof CString )) {
+        if (this == o) return true;
+        if (!(o instanceof CString)) return false;
+
+        CString cString = (CString) o;
+
+        if (getPattern() != null ? !getPattern().equals(cString.getPattern()) : cString.getPattern() != null)
             return false;
-        }
-
-        final CString cstring = (CString) o;
-
-        return new EqualsBuilder()
-        .append(pattern, cstring.pattern)
-        .append(list, cstring.list)
-        .append(assumedValue, cstring.assumedValue)
-        .append(defaultValue, cstring.defaultValue)
-        .isEquals();
+        if (getList() != null ? !getList().equals(cString.getList()) : cString.getList() != null) return false;
+        if (assumedValue != null ? !assumedValue.equals(cString.assumedValue) : cString.assumedValue != null)
+            return false;
+        return defaultValue != null ? defaultValue.equals(cString.defaultValue) : cString.defaultValue == null;
     }
 
-    /**
-     * Return a hash code of this cstring
-     *
-     * @return hash code
-     */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(13, 29)
-             // must not appendSuper here!   .appendSuper(super.hashCode())
-                .append(pattern)
-                .append(list)
-                .append(assumedValue)
-                .append(defaultValue)
-                .toHashCode();
+        int result = getPattern() != null ? getPattern().hashCode() : 0;
+        result = 31 * result + (getList() != null ? getList().hashCode() : 0);
+        result = 31 * result + (assumedValue != null ? assumedValue.hashCode() : 0);
+        result = 31 * result + (defaultValue != null ? defaultValue.hashCode() : 0);
+        return result;
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this).

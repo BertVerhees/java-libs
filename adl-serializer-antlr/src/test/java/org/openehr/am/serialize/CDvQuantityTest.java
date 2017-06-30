@@ -45,6 +45,25 @@ public class CDvQuantityTest extends SerializerTestBase {
 	}
 
 	@Test
+	public void testPrintCDvQuantityInterval() throws Exception {
+		CDvQuantityItem item1 = new CDvQuantityItem(new Interval<Double>(0.0,
+				200.0, true, false), new Interval<Integer>(2, 2), "year");
+		CDvQuantityItem item2 = new CDvQuantityItem(new Interval<Double>(1.0,
+				36.0, false, true), "month");
+		List<CDvQuantityItem> list = new ArrayList<CDvQuantityItem>();
+		list.add(item1);
+		list.add(item2);
+		CodePhrase property = new CodePhrase("openehr", "128");
+		Interval<Integer> occurrences = new Interval<Integer>(1, 1);
+		CDvQuantity cquantity = new CDvQuantity("/path", occurrences, null, null,
+				list, property, null, null);
+
+		clean();
+		outputter.printCDvQuantity(cquantity, 0, out);
+		verifyByFile("c-dv-quantity-interval-test.adl");
+	}
+
+	@Test
 	public void testPrintEmptyCDvQuantity() throws Exception {
 		Interval<Integer> occurrences = new Interval<Integer>(1, 1);
 		List<CDvQuantityItem> list = null;

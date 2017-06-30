@@ -105,6 +105,24 @@ public class ArchetypeInternalRef extends CReferenceObject {
 
     /* static fields */
     public static final String USE_NODE = " use_node ";
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ArchetypeInternalRef)) return false;
+        if (!super.equals(o)) return false;
+
+        ArchetypeInternalRef that = (ArchetypeInternalRef) o;
+
+        return getTargetPath() != null ? getTargetPath().equals(that.getTargetPath()) : that.getTargetPath() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getTargetPath() != null ? getTargetPath().hashCode() : 0);
+        return result;
+    }
 }
 
 /*

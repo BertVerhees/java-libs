@@ -14,15 +14,11 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
+import org.openehr.rm.support.basic.Interval;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.openehr.rm.support.basic.Interval;
-
-import java.util.*;
 
 /**
  * Constraint on instances of Double number. Immutable.
@@ -127,46 +123,29 @@ public final class CReal extends CPrimitive {
 		return defaultValue;
 	}
 
-	/**
-     * Equals if two CObject has same values
-     *
-     * @param o
-     * @return true if equals
-     */
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!( o instanceof CReal )) {
+        if (this == o) return true;
+        if (!(o instanceof CReal)) return false;
+
+        CReal cReal = (CReal) o;
+
+        if (getList() != null ? !getList().equals(cReal.getList()) : cReal.getList() != null) return false;
+        if (getInterval() != null ? !getInterval().equals(cReal.getInterval()) : cReal.getInterval() != null)
             return false;
-        }
-
-        final CReal cobj = (CReal) o;
-
-        return new EqualsBuilder()
-                .append(list, cobj.list)
-                .append(interval, cobj.interval)
-                .append(assumedValue, cobj.assumedValue)
-                .append(defaultValue, cobj.defaultValue)
-                .isEquals();
+        if (assumedValue != null ? !assumedValue.equals(cReal.assumedValue) : cReal.assumedValue != null) return false;
+        return defaultValue != null ? defaultValue.equals(cReal.defaultValue) : cReal.defaultValue == null;
     }
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(5, 23)
-                .append(list)
-                .append(interval)
-                .append(assumedValue)
-                .append(defaultValue)
-                .toHashCode();
+        int result = getList() != null ? getList().hashCode() : 0;
+        result = 31 * result + (getInterval() != null ? getInterval().hashCode() : 0);
+        result = 31 * result + (assumedValue != null ? assumedValue.hashCode() : 0);
+        result = 31 * result + (defaultValue != null ? defaultValue.hashCode() : 0);
+        return result;
     }
-		
+
     /* fields */
     private final List<Double> list;
     private final Interval<Double> interval;

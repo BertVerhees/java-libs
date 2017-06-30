@@ -227,7 +227,7 @@ public class ADLSerializer {
 				if(td.getAccreditation() != null) {
 					indent(3, out);
 					out.write("accreditation = <");
-					out.write(quoteString(td.getAccreditation()));
+					out.write(quoteTextString(td.getAccreditation()));
 					out.write(">");
 					newline(out);
 				}
@@ -262,7 +262,7 @@ public class ADLSerializer {
 			out.write("[");
 			out.write(quoteString(key));
 			out.write("] = <");
-			out.write(quoteString(map.get(key)));
+			out.write(quoteTextString(map.get(key)));
 			out.write(">");
 			newline(out);
 		}
@@ -284,7 +284,7 @@ public class ADLSerializer {
 		Map<String, String> map = description.getOriginalAuthor();
 		for (String key : map.keySet()) {
 			indent(2, out);
-			out.write("[" + quoteString(key) + "] = <" + quoteString(map.get(key)) + ">");
+			out.write("[" + quoteString(key) + "] = <" + quoteTextString(map.get(key)) + ">");
 			newline(out);
 		}
 		indent(1, out);
@@ -351,7 +351,7 @@ public class ADLSerializer {
 		indent(indent, out);
 		out.write(label);
 		out.write(" = <");
-		out.write(quoteString(value));
+		out.write(quoteTextString(value));
 		out.write(">");
 		newline(out);
 	}
@@ -388,7 +388,7 @@ public class ADLSerializer {
 
 		for (String key : map.keySet()) {
 			indent(2, out);
-			out.write("[" + quoteString(key) + "] = <" + quoteString(map.get(key)) + ">");
+			out.write("[" + quoteString(key) + "] = <" + quoteTextString(map.get(key)) + ">");
 			newline(out);
 		}
 
@@ -900,7 +900,7 @@ public class ADLSerializer {
 		// *** Term binding section *** (ADL 1.4 spec 8.6.5)
 		if (ontology.getTermBindingList() != null) {
 			indent(1, out);
-			out.write("term_binding = <");
+			out.write("term_bindings = <");
 			newline(out);
 			for (int i = 0; i < ontology.getTermBindingList().size(); i++) {
 				OntologyBinding bind = ontology.getTermBindingList().get(i);
@@ -947,7 +947,7 @@ public class ADLSerializer {
 		// *** Constraint binding section *** (ADL 1.4 spec 8.6.6)
 		if (ontology.getConstraintBindingList() != null) {
 			indent(1, out);
-			out.write("constraint_binding = <");
+			out.write("constraint_bindings = <");
 			newline(out);
 			for (int i = 0; i < ontology.getConstraintBindingList().size(); i++) {
 				OntologyBinding bind = ontology.getConstraintBindingList().get(
@@ -987,15 +987,19 @@ public class ADLSerializer {
 	}
 
     private String quoteString(String value) {
-        return "\"" + value.replaceAll("[\"]", "\\\\$0") + "\"";
+		return "\"" + value.replaceAll("[\"]", "\\\\$0") + "\"";
     }
+
+	private String quoteTextString(String value) {
+		return "\"" + value + "\"";
+	}
 
 	private void printDefinitionList(Writer out,
 			List<OntologyDefinitions> termDefinitionsList) throws IOException {
 		for (OntologyDefinitions defs : termDefinitionsList) {
 			indent(2, out);
 			out.write("[");
-			out.write(quoteString(defs.getLanguage()));
+			out.write(quoteTextString(defs.getLanguage()));
 			out.write("] = <");
 			newline(out);
 			indent(3, out);
@@ -1004,14 +1008,14 @@ public class ADLSerializer {
 			for (ArchetypeTerm term : defs.getDefinitions()) {
 				indent(4, out);
 				out.write("[");
-				out.write(quoteString(term.getCode()));
+				out.write(quoteTextString(term.getCode()));
 				out.write("] = <");
 				newline(out);
 				for (Map.Entry<String, String> entry : term.getItems().entrySet()) {
 					indent(5, out);
 					out.write(entry.getKey());
 					out.write(" = <");
-					out.write(quoteString(entry.getValue()));
+					out.write(quoteTextString(entry.getValue()));
 					out.write(">");
 					newline(out);
 				}
@@ -1193,12 +1197,18 @@ public class ADLSerializer {
 		out.write("|");
 		if (interval.getLower() != null && interval.getUpper() != null) {
 			if(interval.getLower().equals(interval.getUpper())
-					&& interval.isLowerIncluded() 
+					&& interval.isLowerIncluded()
 					&& interval.isUpperIncluded()) {
 				out.write(interval.getLower().toString());
 			} else {
 				out.write(interval.getLower().toString());
+				if(!interval.isLowerIncluded()){
+                    out.write(">");
+                }
 				out.write("..");
+				if(!interval.isUpperIncluded()){
+                    out.write("<");
+                }
 				out.write(interval.getUpper().toString());
 			}
 		} else if (interval.getLower() == null) {

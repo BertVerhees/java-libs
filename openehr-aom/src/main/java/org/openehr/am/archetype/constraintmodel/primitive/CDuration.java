@@ -14,8 +14,6 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.openehr.rm.datatypes.quantity.datetime.DvDuration;
 import org.openehr.rm.support.basic.Interval;
 
@@ -145,43 +143,34 @@ public final class CDuration extends CPrimitive {
 	public DvDuration assignedValue() {
 		return value;
 	}
-	
-	/**
-     * Equals if two CObject has same values
-     *
-     * @param o
-     * @return true if equals
-     */
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!( o instanceof CDuration )) return false;
 
-        final CDuration cobj = (CDuration) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof CDuration)) return false;
 
-        return new EqualsBuilder()
-                .append(pattern, cobj.pattern)
-                .append(interval, cobj.interval)
-                .append(value, cobj.value)
-                .append(assumedValue, cobj.assumedValue)
-                .append(defaultValue, cobj.defaultValue)
-                .isEquals();
-    }
+		CDuration cDuration = (CDuration) o;
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
-    public int hashCode() {
-        return new HashCodeBuilder(5, 37)
-                .append(pattern)
-                .append(interval)
-                .append(value)
-                .append(assumedValue)
-                .append(defaultValue)
-                .toHashCode();
-    }
-	
+		if (getValue() != null ? !getValue().equals(cDuration.getValue()) : cDuration.getValue() != null) return false;
+		if (getInterval() != null ? !getInterval().equals(cDuration.getInterval()) : cDuration.getInterval() != null)
+			return false;
+		if (assumedValue != null ? !assumedValue.equals(cDuration.assumedValue) : cDuration.assumedValue != null)
+			return false;
+		if (getPattern() != null ? !getPattern().equals(cDuration.getPattern()) : cDuration.getPattern() != null)
+			return false;
+		return defaultValue != null ? defaultValue.equals(cDuration.defaultValue) : cDuration.defaultValue == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = getValue() != null ? getValue().hashCode() : 0;
+		result = 31 * result + (getInterval() != null ? getInterval().hashCode() : 0);
+		result = 31 * result + (assumedValue != null ? assumedValue.hashCode() : 0);
+		result = 31 * result + (getPattern() != null ? getPattern().hashCode() : 0);
+		result = 31 * result + (defaultValue != null ? defaultValue.hashCode() : 0);
+		return result;
+	}
+
 	/* fields */
 	private final DvDuration value;
 	private final Interval<DvDuration> interval;

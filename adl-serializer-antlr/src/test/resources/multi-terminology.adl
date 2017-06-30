@@ -10,7 +10,7 @@ ontology
             >
         >
     >
-    term_binding = <
+    term_bindings = <
         ["SNOMED_CT"] = <
             items = <
                 ["at0001"] = <[snomed_ct::1000339]>
@@ -22,7 +22,7 @@ ontology
             >
         >
     >
-    constraint_binding = <
+    constraint_bindings = <
         ["SNOMED_CT"] = <
             items = <
                 ["ac0001"] = <http://terminology.org?terminology_id=snomed_ct&&has_relation=[102002];with_target=[128004]>

@@ -14,8 +14,6 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.openehr.rm.datatypes.quantity.datetime.DvDate;
 import org.openehr.rm.support.basic.Interval;
 
@@ -198,43 +196,43 @@ public final class CDate extends CPrimitive {
 		return defaultValue;
 	}
 
-	
-	/**
-     * Equals if two CObject has same values
-     *
-     * @param o
-     * @return true if equals
-     */
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!( o instanceof CDate )) return false;
+        if (!(o instanceof CDate)) return false;
 
-        final CDate cobj = (CDate) o;
+        CDate cDate = (CDate) o;
 
-        return new EqualsBuilder()
-                .append(pattern, cobj.pattern)
-                .append(interval, cobj.interval)
-                .append(list, cobj.list)
-                .append(assumedValue, cobj.assumedValue)
-                .append(defaultValue, cobj.defaultValue)
-                .isEquals();
+        if (FULL_PATTERN != null ? !FULL_PATTERN.equals(cDate.FULL_PATTERN) : cDate.FULL_PATTERN != null) return false;
+        if (SHORT_PATTERN != null ? !SHORT_PATTERN.equals(cDate.SHORT_PATTERN) : cDate.SHORT_PATTERN != null)
+            return false;
+        if (FULL_PATTERN_WITHOUT_DASHES != null ? !FULL_PATTERN_WITHOUT_DASHES.equals(cDate.FULL_PATTERN_WITHOUT_DASHES) : cDate.FULL_PATTERN_WITHOUT_DASHES != null)
+            return false;
+        if (SHORT_PATTERN_WITHOUT_DASHES != null ? !SHORT_PATTERN_WITHOUT_DASHES.equals(cDate.SHORT_PATTERN_WITHOUT_DASHES) : cDate.SHORT_PATTERN_WITHOUT_DASHES != null)
+            return false;
+        if (getPattern() != null ? !getPattern().equals(cDate.getPattern()) : cDate.getPattern() != null) return false;
+        if (getInterval() != null ? !getInterval().equals(cDate.getInterval()) : cDate.getInterval() != null)
+            return false;
+        if (getList() != null ? !getList().equals(cDate.getList()) : cDate.getList() != null) return false;
+        if (assumedValue != null ? !assumedValue.equals(cDate.assumedValue) : cDate.assumedValue != null) return false;
+        return defaultValue != null ? defaultValue.equals(cDate.defaultValue) : cDate.defaultValue == null;
     }
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
+    @Override
     public int hashCode() {
-        return new HashCodeBuilder(5, 37)
-                .append(pattern)
-                .append(interval)
-                .append(list)
-                .append(assumedValue)
-                .append(defaultValue)
-                .toHashCode();
+        int result = FULL_PATTERN != null ? FULL_PATTERN.hashCode() : 0;
+        result = 31 * result + (SHORT_PATTERN != null ? SHORT_PATTERN.hashCode() : 0);
+        result = 31 * result + (FULL_PATTERN_WITHOUT_DASHES != null ? FULL_PATTERN_WITHOUT_DASHES.hashCode() : 0);
+        result = 31 * result + (SHORT_PATTERN_WITHOUT_DASHES != null ? SHORT_PATTERN_WITHOUT_DASHES.hashCode() : 0);
+        result = 31 * result + (getPattern() != null ? getPattern().hashCode() : 0);
+        result = 31 * result + (getInterval() != null ? getInterval().hashCode() : 0);
+        result = 31 * result + (getList() != null ? getList().hashCode() : 0);
+        result = 31 * result + (assumedValue != null ? assumedValue.hashCode() : 0);
+        result = 31 * result + (defaultValue != null ? defaultValue.hashCode() : 0);
+        return result;
     }
-    
+
     /* static fields */
     public final String FULL_PATTERN = "yyyy-MM-dd";
     public final String SHORT_PATTERN = "yyyy-MM";

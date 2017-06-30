@@ -15,8 +15,6 @@
 package org.openehr.am.archetype.constraintmodel;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.openehr.rm.support.basic.Interval;
 
 import java.util.Set;
@@ -157,38 +155,28 @@ public abstract class CObject extends ArchetypeConstraint {
         return false;
     }
 
-    /**
-     * Equals if two CObject has same values
-     *
-     * @param o
-     * @return true if equals
-     */
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!( o instanceof CObject )) return false;
+        if (!(o instanceof CObject)) return false;
+        if (!super.equals(o)) return false;
 
-        final CObject cobj = (CObject) o;
+        CObject cObject = (CObject) o;
 
-        return new EqualsBuilder()
-                .appendSuper(super.equals(o))
-                .append(rmTypeName, cobj.rmTypeName)
-                .append(occurrences, cobj.occurrences)
-                .append(nodeID, cobj.nodeID)
-                .isEquals();
+        if (getRmTypeName() != null ? !getRmTypeName().equals(cObject.getRmTypeName()) : cObject.getRmTypeName() != null)
+            return false;
+        if (getOccurrences() != null ? !getOccurrences().equals(cObject.getOccurrences()) : cObject.getOccurrences() != null)
+            return false;
+        return getNodeID() != null ? getNodeID().equals(cObject.getNodeID()) : cObject.getNodeID() == null;
     }
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
+    @Override
     public int hashCode() {
-        return new HashCodeBuilder(5, 23)
-                .appendSuper(super.hashCode())
-                .append(rmTypeName)
-                .append(occurrences)
-                .append(nodeID)
-                .toHashCode();
+        int result = super.hashCode();
+        result = 31 * result + (getRmTypeName() != null ? getRmTypeName().hashCode() : 0);
+        result = 31 * result + (getOccurrences() != null ? getOccurrences().hashCode() : 0);
+        result = 31 * result + (getNodeID() != null ? getNodeID().hashCode() : 0);
+        return result;
     }
 
     /**

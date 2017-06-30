@@ -108,6 +108,11 @@ public class ADLParser {
         this.inputStream = is;
     }
 
+    public void ReInit(InputStream is, String encoding){
+        this.inputStream = is;
+        charset = Charset.forName(encoding);
+    }
+
   /* =========================  public interface ======================== */
 
 

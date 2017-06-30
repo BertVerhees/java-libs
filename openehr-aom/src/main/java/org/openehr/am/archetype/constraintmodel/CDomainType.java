@@ -14,8 +14,6 @@
  */
 package org.openehr.am.archetype.constraintmodel;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.openehr.rm.support.basic.Interval;
 
 /**
@@ -102,37 +100,29 @@ public abstract class CDomainType<T> extends CObject {
 	 */
 	public T getDefaultValue() {
 		return defaultValue;
-	}    
-	
-	/**
-     * Returns true if fields are the same
-     */
-    public boolean equals(Object o) {
-    	if (this == o) return true;
-        if (!( o instanceof CDomainType )) return false;
+	}
 
-        final CDomainType cdomain = (CDomainType) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof CDomainType)) return false;
+		if (!super.equals(o)) return false;
 
-        return new EqualsBuilder()
-        		.appendSuper(super.equals(o))
-                .append(assumedValue, cdomain.assumedValue)
-                .append(defaultValue, cdomain.defaultValue)
-                .isEquals();
-    }
-    
-    /**
-     * Returns the hashcode of this object
-     * 
-     * @return hashcode
-     */
-    public int hashCode() {
-        return new HashCodeBuilder(7, 19)
-        		.appendSuper(super.hashCode())
-                .append(assumedValue)
-                .append(defaultValue)
-                .toHashCode();
-    }
-	
+		CDomainType<?> that = (CDomainType<?>) o;
+
+		if (getDefaultValue() != null ? !getDefaultValue().equals(that.getDefaultValue()) : that.getDefaultValue() != null)
+			return false;
+		return getAssumedValue() != null ? getAssumedValue().equals(that.getAssumedValue()) : that.getAssumedValue() == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getDefaultValue() != null ? getDefaultValue().hashCode() : 0);
+		result = 31 * result + (getAssumedValue() != null ? getAssumedValue().hashCode() : 0);
+		return result;
+	}
+
 	private final T defaultValue;
 	private final T assumedValue;
 	

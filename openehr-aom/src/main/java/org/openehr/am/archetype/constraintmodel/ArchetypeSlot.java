@@ -14,12 +14,10 @@
  */
 package org.openehr.am.archetype.constraintmodel;
 
-import java.util.Set;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.openehr.am.archetype.assertion.Assertion;
 import org.openehr.rm.support.basic.Interval;
+
+import java.util.Set;
 
 /**
  * ArchetypeSlot
@@ -120,43 +118,27 @@ public class ArchetypeSlot extends CReferenceObject {
         return false;  // todo: implement this method
     }
 
-    /**    
-     * Equals if two ArchetypeConstraint have same value
-     * 
-     * @param o 
-     * @return true if equals 
-     */ 
     @Override
-    public boolean equals(Object o) { 
-        if (this == o) {
-            return true;
-        } 
-        if (!( o instanceof ArchetypeSlot )) {
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ArchetypeSlot)) return false;
+        if (!super.equals(o)) return false;
+
+        ArchetypeSlot that = (ArchetypeSlot) o;
+
+        if (getIncludes() != null ? !getIncludes().equals(that.getIncludes()) : that.getIncludes() != null)
             return false;
-        } 
-        final ArchetypeSlot as = (ArchetypeSlot) o;
- 
-        return new EqualsBuilder() 
-                .appendSuper(super.equals(o)) 
-                .append(includes, as.includes) 
-                .append(excludes, as.excludes) 
-                .isEquals(); 
+        return getExcludes() != null ? getExcludes().equals(that.getExcludes()) : that.getExcludes() == null;
     }
-  
-    /** 
-     * Return a hash code of this object 
-     * 
-     * @return hash code 
-     */ 
+
     @Override
-    public int hashCode() { 
-        return new HashCodeBuilder(7, 19) 
-                .appendSuper(super.hashCode()) 
-                .append(includes)
-                .append(excludes) 
-                .toHashCode(); 
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getIncludes() != null ? getIncludes().hashCode() : 0);
+        result = 31 * result + (getExcludes() != null ? getExcludes().hashCode() : 0);
+        return result;
     }
-    
+
     /* fields */
     private Set<Assertion> includes;
     private Set<Assertion> excludes; 

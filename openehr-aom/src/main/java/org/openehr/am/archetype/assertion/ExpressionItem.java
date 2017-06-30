@@ -17,9 +17,6 @@ package org.openehr.am.archetype.assertion;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-
 public abstract class ExpressionItem implements Serializable{
 	
 	/**
@@ -52,42 +49,23 @@ public abstract class ExpressionItem implements Serializable{
 	public boolean isTypeBoolean() {
 		return BOOLEAN.equals(type);
 	}
-	
-	/**	 
-     * Equals if two ExpressionItem Objects have same values
-     *
-     * @param o
-     * @return true if equals
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!( o instanceof ExpressionItem )) {
-            return false;
-        }
 
-        final ExpressionItem cobj = (ExpressionItem) o;
-        
-        return new EqualsBuilder()                   
-                .append(type, cobj.type)
-                .isEquals();
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof ExpressionItem)) return false;
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(7, 19)
-                .append(type)
-                .toHashCode();
-    }
-    
-    @Override
+		ExpressionItem that = (ExpressionItem) o;
+
+		return getType() != null ? getType().equals(that.getType()) : that.getType() == null;
+	}
+
+	@Override
+	public int hashCode() {
+		return getType() != null ? getType().hashCode() : 0;
+	}
+
+	@Override
     public abstract String toString();
 	
 	private String type;

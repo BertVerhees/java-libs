@@ -15,10 +15,10 @@
 package org.openehr.am.archetype.constraintmodel;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This class represents a constraint on any kind of attribute node.
@@ -211,40 +211,28 @@ public abstract class CAttribute extends ArchetypeConstraint {
         return parentNodePath() + PATH_SEPARATOR + rmAttributeName;
     }
 
-    /**
-     * Two CAttributes equals if have same values
-     *
-     * @param o
-     * @return true if equals
-     */
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!( o instanceof CAttribute )) return false;
+        if (!(o instanceof CAttribute)) return false;
+        if (!super.equals(o)) return false;
 
-        final CAttribute cattr = (CAttribute) o;
+        CAttribute that = (CAttribute) o;
 
-        return new EqualsBuilder()
-                .appendSuper(super.equals(o))
-                .append(rmAttributeName, cattr.rmAttributeName)
-                .append(existence, cattr.existence)
-                .append(children, cattr.children)
-                .isEquals();
+        if (getRmAttributeName() != null ? !getRmAttributeName().equals(that.getRmAttributeName()) : that.getRmAttributeName() != null)
+            return false;
+        if (getExistence() != that.getExistence()) return false;
+        return getChildren() != null ? getChildren().equals(that.getChildren()) : that.getChildren() == null;
     }
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
+    @Override
     public int hashCode() {
-        return new HashCodeBuilder(7, 19)
-                .appendSuper(super.hashCode())
-                .append(rmAttributeName)
-                .append(existence)
-                .append(children)
-                .toHashCode();
+        int result = super.hashCode();
+        result = 31 * result + (getRmAttributeName() != null ? getRmAttributeName().hashCode() : 0);
+        result = 31 * result + (getExistence() != null ? getExistence().hashCode() : 0);
+        result = 31 * result + (getChildren() != null ? getChildren().hashCode() : 0);
+        return result;
     }
-
 
     /* fields */
     private final String rmAttributeName;

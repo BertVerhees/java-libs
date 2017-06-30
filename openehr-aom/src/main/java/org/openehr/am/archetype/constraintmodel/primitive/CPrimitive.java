@@ -14,10 +14,10 @@
  */
 package org.openehr.am.archetype.constraintmodel.primitive;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
+import java.io.Serializable;
 
 /**
  * Super class of all primitive type constraints
@@ -96,6 +96,8 @@ public abstract class CPrimitive  implements Serializable{
         return ToStringBuilder.reflectionToString(this,
                 ToStringStyle.MULTI_LINE_STYLE);
     }
+
+
 }
 
 /*

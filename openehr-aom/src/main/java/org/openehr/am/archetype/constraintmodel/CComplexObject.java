@@ -15,11 +15,11 @@
 package org.openehr.am.archetype.constraintmodel;
 
 import org.openehr.rm.support.basic.Interval;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Constraint on complex objects, ie any object which consists of other object
@@ -38,7 +38,6 @@ public final class CComplexObject extends CDefinedObject implements Serializable
      * @param occurrences
      * @param nodeID
      * @param attributes
-     * @param invariants
      */
     public CComplexObject(String path, String rmTypeName,
                           Interval<Integer> occurrences, String nodeID, 
@@ -188,37 +187,25 @@ public final class CComplexObject extends CDefinedObject implements Serializable
     public boolean isSubsetOf(ArchetypeConstraint constraint) {
         return false;  // todo: implement this method
     }
-    
-    /**
-     * Equals if two CComplexObject have same values
-     *
-     * @param o
-     * @return true if equals
-     */
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!( o instanceof CComplexObject )) return false;
+        if (!(o instanceof CComplexObject)) return false;
+        if (!super.equals(o)) return false;
 
-        final CComplexObject ccobj = (CComplexObject) o;
+        CComplexObject that = (CComplexObject) o;
 
-        return new EqualsBuilder()
-                .appendSuper(super.equals(o))
-                .append(attributes, ccobj.attributes)
-                .isEquals();
+        return getAttributes() != null ? getAttributes().equals(that.getAttributes()) : that.getAttributes() == null;
     }
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
+    @Override
     public int hashCode() {
-        return new HashCodeBuilder(13, 29)
-                .appendSuper(super.hashCode())
-                .append(attributes)
-                .toHashCode();
+        int result = super.hashCode();
+        result = 31 * result + (getAttributes() != null ? getAttributes().hashCode() : 0);
+        return result;
     }
-    
+
     /* fields */
     private List<CAttribute> attributes;    
 }

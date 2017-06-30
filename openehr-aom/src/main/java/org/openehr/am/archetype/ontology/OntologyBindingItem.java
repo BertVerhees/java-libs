@@ -14,11 +14,10 @@
  */
 package org.openehr.am.archetype.ontology;
 
-import java.io.Serializable;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
+import java.io.Serializable;
 
 /**
  * Super class of QueryBindingItem and TermBindingItem
@@ -56,41 +55,22 @@ public class OntologyBindingItem  implements Serializable {
 	public void setCode(String code) {
 		this.code = code;
 	}
-    
-    /**
-     * Equals if two has have same values
-     *
-     * @param o
-     * @return true if equals
-     */
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!( o instanceof OntologyBindingItem )) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof OntologyBindingItem)) return false;
 
-        final OntologyBindingItem obi = (OntologyBindingItem) o;
+        OntologyBindingItem that = (OntologyBindingItem) o;
 
-        return new EqualsBuilder()
-                .append(code, obi.code)
-                .isEquals();
+        return getCode() != null ? getCode().equals(that.getCode()) : that.getCode() == null;
     }
 
-    /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-        .append(code)
-        .toHashCode();
+        return getCode() != null ? getCode().hashCode() : 0;
     }
-	
+
     /* fields */
     String code;
 }

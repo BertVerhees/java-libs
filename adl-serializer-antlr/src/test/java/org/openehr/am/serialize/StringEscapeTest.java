@@ -25,7 +25,7 @@ public class StringEscapeTest extends SerializerTestBase {
         outputter.printMap(map, writer, 0);
         String serialized = writer.toString().trim();
 
-        assertEquals("[\"at0002\"] = <\"Characters to escape: \\\"\">", serialized);
+        assertEquals("[\"at0002\"] = <\"Characters to escape: \"\">", serialized);
     }
 
     @Test

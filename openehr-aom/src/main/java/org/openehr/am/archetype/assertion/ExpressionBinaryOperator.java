@@ -15,9 +15,6 @@
  
 package org.openehr.am.archetype.assertion;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-
 public class ExpressionBinaryOperator extends ExpressionOperator {
 	
 	public ExpressionBinaryOperator(String type, OperatorKind operator,
@@ -35,40 +32,29 @@ public class ExpressionBinaryOperator extends ExpressionOperator {
 	public ExpressionItem getRightOperand() {
 		return rightOperand;
 	}
-	
-	/**	 
-     * Equals if two ExpressionBinaryOperator Objects have same values
-     *
-     * @param o
-     * @return true if equals
-     */
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!( o instanceof ExpressionBinaryOperator )) return false;
 
-        final ExpressionBinaryOperator cobj = (ExpressionBinaryOperator) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof ExpressionBinaryOperator)) return false;
+		if (!super.equals(o)) return false;
 
-        return new EqualsBuilder()
-        	.appendSuper(super.equals(o))
-                .append(leftOperand, cobj.leftOperand)
-                .append(rightOperand, cobj.rightOperand)
-                .isEquals();
-    }
+		ExpressionBinaryOperator that = (ExpressionBinaryOperator) o;
 
-   /**
-     * Return a hash code of this object
-     *
-     * @return hash code
-     */
-    public int hashCode() {
-        return new HashCodeBuilder(5, 23)
-                .appendSuper(super.hashCode())
-                .append(leftOperand)
-                .append(rightOperand)
-                .toHashCode();
-    }
-    
-    public String toString() {
+		if (getLeftOperand() != null ? !getLeftOperand().equals(that.getLeftOperand()) : that.getLeftOperand() != null)
+			return false;
+		return getRightOperand() != null ? getRightOperand().equals(that.getRightOperand()) : that.getRightOperand() == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getLeftOperand() != null ? getLeftOperand().hashCode() : 0);
+		result = 31 * result + (getRightOperand() != null ? getRightOperand().hashCode() : 0);
+		return result;
+	}
+
+	public String toString() {
     	StringBuffer buf = new StringBuffer(leftOperand.toString());
     	buf.append(" ");
     	buf.append(getOperator().toString());

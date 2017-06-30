@@ -14,8 +14,6 @@
  */
 package org.openehr.rm.support.basic;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.openehr.rm.RMObject;
 
@@ -33,8 +31,6 @@ public final class Interval<T extends Comparable> extends RMObject {
      *
      * @param lower          null if unbounded
      * @param upper          null if unbounded
-     * @param lowerIncluded if lower boundary inclusive
-     * @param upperIncluded if upper boundary inclusive
      * @throws IllegalArgumentException if lower > upper
      */
     public Interval(T lower, T upper,
@@ -133,39 +129,26 @@ public final class Interval<T extends Comparable> extends RMObject {
                 || ( upperIncluded && value.compareTo(upper) == 0 ) );
     }
 
-    /**
-     * Equals if two Intervals have same values for lower and
-     * upper boundaries
-     *
-     * @param o the object to compare with
-     * @return true if equals
-     */
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!( o instanceof Interval )) return false;
+        if (!(o instanceof Interval)) return false;
 
-        final Interval interval = (Interval) o;
+        Interval<?> interval = (Interval<?>) o;
 
-        return new EqualsBuilder()
-                .append(lower, interval.lower)
-                .append(upper, interval.upper)
-                .append(lowerIncluded, interval.lowerIncluded)
-                .append(upperIncluded, interval.upperIncluded)
-                .isEquals();
+        if (isLowerIncluded() != interval.isLowerIncluded()) return false;
+        if (isUpperIncluded() != interval.isUpperIncluded()) return false;
+        if (getLower() != null ? !getLower().equals(interval.getLower()) : interval.getLower() != null) return false;
+        return getUpper() != null ? getUpper().equals(interval.getUpper()) : interval.getUpper() == null;
     }
 
-    /**
-     * Return a hash code of this Interval
-     *
-     * @return hash code
-     */
+    @Override
     public int hashCode() {
-        return new HashCodeBuilder()
-                .append(lower)
-                .append(upper)
-                .append(lowerIncluded)
-                .append(upperIncluded)
-                .toHashCode();
+        int result = getLower() != null ? getLower().hashCode() : 0;
+        result = 31 * result + (getUpper() != null ? getUpper().hashCode() : 0);
+        result = 31 * result + (isLowerIncluded() ? 1 : 0);
+        result = 31 * result + (isUpperIncluded() ? 1 : 0);
+        return result;
     }
 
     /**
