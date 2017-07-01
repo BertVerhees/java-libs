@@ -167,10 +167,10 @@ c_existence: ('existence' | 'EXISTENCE') SYM_MATCHES '{' existence_spec '}' ;
 existence_spec:  INTEGER_VALUE | INTEGER_VALUE '..' INTEGER_VALUE ;
 
 c_cardinality: ('cardinality' | 'CARDINALITY') SYM_MATCHES  cardinality_spec  ;
-cardinality_spec : SYM_START_CBLOCK multiplicity_spec ( multiplicity_mod multiplicity_mod? )? SYM_END_CBLOCK; // max of two
-ordering_mod     : ';' ( ('ordered'|'ORDERED') | ('unordered'|'UNORDERED') ) ;
-unique_mod       : ';' (('unique'|'UNIQUE')  | ('non-unique'|'NON-UNIQUE') );
-multiplicity_mod : ordering_mod | unique_mod ;
+cardinality_spec : SYM_START_CBLOCK multiplicity_spec ( ';' multiplicity_mod (';' multiplicity_mod)?)? SYM_END_CBLOCK;
+ordering_mod     : (('ordered'|'ORDERED') | ('unordered'|'UNORDERED') ) ;
+unique_mod       : (('unique'|'UNIQUE')  | ('non-unique'|'NON-UNIQUE') );
+multiplicity_mod : (ordering_mod | unique_mod) ;
 multiplicity_spec  : (INTEGER_VALUE | '*') | (INTEGER_VALUE SYM_INTERVAL_SEP ( INTEGER_VALUE | '*' )) ;
 
 c_occurrences: SYM_OCCURRENCES SYM_MATCHES SYM_START_CBLOCK multiplicity_spec SYM_END_CBLOCK  ;

@@ -179,7 +179,7 @@ definition
 						}
 					}
 					CLUSTER[at0.2] occurrences matches {0..*} matches {	-- Restricted name usage
-						items cardinality matches {1..*; unordered; unique} matches {
+						items cardinality matches {1..*; unique; unordered} matches {
 							ELEMENT[at0.3] matches {*}
 							ELEMENT[at0.4] matches {	-- Restriction interval
 								value matches {

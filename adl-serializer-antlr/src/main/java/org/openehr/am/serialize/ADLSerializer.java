@@ -747,7 +747,7 @@ public class ADLSerializer {
 			it.hasNext();) {
 				Ordinal ordinal = it.next();			
 				indent(indent, out);
-				printOrdinal(ordinal, out);
+				printOrdinal(ordinal, out, false);
 				if (it.hasNext()) {
 					out.write(",");
 				} else if(cordinal.hasAssumedValue()) {
@@ -756,17 +756,20 @@ public class ADLSerializer {
 				newline(out);			
 			}
 			if(cordinal.hasAssumedValue()) {
-				printOrdinal(cordinal.getAssumedValue(), out);
+				indent(indent, out);
+				printOrdinal(cordinal.getAssumedValue(), out, true);
 				newline(out);
 
 			}
 		}	
 	}
 
-	protected void printOrdinal(Ordinal ordinal, Writer out) 
+	protected void printOrdinal(Ordinal ordinal, Writer out, boolean numberOnly)
 			throws IOException {
 		CodePhrase symbol = ordinal.getSymbol();
 		out.write(Integer.toString(ordinal.getValue()));
+		if(numberOnly)
+			return;
 		out.write("|[");
 		out.write(symbol.getTerminologyId().getValue());
 		out.write("::");

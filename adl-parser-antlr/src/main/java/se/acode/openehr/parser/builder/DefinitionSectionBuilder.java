@@ -284,10 +284,10 @@ public class DefinitionSectionBuilder {
                     }
                     for (ArchetypeParser.Multiplicity_modContext multiplicityModContext : cardinalityContext.multiplicity_mod()) {
                         if (multiplicityModContext.ordering_mod() != null) {
-                            ordered = !"unordered".equals(multiplicityModContext.ordering_mod().getText().toLowerCase());
+                            ordered = !multiplicityModContext.ordering_mod().getText().toLowerCase().contains("unordered");
                         }
                         if (multiplicityModContext.unique_mod() != null) {
-                            unique = !"non-unique".equals(multiplicityModContext.unique_mod().getText().toLowerCase());
+                            unique = !multiplicityModContext.unique_mod().getText().toLowerCase().contains("non-unique");
                         }
                     }
                 }
