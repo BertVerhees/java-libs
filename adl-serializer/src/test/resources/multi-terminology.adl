@@ -1,5 +1,5 @@
 ontology
-    terminologies_available = <"SNOMED_CT", "ICD10", ...>
+    terminologies_available = <"SNOMED_CT","ICD10">
     term_definitions = <
         ["en"] = <
             items = <

@@ -15,15 +15,15 @@
 
 package org.openehr.am.openehrprofile.datatypes.quantity;
 
-import java.util.*;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.openehr.am.archetype.constraintmodel.ArchetypeConstraint;
 import org.openehr.am.archetype.constraintmodel.CAttribute;
 import org.openehr.am.archetype.constraintmodel.CComplexObject;
 import org.openehr.am.archetype.constraintmodel.CDomainType;
 import org.openehr.rm.support.basic.Interval;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Class specifying constraints on instances of DV_ORDINAL. Custom 
@@ -100,39 +100,24 @@ public class CDvOrdinal extends CDomainType<Ordinal> {
 		}
 		return Collections.unmodifiableList(list);
 	}
-	
-	/**
-     * Returns true if fields are the same
-     */
-    @Override
-    public boolean equals(Object o) {
-    	if (this == o) {
-            return true;
-        }
-        if (!( o instanceof CDvOrdinal )) {
-            return false;
-        }
 
-        final CDvOrdinal ordinal = (CDvOrdinal) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof CDvOrdinal)) return false;
+		if (!super.equals(o)) return false;
 
-        return new EqualsBuilder()
-        		.appendSuper(super.equals(o))
-                .append(list, ordinal.list)
-                .isEquals();
-    }
-    
-    /**
-     * Returns the hashcode of this object
-     * 
-     * @return hashcode
-     */
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(3, 19)
-        		.appendSuper(super.hashCode())
-                .append(list)
-                .toHashCode();
-    }
+		CDvOrdinal that = (CDvOrdinal) o;
+
+		return getList() != null ? getList().equals(that.getList()) : that.getList() == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getList() != null ? getList().hashCode() : 0);
+		return result;
+	}
 
 	@Override
 	public boolean validValue(Ordinal arg0) {

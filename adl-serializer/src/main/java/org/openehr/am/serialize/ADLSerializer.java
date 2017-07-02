@@ -891,7 +891,7 @@ public class ADLSerializer {
 			out.write("terminologies_available = <");
             printList(ontology.getTerminologies(), out, true);
 			if(ontology.getTerminologies().size()==1)
-			    out.write("...>");
+			    out.write(", ...>");
 			else
                 out.write(">");
 			newline(out);

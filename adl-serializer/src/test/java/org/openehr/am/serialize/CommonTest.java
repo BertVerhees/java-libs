@@ -41,8 +41,8 @@ public class CommonTest extends SerializerTestBase {
 		outputter.printHeader(null,	new ArchetypeID(id), 
 				new ArchetypeID(parentId), null, conceptCode, out);
 
-		verify("archetype\r\n" + "    " + id + "\r\n" + "specialize\r\n"
-				+ "    " + parentId + "\r\n\r\n" + "concept\r\n" + "    ["
+		verify("archetype\r\n" + "\t" + id + "\r\n" + "specialize\r\n"
+				+ "\t" + parentId + "\r\n\r\n" + "concept\r\n" + "\t["
 				+ conceptCode + "]\r\n");
 	}
 
@@ -57,10 +57,10 @@ public class CommonTest extends SerializerTestBase {
 
 		verify("" +
 				"archetype (adl_version=1.4; uid=23e1c56c-0a44-11e7-93ae-92361f002671)\r\n" +
-				"    openEHR-EHR-EVALUATION.adverse_reaction-medication.v1\r\n" +
+				"\topenEHR-EHR-EVALUATION.adverse_reaction-medication.v1\r\n" +
 				"\r\n" +
 				"concept\r\n" +
-				"    [at0000]\r\n");
+				"\t[at0000]\r\n");
 	}
 
 	@Test

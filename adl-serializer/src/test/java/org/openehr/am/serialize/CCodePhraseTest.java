@@ -22,8 +22,8 @@ public class CCodePhraseTest extends SerializerTestBase {
 
 		clean();
 		outputter.printCCodePhrase(ccoded, 1, out);
-		verify("    [" + terminology + "::\r\n" + "    " + codes[0] + ",\r\n"
-				+ "    " + codes[1] + ",\r\n" + "    " + codes[2] + "]\r\n");
+		verify("\t[" + terminology + "::\r\n" + "\t" + codes[0] + ",\r\n"
+				+ "\t" + codes[1] + ",\r\n" + "\t" + codes[2] + "]\r\n");
 	}
 
 	@Test

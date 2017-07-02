@@ -8,7 +8,7 @@ C_DV_QUANTITY <
         >
         ["2"] = <
             units = <"month">
-            magnitude = <|1.0>..36.0|>
+            magnitude = <|>1.0..36.0|>
         >
     >
 >

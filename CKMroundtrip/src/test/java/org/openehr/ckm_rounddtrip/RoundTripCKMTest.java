@@ -54,7 +54,7 @@ public class RoundTripCKMTest extends CKMRoundtripTestBase {
 
     @Test
     public void testArchetype() throws Exception {
-        String s = "openEHR-EHR-EVALUATION.pregnancy_summary.v0.adl";
+        String s = "openEHR-EHR-CLUSTER.move.v1.adl";
         Archetype archetype = loadArchetype(s);
         outputter = new ADLSerializer();
         out = new StringWriter();

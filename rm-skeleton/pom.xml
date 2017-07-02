@@ -81,7 +81,7 @@
 		</dependency>
 		<dependency>
 			<groupId>openehr</groupId>
-			<artifactId>adl-serializer-antlr</artifactId>
+			<artifactId>adl-serializer</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>
