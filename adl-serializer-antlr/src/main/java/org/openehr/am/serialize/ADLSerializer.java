@@ -440,8 +440,8 @@ public class ADLSerializer {
 		// print rmTypeName and nodeId
 		indent(indent, out);
 		out.write(ccobj.getRmTypeName());
-		if (StringUtils.isNotEmpty(ccobj.getNodeID())) {
-			out.write("[" + ccobj.getNodeID() + "]");
+		if (StringUtils.isNotEmpty(ccobj.getNodeId())) {
+			out.write("[" + ccobj.getNodeId() + "]");
 		}
 
 		printOccurrences(ccobj.getOccurrences(), out);
@@ -1223,10 +1223,10 @@ public class ADLSerializer {
 					&& interval.isUpperIncluded()) {
 				out.write(interval.getLower().toString());
 			} else {
-				out.write(interval.getLower().toString());
 				if(!interval.isLowerIncluded()){
-                    out.write(">");
-                }
+					out.write(">");
+				}
+				out.write(interval.getLower().toString());
 				out.write("..");
 				if(!interval.isUpperIncluded()){
                     out.write("<");

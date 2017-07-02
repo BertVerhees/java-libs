@@ -969,7 +969,7 @@ public class DefinitionSectionBuilder {
                         interval = new Interval<>(lower, upper, lowerIncluded, upperIncluded);
                     }
                     if (cDurationSpecContext.duration_pattern() != null) {
-                        pattern = cDurationSpecContext.duration_pattern().ISO8601_DURATION_CONSTRAINT_PATTERN().getText();
+                        pattern = cDurationSpecContext.duration_pattern().getText();
                     }
                     if (cDurationSpecContext.DURATION_VALUE() != null) {
                         value = DvDuration.getInstance(cDurationSpecContext.DURATION_VALUE().getText());
