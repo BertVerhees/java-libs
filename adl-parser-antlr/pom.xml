@@ -131,11 +131,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.ers.oak</groupId>
-			<artifactId>oak-terminologyservice</artifactId>
-			<version>3.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.21</version>
